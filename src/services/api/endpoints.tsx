@@ -1,5 +1,3 @@
-import {IInsuranceAgreement} from "../InsuranceAgreements";
-
 const OAuth = {
     token: '/api/v0/vst-oauth2/oauth/token'
 }
@@ -20,8 +18,8 @@ const Api = {
     listOffers: '/api/v0/mortgage-app/insurance/offers',
     acceptOffer: '/api/v0/mortgage-app/insurance/offers/accept',
 
-    listMortgage:  '/api/v0/mortgage-app/mortgage/agreements/',
-    getMortgage:  '/api/v0/mortgage-app/mortgage/agreements/{id}',
+    listMortgage: '/api/v0/mortgage-app/mortgage/agreements/',
+    getMortgage: '/api/v0/mortgage-app/mortgage/agreements/{id}',
 
     insuranceList: '/api/v0/mortgage-app/insurance/agreements/',
     getInsurance: '/api/v0/mortgage-app/insurance/agreements/{id}',
