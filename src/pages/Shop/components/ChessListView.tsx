@@ -1,33 +1,31 @@
 import * as React from 'react';
 import {Box, Grid, HStack, Image, Stack, Text} from "@chakra-ui/react";
+import {IProduct} from "../../../interfaces";
 
 
 export const Wrapper = (props: React.PropsWithChildren<{}>) => {
     return (
         <Grid templateColumns={'repeat(2, 1fr)'} ml={'196px'} gridGap={'30px'} gridRowEnd={''}>
-
-
-
             {props.children}
         </Grid>
     )
 }
 
-export function Card() {
+export function Card(props: IProduct & {onClick: () => void}) {
     return (
         <Box display={'flex'}
              justifyContent={'flex-end'}
              position={'relative'}
              cursor={'pointer'}
              className={'g-card'}
+             onClick={props.onClick}
         >
             <Image
                 boxSize="362px"
                 objectFit="contain"
                 src="/img_3.png"
-                alt="Segun Adebayo"
                 sx={{
-                    'mix-blend-mode': 'multiply'
+                    'mixBlendMode': 'multiply'
                 }}
             />
 
@@ -37,25 +35,23 @@ export function Card() {
                       fontSize={25}
                       letterSpacing={'0.02em'}
                 >
-                    Product Name
+                    {props.name}
                 </Text>
 
 
                 <Text textTransform={'uppercase'}>
-
-
                     <HStack spacing={'11px'} alignItems={'flex-end'}>
                         <Text as={'span'}
                               fontSize={'15px'}
                               lineHeight={1}
                               textDecoration={'line-through'}>
-                            1 283 $
+                            {Math.round(props.priceUSD + (props.priceUSD * 0.5))} $
                         </Text>
                         <Text as={'span'}
                               fontSize={'21px'}
                               lineHeight={1}
                               color={'alert'}>
-                            1 283 $
+                            {props.priceUSD} $
                         </Text>
                     </HStack>
                 </Text>
@@ -96,8 +92,8 @@ function AddCart() {
                     stroke="#523774" stroke-width="2"/>
                 <path
                     d="M59.0416 59.0416C54.8214 63.2618 49.5647 66.2968 43.7998 67.8415C38.035 69.3862 31.965 69.3862 26.2001 67.8415C20.4353 66.2968 15.1786 63.2618 10.9584 59.0416C6.73818 54.8214 3.70321 49.5647 2.15852 43.7998"
-                    stroke="#523774" stroke-width="2"/>
-                <path fill-rule="evenodd" clip-rule="evenodd"
+                    stroke="#523774" strokeWidth="2"/>
+                <path fillRule="evenodd" clipRule="evenodd"
                       d="M31.8465 27.1215H38.3972C38.3972 25.3126 36.9307 23.8462 35.1218 23.8462C33.3129 23.8462 31.8465 25.3126 31.8465 27.1215ZM29.8465 27.1215H26.9474C25.9283 27.1215 25.0722 27.8878 24.9596 28.9006L23.0595 46.0021C22.9278 47.1868 23.8552 48.2229 25.0472 48.2229H45.1965C46.3885 48.2229 47.3159 47.1868 47.1843 46.0021L45.2841 28.9006C45.1716 27.8878 44.3155 27.1215 43.2964 27.1215H40.3972C40.3972 24.208 38.0353 21.8462 35.1218 21.8462C32.2084 21.8462 29.8465 24.208 29.8465 27.1215Z"
                       fill="#523774"/>
                 <path

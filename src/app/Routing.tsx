@@ -6,15 +6,17 @@ import {LoginPage} from "../pages/Auth/LoginPage";
 import {AuthorizedContainer} from "../components/AuthorizedContainer";
 import {LoginContainer} from "../components/LoginContainer";
 import {ShopPage} from "../pages/Shop/ShopPage";
+import {ProductPage} from "../pages/Product/ProductPage";
 
 export const Routing = observer(function Routing() {
 
-
-    return  (
+    return (
         <AuthorizedContainer>
             <Switch>
                 <Route path={"/login"} component={LoginPage}/>
-                <Route path={"/"} component={ShopPage}/>
+                <Route path={'/product/:id'} component={ProductPage}/>
+
+                <Route exact={true} path={"/"} component={ShopPage}/>
             </Switch>
         </AuthorizedContainer>
     )
@@ -36,7 +38,6 @@ export const Routing = observer(function Routing() {
 
                 return (
                     <>
-
 
 
                     </>

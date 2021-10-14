@@ -1,6 +1,7 @@
-export const AirportTheme = {
+export const GravityTheme = {
     colors: {
         primary: {
+            600: '#523774',
             500: '#523774',
             300: '#B89DDA',
         },
@@ -20,21 +21,23 @@ export const AirportTheme = {
         Button: {
             baseStyle: {
                 outline: 0,
-                bg: "primary",
+                bg: "primary.500",
                 color: "white",
-                height: 42,
-                fontSize: 16,
-                fontWeight: 400,
-                borderRadius: '4px',
-
+                fontSize: 18,
+                fontWeight: 'bold',
+                borderRadius: '0',
             },
+
             variants: {
-                outline: {
-                    color: 'primary',
-                    bg: "transparent",
-                    borderColor: 'primary'
+                solid: {
+                    height: '50px',
+                    bg: "primary.500",
+                    _hover: {
+                        bg: "primary.500",
+                    }
                 }
             }
+
         },
 
 

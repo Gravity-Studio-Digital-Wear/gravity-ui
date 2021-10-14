@@ -18,39 +18,39 @@ export class GravityApplication implements IBootstrapper {
     }
 
     addHttpAuthMiddleware() {
-        http.use(async (req) => {
-            req.headers.set('Content-Type', 'application/json')
-
-            if (req.path.startsWith(ENDPOINTS.OAuth.token)) {
-                req.headers.set('Authorization', `Basic ZGVtby1jbGllbnQ6c2VjcmV0`)
-                return req
-            }
-
-            if (!this.authService.token) {
-                return Promise.reject('no auth token provided')
-            }
-
-            req.headers.set('Authorization', `Bearer ${this.authService.token}`)
-
-            return req;
-        })
+        // http.use(async (req) => {
+        //     req.headers.set('Content-Type', 'application/json')
+        //
+        //     if (req.path.startsWith(ENDPOINTS.OAuth.token)) {
+        //         req.headers.set('Authorization', `Basic ZGVtby1jbGllbnQ6c2VjcmV0`)
+        //         return req
+        //     }
+        //
+        //     if (!this.authService.token) {
+        //         return Promise.reject('no auth token provided')
+        //     }
+        //
+        //     req.headers.set('Authorization', `Bearer ${this.authService.token}`)
+        //
+        //     return req;
+        // })
     }
 
     @action
     async checkAuth() {
-        if (!this.authService.refreshToken) {
-            this.authService.status = 'guest'
-            this.authService.authStatus = 'success'
-
-            return
-        }
-
-        try {
-            await this.authService.authenticate(new RefreshTokenGrant(this.authService.refreshToken))
-            this.authService.authStatus = 'success'
-        } catch (e) {
-            this.authService.authStatus = 'error'
-        }
+        // if (!this.authService.refreshToken) {
+        //     this.authService.status = 'guest'
+        //     this.authService.authStatus = 'success'
+        //
+        //     return
+        // }
+        //
+        // try {
+        //     await this.authService.authenticate(new RefreshTokenGrant(this.authService.refreshToken))
+        //     this.authService.authStatus = 'success'
+        // } catch (e) {
+        //     this.authService.authStatus = 'error'
+        // }
     }
 
 

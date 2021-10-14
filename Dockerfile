@@ -11,12 +11,10 @@ FROM installer AS build
 
 WORKDIR /app
 COPY tsconfig.json tsconfig.json
-COPY tsconfig.prod.json tsconfig.prod.json
+COPY index.html index.html
 COPY src src
-COPY config config
-COPY scripts scripts
+COPY vite.config.ts vite.config.ts
 COPY public public
-COPY @types @types
 
 ARG OUTLINE
 RUN npm run build
@@ -24,7 +22,6 @@ RUN npm run build
 FROM registry.weintegrator.com/integrator/devops/nginx-front:1.0 AS production
 
 WORKDIR /app
-COPY --from=build /app/build /usr/share/nginx/html
+COPY --from=build /app/dist /usr/share/nginx/html
 
 EXPOSE 8888
-

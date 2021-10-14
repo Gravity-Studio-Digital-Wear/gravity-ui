@@ -12,10 +12,10 @@ export const AuthorizedContainer = observer(function AuthorizedContainer(props: 
     const {children} = props
 
     return (
-        <Box w="100%" justifyContent={'center'} position={'relative'} overflowX={'hidden'}>
+        <Box w="100%" justifyContent={'center'} position={'relative'} overflowX={'hidden'} >
             <Navigation/>
 
-            <Box mt={0} width={'100%'} bg={contentBg} minHeight={'100vh'}>
+            <Box mt={0} width={'100%'} bg={contentBg} minHeight={'100vh'} pb={'80px'}>
                 <Box pt={33} marginLeft={'auto'} marginRight={'auto'} maxW={'1160px'}>{children}</Box>
             </Box>
 

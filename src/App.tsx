@@ -6,9 +6,9 @@ import {useProviders} from "./app/useProviders";
 import {Routing} from "./app/Routing";
 import {useService} from "./core/decorators/service";
 import {GravityApplication} from "./app/Application";
-import {AirportTheme} from "./app/Theme";
+import {GravityTheme} from "./app/Theme";
 
-const theme = extendTheme(AirportTheme)
+const theme = extendTheme(GravityTheme)
 
 console.log(theme);
 

@@ -1,11 +1,50 @@
 import * as React from 'react';
 import {observer} from "mobx-react";
 import {Box} from "@chakra-ui/react";
+import {GridListView} from "./GridListView";
 import {ChessListView} from "./ChessListView";
+import {useService} from "../../../core/decorators/service";
+import {WarehouseStore} from "../../../stores/WarehouseStore";
+import {useHistory} from "react-router-dom";
 
 
 export const ProductList = observer(function ProductList() {
-    const clothingText = (
+    const warehouseStore = useService(WarehouseStore)
+
+    const {products} = warehouseStore
+
+    const view = React.useMemo(() => {
+        if (warehouseStore.viewType === 'chess') {
+            return ChessListView
+        }
+
+        return GridListView
+    }, [warehouseStore.viewType])
+
+
+    const {Wrapper, Card} = view
+
+    const history = useHistory()
+
+    return (
+        <Box position={'relative'} mt={'60px'} width={'100%'}>
+            {view === ChessListView && <ClothingText/>}
+
+            <Wrapper>
+                {products.result?.map((p) => <Card
+                    key={p._id}
+                    onClick={() => history.push(`product/${p._id}`)}
+                    {...p}
+                />)}
+            </Wrapper>
+        </Box>
+    )
+});
+
+
+function ClothingText() {
+
+    return (
         <Box position={'absolute'} top={0} left={0}>
             <svg width="166" height="624" viewBox="0 0 166 624" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path
@@ -20,23 +59,7 @@ export const ProductList = observer(function ProductList() {
             </svg>
         </Box>
     )
-
-    const {Wrapper, Card} = ChessListView
-
-
-    return (
-        <Box position={'relative'} mt={'60px'} width={'100%'}>
-            {clothingText}
-
-            <Wrapper>
-                <Card/>
-                <Card/>
-                <Card/>
-                <Card/>
-            </Wrapper>
-        </Box>
-    )
-});
+}
 
 
 

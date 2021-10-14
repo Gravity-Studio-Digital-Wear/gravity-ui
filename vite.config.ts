@@ -1,7 +1,7 @@
 import {defineConfig} from 'vite'
 import reactRefresh from '@vitejs/plugin-react-refresh'
 import replace from '@rollup/plugin-replace';
-import svg from 'rollup-plugin-svg'
+import commonjs from '@rollup/plugin-commonjs';
 
 const svgr = require('@svgr/rollup').default
 
@@ -17,6 +17,18 @@ export default defineConfig({
             'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV),
             'process.env.API_URL': JSON.stringify(process.env.API_URL),
         }),
-        svgr()
+        svgr(),
+        commonjs()
     ],
+    server: {
+        proxy: {
+            '/api': {
+                target: 'https://gravity-dev.easychain.tech',
+                changeOrigin: true,
+                secure: false,
+                // rewrite: (path) => path.replace(/^\/api/, '')
+            },
+
+        }
+    }
 })

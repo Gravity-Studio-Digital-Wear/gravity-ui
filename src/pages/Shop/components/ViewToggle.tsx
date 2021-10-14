@@ -1,6 +1,8 @@
 import * as React from 'react';
 import {observer} from "mobx-react";
 import {chakra, Flex, HStack, Stack, Text, useRadio, useRadioGroup, UseRadioProps} from "@chakra-ui/react";
+import {useService} from "../../../core/decorators/service";
+import {WarehouseStore} from "../../../stores/WarehouseStore";
 
 type ViewType = 'grid' | 'chess';
 
@@ -51,12 +53,14 @@ function RadioButton(props: React.PropsWithChildren<UseRadioProps>) {
 }
 
 export const ViewToggle = observer(function ViewToggle() {
+    const warehouseStore = useService(WarehouseStore)
+
     const options: ViewType[] = ["chess", "grid"]
 
     const {getRootProps, getRadioProps} = useRadioGroup({
         name: "view",
-        defaultValue: "chess",
-        onChange: console.log,
+        defaultValue: warehouseStore.viewType,
+        onChange: (v) => warehouseStore.setListViewType(v),
     })
 
     return (
