@@ -3,6 +3,7 @@ import {observer} from "mobx-react";
 import {chakra, Flex, HStack, Stack, Text, useRadio, useRadioGroup, UseRadioProps} from "@chakra-ui/react";
 import {useService} from "../../../core/decorators/service";
 import {WarehouseStore} from "../../../stores/WarehouseStore";
+import {TViewType} from "../../../interfaces";
 
 type ViewType = 'grid' | 'chess';
 
@@ -60,7 +61,7 @@ export const ViewToggle = observer(function ViewToggle() {
     const {getRootProps, getRadioProps} = useRadioGroup({
         name: "view",
         defaultValue: warehouseStore.viewType,
-        onChange: (v) => warehouseStore.setListViewType(v),
+        onChange: (v) => warehouseStore.setListViewType(v as TViewType),
     })
 
     return (

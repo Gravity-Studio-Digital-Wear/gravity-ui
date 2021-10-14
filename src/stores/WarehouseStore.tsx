@@ -19,7 +19,7 @@ export class WarehouseStore {
     }
 
     @action
-    setListViewType(type: 'chess' | 'grid') {
+    setListViewType(type: TViewType) {
         this.viewType = type;
         localStorage.setItem('__viewType', this.viewType)
     }
