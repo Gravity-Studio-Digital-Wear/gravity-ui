@@ -7,13 +7,13 @@ import {Routing} from "./app/Routing";
 import {useService} from "./core/decorators/service";
 import {GravityApplication} from "./app/Application";
 import {GravityTheme} from "./app/Theme";
+import {ModalProvider} from "./core/modal/modal";
 
 const theme = extendTheme(GravityTheme)
 
-console.log(theme);
-
 function App() {
     const [RootProvider] = useProviders([
+        <ModalProvider/>,
         <ChakraProvider resetCSS={true} theme={theme}/>,
         <BrowserRouter/>
     ])

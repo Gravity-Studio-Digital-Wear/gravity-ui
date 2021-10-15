@@ -26,18 +26,44 @@ export const GravityTheme = {
                 fontSize: 18,
                 fontWeight: 'bold',
                 borderRadius: '0',
+                textTransform: 'uppercase',
+                minW: 'auto'
+            },
+
+            sizes: {
+                md: {
+                    height: '50px',
+
+                },
+                sm: {
+                    height: '36px',
+                    padding: '0 16px',
+                    letterSpacing: '0.02em',
+
+                }
             },
 
             variants: {
+                square: {
+                    bg: 'transparent',
+                    border: '1px solid',
+                    borderColor: 'primary.500',
+                    width: '34px',
+                    height: '34px',
+                    p: 0,
+                    minWidth: 'auto',
+                },
+                unstyled: {
+                    minWidth: 'auto'
+                },
                 solid: {
-                    height: '50px',
+                    minWidth: 'auto',
                     bg: "primary.500",
                     _hover: {
                         bg: "primary.500",
                     }
                 }
             }
-
         },
 
         Input: {
@@ -61,20 +87,41 @@ export const GravityTheme = {
             },
         },
 
-        Heading: {
-            baseStyle: {
-                color: 'black',
 
-                fontSize: 22
-            },
-            sizes: {
-                xl: {
-                    fontSize: '22px',
-                    fontWeight: 600,
-                    color: 'black',
+        Menu: {
+            baseStyle: {
+                list: {
+                    borderRadius: 0,
+                    border: 'none',
+                    padding: '12px 0'
+                },
+                item: {
+                    textTransform: 'uppercase',
+                    px: '24px',
+                    py: '12px'
                 }
             }
         },
+
+        Modal: {
+            baseStyle: {
+                dialog: {
+                    bg: '#FFF8F5',
+                    borderRadius: 0,
+                    padding: '30px'
+                }
+
+            },
+
+            sizes: {
+                md: {
+                    dialog: {
+                        maxW: '759px'
+                    }
+                }
+            }
+        },
+
 
         Progress: {
             baseStyle: {

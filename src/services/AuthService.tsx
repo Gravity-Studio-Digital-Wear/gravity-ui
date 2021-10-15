@@ -1,6 +1,10 @@
 import {action, computed, makeAutoObservable, observable} from 'mobx'
 import {http} from "../core/transport/http";
 import {ENDPOINTS} from "./api/endpoints";
+import {ServiceContainer} from "../core/ServiceContainer";
+import {MAGIC, MagicInstance} from "./service-container";
+import {OAuthProvider} from "@magic-ext/oauth";
+import {Routes} from "../app/routes";
 
 export type AuthStatus = 'guest' | 'authenticated';
 
@@ -13,11 +17,9 @@ export type TToken = {
     jti: string;
 };
 
-
-
-
 interface IGrant {
     type: string;
+
     getBody(): { [key: string]: any, grant_type: string };
 }
 
@@ -37,19 +39,6 @@ export class CredentialsGrant implements IGrant {
     }
 }
 
-export class RefreshTokenGrant implements IGrant {
-    public type = 'refresh_token';
-
-    constructor(private refreshToken: string) {
-    }
-
-    getBody() {
-        return {
-            refresh_token: this.refreshToken,
-            grant_type: this.type
-        }
-    }
-}
 
 export class PersistentStorage {
     public setItem(key: string, value: any) {
@@ -66,6 +55,28 @@ export class PersistentStorage {
         }
     }
 }
+
+
+export class MagicOAuthProvider {
+    magic: MagicInstance
+
+    constructor(private sc: ServiceContainer) {
+        this.sc = sc;
+        this.magic = this.sc.get(MAGIC)
+    }
+
+    @action authenticate(provider: OAuthProvider) {
+        this.magic.oauth.loginWithRedirect({
+            provider,
+            redirectURI: new URL(Routes.authCallback, window.location.origin).href,
+        });
+    }
+
+    @action logout() {
+        return this.magic.user.logout()
+    }
+}
+
 
 export class AuthService {
     @observable status: AuthStatus = 'guest';
@@ -109,7 +120,6 @@ export class AuthService {
                 this.status = 'guest';
                 this.requestStatus = 'error';
             })
-
     }
 
     @action

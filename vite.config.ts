@@ -3,6 +3,8 @@ import reactRefresh from '@vitejs/plugin-react-refresh'
 import replace from '@rollup/plugin-replace';
 import commonjs from '@rollup/plugin-commonjs';
 
+import {nodeResolve} from '@rollup/plugin-node-resolve';
+
 const svgr = require('@svgr/rollup').default
 
 const port = 3000;
@@ -18,7 +20,9 @@ export default defineConfig({
             'process.env.API_URL': JSON.stringify(process.env.API_URL),
         }),
         svgr(),
-        commonjs()
+        // nodeResolve({browser: true}),
+        commonjs({transformMixedEsModules: true}),
+        // nodePolyfills()
     ],
     server: {
         proxy: {

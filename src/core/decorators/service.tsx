@@ -2,6 +2,7 @@ import {container, injectable, Lifecycle} from "tsyringe";
 import React from "react";
 import {makeAutoObservable} from "mobx";
 import {sc} from "../../services/service-container";
+import {InjectionToken} from "../ServiceContainer";
 
 type constructor<T> = {
     new(...args: any[]): T;
@@ -50,7 +51,10 @@ export function service(...args: any): any {
 }
 
 
-export function useService<T>(target: constructor<T>): T {
+export function useService<P>(token: InjectionToken<P>): P;
+export function useService<T>(token: constructor<T>): T;
+
+export function useService(target) {
     const [service] = React.useState(sc.get(target))
 
     return service;
