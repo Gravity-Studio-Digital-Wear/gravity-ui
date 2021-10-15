@@ -40,6 +40,26 @@ export const GravityTheme = {
 
         },
 
+        Input: {
+            baseStyle: {
+                field: {
+                    border: '1px solid',
+                    borderColor: 'basic.500',
+                    bg: 'white'
+                }
+            },
+            variants: {
+                basic: {
+                    field: {
+                        borderRadius: 0,
+                        height: '50px',
+                    }
+                }
+            },
+            defaultProps: {
+                variant: "basic",
+            },
+        },
 
         Heading: {
             baseStyle: {
