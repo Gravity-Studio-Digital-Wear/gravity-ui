@@ -9,7 +9,7 @@ export class InjectionToken<W = any> {
 
 
 export class ServiceContainer {
-    container: Map<string, any>;
+    container: Map<any, any>;
 
     constructor() {
         this.container = new Map<string, any>();
@@ -26,7 +26,7 @@ export class ServiceContainer {
         } else {
             const instance = args[0]
 
-            this.container.set(`root/${instance.constructor.name}`, instance)
+            this.container.set(instance.constructor, instance)
         }
     }
 
@@ -40,6 +40,6 @@ export class ServiceContainer {
 
         const constructor = token as constructor<any>;
 
-        return this.container.get(`root/${constructor.name}`)
+        return this.container.get(constructor)
     }
 }

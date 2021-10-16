@@ -1,28 +1,31 @@
 import {defineConfig} from 'vite'
 import reactRefresh from '@vitejs/plugin-react-refresh'
 import replace from '@rollup/plugin-replace';
-import commonjs from '@rollup/plugin-commonjs';
 
+import nodePolyfills from 'rollup-plugin-polyfill-node';
+import commonjs from '@rollup/plugin-commonjs';
 import {nodeResolve} from '@rollup/plugin-node-resolve';
 
 const svgr = require('@svgr/rollup').default
 
-const port = 3000;
-const host = process.env.HOST || '0.0.0.0';
 
 // https://vitejs.dev/config/
 export default defineConfig({
-    plugins: [
-        reactRefresh(),
+    build: {
 
+      commonjsOptions: {transformMixedEsModules: true}
+    },
+
+    plugins: [
+        svgr(),
+        reactRefresh(),
         replace({
             'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV),
             'process.env.API_URL': JSON.stringify(process.env.API_URL),
         }),
-        svgr(),
         // nodeResolve({browser: true}),
-        commonjs({transformMixedEsModules: true}),
-        // nodePolyfills()
+        // commonjs({}),
+        // nodePolyfills( /* options */ )
     ],
     server: {
         proxy: {

@@ -44,6 +44,9 @@ export const ModalProvider = observer(function ModalProvider(props: React.PropsW
         <LoginModal/>
     ], [])
 
+
+     console.log(modals)
+
     return (
         <>
             {
