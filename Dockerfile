@@ -18,9 +18,10 @@ COPY public public
 ARG OUTLINE
 RUN npm run build
 
-FROM registry.weintegrator.com/integrator/devops/nginx-front:1.0 AS production
+FROM nginx AS production
 
 WORKDIR /app
+
 COPY --from=build /app/build /usr/share/nginx/html
 
-EXPOSE 8888
+EXPOSE 80

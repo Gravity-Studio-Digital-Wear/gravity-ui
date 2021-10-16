@@ -1,0 +1,14 @@
+version: '3.5'
+
+services:
+  # Services
+  front:
+    build: ./
+    networks:
+      - front-network
+    container_name: gravity-ui
+    ports:
+      - 80:80
+networks:
+  front-network:
+    driver: bridge
