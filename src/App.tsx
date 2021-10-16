@@ -15,9 +15,9 @@ const theme = extendTheme(GravityTheme)
 
 function App() {
     const [RootProvider] = useProviders([
-        <ModalProvider/>,
         <ChakraProvider resetCSS={true} theme={theme}/>,
-        <BrowserRouter/>
+        <BrowserRouter/>,
+        <ModalProvider/>,
     ])
 
     const application = useService(GravityApplication)

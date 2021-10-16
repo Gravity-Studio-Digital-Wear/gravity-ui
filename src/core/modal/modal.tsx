@@ -45,8 +45,6 @@ export const ModalProvider = observer(function ModalProvider(props: React.PropsW
     ], [])
 
 
-     console.log(modals)
-
     return (
         <>
             {
