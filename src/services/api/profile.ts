@@ -11,5 +11,10 @@ export function updateProfile(body: Partial<IProfile>): Promise<IProfile> {
 }
 
 export function wardrobeItems(): Promise<any> {
-    return http.get(ENDPOINTS.Wardrobe.items);
+    return http.get(ENDPOINTS.Wardrobe.items).then(res => {
+        console.log(res)
+
+
+        return []
+    });
 }

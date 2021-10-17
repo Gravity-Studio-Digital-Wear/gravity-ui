@@ -1,13 +1,28 @@
 import * as React from 'react';
 import {observer} from "mobx-react";
-import {Box, Button, Flex, Grid, GridItem, Heading, HStack, Image, Input, Link, Stack, Text} from "@chakra-ui/react";
+import {Box, Button, Flex, Grid, GridItem, Heading, HStack, Image, Link, Stack, Text} from "@chakra-ui/react";
 import {ChakraCarousel} from "../../components/Carousel";
 import {IconCart} from "../../components/icons/IconCart";
 import {QtyControl} from "../../components/QtyControl";
+import {useService} from "../../core/decorators/service";
+import {WarehouseStore} from "../../stores/WarehouseStore";
+import {RouteComponentProps} from "react-router";
+import {PageSpinner} from "../../components/PageSpinner";
 
 
-export const ProductPage = observer(function ProductPage() {
+export const ProductPage = observer(function ProductPage({match}: RouteComponentProps<{ id: string }>) {
+    const warehouseStore = useService(WarehouseStore)
     const images = ['img_4_full.png', 'img_4_full.png', 'img_4_full.png'];
+
+    React.useEffect( () => {
+        warehouseStore.productItem.request(match.params.id)
+    }, [])
+
+    if (warehouseStore.productItem.requestStatus !== 'success') {
+        return <PageSpinner/>
+    }
+
+
 
     const imageCarousel = (
         <ChakraCarousel gap={32}>
@@ -39,7 +54,7 @@ export const ProductPage = observer(function ProductPage() {
 
                     <HStack>
                         <HStack spacing={'32px'}>
-                            <QtyControl/>
+                            <QtyControl value={0} onInc={() => {}} onDec={() => {}}/>
 
                             <Text fontSize={'16px'} color={'alert'} textTransform={'uppercase'}
                                   letterSpacing={'0.07em'}>5 pieces left</Text>
@@ -61,7 +76,7 @@ export const ProductPage = observer(function ProductPage() {
                                   letterSpacing={'0.02em'}
                                   lineHeight={1}
                                   color={'basic.500'}>
-                                1 283 $
+                                1 283
                             </Text>
                         </Stack>
 

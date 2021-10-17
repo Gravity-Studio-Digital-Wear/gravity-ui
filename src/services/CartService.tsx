@@ -59,10 +59,10 @@ export class CartService {
     }
 
     @computed public get total(): number {
-        return [...this.cart.values()].reduce((acc, r) => acc + (r.quantity + r.product.priceUSD), 0)
+        return [...this.cart.values()].reduce((acc, r) => (acc + (r.quantity * r.product.priceUSD)), 0)
     }
 
     @computed public get totalAfterDiscount(): number {
-        return [...this.cart.values()].reduce((acc, r) => acc + (r.quantity + r.product.priceUSD), 0)
+        return [...this.cart.values()].reduce((acc, r) => acc + (r.quantity * r.product.priceUSD), 0)
     }
 }

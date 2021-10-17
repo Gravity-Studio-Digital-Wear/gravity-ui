@@ -8,7 +8,7 @@ export class WarehouseService {
     }
 
 
-    public getProductById(): Promise<IProduct[]> {
-        return http.get<IProduct[]>(ENDPOINTS.Warehouse.products);
+    public getProductById(id: string): Promise<IProduct> {
+        return http.get<IProduct>(ENDPOINTS.Warehouse.product.replace(':id', id));
     }
 }

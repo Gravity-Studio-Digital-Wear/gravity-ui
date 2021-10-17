@@ -56,6 +56,4 @@ export class ProfileService {
                 return Promise.reject(err)
             })
     }
-
-
 }

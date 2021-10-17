@@ -9,6 +9,7 @@ export class WarehouseStore {
     @observable viewType: TViewType = localStorage.getItem('__viewType') as TViewType || 'chess';
 
     products = new ApiRequest(() => this.wareHouseService.getProducts())
+    productItem = new ApiRequest((id: string) => this.wareHouseService.getProductById(id))
 
     wareHouseService: WarehouseService;
 
