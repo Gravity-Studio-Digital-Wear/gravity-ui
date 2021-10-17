@@ -1,18 +1,19 @@
 import * as React from 'react';
 import {observer} from "mobx-react";
-import {Box, Spinner, Stack} from "@chakra-ui/react";
+import {Box, Stack} from "@chakra-ui/react";
 import {Navigation} from "./Navigation";
 import {ListNav} from "./components/ListNav";
 import {ProductList} from "./components/ProductList";
 import {useService} from "../../core/decorators/service";
 import {WarehouseStore} from "../../stores/WarehouseStore";
+import {PageSpinner} from "../../components/PageSpinner";
 
 
 export const ShopPage = observer(function ShopPage() {
     const products = useService(WarehouseStore).products
 
     React.useEffect(() => {
-        products.fetch()
+        products.request()
     }, [])
 
 
@@ -23,7 +24,7 @@ export const ShopPage = observer(function ShopPage() {
                 <ListNav/>
             </Stack>
 
-            {products.isPending && <Spinner/>}
+            {products.isPending && <PageSpinner/>}
             {products.isSuccess && <ProductList/>}
         </Box>
     )

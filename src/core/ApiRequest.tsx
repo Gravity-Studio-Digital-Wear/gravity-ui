@@ -11,18 +11,22 @@ export class ApiRequest<T, P extends any[]> {
     }
 
     @action
-    fetch(...args: P) {
+    request(...args: P): Promise<T> {
         this.requestStatus = 'pending'
         this.error = null;
 
         return this.fetchFn(...args)
-            .then(res => {
+            .then((res: T) => {
                 this.requestStatus = 'success'
                 this.result = res
+
+                return Promise.resolve(res)
             })
             .catch((err) => {
                 this.requestStatus = "error"
                 this.error = err;
+
+                return Promise.reject(err)
             })
     }
 

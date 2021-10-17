@@ -1,6 +1,7 @@
 import * as React from 'react';
 import {Box, Grid, HStack, Image, Stack, Text} from "@chakra-ui/react";
 import {IProduct} from "../../../interfaces";
+import {processImgUrl} from "../../../utils/imageUrl";
 
 
 export const Wrapper = (props: React.PropsWithChildren<{}>) => {
@@ -11,22 +12,30 @@ export const Wrapper = (props: React.PropsWithChildren<{}>) => {
     )
 }
 
-export function Card(props: IProduct & {onClick: () => void}) {
+export function Card(props: IProduct & {onClickCard: () => void, onClickAdd: () => void}) {
     return (
         <Box display={'flex'}
              justifyContent={'flex-end'}
              position={'relative'}
              cursor={'pointer'}
              className={'g-card'}
-             onClick={props.onClick}
+             onClick={props.onClickCard}
         >
+
+            {/*<figure>*/}
+            {/*    <video poster={processImgUrl(props.images[1])} playsInline autoPlay muted loop>*/}
+            {/*        <source src={'https://rotato.netlify.app/alpha-demo/movie-webm.webm' ||processImgUrl(props.images[0])} type="video/webm"/>*/}
+            {/*    </video>*/}
+            {/*</figure>*/}
+
+
             <Image
                 boxSize="362px"
                 objectFit="contain"
-                src="/img_3.png"
-                sx={{
-                    'mixBlendMode': 'multiply'
-                }}
+                src={processImgUrl(props.images[1])}
+                // sx={{
+                //     'mixBlendMode': 'multiply'
+                // }}
             />
 
             <Stack position={'absolute'} left={0} bottom={'10px'} spacing={0}>

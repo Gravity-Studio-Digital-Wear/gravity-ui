@@ -1,14 +1,20 @@
 import * as React from 'react';
 import {observer} from "mobx-react";
-import {Box, Button, Flex, Grid, GridItem, Heading, HStack, Image, Stack, Text} from "@chakra-ui/react";
+import {Box, Button, Flex, Grid, GridItem, Heading, HStack, Image, Spinner, Stack, Text} from "@chakra-ui/react";
 import {IconWallet} from "../../components/icons/IconWallet";
 import {formatAddress} from "../../utils/address";
 import {IconEdit} from "../../components/icons/IconEdit";
 import {ItemCard} from "./ItemCard";
+import {useService} from "../../core/decorators/service";
+import {AuthService, MagicOAuthProvider} from "../../services/AuthService";
+import {useHistory} from "react-router-dom";
+import {Routes} from "../../app/routes";
+import {ProfileService} from "../../services/ProfileService";
+import {PageSpinner} from "../../components/PageSpinner";
 
 const address = '0x89B57B822468FF316dD699a9C45d5397417B7669'
 
-function WalletAddress() {
+function WalletAddress({address}: { address: string }) {
     return (
         <HStack>
             <IconWallet/>
@@ -20,6 +26,33 @@ function WalletAddress() {
 }
 
 export const ProfilePage = observer(function ProfilePage() {
+    const profile = useService(MagicOAuthProvider)
+    const authService = useService(AuthService)
+    const profileService = useService(ProfileService)
+
+    const history = useHistory()
+
+    const handleClickEdit = () => {
+        history.push(Routes.profileEdit);
+    }
+
+    const {wardrobeItems} = profileService;
+
+    React.useEffect(() => {
+        if (profileService.requestStatus !== 'success') {
+            return
+        }
+        wardrobeItems.request()
+    }, [profileService.requestStatus])
+
+
+    if (authService.authStatus !== 'success' || profileService.requestStatus !== 'success') {
+        return <PageSpinner/>
+    }
+
+
+    const {name} = profileService.profile;
+
     return (
         <Grid templateColumns={'repeat(12, 1fr)'} gridGap={'32px'} mt={'60px'}>
             <GridItem gridColumn={'span 2'}>
@@ -37,28 +70,42 @@ export const ProfilePage = observer(function ProfilePage() {
                             fontSize={25}
                             textTransform={'uppercase'}
                             fontWeight={'bold'}
-                        >nikky jackson</Text>
+                        >{name}</Text>
 
                         <Flex>
-                            <WalletAddress/>
+                            <WalletAddress address={profile.meta.publicAddress || ''}/>
 
-                            <Button ml={'24px'} size={'sm'}>connect wallet</Button>
+                            {/*<Button ml={'24px'} size={'sm'}>connect wallet</Button>*/}
                         </Flex>
                     </Stack>
 
-                    <Button variant={'square'} position={'absolute'} top={'40px'} right={'40px'}>
+                    <Button onClick={handleClickEdit} variant={'square'} position={'absolute'} top={'40px'}
+                            right={'40px'}>
                         <IconEdit/>
                     </Button>
                 </Flex>
 
                 <Box mt={'40px'}>
-                    <Heading textTransform={'uppercase'} fontSize={25} letterSpacing={'0.02em'}>My items (12)</Heading>
+                    <Heading textTransform={'uppercase'} fontSize={25} letterSpacing={'0.02em'}>
+                        My items {wardrobeItems.requestStatus === 'success' ? `(${wardrobeItems.result.length})` : ''}
+                    </Heading>
 
-                    <Grid gridTemplateColumns={'repeat(3, 1fr)'} gap={'30px'}>
-                        <ItemCard {...{} as  any}/>
-                        <ItemCard {...{} as  any}/>
-                        <ItemCard {...{} as  any}/>
-                    </Grid>
+                    {wardrobeItems.requestStatus === 'success'
+                        ? (
+                            <Grid gridTemplateColumns={'repeat(3, 1fr)'} gap={'30px'}>
+                                <ItemCard {...{} as any}/>
+                                <ItemCard {...{} as any}/>
+                                <ItemCard {...{} as any}/>
+                            </Grid>
+                        )
+                        : (
+                            <Box p={8}>
+                                <Spinner />
+                            </Box>
+                        )
+                    }
+
+
                 </Box>
             </GridItem>
         </Grid>

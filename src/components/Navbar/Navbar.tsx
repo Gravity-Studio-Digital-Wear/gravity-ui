@@ -21,6 +21,7 @@ import {useService} from "../../core/decorators/service";
 import {CartStore} from "../../stores/CartStore";
 import {AuthService, MagicOAuthProvider} from "../../services/AuthService";
 import {ModalService} from "../../services/ModalService";
+import {CartService} from "../../services/CartService";
 
 const navLinks = [
     ['shop', Routes.main],
@@ -78,7 +79,7 @@ function ActiveMenuIcon() {
 
 
 export const Navigation = observer(function Navigation() {
-    const cartStore = useService(CartStore);
+    const cartService = useService(CartService);
     const authService = useService(AuthService);
     const modalService = useService(ModalService);
     const magicOAuthProvider = useService(MagicOAuthProvider);
@@ -143,7 +144,7 @@ export const Navigation = observer(function Navigation() {
                                       d="M11.1603 6.86958H18.5437C18.5432 4.83109 16.8905 3.17871 14.852 3.17871C12.8134 3.17871 11.1607 4.83109 11.1603 6.86958ZM9.16026 6.86958H5.8911C4.872 6.86958 4.01587 7.63585 3.90333 8.64871L1.81813 27.4155C1.6865 28.6002 2.61388 29.6364 3.8059 29.6364H25.8981C27.0901 29.6364 28.0175 28.6002 27.8859 27.4155L25.8007 8.64872C25.6881 7.63585 24.832 6.86958 23.8129 6.86958H20.5437C20.5432 3.72652 17.9951 1.17871 14.852 1.17871C11.7088 1.17871 9.16071 3.72652 9.16026 6.86958Z"
                                       fill={primary500}/>
 
-                                <text x="11" y="23" fontSize={'14px'} fill={white}>{cartStore.cartQty}</text>
+                                <text x="11" y="23" fontSize={'14px'} fill={white}>{cartService.productsCount}</text>
                             </svg>
                         </Box>
                     </HStack>

@@ -6,11 +6,12 @@ import {ChessListView} from "./ChessListView";
 import {useService} from "../../../core/decorators/service";
 import {WarehouseStore} from "../../../stores/WarehouseStore";
 import {useHistory} from "react-router-dom";
+import {CartService} from "../../../services/CartService";
 
 
 export const ProductList = observer(function ProductList() {
     const warehouseStore = useService(WarehouseStore)
-
+    const cartService = useService(CartService)
     const {products} = warehouseStore
 
     const view = React.useMemo(() => {
@@ -33,7 +34,8 @@ export const ProductList = observer(function ProductList() {
             <Wrapper>
                 {products.result?.map((p) => <Card
                     key={p._id}
-                    onClick={() => history.push(`product/${p._id}`)}
+                    onClickCard={() => history.push(`product/${p._id}`)}
+                    onClickAdd={() => cartService.add(p)}
                     {...p}
                 />)}
             </Wrapper>

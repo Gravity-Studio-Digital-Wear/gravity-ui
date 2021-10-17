@@ -10,7 +10,7 @@ export function ItemCard(props: IProduct & {onClick: () => void}) {
                position={'relative'}
                cursor={'pointer'}
                className={'g-card'}
-               onClick={props.onClick}
+               onClick={props.onClickCard}
         >
             <Image
                 boxSize="362px"

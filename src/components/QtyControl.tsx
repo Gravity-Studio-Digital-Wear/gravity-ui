@@ -2,10 +2,12 @@ import * as React from 'react';
 import {Box, HStack, Input} from "@chakra-ui/react";
 
 
-export function QtyControl() {
+export function QtyControl(props: { value: number, onInc: () => void, onDec: () => void }) {
+    const {value, onDec, onInc} = props;
+
     return (
         <HStack>
-            <Box cursor={'pointer'}>
+            <Box cursor={'pointer'} onClick={() => onDec()}>
                 <svg width="36" height="36" viewBox="0 0 36 36" fill="none"
                      xmlns="http://www.w3.org/2000/svg">
                     <rect x="1" y="1" width="34" height="34" rx="17" fill="#523774"/>
@@ -16,16 +18,17 @@ export function QtyControl() {
                 </svg>
             </Box>
 
-            <Input defaultValue={'0'}
-                   width={'74px'}
-                   borderRadius={0}
-                   bg={'white'}
-                   border={'1px solid'}
-                   borderColor={'basic.500'}
-                   textAlign={'center'}
+            <Input
+                defaultValue={value}
+                width={'74px'}
+                borderRadius={0}
+                bg={'white'}
+                border={'1px solid'}
+                borderColor={'basic.500'}
+                textAlign={'center'}
             />
 
-            <Box cursor={'pointer'}>
+            <Box cursor={'pointer'} onClick={() => onInc()}>
                 <svg width="36" height="36" viewBox="0 0 36 36" fill="none"
                      xmlns="http://www.w3.org/2000/svg">
                     <rect x="1" y="1" width="34" height="34" rx="17" fill="#523774"/>

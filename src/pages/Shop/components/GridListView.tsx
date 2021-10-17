@@ -2,6 +2,7 @@ import * as React from 'react';
 import {Box, Button, Grid, HStack, Image, Stack, Text} from "@chakra-ui/react";
 import {IconCart} from "../../../components/icons/IconCart";
 import {IProduct} from "../../../interfaces";
+import {processImgUrl} from "../../../utils/imageUrl";
 
 
 export const Wrapper = (props: React.PropsWithChildren<{}>) => {
@@ -12,19 +13,19 @@ export const Wrapper = (props: React.PropsWithChildren<{}>) => {
     )
 }
 
-export function Card(props: IProduct & {onClick: () => void}) {
+export function Card(props: IProduct & {onClickCard: () => void, onClickAdd: () => void}) {
     return (
         <Stack display={'flex'}
                justifyContent={'flex-end'}
                position={'relative'}
                cursor={'pointer'}
                className={'g-card'}
-               onClick={props.onClick}
+               onClick={props.onClickCard}
         >
             <Image
                 boxSize="362px"
                 objectFit="contain"
-                src="/img_3.png"
+                src={processImgUrl(props.images[1])}
                 sx={{
                     mixBlendMode: 'multiply'
                 }}
@@ -45,13 +46,13 @@ export function Card(props: IProduct & {onClick: () => void}) {
                               fontSize={'15px'}
                               lineHeight={1}
                               textDecoration={'line-through'}>
-                            {Math.round(props.priceUSD + (props.priceUSD * 0.5))} $
+                            {Math.round(props.priceUSD + (props.priceUSD * 0.5)) / 100} $
                         </Text>
                         <Text as={'span'}
                               fontSize={'21px'}
                               lineHeight={1}
                               color={'alert'}>
-                            {props.priceUSD} $
+                            {props.priceUSD / 100} $
                         </Text>
                     </HStack>
 
@@ -68,18 +69,23 @@ export function Card(props: IProduct & {onClick: () => void}) {
                 </Text>
             </Stack>
 
-            <AddCart/>
+            <Box>
+                <Button
+                    leftIcon={<IconCart/>}
+                    colorScheme={'primary'}
+                    textTransform={'uppercase'}
+                    onClick={(e) => {
+                        e.stopPropagation()
+                        props.onClickAdd()
+                    }}
+                    w={'100%'}>
+                    Add to cart
+                </Button>
+            </Box>
         </Stack>
     )
 }
 
-function AddCart() {
-    return (
-        <Box>
-            <Button leftIcon={<IconCart/>} colorScheme={'primary'} textTransform={'uppercase'} w={'100%'}>Add to cart</Button>
-        </Box>
-    )
-}
 
 
 

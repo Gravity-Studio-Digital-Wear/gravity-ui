@@ -12,3 +12,15 @@ export interface IProduct {
     active: boolean
     __v: number
 }
+
+
+export interface IProfile {
+    name: string
+    avatar: string
+    email: string
+    instagramLink: string
+    facebookLink: string
+    twitterLink: string
+    tiktokLink: string
+    avatarUrl: string
+}

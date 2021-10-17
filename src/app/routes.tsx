@@ -1,5 +1,6 @@
 export const Routes = {
     profile: '/profile',
+    profileEdit: '/profile/edit',
     login: '/login',
     cart: '/cart',
     main: '/',

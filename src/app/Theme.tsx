@@ -80,6 +80,14 @@ export const GravityTheme = {
                         borderRadius: 0,
                         height: '50px',
                     }
+                },
+                profile: {
+                    field: {
+                        borderRadius: 0,
+                        height: '50px',
+                        bg: 'transparent',
+                        color: 'primary.500'
+                    }
                 }
             },
             defaultProps: {

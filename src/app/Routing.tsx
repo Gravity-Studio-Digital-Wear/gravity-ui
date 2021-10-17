@@ -8,6 +8,7 @@ import {CartPage} from "../pages/Cart/CartPage";
 import {Routes} from "./routes";
 import {ProfilePage} from "../pages/Profile/ProfilePage";
 import {OAuthCallbackPage} from "../pages/OAuth/OAuthCallbackPage";
+import {ProfileEditPage} from "../pages/Profile/ProfileEditPage";
 
 
 export const Routing = observer(function Routing() {
@@ -17,7 +18,15 @@ export const Routing = observer(function Routing() {
                 {/*<Route path={Routes.login} component={LoginPage}/>*/}
                 <Route path={Routes.authCallback} component={OAuthCallbackPage}/>
                 <Route path={Routes.productPage} component={ProductPage}/>
-                <Route path={Routes.profile} component={ProfilePage}/>
+                <Route path={Routes.profile} render={({match}) => {
+                    console.log(match.path)
+                    return (
+                        <Switch>
+                            <Route path={match.path + '/edit'} component={ProfileEditPage}/>
+                            <Route exact={true} path={match.path} component={ProfilePage}/>
+                        </Switch>
+                    )
+                }}/>
                 <Route path={Routes.cart} component={CartPage}/>
                 <Route path={Routes.main} component={ShopPage} exact={true}/>
             </Switch>

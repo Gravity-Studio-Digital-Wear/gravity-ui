@@ -1,4 +1,4 @@
-import {AuthService, MagicOAuthProvider, PersistentStorage} from "./AuthService";
+import {AuthService, MagicOAuthProvider} from "./AuthService";
 import {InjectionToken, ServiceContainer} from "../core/ServiceContainer";
 import {GravityApplication} from "../app/Application";
 import {WarehouseStore} from "../stores/WarehouseStore";
@@ -7,6 +7,8 @@ import {CartStore} from "../stores/CartStore";
 import {magic, web3} from "./Web3";
 import Web3 from "web3";
 import {ModalService} from "./ModalService";
+import {ProfileService} from "./ProfileService";
+import {CartService} from "./CartService";
 
 export type MagicInstance = typeof magic;
 
@@ -21,12 +23,15 @@ sc.set(MAGIC, magic);
 sc.set(WEB3_PROVIDER, web3);
 
 // Services and stores
-sc.set(new AuthService(new PersistentStorage()))
+sc.set(new AuthService(sc))
+
+sc.set(new ProfileService(sc))
 
 sc.set(new MagicOAuthProvider(sc));
 sc.set(new WarehouseService());
 sc.set(new WarehouseStore(sc));
 sc.set(new CartStore(sc));
+sc.set(new CartService(sc))
 sc.set(new ModalService(sc))
 
 //Application

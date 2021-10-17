@@ -2,9 +2,12 @@ import {action, computed, makeAutoObservable, observable} from 'mobx'
 import {http} from "../core/transport/http";
 import {ENDPOINTS} from "./api/endpoints";
 import {ServiceContainer} from "../core/ServiceContainer";
-import {MAGIC, MagicInstance} from "./service-container";
+import {MAGIC, MagicInstance, WEB3_PROVIDER} from "./service-container";
 import {OAuthProvider} from "@magic-ext/oauth";
 import {Routes} from "../app/routes";
+import {MagicUserMetadata} from "magic-sdk";
+import Web3 from "web3";
+import {IProfile} from "../interfaces";
 
 export type AuthStatus = 'guest' | 'authenticated';
 
@@ -60,6 +63,8 @@ export class PersistentStorage {
 export class MagicOAuthProvider {
     magic: MagicInstance
 
+    @observable meta: MagicUserMetadata;
+
     constructor(private sc: ServiceContainer) {
         this.sc = sc;
         this.magic = this.sc.get(MAGIC)
@@ -74,6 +79,21 @@ export class MagicOAuthProvider {
 
     @action logout() {
         return this.magic.user.logout()
+    }
+
+    @action
+    async getMetadata() {
+        try {
+            const meta = await this.magic.user.getMetadata()
+            const idToken = await this.magic.user.generateIdToken()
+
+            console.log(meta)
+            this.meta = meta;
+            // TODO id token unused?
+        } catch (e) {
+
+            console.error('getMetadata error=', e);
+        }
     }
 }
 
@@ -92,34 +112,40 @@ export class AuthService {
     @observable authStatus: 'initial' | 'pending' | 'success' | 'error' = 'initial'
     @observable requestStatus: 'initial' | 'pending' | 'success' | 'error' = 'initial'
 
+    private magicOAuth: MagicOAuthProvider;
+    private web3: Web3;
+
     constructor(
-        private persistentStorage: PersistentStorage
+        private sc: ServiceContainer,
+        private persistentStorage: PersistentStorage = new PersistentStorage()
     ) {
         this.refreshToken = this.persistentStorage.getItem('refresh_token')
         this.token = this.persistentStorage.getItem('auth_token')
+
+        this.magicOAuth = this.sc.get(MagicOAuthProvider)
+        this.web3 = this.sc.get(WEB3_PROVIDER)
 
         makeAutoObservable(this)
     }
 
     @action
-    authenticate(grant: IGrant) {
+    async authenticate(address: string) {
         this.requestStatus = 'pending'
 
-        return http.post<TToken>(ENDPOINTS.OAuth.token, grant.getBody())
-            .then((resp) => {
-                this.status = 'authenticated'
-                this.requestStatus = 'success'
-
-                this.token = resp.access_token;
-                this.refreshToken = resp.refresh_token;
-
-                this.persistentStorage.setItem('auth_token', resp.access_token)
-                this.persistentStorage.setItem('refresh_token', resp.refresh_token)
+        try {
+            const {challenge} = await http.post<{ challenge: string }>(ENDPOINTS.OAuth.challenge, {address})
+            const signature = await this.web3.eth.sign(challenge, address)
+            const {token} = await http.post<{ token: string, address: string }>(ENDPOINTS.OAuth.login, {
+                signature,
+                address
             })
-            .catch(() => {
-                this.status = 'guest';
-                this.requestStatus = 'error';
-            })
+
+            this.requestStatus = 'success'
+            this.token = token
+            this.persistentStorage.setItem('auth_token', token)
+        } catch (e) {
+            this.requestStatus = 'error';
+        }
     }
 
     @action
