@@ -130,7 +130,9 @@ export const Navigation = observer(function Navigation() {
 
                                     <MenuList zIndex={10}>
                                         <MenuItem as={RouterLink} to={Routes.profile}>Profile</MenuItem>
-                                        <MenuItem icon={<ActiveMenuIcon/>}>My items</MenuItem>
+                                        <MenuItem
+                                            // icon={<ActiveMenuIcon/>}
+                                        >My items</MenuItem>
                                         <MenuItem>Notifications</MenuItem>
                                         <MenuItem onClick={() => logout()}>Log Out</MenuItem>
                                     </MenuList>

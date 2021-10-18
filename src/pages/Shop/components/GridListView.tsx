@@ -65,7 +65,7 @@ export function Card(props: IProduct & {onClickCard: () => void, onClickAdd: () 
                       bottom={0}
                       right={0}
                       textTransform={'uppercase'}>
-                    5 pieces left
+                    {+props.__supply.remaningSupply || +props.__supply.maxSupply} pieces left
                 </Text>
             </Stack>
 

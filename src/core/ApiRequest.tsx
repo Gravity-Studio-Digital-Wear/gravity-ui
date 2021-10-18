@@ -35,6 +35,24 @@ export class ApiRequest<T, P extends any[]> {
     }
 
 
+    @action
+    refetch(...args: P): Promise<T> {
+        this.error = null;
+
+        return this.fetchFn(...args)
+            .then((res: T) => {
+                this.result = res
+                this.requestStatus = 'success'
+                return Promise.resolve(res)
+            })
+            .catch((err) => {
+                this.requestStatus = "error"
+                this.error = err;
+
+                return Promise.reject(err)
+            })
+    }
+
     @computed get isPending() {
         return this.requestStatus === 'pending'
     }

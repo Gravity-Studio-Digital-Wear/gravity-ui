@@ -57,10 +57,6 @@ function ProfileEditForm(props: { profile: IProfile, onSubmit: (profile: Partial
         defaultValues: profile
     });
 
-
-    console.log(profile)
-
-
     return (
         <Flex justify={'center'}>
             <Stack maxW={'365px'} spacing={30}>

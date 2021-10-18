@@ -3,14 +3,16 @@ import {observer} from "mobx-react";
 import {Box, Flex, HStack, Text} from "@chakra-ui/react";
 import {ViewToggle} from "./ViewToggle";
 
-export const ListNav = observer(function ListNav() {
+export const ListNav = observer(function ListNav({count}:{count: number}) {
     return (
         <Flex justify={'space-between'} align={'center'} position={'relative'}>
             <Filter/>
 
-            <Flex position={'absolute'} zIndex={0} width={'100%'} height={'100%'} justifyContent={'center'} align={'center'}>
-                <Text textTransform={'uppercase'}>12 items</Text>
-            </Flex>
+            {count && (
+                <Flex position={'absolute'} zIndex={0} width={'100%'} height={'100%'} justifyContent={'center'} align={'center'}>
+                    <Text textTransform={'uppercase'}>{count} items</Text>
+                </Flex>
+            )}
 
             <HStack spacing={10} zIndex={1}>
                 <Sort/>
@@ -19,7 +21,6 @@ export const ListNav = observer(function ListNav() {
         </Flex>
     )
 })
-
 
 function Filter() {
     return (

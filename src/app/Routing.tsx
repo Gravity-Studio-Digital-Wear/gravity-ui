@@ -12,62 +12,44 @@ import {ProfileEditPage} from "../pages/Profile/ProfileEditPage";
 import {ProfileItemPage} from "../pages/Profile/ProfileItemPage";
 import {MyItemsPage} from "../pages/Profile/MyItemsPage";
 import {CheckoutPage} from "../pages/Cart/CheckoutPage";
-
+import {AuthGuard} from "../core/guards/auth-guard";
 
 export const Routing = observer(function Routing() {
     return (
         <AuthorizedContainer>
-            <Switch>
-                {/*<Route path={Routes.login} component={LoginPage}/>*/}
-                <Route path={Routes.authCallback} component={OAuthCallbackPage}/>
-                <Route path={Routes.productPage} component={ProductPage}/>
-                <Route path={Routes.profile} render={({match}) => {
+            <AuthGuard fn={s => s === 'authenticated'}>
+                {(r, { protected: ProtectedRoute}) => {
                     return (
                         <Switch>
-                            <Route path={match.path + '/edit'} component={ProfileEditPage}/>
-                            <Route path={match.path + '/items'} render={({match}) => {
+                            {/*<Route path={Routes.login} component={LoginPage}/>*/}
+                            <Route path={Routes.authCallback} component={OAuthCallbackPage}/>
+                            <Route path={Routes.productPage} component={ProductPage}/>
+                            <ProtectedRoute path={Routes.profile} render={({match}) => {
                                 return (
                                     <Switch>
-                                        <Route path={match.path + '/my'} component={MyItemsPage}/>
-                                        <Route path={match.path + '/:id'} component={ProfileItemPage}/>
+                                        <Route path={match.path + '/edit'} component={ProfileEditPage}/>
+                                        <Route path={match.path + '/items'} render={({match}) => {
+                                            return (
+                                                <Switch>
+                                                    <Route path={match.path + '/my'} component={MyItemsPage}/>
+                                                    <Route path={match.path + '/:id'} component={ProfileItemPage}/>
+                                                </Switch>
+                                            )
+                                        }}/>
+                                        <Route exact={true} path={match.path} component={ProfilePage}/>
                                     </Switch>
                                 )
                             }}/>
-                            <Route exact={true} path={match.path} component={ProfilePage}/>
+
+                            <Route path={Routes.checkout} component={CheckoutPage}/>
+                            <Route path={Routes.cart} component={CartPage}/>
+                            <Route path={Routes.main} component={ShopPage} exact={true}/>
+
+                            {/* protected */}
                         </Switch>
                     )
-                }}/>
-
-                <Route path={Routes.checkout} component={CheckoutPage}/>
-                <Route path={Routes.cart} component={CartPage}/>
-                <Route path={Routes.main} component={ShopPage} exact={true}/>
-            </Switch>
+                }}
+            </AuthGuard>
         </AuthorizedContainer>
     )
-    // return (
-    //     <AuthGuard fn={(s) => s === 'authenticated'}>
-    //         {(authenticated) => {
-    //             if (!authenticated) {
-    //                 return (
-    //                     <LoginContainer>
-    //                         <Switch>
-    //                             <Route path={"/login"} component={LoginPage}/>
-    //
-    //                             <Redirect to={'/login'}/>
-    //                         </Switch>
-    //                     </LoginContainer>
-    //                 )
-    //             }
-    //
-    //             return (
-    //                 <>
-    //
-    //
-    //                 </>
-    //             )
-    //         }}
-    //     </AuthGuard>
-    // )
 })
-
-

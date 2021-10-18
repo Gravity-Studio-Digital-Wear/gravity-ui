@@ -14,4 +14,5 @@ export class WarehouseService {
     public getProductSupply(id: string) {
         return http.get<ISupply>(ENDPOINTS.Warehouse.supply.replace(':id', id));
     }
+
 }

@@ -7,12 +7,10 @@ import {useService} from "../../core/decorators/service";
 import {CartService} from "../../services/CartService";
 import {IProduct} from "../../interfaces";
 import {processImgUrl} from "../../utils/imageUrl";
-import {AuthService} from "../../services/AuthService";
+import {formatPrice} from "../../utils/price";
 
 export const CartPage = observer(function CartPage() {
     const cartService = useService(CartService)
-
-    const authService = useService(AuthService)
 
 
     return (
@@ -113,7 +111,9 @@ function CartItem({product, quantity}: { product: IProduct, quantity: number }) 
                           letterSpacing={'0.02em'}>{product.name}</Text>
 
                     <Text fontSize={'12px'} color={'alert'} textTransform={'uppercase'}
-                          letterSpacing={'0.07em'}>5 pieces left</Text>
+                          letterSpacing={'0.07em'}>
+                        {+product.__supply.remaningSupply || +product.__supply.maxSupply} pieces left
+                    </Text>
 
                     <QtyControl
                         value={quantity}
@@ -129,7 +129,7 @@ function CartItem({product, quantity}: { product: IProduct, quantity: number }) 
                               color={'basic.500'}
                               lineHeight={1}
                               textDecoration={'line-through'}>
-                            1 458 $
+                            {formatPrice(product.priceUSD * 1.5)} $
                         </Text>
                         <Text as={'span'}
                               fontSize={'25px'}

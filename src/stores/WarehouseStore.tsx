@@ -3,6 +3,7 @@ import {WarehouseService} from "../services/WarehouseService";
 import {ApiRequest} from "../core/ApiRequest";
 import {action, makeAutoObservable, observable} from "mobx";
 import {TViewType} from "../interfaces";
+import {wardrobe} from "../services/api/profile";
 
 
 export class WarehouseStore {
@@ -25,7 +26,13 @@ export class WarehouseStore {
             })
     })
 
-    productItem = new ApiRequest((id: string) => this.wareHouseService.getProductById(id))
+    productItem = new ApiRequest((id: string) => this.wareHouseService.getProductById(id).then(async res => {
+        res.__supply = await this.wareHouseService.getProductSupply(res._id)
+        return res;
+    }))
+
+    wardrobe = new ApiRequest(() => wardrobe())
+
 
     getProductSupply() {
         return new ApiRequest((id: string) => this.wareHouseService.getProductSupply(id))

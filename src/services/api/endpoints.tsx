@@ -13,7 +13,8 @@ const Warehouse = {
 }
 
 const Wardrobe = {
-    items: '/api/wardrobe'
+    items: '/api/wardrobe',
+    wear: '/api/wardrobe/:id/wear'
 }
 
 const Cart = {

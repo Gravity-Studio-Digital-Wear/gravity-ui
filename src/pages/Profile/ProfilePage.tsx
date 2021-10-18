@@ -11,13 +11,14 @@ import {useHistory} from "react-router-dom";
 import {Routes} from "../../app/routes";
 import {ProfileService} from "../../services/ProfileService";
 import {PageSpinner} from "../../components/PageSpinner";
+import {WarehouseStore} from "../../stores/WarehouseStore";
 
 function WalletAddress({address}: { address: string }) {
     return (
         <HStack>
             <IconWallet/>
             <Text textTransform={'uppercase'} letterSpacing={'0.02em'} color={'primary.500'} fontSize={18}>
-                {formatAddress(address)}
+                {address}
             </Text>
         </HStack>
     )
@@ -27,6 +28,7 @@ export const ProfilePage = observer(function ProfilePage() {
     const profile = useService(MagicOAuthProvider)
     const authService = useService(AuthService)
     const profileService = useService(ProfileService)
+    const warehouseStore = useService(WarehouseStore)
 
     const history = useHistory()
 
@@ -35,12 +37,14 @@ export const ProfilePage = observer(function ProfilePage() {
     }
 
     const {myItems} = profileService;
+    const {wardrobe} = warehouseStore
 
     React.useEffect(() => {
         if (profileService.requestStatus !== 'success') {
             return
         }
         myItems.request()
+        wardrobe.request()
     }, [profileService.requestStatus])
 
 
@@ -87,15 +91,18 @@ export const ProfilePage = observer(function ProfilePage() {
                         My items {myItems.requestStatus === 'success' ? `(${myItems.result.length})` : ''}
                     </Heading>
 
-                    {myItems.isSuccess
+                    {wardrobe.isSuccess
                         ? (
                             <Grid gridTemplateColumns={'repeat(3, 1fr)'} gap={'30px'}>
-                                {myItems.result.map(({product}) => {
+                                {wardrobe.result.map(({items: {product}, ticket}) => {
+                                    console.log(product)
+
                                     return (
                                         <ItemCard
                                             key={product._id}
-                                            onClick={() => history.push(Routes.myItem.replace(':id', product._id))}
+                                            onClick={() => history.push(Routes.myItem.replace(':id', ticket._id))}
                                             product={product}
+                                            ticket={ticket}
                                         />
                                     )
                                 })}

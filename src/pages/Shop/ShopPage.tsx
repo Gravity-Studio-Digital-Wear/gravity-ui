@@ -21,7 +21,7 @@ export const ShopPage = observer(function ShopPage() {
         <Box>
             <Stack spacing={9}>
                 <Navigation/>
-                <ListNav/>
+                <ListNav count={products.result?.length}/>
             </Stack>
 
             {products.isPending && <PageSpinner/>}

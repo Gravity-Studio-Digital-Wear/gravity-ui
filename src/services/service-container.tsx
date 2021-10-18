@@ -9,6 +9,7 @@ import Web3 from "web3";
 import {ModalService} from "./ModalService";
 import {ProfileService} from "./ProfileService";
 import {CartService} from "./CartService";
+import {WaredrobeService} from "./WaredrobeService";
 
 export type MagicInstance = typeof magic;
 
@@ -33,6 +34,8 @@ sc.set(new WarehouseStore(sc));
 sc.set(new CartStore(sc));
 sc.set(new CartService(sc))
 sc.set(new ModalService(sc))
+
+sc.set(new WaredrobeService(sc));
 
 //Application
 sc.set(new GravityApplication(sc))

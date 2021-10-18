@@ -1,10 +1,10 @@
-import {IProduct} from "../../interfaces";
+import {IProduct, ITicket} from "../../interfaces";
 import {Box, Button, Image, Stack, Text} from "@chakra-ui/react";
 import * as React from "react";
 import {observer} from "mobx-react";
+import {TicketStatus} from "./TicketStatus";
 
-export const ItemCard = observer(function ItemCard({product, onClick}: { product: IProduct, onClick: () => void }) {
-
+export const ItemCard = observer(function ItemCard({product, onClick, ticket}: { product: IProduct, ticket: ITicket, onClick: () => void }) {
     return (
         <Stack display={'flex'}
                justifyContent={'flex-end'}
@@ -13,10 +13,14 @@ export const ItemCard = observer(function ItemCard({product, onClick}: { product
                className={'g-card'}
                onClick={onClick}
         >
+            <Box position={'absolute'} top={4} right={4}>
+                <TicketStatus status={ticket.status}/>
+            </Box>
+
             <Image
                 boxSize="362px"
                 objectFit="contain"
-                src="/img_3.png"
+                src={product.images[1]}
                 sx={{
                     mixBlendMode: 'multiply'
                 }}
