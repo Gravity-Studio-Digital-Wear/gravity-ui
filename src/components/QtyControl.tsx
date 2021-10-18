@@ -5,6 +5,13 @@ import {Box, HStack, Input} from "@chakra-ui/react";
 export function QtyControl(props: { value: number, onInc: () => void, onDec: () => void }) {
     const {value, onDec, onInc} = props;
 
+    React.useEffect(() => {
+        setInputValue(value)
+    }, [value])
+
+    const [inputValue, setInputValue] = React.useState(value);
+
+
     return (
         <HStack>
             <Box cursor={'pointer'} onClick={() => onDec()}>
@@ -19,7 +26,8 @@ export function QtyControl(props: { value: number, onInc: () => void, onDec: () 
             </Box>
 
             <Input
-                defaultValue={value}
+                readOnly={true}
+                value={inputValue}
                 width={'74px'}
                 borderRadius={0}
                 bg={'white'}

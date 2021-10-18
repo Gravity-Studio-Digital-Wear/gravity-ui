@@ -36,6 +36,11 @@ export default defineConfig({
                 // rewrite: (path) => path.replace(/^\/api/, '')
             },
 
+            // 'https://checkout.stripe.com/': {
+            //     target: 'https://checkout.stripe.com/',
+            //     changeOrigin: true,
+            //     hostRewrite: 'https://gravity-dev.easychain.dev/'
+            // }
         }
     }
 })

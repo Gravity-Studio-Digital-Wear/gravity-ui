@@ -1,17 +1,17 @@
 import {IProfile, TRequestStatus} from "../interfaces";
 import {action, makeAutoObservable, observable} from "mobx";
 import {ServiceContainer} from "../core/ServiceContainer";
-import {fetchProfile, updateProfile, wardrobeItems} from "./api/profile";
+import {fetchProfile, myItems, updateProfile} from "./api/profile";
 import {ApiRequest} from "../core/ApiRequest";
 
 export class ProfileService {
-    profileService: ProfileService;
+    public profileService: ProfileService;
 
     @observable profile: IProfile;
     @observable requestStatus: TRequestStatus = 'initial';
     @observable error: any;
 
-    public wardrobeItems = new ApiRequest(() => wardrobeItems())
+    public myItems = new ApiRequest(() => myItems())
 
     constructor(sc: ServiceContainer) {
         makeAutoObservable(this);

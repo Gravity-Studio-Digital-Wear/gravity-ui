@@ -8,31 +8,41 @@ import {useService} from "../../core/decorators/service";
 import {WarehouseStore} from "../../stores/WarehouseStore";
 import {RouteComponentProps} from "react-router";
 import {PageSpinner} from "../../components/PageSpinner";
+import {CartService} from "../../services/CartService";
+import {formatPrice} from "../../utils/price";
 
 
 export const ProductPage = observer(function ProductPage({match}: RouteComponentProps<{ id: string }>) {
     const warehouseStore = useService(WarehouseStore)
-    const images = ['img_4_full.png', 'img_4_full.png', 'img_4_full.png'];
+    const cartService = useService(CartService)
 
-    React.useEffect( () => {
+    React.useEffect(() => {
         warehouseStore.productItem.request(match.params.id)
     }, [])
 
-    if (warehouseStore.productItem.requestStatus !== 'success') {
+    if (warehouseStore.productItem.requestStatus !== 'success' && !warehouseStore.productItem.result) {
         return <PageSpinner/>
     }
 
-
+    const product = warehouseStore.productItem.result
 
     const imageCarousel = (
         <ChakraCarousel gap={32}>
-            {images.map((image: string) => {
+            {product.images.slice(1).map((image: string) => {
                 return (
-                    <Image boxSize={'80%'} pointerEvents={'none'} src={'/' + image} sx={{mixBlendMode: 'multiply'}}/>
+                    <Image
+                        key={image}
+                        boxSize={'80%'}
+                        pointerEvents={'none'}
+                        src={image}
+                    />
                 )
             })}
         </ChakraCarousel>
     )
+
+    const cartItem = cartService.getProductCartItem(product)
+
 
     return (
         <Grid templateColumns={'repeat(12, 1fr)'} gridGap={'20px'} mt={'84px'}>
@@ -45,8 +55,9 @@ export const ProductPage = observer(function ProductPage({match}: RouteComponent
                     <Heading as={'h1'} fontSize={43} textTransform={'uppercase'}
                              letterSpacing={'0.01em'}>FRINGE</Heading>
 
-                    <Text fontSize={'16px'}>This is a sample description about this product and that it’s digital.
-                        And this is how our process works when you buy this item.</Text>
+                    <Text fontSize={'16px'}>
+                        {product.description}
+                    </Text>
 
                     <Link color={'primary.500'} textTransform={'uppercase'} letterSpacing={'0.07em'}>
                         <Text as={'span'} borderBottom={'1px solid'} borderColor={'primary.500'}>How to wear it?</Text>
@@ -54,7 +65,11 @@ export const ProductPage = observer(function ProductPage({match}: RouteComponent
 
                     <HStack>
                         <HStack spacing={'32px'}>
-                            <QtyControl value={0} onInc={() => {}} onDec={() => {}}/>
+                            <QtyControl
+                                value={cartItem.quantity}
+                                onInc={() => cartService.add(product)}
+                                onDec={() => cartService.remove(product)}
+                            />
 
                             <Text fontSize={'16px'} color={'alert'} textTransform={'uppercase'}
                                   letterSpacing={'0.07em'}>5 pieces left</Text>
@@ -68,7 +83,7 @@ export const ProductPage = observer(function ProductPage({match}: RouteComponent
                                   color={'alert'}
                                   lineHeight={1}
                                   textDecoration={'line-through'}>
-                                1 283 $
+                                {formatPrice(product.priceUSD * 1.5)} $
                             </Text>
                             <Text as={'span'}
                                   fontSize={'25px'}
@@ -76,7 +91,7 @@ export const ProductPage = observer(function ProductPage({match}: RouteComponent
                                   letterSpacing={'0.02em'}
                                   lineHeight={1}
                                   color={'basic.500'}>
-                                1 283
+                                {formatPrice(product.priceUSD)} $
                             </Text>
                         </Stack>
 
@@ -85,6 +100,7 @@ export const ProductPage = observer(function ProductPage({match}: RouteComponent
                                 leftIcon={<IconCart/>}
                                 colorScheme={'primary'}
                                 textTransform={'uppercase'}
+                                onClick={() => cartService.add(product)}
                                 w={'265px'}>
                                 Add To Cart
                             </Button>

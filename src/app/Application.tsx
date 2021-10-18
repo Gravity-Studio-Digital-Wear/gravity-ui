@@ -44,6 +44,8 @@ export class GravityApplication implements IBootstrapper {
             //     return Promise.reject('no auth token provided')
             // }
 
+
+            // req.
             req.headers.set('Authorization', `Bearer ${this.authService.token}`)
 
             return req;

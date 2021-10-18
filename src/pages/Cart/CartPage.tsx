@@ -7,9 +7,12 @@ import {useService} from "../../core/decorators/service";
 import {CartService} from "../../services/CartService";
 import {IProduct} from "../../interfaces";
 import {processImgUrl} from "../../utils/imageUrl";
+import {AuthService} from "../../services/AuthService";
 
 export const CartPage = observer(function CartPage() {
     const cartService = useService(CartService)
+
+    const authService = useService(AuthService)
 
 
     return (
@@ -78,7 +81,16 @@ export const CartPage = observer(function CartPage() {
                                 </Stack>
                             </Flex>
 
-                            <Button textTransform={'uppercase'} w={'100%'} mt={'32px'}>Checkout</Button>
+
+                            <Button
+                                textTransform={'uppercase'}
+                                w={'100%'}
+                                mt={'32px'}
+                                type={'submit'}
+                                onClick={() => cartService.checkout()}
+                            >
+                                Checkout
+                            </Button>
                         </Box>
                     </GridItem>
                 </Grid>
@@ -89,7 +101,6 @@ export const CartPage = observer(function CartPage() {
 
 function CartItem({product, quantity}: { product: IProduct, quantity: number }) {
     const cartService = useService(CartService)
-
 
     return (
         <HStack width={'100%'} justifyContent={'flex-start'}>

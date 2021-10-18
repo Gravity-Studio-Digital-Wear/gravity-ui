@@ -1,6 +1,12 @@
 export type TRequestStatus = 'initial' | 'pending' | 'success' | 'error';
 export type TViewType = 'chess' | 'grid';
 
+export interface ISupply {
+    maxSupply: string;
+    remaningSupply: string;
+}
+
+
 export interface IProduct {
     _id: string,
     name: string,
@@ -11,6 +17,7 @@ export interface IProduct {
     images: string[],
     active: boolean
     __v: number
+    __supply: ISupply;
 }
 
 

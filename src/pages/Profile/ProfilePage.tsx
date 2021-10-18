@@ -12,8 +12,6 @@ import {Routes} from "../../app/routes";
 import {ProfileService} from "../../services/ProfileService";
 import {PageSpinner} from "../../components/PageSpinner";
 
-const address = '0x89B57B822468FF316dD699a9C45d5397417B7669'
-
 function WalletAddress({address}: { address: string }) {
     return (
         <HStack>
@@ -36,20 +34,19 @@ export const ProfilePage = observer(function ProfilePage() {
         history.push(Routes.profileEdit);
     }
 
-    const {wardrobeItems} = profileService;
+    const {myItems} = profileService;
 
     React.useEffect(() => {
         if (profileService.requestStatus !== 'success') {
             return
         }
-        wardrobeItems.request()
+        myItems.request()
     }, [profileService.requestStatus])
 
 
     if (authService.authStatus !== 'success' || profileService.requestStatus !== 'success') {
         return <PageSpinner/>
     }
-
 
     const {name} = profileService.profile;
 
@@ -87,25 +84,29 @@ export const ProfilePage = observer(function ProfilePage() {
 
                 <Box mt={'40px'}>
                     <Heading textTransform={'uppercase'} fontSize={25} letterSpacing={'0.02em'}>
-                        My items {wardrobeItems.requestStatus === 'success' ? `(${wardrobeItems.result.length})` : ''}
+                        My items {myItems.requestStatus === 'success' ? `(${myItems.result.length})` : ''}
                     </Heading>
 
-                    {wardrobeItems.requestStatus === 'success'
+                    {myItems.isSuccess
                         ? (
                             <Grid gridTemplateColumns={'repeat(3, 1fr)'} gap={'30px'}>
-                                <ItemCard {...{} as any}/>
-                                <ItemCard {...{} as any}/>
-                                <ItemCard {...{} as any}/>
+                                {myItems.result.map(({product}) => {
+                                    return (
+                                        <ItemCard
+                                            key={product._id}
+                                            onClick={() => history.push(Routes.myItem.replace(':id', product._id))}
+                                            product={product}
+                                        />
+                                    )
+                                })}
                             </Grid>
                         )
                         : (
                             <Box p={8}>
-                                <Spinner />
+                                <Spinner/>
                             </Box>
                         )
                     }
-
-
                 </Box>
             </GridItem>
         </Grid>

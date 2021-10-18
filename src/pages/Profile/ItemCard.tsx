@@ -1,16 +1,17 @@
 import {IProduct} from "../../interfaces";
-import {Box, Button, HStack, Image, Stack, Text} from "@chakra-ui/react";
-import {IconCart} from "../../components/icons/IconCart";
+import {Box, Button, Image, Stack, Text} from "@chakra-ui/react";
 import * as React from "react";
+import {observer} from "mobx-react";
 
-export function ItemCard(props: IProduct & {onClick: () => void}) {
+export const ItemCard = observer(function ItemCard({product, onClick}: { product: IProduct, onClick: () => void }) {
+
     return (
         <Stack display={'flex'}
                justifyContent={'flex-end'}
                position={'relative'}
                cursor={'pointer'}
                className={'g-card'}
-               onClick={props.onClick}
+               onClick={onClick}
         >
             <Image
                 boxSize="362px"
@@ -27,19 +28,15 @@ export function ItemCard(props: IProduct & {onClick: () => void}) {
                       fontSize={25}
                       letterSpacing={'0.02em'}
                 >
-                    {props.name}
+                    {product.name}
                 </Text>
             </Stack>
 
-            <AddCart/>
+            <Box>
+                <Button colorScheme={'primary'} textTransform={'uppercase'} w={'100%'}>
+                    Wear
+                </Button>
+            </Box>
         </Stack>
     )
-}
-
-function AddCart() {
-    return (
-        <Box>
-            <Button leftIcon={<IconCart/>} colorScheme={'primary'} textTransform={'uppercase'} w={'100%'}>Add to cart</Button>
-        </Box>
-    )
-}
+})

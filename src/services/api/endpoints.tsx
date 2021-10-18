@@ -6,7 +6,10 @@ const OAuth = {
 
 const Warehouse = {
     products: '/api/warehouse/products',
-    product: '/api/warehouse/products/:id'
+    product: '/api/warehouse/products/:id',
+    supply: '/api/warehouse/products/:id/supply',
+
+    my: '/api/warehouse/products/my'
 }
 
 const Wardrobe = {

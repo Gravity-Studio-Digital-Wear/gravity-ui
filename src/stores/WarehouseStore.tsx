@@ -8,8 +8,28 @@ import {TViewType} from "../interfaces";
 export class WarehouseStore {
     @observable viewType: TViewType = localStorage.getItem('__viewType') as TViewType || 'chess';
 
-    products = new ApiRequest(() => this.wareHouseService.getProducts())
+    products = new ApiRequest(() => {
+        return this.wareHouseService.getProducts()
+            .then(async res => {
+                const supplyList = res.map(i => {
+                    return this.wareHouseService.getProductSupply(i._id)
+                })
+
+                const supplies = await Promise.all(supplyList)
+
+                return res.map((r, index) => {
+                    r.__supply = supplies[index]
+
+                    return r;
+                })
+            })
+    })
+
     productItem = new ApiRequest((id: string) => this.wareHouseService.getProductById(id))
+
+    getProductSupply() {
+        return new ApiRequest((id: string) => this.wareHouseService.getProductSupply(id))
+    }
 
     wareHouseService: WarehouseService;
 

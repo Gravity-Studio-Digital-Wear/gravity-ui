@@ -1,4 +1,4 @@
-import {action, computed, makeAutoObservable, observable} from "mobx";
+import {action, computed, makeAutoObservable, observable, runInAction} from "mobx";
 import {TRequestStatus} from "../interfaces";
 
 export class ApiRequest<T, P extends any[]> {
@@ -17,8 +17,12 @@ export class ApiRequest<T, P extends any[]> {
 
         return this.fetchFn(...args)
             .then((res: T) => {
-                this.requestStatus = 'success'
-                this.result = res
+
+                runInAction(() => {
+                    this.result = res
+                    this.requestStatus = 'success'
+                })
+
 
                 return Promise.resolve(res)
             })

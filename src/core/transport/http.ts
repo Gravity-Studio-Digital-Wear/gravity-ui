@@ -23,7 +23,7 @@ interface HttpClient {
 
     get<Resp>(path: string, options?: HttpRequest): Promise<Resp>
 
-    post<Resp, Body = any>(path: string, body: Body, options?: HttpRequest): Promise<Resp>
+    post<Resp, Body = any>(path: string, body: Body, options?: Partial<HttpRequest & { init: RequestInit }>): Promise<Resp>
 
     put<Resp, Body = any>(path: string, body: Body, options?: HttpRequest): Promise<Resp>
 
@@ -45,10 +45,10 @@ function client(this: HttpClient, options: HttpClientOptions): HttpClient {
             const req = new HttpRequest();
             const controller = new AbortController()
 
-            const timeoutId = setTimeout(() => controller.abort(), 5000)
+            // const timeoutId = setTimeout(() => controller.abort(), 5000)
 
             const {baseUrl, headers, body, method: _, ...fetchConfig} = this.options
-            const requestOptions: HttpRequest = args[0] instanceof HttpRequest
+            const requestOptions: HttpRequest & { init: RequestInit } = args[0] instanceof HttpRequest
                 ? args[0]
                 : args[1] || {};
 
@@ -80,7 +80,8 @@ function client(this: HttpClient, options: HttpClientOptions): HttpClient {
                 body: req.body,
                 signal: controller.signal,
                 ...fetchConfig,
-                method: req.method
+                method: req.method,
+                ...(requestOptions.init || {})
             }
 
             return fetch(prepareUrl(req.path, req.params || {}, baseUrl), requestInit)
