@@ -2,7 +2,7 @@ import * as React from 'react';
 import {observer, useLocalObservable} from "mobx-react";
 import {useService} from "../../core/decorators/service";
 import {WarehouseStore} from "../../stores/WarehouseStore";
-import {Link as RouterLink, RouteChildrenProps} from "react-router-dom";
+import {Link as RouterLink, RouteChildrenProps, useHistory} from "react-router-dom";
 import {PageSpinner} from "../../components/PageSpinner";
 import {
     Box,
@@ -33,6 +33,7 @@ import {IconBack} from "../../components/icons/IconBack";
 export const ProfileItemPage = observer(function ProfileItemPage({match}: RouteChildrenProps<{ id: string }>) {
     const warehouseStore = useService(WarehouseStore)
     const waredrobeService = useService(WaredrobeService)
+    const history = useHistory<{prevUrl: string}>();
 
     const onDrop = React.useCallback(acceptedFiles => {
         console.log(acceptedFiles)
@@ -43,14 +44,9 @@ export const ProfileItemPage = observer(function ProfileItemPage({match}: RouteC
 
     const imageStore = useLocalObservable(() => ({
         images: [] as string[],
-
         add: (img: { url: string }) => {
-            console.log(img)
-
-
             imageStore.images = [...imageStore.images, img.url]
         },
-
         remove: (imgUrl) => {
             imageStore.images = [...imageStore.images.filter(img => img !== imgUrl)];
         }
@@ -93,7 +89,6 @@ export const ProfileItemPage = observer(function ProfileItemPage({match}: RouteC
         return <PageSpinner/>
     }
 
-
     const {ticket, items: {product}} = warehouseStore.wardrobe.result.find(({ticket}) => ticket._id === match.params.id)
 
     const imageCarousel = (
@@ -111,11 +106,6 @@ export const ProfileItemPage = observer(function ProfileItemPage({match}: RouteC
         </ChakraCarousel>
     )
 
-    // const {ticket} = warehouseStore.wardrobe.result.find(({items, ticket}) => {
-    //     return ticket.productId === warehouseStore.productItem.result._id
-    // })
-
-
     const uploadResult = () => {
         if (imageStore.images.length === 0) {
             return;
@@ -130,7 +120,7 @@ export const ProfileItemPage = observer(function ProfileItemPage({match}: RouteC
     return (
         <Box>
             <Flex>
-                <Link as={RouterLink} to={Routes.profile} fontSize={18} textTransform={'uppercase'}
+                <Link as={RouterLink} to={history.location.state.prevUrl || Routes.profile} fontSize={18} textTransform={'uppercase'}
                       textDecoration={'none'} display={'flex'} alignItems={'center'}>
                     <IconBack/>
                     <Text as={'span'} ml={'12px'}>Go Back</Text>

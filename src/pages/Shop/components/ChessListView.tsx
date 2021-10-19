@@ -2,8 +2,6 @@ import * as React from 'react';
 import {Box, Grid, HStack, Stack, Text} from "@chakra-ui/react";
 import {IProduct} from "../../../interfaces";
 import {processImgUrl} from "../../../utils/imageUrl";
-import {useService} from "../../../core/decorators/service";
-import {WarehouseStore} from "../../../stores/WarehouseStore";
 
 
 export const Wrapper = (props: React.PropsWithChildren<{}>) => {
@@ -38,20 +36,11 @@ export function Card(props: IProduct & { onClickCard: () => void, onClickAdd: ()
              onMouseOut={onMouseOut}
         >
             <figure>
-                <video ref={videoRef} poster={processImgUrl(props.images[1])} playsInline muted>
+                <video ref={videoRef} playsInline muted>
                     <source src={processImgUrl(props.images[0])} type="video/webm"/>
                 </video>
             </figure>
-
-            {/*<Image*/}
-            {/*    boxSize="362px"*/}
-            {/*    objectFit="contain"*/}
-            {/*    src={processImgUrl(props.images[1])}*/}
-            {/*    // sx={{*/}
-            {/*    //     'mixBlendMode': 'multiply'*/}
-            {/*    // }}*/}
-            {/*/>*/}
-
+            
             <Stack position={'absolute'} left={0} bottom={'10px'} spacing={0}>
                 <Text textTransform={'uppercase'}
                       fontWeight={'bold'}

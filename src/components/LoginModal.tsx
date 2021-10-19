@@ -25,7 +25,6 @@ import {useModalProps} from "../core/modal/modal";
 export const LoginModal = observer(function LoginModal() {
     const magicOAuthProvider = useService(MagicOAuthProvider);
 
-
     const login = (provider: OAuthProvider) => {
         magicOAuthProvider.authenticate(provider);
     }
@@ -84,7 +83,6 @@ export const LoginModal = observer(function LoginModal() {
 })
 
 function LoginSvg() {
-
     return (
         <svg width="166" height="424" viewBox="0 0 166 424" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path

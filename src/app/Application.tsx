@@ -5,8 +5,11 @@ import {ServiceContainer} from "../core/ServiceContainer";
 import Web3 from "web3";
 import {AuthService, MagicOAuthProvider} from "../services/AuthService";
 import {http} from "../core/transport/http";
-import {ENDPOINTS} from "../services/api/endpoints";
+import {ENDPOINTS, NoAuth} from "../services/api/endpoints";
 import {ProfileService} from "../services/ProfileService";
+
+
+import {matchPath} from 'react-router-dom'
 
 @service
 export class GravityApplication implements IBootstrapper {
@@ -44,8 +47,6 @@ export class GravityApplication implements IBootstrapper {
             //     return Promise.reject('no auth token provided')
             // }
 
-
-            // req.
             req.headers.set('Authorization', `Bearer ${this.authService.token}`)
 
             return req;

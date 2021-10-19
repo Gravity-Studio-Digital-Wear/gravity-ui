@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {observer} from "mobx-react";
-import {Box, Button, Flex, Grid, GridItem, Heading, HStack, Image, Input, Stack, Text} from "@chakra-ui/react";
+import {Box, Button, Flex, Grid, GridItem, Heading, HStack, Image, Input, Link, Stack, Text} from "@chakra-ui/react";
 import {QtyControl} from "../../components/QtyControl";
 import {IconClose} from "../../components/icons/IconClose";
 import {useService} from "../../core/decorators/service";
@@ -8,6 +8,9 @@ import {CartService} from "../../services/CartService";
 import {IProduct} from "../../interfaces";
 import {processImgUrl} from "../../utils/imageUrl";
 import {formatPrice} from "../../utils/price";
+import {Link as RouterLink, useHistory} from "react-router-dom";
+import {Routes} from "../../app/routes";
+import {IconBack} from "../../components/icons/IconBack";
 
 export const CartPage = observer(function CartPage() {
     const cartService = useService(CartService)
@@ -15,84 +18,95 @@ export const CartPage = observer(function CartPage() {
 
     return (
         <Stack spacing={'32px'}>
-            <Heading as={'h1'} fontSize={70} textTransform={'uppercase'} fontWeight={'bold'} color={'basic.500'}
-                     letterSpacing={'0.05em'}>My Cart</Heading>
+            <Flex>
+                <Link as={RouterLink} to={Routes.main} fontSize={18} textTransform={'uppercase'}
+                      textDecoration={'none'} display={'flex'} alignItems={'center'}>
+                    <IconBack/>
+                    <Text as={'span'} ml={'12px'}>Back to shopping</Text>
+                </Link>
+            </Flex>
 
-            {cartService.productsCount === 0 && (
-                <Box>
-                    <Text textTransform={'uppercase'} fontSize={18} letterSpacing={'0.02em'}>Cart is empty</Text>
-                </Box>
-            )}
+            <Box position={'relative'}>
+                <Flex width={'100%'} position={'absolute'} justify={'flex-end'} align={'center'}>
+                    <Image src={'/empty_cart.png'} width={'360px'}/>
+                </Flex>
 
-            {cartService.productsCount !== 0 && (
-                <Grid templateColumns={'repeat(12, 1fr)'} gridGap={'32px'}>
-                    <GridItem gridColumn={'span 8'}>
+                <Stack spacing={'32px'}>
+                    <Heading as={'h1'} fontSize={70} textTransform={'uppercase'} fontWeight={'bold'} color={'basic.500'}
+                             letterSpacing={'0.05em'}>My Cart</Heading>
 
-
-                        {[...cartService.cart.values()]
-                            .map(({product, quantity}) =>
-                                <CartItem
-                                    key={product._id}
-                                    product={product}
-                                    quantity={quantity}
-                                />
-                            )
-                        }
-                    </GridItem>
-
-                    <GridItem gridColumn={'span 4'}>
-                        <Box p={'16px'} width={'100%'} justifyContent={'flex-start'} border={'1px solid'}
-                             borderColor={'basic.500'}>
-                            <Flex>
-                                <Text>For {cartService.productsCount} items</Text>
-                                <Text
-                                    ml={'auto'}
-                                    fontSize={18}
-                                    textTransform={'uppercase'}
-                                    fontWeight={'bold'}
-                                    color={'basic.500'}
-                                >
-                                    {cartService.total / 100} $
-                                </Text>
-                            </Flex>
-
-                            <HStack spacing={'12px'} mt={'20px'}>
-                                <Input placeholder={'Enter a promo code'}/>
-                                <Button textTransform={'uppercase'} w={'89px'}>Use</Button>
-                            </HStack>
-
-                            <Flex mt={'36px'}>
-                                <Text>Total cost</Text>
-
-                                <Stack spacing={'10px'} ml={'auto'}>
-                                    <Text as={'span'}
-                                          fontSize={'25px'}
-                                          fontWeight={'bold'}
-                                          letterSpacing={'0.02em'}
-                                          lineHeight={1}
-                                          color={'basic.500'}>
-                                        {cartService.totalAfterDiscount / 100} $
-                                    </Text>
-
-                                    {/*<Text fontSize={'12px'} color={'alert'} textTransform={'uppercase'}*/}
-                                    {/*      letterSpacing={'0.07em'}>Savings 1 000 $</Text>*/}
-                                </Stack>
-                            </Flex>
+                    {cartService.productsCount === 0 && <CartEmpty/>}
+                    {cartService.productsCount !== 0 && (
+                        <Grid templateColumns={'repeat(12, 1fr)'} gridGap={'32px'}>
+                            <GridItem gridColumn={'span 8'}>
 
 
-                            <Button
-                                textTransform={'uppercase'}
-                                w={'100%'}
-                                mt={'32px'}
-                                type={'submit'}
-                                onClick={() => cartService.checkout()}
-                            >
-                                Checkout
-                            </Button>
-                        </Box>
-                    </GridItem>
-                </Grid>
-            )}
+                                {[...cartService.cart.values()]
+                                    .map(({product, quantity}) =>
+                                        <CartItem
+                                            key={product._id}
+                                            product={product}
+                                            quantity={quantity}
+                                        />
+                                    )
+                                }
+                            </GridItem>
+
+                            <GridItem gridColumn={'span 4'}>
+                                <Box p={'16px'} width={'100%'} justifyContent={'flex-start'} border={'1px solid'}
+                                     borderColor={'basic.500'}>
+                                    <Flex>
+                                        <Text>For {cartService.productsCount} items</Text>
+                                        <Text
+                                            ml={'auto'}
+                                            fontSize={18}
+                                            textTransform={'uppercase'}
+                                            fontWeight={'bold'}
+                                            color={'basic.500'}
+                                        >
+                                            {cartService.total / 100} $
+                                        </Text>
+                                    </Flex>
+
+                                    <HStack spacing={'12px'} mt={'20px'}>
+                                        <Input placeholder={'Enter a promo code'}/>
+                                        <Button textTransform={'uppercase'} w={'89px'}>Use</Button>
+                                    </HStack>
+
+                                    <Flex mt={'36px'}>
+                                        <Text>Total cost</Text>
+
+                                        <Stack spacing={'10px'} ml={'auto'}>
+                                            <Text as={'span'}
+                                                  fontSize={'25px'}
+                                                  fontWeight={'bold'}
+                                                  letterSpacing={'0.02em'}
+                                                  lineHeight={1}
+                                                  color={'basic.500'}>
+                                                {cartService.totalAfterDiscount / 100} $
+                                            </Text>
+
+                                            {/*<Text fontSize={'12px'} color={'alert'} textTransform={'uppercase'}*/}
+                                            {/*      letterSpacing={'0.07em'}>Savings 1 000 $</Text>*/}
+                                        </Stack>
+                                    </Flex>
+
+
+                                    <Button
+                                        textTransform={'uppercase'}
+                                        w={'100%'}
+                                        mt={'32px'}
+                                        type={'submit'}
+                                        onClick={() => cartService.checkout()}
+                                    >
+                                        Checkout
+                                    </Button>
+                                </Box>
+                            </GridItem>
+                        </Grid>
+                    )}
+                </Stack>
+            </Box>
         </Stack>
     )
 })
@@ -156,3 +170,13 @@ function CartItem({product, quantity}: { product: IProduct, quantity: number }) 
     )
 }
 
+function CartEmpty() {
+    const history = useHistory()
+
+    return (
+        <Stack spacing={'16px'}>
+            <Text fontSize={'16px'}>You have nothing in your shopping cart. Continue Shopping</Text>
+            <Button w={'269px'} letterSpacing={'0.02em'} onClick={() => history.push(Routes.main)}>Go to shopping</Button>
+        </Stack>
+    )
+}

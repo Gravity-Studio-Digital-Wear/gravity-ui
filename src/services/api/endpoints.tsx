@@ -21,6 +21,8 @@ const Cart = {
     checkout: '/api/checkout/session'
 }
 
+export const NoAuth = [OAuth.challenge, OAuth.login, Warehouse.products, Warehouse.product, Warehouse.supply]
+
 export const ENDPOINTS = {
     OAuth,
     Warehouse,

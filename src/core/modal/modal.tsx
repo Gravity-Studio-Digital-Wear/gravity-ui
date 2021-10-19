@@ -40,8 +40,11 @@ function getModalName(r) {
 export const ModalProvider = observer(function ModalProvider(props: React.PropsWithChildren<{}>) {
     const modals = useService(ModalService);
 
-    const predefinedModals: React.ReactElement[] = React.useMemo(() => [
-        <LoginModal/>
+    const predefinedModals: { key: string, component: React.ReactElement }[] = React.useMemo(() => [
+        {
+            key: 'login',
+            component: <LoginModal/>
+        }
     ], [])
 
 
@@ -50,14 +53,12 @@ export const ModalProvider = observer(function ModalProvider(props: React.PropsW
             {
                 modals.opened.map((modal) => {
                     const openPredefined = predefinedModals
-                        .find((r: React.ReactElement) => modal === getModalName(r))
+                        .find(({key}) => modal === key)
 
                     if (openPredefined) {
-                        const modalKey = getModalName(openPredefined)
-
                         return (
-                            <ModalItem modalKey={modalKey}>
-                                {openPredefined}
+                            <ModalItem modalKey={openPredefined.key}>
+                                {openPredefined.component}
                             </ModalItem>
                         );
                     }

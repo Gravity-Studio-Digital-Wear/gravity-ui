@@ -2,7 +2,6 @@ import * as React from 'react';
 import {observer} from "mobx-react";
 import {Box, Button, Flex, Grid, GridItem, Heading, HStack, Image, Spinner, Stack, Text} from "@chakra-ui/react";
 import {IconWallet} from "../../components/icons/IconWallet";
-import {formatAddress} from "../../utils/address";
 import {IconEdit} from "../../components/icons/IconEdit";
 import {ItemCard} from "./ItemCard";
 import {useService} from "../../core/decorators/service";
@@ -35,20 +34,14 @@ export const ProfilePage = observer(function ProfilePage() {
     const handleClickEdit = () => {
         history.push(Routes.profileEdit);
     }
-
-    const {myItems} = profileService;
     const {wardrobe} = warehouseStore
 
     React.useEffect(() => {
-        if (profileService.requestStatus !== 'success') {
-            return
-        }
-        myItems.request()
         wardrobe.request()
-    }, [profileService.requestStatus])
+    }, [])
 
 
-    if (authService.authStatus !== 'success' || profileService.requestStatus !== 'success') {
+    if (!wardrobe.isSuccess) {
         return <PageSpinner/>
     }
 
@@ -75,8 +68,6 @@ export const ProfilePage = observer(function ProfilePage() {
 
                         <Flex>
                             <WalletAddress address={profile.meta.publicAddress || ''}/>
-
-                            {/*<Button ml={'24px'} size={'sm'}>connect wallet</Button>*/}
                         </Flex>
                     </Stack>
 
@@ -88,19 +79,22 @@ export const ProfilePage = observer(function ProfilePage() {
 
                 <Box mt={'40px'}>
                     <Heading textTransform={'uppercase'} fontSize={25} letterSpacing={'0.02em'}>
-                        My items {myItems.requestStatus === 'success' ? `(${myItems.result.length})` : ''}
+                        My items {wardrobe.isSuccess ? `(${wardrobe.result.length})` : ''}
                     </Heading>
 
                     {wardrobe.isSuccess
                         ? (
                             <Grid gridTemplateColumns={'repeat(3, 1fr)'} gap={'30px'}>
                                 {wardrobe.result.map(({items: {product}, ticket}) => {
-                                    console.log(product)
-
                                     return (
                                         <ItemCard
-                                            key={product._id}
-                                            onClick={() => history.push(Routes.myItem.replace(':id', ticket._id))}
+                                            key={ticket._id}
+                                            onClick={() =>
+                                                history.push(
+                                                    Routes.myItem.replace(':id', ticket._id),
+                                                    {prevUrl: history.location.pathname}
+                                                )
+                                            }
                                             product={product}
                                             ticket={ticket}
                                         />
@@ -120,10 +114,7 @@ export const ProfilePage = observer(function ProfilePage() {
     )
 })
 
-
 function HelloSvg() {
-
-
     return (
         <svg width="166" height="517" viewBox="0 0 166 517" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path
