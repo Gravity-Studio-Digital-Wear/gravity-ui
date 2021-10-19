@@ -28,16 +28,37 @@ export class CartService {
     }
 
     @action
-    add(product: IProduct) {
+    add(product: IProduct, qty?: number) {
         let cartItem = this.cart.get(product._id)
 
         if (!cartItem) {
             cartItem = {
                 product,
-                quantity: 1
+                quantity: qty ? +qty : 1
             };
         } else {
-            cartItem.quantity = cartItem.quantity + 1;
+            cartItem.quantity = qty ? +qty : +cartItem.quantity + 1;
+        }
+
+        this.cart.set(product._id, cartItem)
+    }
+
+    @action
+    changeProductQty(product: IProduct, qty: number) {
+        let cartItem = this.cart.get(product._id)
+
+        if (!cartItem) {
+            cartItem = {
+                product,
+                quantity: 0
+            };
+        }
+
+        if (qty === 0) {
+            this.cart.delete(product._id)
+            return;
+        } else  {
+            cartItem.quantity = +qty;
         }
 
         this.cart.set(product._id, cartItem)

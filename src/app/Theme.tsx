@@ -10,7 +10,8 @@ export const GravityTheme = {
             300: '#8E8B94',
             100: '#E1DDEB'
         },
-        alert: '#7B61FF'
+        alert: '#7B61FF',
+        hover: ''
     },
     fonts: {
         body: "Sofia Pro, sans-serif",
@@ -27,7 +28,9 @@ export const GravityTheme = {
                 fontWeight: 'bold',
                 borderRadius: '0',
                 textTransform: 'uppercase',
-                minW: 'auto'
+                minW: 'auto',
+
+
             },
 
             sizes: {
@@ -60,7 +63,7 @@ export const GravityTheme = {
                     minWidth: 'auto',
                     bg: "primary.500",
                     _hover: {
-                        bg: "primary.500",
+                        bg: 'alert'
                     }
                 }
             }

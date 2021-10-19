@@ -28,15 +28,6 @@ function ModalItem({modalKey, children}: React.PropsWithChildren<{ modalKey: str
     )
 }
 
-
-function getModalName(r) {
-    const modalToken = ((r.type as any).displayName as string).toLowerCase();
-
-    const modalName = modalToken.slice(0, modalToken.indexOf('modal'))
-
-    return modalName;
-}
-
 export const ModalProvider = observer(function ModalProvider(props: React.PropsWithChildren<{}>) {
     const modals = useService(ModalService);
 
@@ -46,7 +37,6 @@ export const ModalProvider = observer(function ModalProvider(props: React.PropsW
             component: <LoginModal/>
         }
     ], [])
-
 
     return (
         <>

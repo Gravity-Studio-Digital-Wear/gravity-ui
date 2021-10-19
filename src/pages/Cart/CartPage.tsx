@@ -27,9 +27,13 @@ export const CartPage = observer(function CartPage() {
             </Flex>
 
             <Box position={'relative'}>
-                <Flex width={'100%'} position={'absolute'} justify={'flex-end'} align={'center'}>
-                    <Image src={'/empty_cart.png'} width={'360px'}/>
-                </Flex>
+                {cartService.productsCount === 0 && (
+                    <Flex width={'100%'} position={'absolute'} justify={'flex-end'} align={'center'}>
+                        <Image src={'/empty_cart.png'} width={'360px'}/>
+                    </Flex>
+                )}
+
+
 
                 <Stack spacing={'32px'}>
                     <Heading as={'h1'} fontSize={70} textTransform={'uppercase'} fontWeight={'bold'} color={'basic.500'}
@@ -131,8 +135,8 @@ function CartItem({product, quantity}: { product: IProduct, quantity: number }) 
 
                     <QtyControl
                         value={quantity}
-                        onInc={() => cartService.add(product)}
-                        onDec={() => cartService.remove(product)}
+                        max={+product.__supply.remaningSupply}
+                        onChange={(qty) => cartService.changeProductQty(product, qty)}
                     />
                 </Stack>
 

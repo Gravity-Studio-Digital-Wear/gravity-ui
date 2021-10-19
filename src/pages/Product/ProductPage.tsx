@@ -1,7 +1,6 @@
 import * as React from 'react';
 import {observer} from "mobx-react";
-import {Box, Button, Flex, Grid, GridItem, Heading, HStack, Image, Link, Stack, Text} from "@chakra-ui/react";
-import {ChakraCarousel} from "../../components/Carousel";
+import {Box, Button, Flex, Grid, GridItem, Heading, HStack, Image, Link, Stack, Text, useToken} from "@chakra-ui/react";
 import {IconCart} from "../../components/icons/IconCart";
 import {QtyControl} from "../../components/QtyControl";
 import {useService} from "../../core/decorators/service";
@@ -10,15 +9,25 @@ import {RouteComponentProps} from "react-router";
 import {PageSpinner} from "../../components/PageSpinner";
 import {CartService} from "../../services/CartService";
 import {formatPrice} from "../../utils/price";
+import SwiperCore, {Pagination} from 'swiper';
+
+import {Swiper, SwiperSlide} from "swiper/react";
+
+// install Swiper modules
+SwiperCore.use([Pagination]);
 
 
 export const ProductPage = observer(function ProductPage({match}: RouteComponentProps<{ id: string }>) {
     const warehouseStore = useService(WarehouseStore)
     const cartService = useService(CartService)
-
+    const [primary500, white] = useToken(
+        'colors',
+        ['primary.500', 'white']
+    )
     React.useEffect(() => {
         warehouseStore.productItem.request(match.params.id)
     }, [])
+
 
     if (warehouseStore.productItem.requestStatus !== 'success' && !warehouseStore.productItem.result) {
         return <PageSpinner/>
@@ -26,29 +35,45 @@ export const ProductPage = observer(function ProductPage({match}: RouteComponent
 
     const product = warehouseStore.productItem.result
 
-    const imageCarousel = (
-        <ChakraCarousel gap={32}>
-            {product.images.slice(1).map((image: string) => {
-                return (
-                    <Image
-                        key={image}
-                        boxSize={'80%'}
-                        pointerEvents={'none'}
-                        src={image}
-                    />
-                )
-            })}
-        </ChakraCarousel>
-    )
-
     const cartItem = cartService.getProductCartItem(product)
 
 
     return (
         <Grid templateColumns={'repeat(12, 1fr)'} gridGap={'20px'} mt={'84px'}>
-            <GridItem gridColumn={'span 1'}></GridItem>
-            <GridItem gridColumn={'span 6'}>
-                <Box maxH={'550px'}>{imageCarousel}</Box>
+            <GridItem gridColumn={'span 7'}>
+                <Box maxH={'700px'}
+                     overflow={'hidden'}
+                     position={'relative'}
+                     sx={{
+                         '.swiper': {position: 'initial'},
+                         '.swiper-pagination-vertical': {
+                             left: 0,
+                             right: 'auto'
+                         },
+                         '.swiper-pagination-bullet-active': {
+                             bg: primary500
+                         }
+                     }}>
+                    <Swiper direction={'vertical'}
+                            height={700}
+                            pagination={{
+                                "clickable": true
+                            }}
+                    >
+                        {product.images.slice(1).map((image: string) => {
+                            return (
+                                <SwiperSlide key={image}>
+                                    <Image
+                                        key={image}
+                                        width={'100%'}
+                                        pointerEvents={'none'}
+                                        src={image}
+                                    />
+                                </SwiperSlide>
+                            )
+                        })}
+                    </Swiper>
+                </Box>
             </GridItem>
             <GridItem gridColumn={'span 5'}>
                 <Stack spacing={'16px'}>
@@ -66,13 +91,14 @@ export const ProductPage = observer(function ProductPage({match}: RouteComponent
                     <HStack>
                         <HStack spacing={'32px'}>
                             <QtyControl
+                                max={+product.__supply.remaningSupply}
                                 value={cartItem.quantity}
-                                onInc={() => cartService.add(product)}
-                                onDec={() => cartService.remove(product)}
+                                onChange={(qty) => cartService.changeProductQty(product, qty)}
                             />
 
                             <Text fontSize={'16px'} color={'alert'} textTransform={'uppercase'}
-                                  letterSpacing={'0.07em'}>{+product.__supply.remaningSupply || +product.__supply.maxSupply} pieces left</Text>
+                                  letterSpacing={'0.07em'}>{+product.__supply.remaningSupply || +product.__supply.maxSupply} pieces
+                                left</Text>
                         </HStack>
                     </HStack>
 
@@ -97,6 +123,7 @@ export const ProductPage = observer(function ProductPage({match}: RouteComponent
 
                         <Box marginLeft={'auto'}>
                             <Button
+                                isDisabled={+product.__supply.remaningSupply <= +cartService.getProductCartItem(product).quantity}
                                 leftIcon={<IconCart/>}
                                 colorScheme={'primary'}
                                 textTransform={'uppercase'}
