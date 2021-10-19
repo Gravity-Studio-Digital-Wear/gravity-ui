@@ -29,10 +29,7 @@ export function QtyControl(props: { max: number ,value: number, onChange: (v: nu
     const qty = watch('qty');
 
     React.useEffect(() => {
-        console.log(errors)
-
         if (!errors.qty) {
-
             onChange(qty)
         }
     }, [qty])
@@ -58,10 +55,9 @@ export function QtyControl(props: { max: number ,value: number, onChange: (v: nu
                 </svg>
             </ControlWrapper>
 
-            <FormControl>
+            <FormControl width={'74px'}>
                 <Input
                     type={'number'}
-                    width={'74px'}
                     borderRadius={0}
                     bg={'white'}
                     border={'1px solid'}

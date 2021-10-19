@@ -3,6 +3,11 @@ import {Box, Button, Grid, HStack, Image, Stack, Text} from "@chakra-ui/react";
 import {IconCart} from "../../../components/icons/IconCart";
 import {IProduct} from "../../../interfaces";
 import {processImgUrl} from "../../../utils/imageUrl";
+import {useService} from "../../../core/decorators/service";
+import {CartService} from "../../../services/CartService";
+import {observer} from "mobx-react";
+import {useHistory} from "react-router-dom";
+import {Routes} from "../../../app/routes";
 
 
 export const Wrapper = (props: React.PropsWithChildren<{}>) => {
@@ -13,7 +18,16 @@ export const Wrapper = (props: React.PropsWithChildren<{}>) => {
     )
 }
 
-export function Card(props: IProduct & {onClickCard: () => void, onClickAdd: () => void}) {
+export const Card = observer(function Card(props: IProduct & { onClickCard: () => void, onClickAdd: () => void }) {
+    const isInCart = useService(CartService).getProductCartItem(props).quantity !== 0;
+
+    const history = useHistory()
+
+    const goToCart = () => {
+        history.push(Routes.cart)
+    }
+
+
     return (
         <Stack display={'flex'}
                justifyContent={'flex-end'}
@@ -41,20 +55,20 @@ export function Card(props: IProduct & {onClickCard: () => void, onClickAdd: () 
                 </Text>
 
 
-                    <HStack spacing={'11px'} alignItems={'flex-end'} textTransform={'uppercase'}>
-                        <Text as={'span'}
-                              fontSize={'15px'}
-                              lineHeight={1}
-                              textDecoration={'line-through'}>
-                            {Math.round(props.priceUSD + (props.priceUSD * 0.5)) / 100} $
-                        </Text>
-                        <Text as={'span'}
-                              fontSize={'21px'}
-                              lineHeight={1}
-                              color={'alert'}>
-                            {props.priceUSD / 100} $
-                        </Text>
-                    </HStack>
+                <HStack spacing={'11px'} alignItems={'flex-end'} textTransform={'uppercase'}>
+                    <Text as={'span'}
+                          fontSize={'15px'}
+                          lineHeight={1}
+                          textDecoration={'line-through'}>
+                        {Math.round(props.priceUSD + (props.priceUSD * 0.5)) / 100} $
+                    </Text>
+                    <Text as={'span'}
+                          fontSize={'21px'}
+                          lineHeight={1}
+                          color={'alert'}>
+                        {props.priceUSD / 100} $
+                    </Text>
+                </HStack>
 
 
                 <Text fontSize={12}
@@ -70,23 +84,36 @@ export function Card(props: IProduct & {onClickCard: () => void, onClickAdd: () 
             </Stack>
 
             <Box>
-                <Button
-                    leftIcon={<IconCart/>}
-                    colorScheme={'primary'}
-                    textTransform={'uppercase'}
-                    onClick={(e) => {
-                        e.stopPropagation()
-                        props.onClickAdd()
-                    }}
-                    w={'100%'}>
-                    Add to cart
-                </Button>
+                {isInCart
+                    ? (
+                        <Button
+                            variant={'outline'}
+                            textTransform={'uppercase'}
+                            onClick={(e) => {
+                                e.stopPropagation()
+                                goToCart()
+                            }}
+                            w={'100%'}>
+                            Go to cart
+                        </Button>
+                    )
+                    : (
+                        <Button
+                            leftIcon={<IconCart/>}
+                            variant={'solid'}
+                            textTransform={'uppercase'}
+                            onClick={(e) => {
+                                e.stopPropagation()
+                                props.onClickAdd()
+                            }}
+                            w={'100%'}>
+                            Add to cart
+                        </Button>
+                    )}
             </Box>
         </Stack>
     )
-}
-
-
+})
 
 
 export const GridListView = {Wrapper, Card};

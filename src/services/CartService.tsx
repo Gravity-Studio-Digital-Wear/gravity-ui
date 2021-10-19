@@ -4,6 +4,8 @@ import {ServiceContainer} from "../core/ServiceContainer";
 import {http} from "../core/transport/http";
 import {ENDPOINTS} from "./api/endpoints";
 import {create, persist} from 'mobx-persist'
+import {ModalService} from "./ModalService";
+import {AuthService} from "./AuthService";
 
 
 type TCartItem = {
@@ -16,6 +18,9 @@ export class CartService {
     @observable
     cart: Map<string, TCartItem> = new Map<string, TCartItem>();
 
+    modalService: ModalService;
+    authService: AuthService;
+
     constructor(sc: ServiceContainer) {
         makeAutoObservable(this);
 
@@ -25,6 +30,10 @@ export class CartService {
         })
 
         hydrate('CartService', this);
+
+
+        this.authService = sc.get(AuthService)
+        this.modalService = sc.get(ModalService)
     }
 
     @action
@@ -81,6 +90,7 @@ export class CartService {
     clear(product?: IProduct) {
         if (!product) {
             this.cart.clear();
+
             return;
         }
 
@@ -115,8 +125,17 @@ export class CartService {
         return [...this.cart.values()].reduce((acc, r) => acc + (r.quantity * r.product.priceUSD), 0)
     }
 
+
+
     @action
     public checkout() {
+        if (!this.authService.isAuthorized) {
+            this.modalService.open('login')
+
+            return
+        }
+
+
         const cart = [...this.cart.values()].map(({product, quantity}) => ({
             productId: product._id,
             quantity
@@ -124,6 +143,8 @@ export class CartService {
 
         return http.post<{ success: boolean, checkoutUrl: string }>(ENDPOINTS.Cart.checkout, {cart})
             .then((res) => {
+                this.cart.clear();
+
                 if (res.success) {
 
                     // @ts-ignore

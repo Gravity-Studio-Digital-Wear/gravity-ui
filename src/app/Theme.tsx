@@ -59,6 +59,17 @@ export const GravityTheme = {
                 unstyled: {
                     minWidth: 'auto'
                 },
+
+                outline: {
+                    bg: 'transparent',
+                    color: 'primary.500',
+                    border: '1px solid',
+                    borderColor: 'primary.500',
+                    _hover: {
+                        bg: 'primary.500',
+                        color: 'white'
+                    }
+                },
                 solid: {
                     minWidth: 'auto',
                     bg: "primary.500",
@@ -66,6 +77,11 @@ export const GravityTheme = {
                         bg: 'alert'
                     }
                 }
+            },
+
+
+            defaultProps: {
+              variant: 'solid'
             }
         },
 

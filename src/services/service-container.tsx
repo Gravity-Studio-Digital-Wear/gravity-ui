@@ -25,15 +25,15 @@ sc.set(WEB3_PROVIDER, web3);
 
 // Services and stores
 sc.set(new AuthService(sc))
+sc.set(new ModalService(sc))
 
 sc.set(new ProfileService(sc))
-
 sc.set(new MagicOAuthProvider(sc));
 sc.set(new WarehouseService());
 sc.set(new WarehouseStore(sc));
 sc.set(new CartStore(sc));
+
 sc.set(new CartService(sc))
-sc.set(new ModalService(sc))
 
 sc.set(new WaredrobeService(sc));
 

@@ -24,6 +24,8 @@ import {Routes} from "../../app/routes";
 import {PageSpinner} from "../../components/PageSpinner";
 import {toJS} from "mobx";
 import {AuthService} from "../../services/AuthService";
+import {NoAvatar} from "./NoAvatar";
+import {processUploadImgUrl} from "../../utils/imageUrl";
 
 const socialLinks = ['Instagram', 'TikTok', 'Twitter', 'Facebook']
 
@@ -62,16 +64,47 @@ function ProfileEditForm(props: { profile: IProfile, onSubmit: (profile: Partial
         onSubmit
     } = props;
 
+
+
+
     const {
         handleSubmit,
         register,
         getValues,
+        watch,
+        setValue,
         formState: {errors, isSubmitting},
     } = useForm({
         defaultValues: profile
     });
 
-    const avatarValue = getValues('avatar')
+    const [widget] = React.useState((fn: (err, result) => void) => {
+        // @ts-ignore
+        return window.cloudinary.createUploadWidget(
+            {
+                cloudName: 'easychain-img',
+
+                uploadPreset: 'default_upload_preset',
+                sources: [
+                    "local",
+                    "url",
+                    "camera",
+                    "image_search",
+                    "google_drive",
+                    "facebook",
+                    "dropbox",
+                    "instagram",
+                ],
+            },
+            (error, result) => {
+                if (!error && result && result.event === "success") {
+                    setValue('avatar', processUploadImgUrl(result.info.url))
+                }
+            }
+        )
+    })
+
+    const avatarValue = watch('avatar')
 
     return (
         <Flex justify={'center'}>
@@ -83,7 +116,13 @@ function ProfileEditForm(props: { profile: IProfile, onSubmit: (profile: Partial
                         <FormControl isInvalid={!!errors.avatar}>
                             <Flex justify={'center'}>
                                 <Box position={'relative'}>
-                                    <Circle width={'40px'} height={'40px'} as={Button} px={0} position={'absolute'} bottom={0} right={0}>
+                                    <Circle width={'40px'}
+                                            height={'40px'}
+                                            as={Button}
+                                            onClick={() => widget.open()}
+                                            px={0}
+                                            position={'absolute'}
+                                            bottom={0} right={0}>
                                         <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
                                              xmlns="http://www.w3.org/2000/svg">
                                             <path
@@ -98,7 +137,7 @@ function ProfileEditForm(props: { profile: IProfile, onSubmit: (profile: Partial
                                             boxSize="132px"
                                             src={avatarValue}
                                         />
-                                        : <NoImage/>
+                                        : <NoAvatar/>
                                     }
                                 </Box>
                             </Flex>
@@ -174,16 +213,3 @@ function ProfileEditForm(props: { profile: IProfile, onSubmit: (profile: Partial
     )
 }
 
-
-function NoImage() {
-    return (
-        <Circle size={'132px'} bg={'basic.100'}>
-            <svg width="64" height="61" viewBox="0 0 64 61" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <circle cx="32" cy="17.75" r="17.25" fill="#523774"/>
-                <path fill-rule="evenodd" clip-rule="evenodd"
-                      d="M18.2093 32.4072C8.79263 36.9774 1.98486 46.0822 0.62449 56.8832C0.348432 59.075 2.16583 60.875 4.37497 60.875H59.625C61.8341 60.875 63.6515 59.075 63.3754 56.8832C62.0151 46.0822 55.2073 36.9774 45.7907 32.4073C42.1887 35.7976 37.337 37.875 32 37.875C26.663 37.875 21.8113 35.7976 18.2093 32.4072Z"
-                      fill="#523774"/>
-            </svg>
-        </Circle>
-    )
-}

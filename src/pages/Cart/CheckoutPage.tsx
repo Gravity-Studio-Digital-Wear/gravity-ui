@@ -19,8 +19,12 @@ export const CheckoutPage = observer(function CheckoutPage({location}: RouteChil
         const isCanceled = params.get('canceled')
 
         if (isSuccess) {
-            cartService.clear();
-            history.push(Routes.profile)
+
+            setTimeout(() => {
+                cartService.clear();
+
+                history.push(Routes.profile)
+            }, 1000);
             return
         }
     }, [location.search])

@@ -1,5 +1,8 @@
 export function processImgUrl(url: string) {
     return url;
+}
 
-    return url.replace('https://gravity-dev-image.easychain.dev/', 'https://res.cloudinary.com/easychain-img/')
+
+export function processUploadImgUrl(url: string) {
+    return url.replace('https://res.cloudinary.com/easychain-img/', 'https://gravity-dev-image.easychain.dev/')
 }

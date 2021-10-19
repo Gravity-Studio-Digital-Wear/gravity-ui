@@ -19,7 +19,7 @@ export const CartPage = observer(function CartPage() {
     return (
         <Stack spacing={'32px'}>
             <Flex>
-                <Link as={RouterLink} to={Routes.main} fontSize={18} textTransform={'uppercase'}
+                <Link as={RouterLink} to={{pathname: Routes.main, state: {refresh: false}}}  fontSize={18} textTransform={'uppercase'}
                       textDecoration={'none'} display={'flex'} alignItems={'center'}>
                     <IconBack/>
                     <Text as={'span'} ml={'12px'}>Back to shopping</Text>
@@ -32,8 +32,6 @@ export const CartPage = observer(function CartPage() {
                         <Image src={'/empty_cart.png'} width={'360px'}/>
                     </Flex>
                 )}
-
-
 
                 <Stack spacing={'32px'}>
                     <Heading as={'h1'} fontSize={70} textTransform={'uppercase'} fontWeight={'bold'} color={'basic.500'}

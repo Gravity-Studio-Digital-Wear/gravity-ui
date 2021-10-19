@@ -11,6 +11,7 @@ import {Routes} from "../../app/routes";
 import {ProfileService} from "../../services/ProfileService";
 import {PageSpinner} from "../../components/PageSpinner";
 import {WarehouseStore} from "../../stores/WarehouseStore";
+import {NoAvatar} from "./NoAvatar";
 
 function WalletAddress({address}: { address: string }) {
     return (
@@ -55,8 +56,10 @@ export const ProfilePage = observer(function ProfilePage() {
 
             <GridItem gridColumn={'span 10'}>
                 <Flex bg={'white'} p={'40px'} position={'relative'}>
-                    <Image boxSize={'100px'} src={'/avatar.png'}/>
-
+                    {profileService.profile.avatar
+                        ? <Image boxSize={'100px'} borderRadius="full" src={profileService.profile.avatar}/>
+                        : <NoAvatar/>
+                    }
                     <Stack ml={'30px'}>
                         <Text
                             letterSpacing={'0.02em'}

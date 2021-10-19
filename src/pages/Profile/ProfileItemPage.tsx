@@ -28,7 +28,12 @@ import {WaredrobeService} from "../../services/WaredrobeService";
 import {TicketStatus} from "./TicketStatus";
 import {Routes} from "../../app/routes";
 import {IconBack} from "../../components/icons/IconBack";
+import {processUploadImgUrl} from "../../utils/imageUrl";
+import SwiperCore, {Pagination} from 'swiper';
+import {Swiper, SwiperSlide} from "swiper/react";
 
+// install Swiper modules
+SwiperCore.use([Pagination]);
 
 export const ProfileItemPage = observer(function ProfileItemPage({match}: RouteChildrenProps<{ id: string }>) {
     const warehouseStore = useService(WarehouseStore)
@@ -45,7 +50,7 @@ export const ProfileItemPage = observer(function ProfileItemPage({match}: RouteC
     const imageStore = useLocalObservable(() => ({
         images: [] as string[],
         add: (img: { url: string }) => {
-            imageStore.images = [...imageStore.images, img.url]
+            imageStore.images = [...imageStore.images, processUploadImgUrl(img.url)]
         },
         remove: (imgUrl) => {
             imageStore.images = [...imageStore.images.filter(img => img !== imgUrl)];
@@ -92,18 +97,25 @@ export const ProfileItemPage = observer(function ProfileItemPage({match}: RouteC
     const {ticket, items: {product}} = warehouseStore.wardrobe.result.find(({ticket}) => ticket._id === match.params.id)
 
     const imageCarousel = (
-        <ChakraCarousel gap={32}>
+        <Swiper direction={'vertical'}
+                height={700}
+                pagination={{
+                    "clickable": true
+                }}
+        >
             {product.images.slice(1).map((image: string) => {
                 return (
-                    <Image
-                        key={image}
-                        boxSize={'80%'}
-                        pointerEvents={'none'}
-                        src={image}
-                    />
+                    <SwiperSlide key={image}>
+                        <Image
+                            key={image}
+                            width={'100%'}
+                            pointerEvents={'none'}
+                            src={image}
+                        />
+                    </SwiperSlide>
                 )
             })}
-        </ChakraCarousel>
+        </Swiper>
     )
 
     const uploadResult = () => {
@@ -127,14 +139,15 @@ export const ProfileItemPage = observer(function ProfileItemPage({match}: RouteC
                 </Link>
             </Flex>
             <Grid templateColumns={'repeat(12, 1fr)'} gridGap={'20px'} mt={'84px'}>
-                <GridItem gridColumn={'span 1'}></GridItem>
-                <GridItem gridColumn={'span 6'}>
-                    <Box maxH={'550px'} position={'relative'}>
+                <GridItem gridColumn={'span 7'}>
+                    <Box position={'relative'}>
                         <Box position={'absolute'} top={0} right={24}>
                             <TicketStatus status={ticket.status}/>
                         </Box>
 
-                        {imageCarousel}
+                        <Box overflow={'hidden'} maxH={'700px'}>
+                            {imageCarousel}
+                        </Box>
                     </Box>
                 </GridItem>
                 <GridItem gridColumn={'span 5'}>
@@ -252,12 +265,9 @@ export const ProfileItemPage = observer(function ProfileItemPage({match}: RouteC
                     )}
                 </GridItem>
 
-
                 <GridItem gridColumn={'span 12'}>
                     {ticket.status !== 'NEW' && (
-
-
-                        <Box>
+                        <Box >
                             <Heading letterSpacing={'0.01em'} color={'basic.500'} textTransform={'uppercase'}
                                      fontWeight={'bold'} fontSize={43}>Your photo</Heading>
 
