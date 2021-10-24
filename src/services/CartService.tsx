@@ -6,7 +6,7 @@ import {ENDPOINTS} from "./api/endpoints";
 import {create, persist} from 'mobx-persist'
 import {ModalService} from "./ModalService";
 import {AuthService} from "./AuthService";
-
+import {sendAmplitudeData} from '../utils/amplitude'
 
 type TCartItem = {
     product: IProduct,
@@ -45,6 +45,10 @@ export class CartService {
                 product,
                 quantity: qty ? +qty : 1
             };
+            sendAmplitudeData('E_CART_ADD', {
+                product: product._id,
+                product_name: product.name
+            })
         } else {
             cartItem.quantity = qty ? +qty : +cartItem.quantity + 1;
         }
@@ -81,6 +85,10 @@ export class CartService {
 
         if (cartItem.quantity === 0) {
             this.cart.delete(product._id)
+            sendAmplitudeData('E_CART_REMOVE', {
+                product: product._id,
+                product_name: product.name
+            })
         } else {
             this.cart.set(product._id, cartItem)
         }
@@ -135,7 +143,7 @@ export class CartService {
             return
         }
 
-
+        sendAmplitudeData('E_CHECKOUT_BEGIN')
         const cart = [...this.cart.values()].map(({product, quantity}) => ({
             productId: product._id,
             quantity
@@ -146,9 +154,11 @@ export class CartService {
                 this.cart.clear();
 
                 if (res.success) {
-
+                    sendAmplitudeData('E_CHECKOUT_REDIRECT_TO_STRIPE')
                     // @ts-ignore
                     window.location = res.checkoutUrl
+                } else {
+                    sendAmplitudeData('E_CHECKOUT_ERROR')
                 }
             })
     }

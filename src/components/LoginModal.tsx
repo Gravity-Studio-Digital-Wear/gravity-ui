@@ -21,11 +21,15 @@ import {useService} from "../core/decorators/service";
 import {MagicOAuthProvider} from "../services/AuthService";
 import {OAuthProvider} from "@magic-ext/oauth";
 import {useModalProps} from "../core/modal/modal";
+import {sendAmplitudeData} from '../utils/amplitude'
 
 export const LoginModal = observer(function LoginModal() {
     const magicOAuthProvider = useService(MagicOAuthProvider);
 
     const login = (provider: OAuthProvider) => {
+        sendAmplitudeData('E_LOGIN_ATTEMPT', {
+            type: provider
+        })
         magicOAuthProvider.authenticate(provider);
     }
 

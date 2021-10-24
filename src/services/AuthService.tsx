@@ -7,6 +7,7 @@ import {OAuthProvider} from "@magic-ext/oauth";
 import {Routes} from "../app/routes";
 import {MagicUserMetadata} from "magic-sdk";
 import Web3 from "web3";
+import {sendAmplitudeData, setAmplitudeUserId} from '../utils/amplitude'
 import {IProfile} from "../interfaces";
 
 export type AuthStatus = 'guest' | 'authenticated';
@@ -78,6 +79,7 @@ export class MagicOAuthProvider {
     }
 
     @action logout() {
+        sendAmplitudeData('E_LOGOUT')
         return this.magic.user.logout()
     }
 
@@ -139,6 +141,9 @@ export class AuthService {
                 signature,
                 address
             })
+
+            setAmplitudeUserId(address)
+            console.log(`setAmplitudeUserId ${address}`)
 
             this.requestStatus = 'success'
             this.token = token
