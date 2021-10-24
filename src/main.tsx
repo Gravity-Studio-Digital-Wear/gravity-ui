@@ -3,8 +3,10 @@ import './polyfills'
 
 import './index.css'
 import './fonts/stylesheet.css'
+
 import 'swiper/css';
 import "swiper/css/pagination";
+import "swiper/css/mousewheel";
 
 import React from 'react'
 import ReactDOM from 'react-dom'

@@ -18,18 +18,43 @@ import {IconGoogle} from "./icons/IconGoogle";
 import {IconMetamask} from "./icons/IconMetamask";
 import {observer} from "mobx-react";
 import {useService} from "../core/decorators/service";
-import {MagicOAuthProvider} from "../services/AuthService";
+import {AuthService, InjectedAuthProvider, MagicOAuthProvider} from "../services/AuthService";
 import {OAuthProvider} from "@magic-ext/oauth";
 import {useModalProps} from "../core/modal/modal";
+import {WEB3_PROVIDER} from "../services/service-container";
+import Web3 from "web3";
+import {ProfileService} from "../services/ProfileService";
+import {GravityApplication} from "../app/Application";
 
 export const LoginModal = observer(function LoginModal() {
     const magicOAuthProvider = useService(MagicOAuthProvider);
+    const injectedProvider = useService(InjectedAuthProvider);
+    const gravityApplication = useService(GravityApplication);
 
-    const login = (provider: OAuthProvider) => {
-        magicOAuthProvider.authenticate(provider);
-    }
+    const authService = useService(AuthService);
+    const profileService = useService(ProfileService);
 
     const modalProps = useModalProps();
+
+    const login = (provider: OAuthProvider) => {
+        gravityApplication.setCachedProvider('magic');
+
+        setTimeout(() => {
+            magicOAuthProvider.authenticate(provider);
+        })
+    }
+
+    const loginWithMetamask = async () => {
+        await injectedProvider.authenticate();
+        await authService.authenticate(injectedProvider.publicAddress);
+        await profileService.getProfile()
+
+        authService.ensureAuthSuccess();
+
+        gravityApplication.setCachedProvider('injected');
+
+        modalProps.onClose()
+    }
 
     return (
         <Modal {...modalProps}>
@@ -51,7 +76,9 @@ export const LoginModal = observer(function LoginModal() {
                     </Text>
 
                     <Box mb={'32px'}>
-                        <Button w={'316px'} border={'1px solid'} borderColor={'basic.500'} bg={'#F6851B'}
+                        <Button w={'316px'}
+                                border={'1px solid'} borderColor={'basic.500'} bg={'#F6851B'}
+                                onClick={() => loginWithMetamask()}
                                 letterSpacing={'0.02em'} leftIcon={<IconMetamask/>}>Login with metamask</Button>
                     </Box>
 

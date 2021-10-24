@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {observer} from "mobx-react";
-import {Route, Switch} from "react-router-dom";
+import {Redirect, Route, Switch} from "react-router-dom";
 import {AuthorizedContainer} from "../components/AuthorizedContainer";
 import {ShopPage} from "../pages/Shop/ShopPage";
 import {ProductPage} from "../pages/Product/ProductPage";
@@ -25,6 +25,12 @@ export const Routing = observer(function Routing() {
                             <Route path={Routes.authCallback} component={OAuthCallbackPage}/>
                             <Route path={Routes.productPage} component={ProductPage}/>
                             <ProtectedRoute path={Routes.profile} render={({match}) => {
+                                if (!r) {
+
+
+                                    return <Redirect to={Routes.main}/>
+                                }
+
                                 return (
                                     <Switch>
                                         <Route path={match.path + '/edit'} component={ProfileEditPage}/>

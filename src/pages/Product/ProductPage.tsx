@@ -9,14 +9,14 @@ import {RouteComponentProps} from "react-router";
 import {PageSpinner} from "../../components/PageSpinner";
 import {CartService} from "../../services/CartService";
 import {formatPrice} from "../../utils/price";
-import SwiperCore, {Pagination} from 'swiper';
+import SwiperCore, {Pagination, Mousewheel} from 'swiper';
 import {Swiper, SwiperSlide} from "swiper/react";
 import {Link as RouterLink} from "react-router-dom";
 import {Routes} from "../../app/routes";
 import {IconBack} from "../../components/icons/IconBack";
 
 // install Swiper modules
-SwiperCore.use([Pagination]);
+SwiperCore.use([Pagination,Mousewheel]);
 
 
 export const ProductPage = observer(function ProductPage({match}: RouteComponentProps<{ id: string }>) {
@@ -51,6 +51,8 @@ export const ProductPage = observer(function ProductPage({match}: RouteComponent
             <Grid templateColumns={'repeat(12, 1fr)'} gridGap={'20px'} mt={'84px'}>
                 <GridItem gridColumn={'span 7'}>
                     <Box maxH={'700px'}
+
+
                          overflow={'hidden'}
                          position={'relative'}
                          sx={{
@@ -63,8 +65,14 @@ export const ProductPage = observer(function ProductPage({match}: RouteComponent
                                  bg: primary500
                              }
                          }}>
-                        <Swiper direction={'vertical'}
+                        <Swiper
+                            direction={'vertical'}
                                 height={700}
+                                slidesPerView={1}
+                                mousewheel={{
+                                    eventsTarget: 'wrapper'
+
+                                }}
                                 pagination={{
                                     "clickable": true
                                 }}
@@ -75,7 +83,6 @@ export const ProductPage = observer(function ProductPage({match}: RouteComponent
                                         <Image
                                             key={image}
                                             width={'100%'}
-                                            pointerEvents={'none'}
                                             src={image}
                                         />
                                     </SwiperSlide>

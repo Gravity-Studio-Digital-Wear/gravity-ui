@@ -23,6 +23,7 @@ import {useService} from "../../core/decorators/service";
 import {AuthService, MagicOAuthProvider} from "../../services/AuthService";
 import {ModalService} from "../../services/ModalService";
 import {CartService} from "../../services/CartService";
+import {GravityApplication} from "../../app/Application";
 
 const navLinks = [
     ['shop', Routes.main],
@@ -63,7 +64,9 @@ function LoginButtonIcon() {
     return (
         <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
             <circle cx="9.00035" cy="4.92857" r="4.92857" fill="currentColor"/>
-            <path fillRule="evenodd" clipRule="evenodd" d="M5.05997 9.11632C3.21175 10.0133 1.71528 11.5217 0.833469 13.3786C-0.114185 15.3742 1.75532 17.25 3.96446 17.25H14.0359C16.245 17.25 18.1145 15.3742 17.1669 13.3786C16.2851 11.5217 14.7886 10.0133 12.9404 9.11632C11.9112 10.085 10.525 10.6785 9.00016 10.6785C7.47532 10.6785 6.08911 10.085 5.05997 9.11632Z" fill="currentColor"/>
+            <path fillRule="evenodd" clipRule="evenodd"
+                  d="M5.05997 9.11632C3.21175 10.0133 1.71528 11.5217 0.833469 13.3786C-0.114185 15.3742 1.75532 17.25 3.96446 17.25H14.0359C16.245 17.25 18.1145 15.3742 17.1669 13.3786C16.2851 11.5217 14.7886 10.0133 12.9404 9.11632C11.9112 10.085 10.525 10.6785 9.00016 10.6785C7.47532 10.6785 6.08911 10.085 5.05997 9.11632Z"
+                  fill="currentColor"/>
         </svg>
     )
 }
@@ -113,11 +116,12 @@ export const Navigation = observer(function Navigation() {
     const authService = useService(AuthService);
     const modalService = useService(ModalService);
     const magicOAuthProvider = useService(MagicOAuthProvider);
+    const application = useService(GravityApplication);
 
     const logout = () => {
         magicOAuthProvider.logout();
-        authService.unauthenticate();
         authService.clear();
+        application.setCachedProvider(null)
     }
 
     const isAuthorized = authService.isAuthorized;

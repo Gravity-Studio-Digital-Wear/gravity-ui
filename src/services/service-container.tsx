@@ -1,4 +1,4 @@
-import {AuthService, MagicOAuthProvider} from "./AuthService";
+import {AuthService, InjectedAuthProvider, MagicOAuthProvider} from "./AuthService";
 import {InjectionToken, ServiceContainer} from "../core/ServiceContainer";
 import {GravityApplication} from "../app/Application";
 import {WarehouseStore} from "../stores/WarehouseStore";
@@ -29,6 +29,7 @@ sc.set(new ModalService(sc))
 
 sc.set(new ProfileService(sc))
 sc.set(new MagicOAuthProvider(sc));
+sc.set(new InjectedAuthProvider(sc));
 sc.set(new WarehouseService());
 sc.set(new WarehouseStore(sc));
 sc.set(new CartStore(sc));

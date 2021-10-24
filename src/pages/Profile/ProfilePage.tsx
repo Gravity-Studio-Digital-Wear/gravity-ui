@@ -5,7 +5,6 @@ import {IconWallet} from "../../components/icons/IconWallet";
 import {IconEdit} from "../../components/icons/IconEdit";
 import {ItemCard} from "./ItemCard";
 import {useService} from "../../core/decorators/service";
-import {AuthService, MagicOAuthProvider} from "../../services/AuthService";
 import {useHistory} from "react-router-dom";
 import {Routes} from "../../app/routes";
 import {ProfileService} from "../../services/ProfileService";
@@ -25,8 +24,6 @@ function WalletAddress({address}: { address: string }) {
 }
 
 export const ProfilePage = observer(function ProfilePage() {
-    const profile = useService(MagicOAuthProvider)
-    const authService = useService(AuthService)
     const profileService = useService(ProfileService)
     const warehouseStore = useService(WarehouseStore)
 
@@ -39,14 +36,15 @@ export const ProfilePage = observer(function ProfilePage() {
 
     React.useEffect(() => {
         wardrobe.request()
+        profileService.getProfile();
     }, [])
 
 
-    if (!wardrobe.isSuccess) {
+    if (!wardrobe.isSuccess || profileService.requestStatus !== 'success') {
         return <PageSpinner/>
     }
 
-    const {name} = profileService.profile;
+    const {name, address} = profileService.profile;
 
     return (
         <Grid templateColumns={'repeat(12, 1fr)'} gridGap={'32px'} mt={'60px'}>
@@ -70,7 +68,7 @@ export const ProfilePage = observer(function ProfilePage() {
                         >{name}</Text>
 
                         <Flex>
-                            <WalletAddress address={profile.meta.publicAddress || ''}/>
+                            <WalletAddress address={address || ''}/>
                         </Flex>
                     </Stack>
 

@@ -36,6 +36,7 @@ export interface IProduct {
 
 
 export interface IProfile {
+    address: string,
     name: string
     avatar: string
     email: string

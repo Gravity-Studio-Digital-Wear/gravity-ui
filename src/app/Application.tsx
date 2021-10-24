@@ -1,22 +1,34 @@
 import {service} from "../core/decorators/service";
-import {action, makeAutoObservable} from "mobx";
+import {action, makeAutoObservable, observable} from "mobx";
 import {MAGIC, MagicInstance, WEB3_PROVIDER} from "../services/service-container";
 import {ServiceContainer} from "../core/ServiceContainer";
 import Web3 from "web3";
-import {AuthService, MagicOAuthProvider} from "../services/AuthService";
+import {AuthService, InjectedAuthProvider, MagicOAuthProvider} from "../services/AuthService";
 import {http} from "../core/transport/http";
-import {ENDPOINTS, NoAuth} from "../services/api/endpoints";
+import {ENDPOINTS} from "../services/api/endpoints";
 import {ProfileService} from "../services/ProfileService";
-
-
-import {matchPath} from 'react-router-dom'
+import {persist} from "mobx-persist";
 
 @service
 export class GravityApplication implements IBootstrapper {
+    @persist
+    @observable
+    public cachedAuthProviderKey: string;
+
+    @action
+    public setCachedProvider(key: string) {
+        this.cachedAuthProviderKey = key;
+
+        localStorage.setItem('GRAVITY_CACHED_AUTH_PROVIDER', key)
+    }
+
     public web3: Web3
     public magic: MagicInstance
     public authService: AuthService;
+
     public magicOAuth: MagicOAuthProvider;
+    public injectedAuth: InjectedAuthProvider;
+
     public profileService: ProfileService;
 
     constructor(private sc: ServiceContainer) {
@@ -26,7 +38,10 @@ export class GravityApplication implements IBootstrapper {
         this.magic = this.sc.get(MAGIC);
         this.authService = this.sc.get(AuthService);
         this.profileService = this.sc.get(ProfileService);
-        this.magicOAuth = this.sc.get(MagicOAuthProvider)
+        this.magicOAuth = this.sc.get(MagicOAuthProvider);
+        this.injectedAuth = this.sc.get(InjectedAuthProvider);
+
+        this.cachedAuthProviderKey = localStorage.getItem('GRAVITY_CACHED_AUTH_PROVIDER')
     }
 
     onBootstrap() {
@@ -55,23 +70,60 @@ export class GravityApplication implements IBootstrapper {
 
     @action
     async checkAuth() {
-        const {magic} = this
+        const {magic, web3, cachedAuthProviderKey, authService} = this;
 
-        magic.user.isLoggedIn()
-            .then(async magicIsLoggedIn => {
-                if (magicIsLoggedIn) {
-                    await this.magicOAuth.getMetadata();
-                    await this.authService.authenticate(this.magicOAuth.meta.publicAddress)
-                    await this.profileService.getProfile();
+        if (authService.token) {
+            this.authService.authStatus = 'success';
+            this.authService.status = 'authenticated';
+        } else {
+            this.authService.authStatus = 'initial';
+            this.authService.status = 'guest'
+        }
 
-                    this.authService.authStatus = 'success';
-                    this.authService.status = 'authenticated';
-                } else {
+        if (!cachedAuthProviderKey) {
+            return;
+        }
 
-                    this.authService.status = 'guest'
-                    this.authService.authStatus = 'success'
-                }
-            });
+        // if (cachedAuthProviderKey === 'injected') {
+        //     this.web3.setProvider(this.injectedAuth.provider)
+        //
+        //     const address = await this.injectedAuth.authenticate()
+        //
+        //     try {
+        //         await this.authService.authenticate(address)
+        //         await this.profileService.getProfile();
+        //
+        //         this.authService.authStatus = 'success';
+        //         this.authService.status = 'authenticated';
+        //     } catch (e) {
+        //         console.error('auth error=', e)
+        //
+        //         this.authService.status = 'guest'
+        //         this.authService.authStatus = 'success'
+        //         this.setCachedProvider(null)
+        //     }
+        // }
+
+        if (cachedAuthProviderKey === 'magic') {
+            this.web3.setProvider(this.magicOAuth.provider)
+
+            magic.user.isLoggedIn()
+                .then(async magicIsLoggedIn => {
+                    if (magicIsLoggedIn) {
+                        await this.magicOAuth.getMetadata();
+                        await this.authService.authenticate(this.magicOAuth.meta.publicAddress)
+                        await this.profileService.getProfile();
+
+                        this.authService.authStatus = 'success';
+                        this.authService.status = 'authenticated';
+                    } else {
+                        this.authService.status = 'guest'
+                        this.authService.authStatus = 'success'
+
+                        this.setCachedProvider(null)
+                    }
+                });
+        }
     }
 }
 
