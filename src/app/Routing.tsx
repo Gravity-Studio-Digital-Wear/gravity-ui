@@ -1,6 +1,7 @@
 import * as React from 'react';
 import {observer} from "mobx-react";
-import {Redirect, Route, Switch} from "react-router-dom";
+import {sendAmplitudeData} from '../utils/amplitude'
+import {Redirect, Route, Switch, useHistory} from "react-router-dom";
 import {AuthorizedContainer} from "../components/AuthorizedContainer";
 import {ShopPage} from "../pages/Shop/ShopPage";
 import {ProductPage} from "../pages/Product/ProductPage";
@@ -15,6 +16,16 @@ import {CheckoutPage} from "../pages/Cart/CheckoutPage";
 import {AuthGuard} from "../core/guards/auth-guard";
 
 export const Routing = observer(function Routing() {
+    const history = useHistory()
+    const trackPageView = () => {
+        sendAmplitudeData('E_NAVIGATION', {
+            page: window.location.pathname
+        })
+    }
+    React.useEffect(() => {
+        trackPageView()
+        history.listen(trackPageView)
+    })
     return (
         <AuthorizedContainer>
             <AuthGuard fn={s => s === 'authenticated'}>

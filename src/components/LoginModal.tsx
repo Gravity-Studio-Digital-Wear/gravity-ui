@@ -21,10 +21,9 @@ import {useService} from "../core/decorators/service";
 import {AuthService, InjectedAuthProvider, MagicOAuthProvider} from "../services/AuthService";
 import {OAuthProvider} from "@magic-ext/oauth";
 import {useModalProps} from "../core/modal/modal";
-import {WEB3_PROVIDER} from "../services/service-container";
-import Web3 from "web3";
 import {ProfileService} from "../services/ProfileService";
 import {GravityApplication} from "../app/Application";
+import {sendAmplitudeData} from '../utils/amplitude'
 
 export const LoginModal = observer(function LoginModal() {
     const magicOAuthProvider = useService(MagicOAuthProvider);
@@ -38,6 +37,10 @@ export const LoginModal = observer(function LoginModal() {
 
     const login = (provider: OAuthProvider) => {
         gravityApplication.setCachedProvider('magic');
+
+        sendAmplitudeData('E_LOGIN_ATTEMPT', {
+            type: provider
+        })
 
         setTimeout(() => {
             magicOAuthProvider.authenticate(provider);

@@ -31,6 +31,7 @@ import {IconBack} from "../../components/icons/IconBack";
 import {processUploadImgUrl} from "../../utils/imageUrl";
 import SwiperCore, {Pagination} from 'swiper';
 import {Swiper, SwiperSlide} from "swiper/react";
+import {sendAmplitudeData} from '../../utils/amplitude'
 
 // install Swiper modules
 SwiperCore.use([Pagination]);
@@ -77,7 +78,11 @@ export const ProfileItemPage = observer(function ProfileItemPage({match}: RouteC
             },
             (error, result) => {
                 if (!error && result && result.event === "success") {
+                    if (imageStore.images.length === 0) {
+                        sendAmplitudeData('E_WEARING_REQUEST_STARTED')
+                    }
                     imageStore.add(result.info)
+                    sendAmplitudeData('E_WEARING_REQUEST_PHOTO_ADDED')
                 }
             }
         )

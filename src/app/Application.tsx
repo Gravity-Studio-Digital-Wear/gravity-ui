@@ -7,6 +7,8 @@ import {AuthService, InjectedAuthProvider, MagicOAuthProvider} from "../services
 import {http} from "../core/transport/http";
 import {ENDPOINTS} from "../services/api/endpoints";
 import {ProfileService} from "../services/ProfileService";
+import {initAmplitude} from "../utils/amplitude"
+
 import {persist} from "mobx-persist";
 
 @service
@@ -45,6 +47,7 @@ export class GravityApplication implements IBootstrapper {
     }
 
     onBootstrap() {
+        this.initAmplitude();
         this.addHttpAuthMiddleware();
         this.checkAuth();
     }
@@ -110,6 +113,8 @@ export class GravityApplication implements IBootstrapper {
             magic.user.isLoggedIn()
                 .then(async magicIsLoggedIn => {
                     if (magicIsLoggedIn) {
+                        console.log(`On magicIsLoggedIn=true`)
+
                         await this.magicOAuth.getMetadata();
                         await this.authService.authenticate(this.magicOAuth.meta.publicAddress)
                         await this.profileService.getProfile();
@@ -117,6 +122,8 @@ export class GravityApplication implements IBootstrapper {
                         this.authService.authStatus = 'success';
                         this.authService.status = 'authenticated';
                     } else {
+                        console.log(`On magicIsLoggedIn=false`)
+
                         this.authService.status = 'guest'
                         this.authService.authStatus = 'success'
 
@@ -124,6 +131,10 @@ export class GravityApplication implements IBootstrapper {
                     }
                 });
         }
+    }
+
+    initAmplitude() {
+        initAmplitude()
     }
 }
 
