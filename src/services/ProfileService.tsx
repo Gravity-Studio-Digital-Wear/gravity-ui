@@ -26,8 +26,9 @@ export class ProfileService {
 
         return fetchProfile()
             .then((res) => {
-                this.requestStatus = 'success'
                 this.profile = res
+                this.requestStatus = 'success'
+
 
                 return Promise.resolve(res)
             })
