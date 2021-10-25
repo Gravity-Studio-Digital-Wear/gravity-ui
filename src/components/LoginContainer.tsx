@@ -15,7 +15,6 @@ export const LoginContainer = observer(function AuthorizedContainer(props: React
                 position={'absolute'}
                 w="100%"
                 height={'100vh'}
-
                 opacity={'0.4'}
             />
 

@@ -21,6 +21,7 @@ export const setAmplitudeUserProperties = properties => {
   amplitude.getInstance().setUserProperties(properties);
 };
 
+
 export const sendAmplitudeData = (eventType: string, eventProperties?: any) => {
   amplitude.getInstance().logEvent(eventType, eventProperties);
 };

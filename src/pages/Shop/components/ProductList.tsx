@@ -1,12 +1,13 @@
 import * as React from 'react';
 import {observer} from "mobx-react";
-import {Box} from "@chakra-ui/react";
+import {Box, useMediaQuery, useToken} from "@chakra-ui/react";
 import {GridListView} from "./GridListView";
 import {ChessListView} from "./ChessListView";
 import {useService} from "../../../core/decorators/service";
 import {WarehouseStore} from "../../../stores/WarehouseStore";
 import {useHistory} from "react-router-dom";
 import {CartService} from "../../../services/CartService";
+import {MobileListView} from "./MobileListView";
 
 
 export const ProductList = observer(function ProductList() {
@@ -14,22 +15,36 @@ export const ProductList = observer(function ProductList() {
     const cartService = useService(CartService)
     const {products} = warehouseStore
 
+    const [md] = useToken(
+        'breakpoints',
+        ['md']
+    );
+
+    const [isLargerThanMd] = useMediaQuery(`(min-width: ${md})`)
+
+
     const view = React.useMemo(() => {
+        if (!isLargerThanMd) {
+            return MobileListView;
+        }
+
         if (warehouseStore.viewType === 'chess') {
             return ChessListView
         }
 
         return GridListView
-    }, [warehouseStore.viewType])
+    }, [warehouseStore.viewType, isLargerThanMd])
 
 
     const {Wrapper, Card} = view
 
     const history = useHistory()
 
+    const isChessListView = view === ChessListView;
+
     return (
         <Box position={'relative'} mt={'60px'} width={'100%'}>
-            {view === ChessListView && <ClothingText/>}
+            {(isLargerThanMd && isChessListView) && <ClothingText/>}
 
             <Wrapper>
                 {products.result?.map((p) => <Card

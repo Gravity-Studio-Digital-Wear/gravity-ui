@@ -1,9 +1,16 @@
 import * as React from 'react';
 import {observer} from "mobx-react";
-import {Box, Flex, HStack, Text} from "@chakra-ui/react";
+import {Box, Flex, HStack, Text, useMediaQuery, useToken} from "@chakra-ui/react";
 import {ViewToggle} from "./ViewToggle";
 
 export const ListNav = observer(function ListNav({count}:{count: number}) {
+    const [md] = useToken(
+        'breakpoints',
+        ['md']
+    );
+
+    const [isLargerThanMd] = useMediaQuery(`(min-width: ${md})`)
+
     return (
         <Flex justify={'space-between'} align={'center'} position={'relative'}>
             <Filter/>
@@ -16,7 +23,8 @@ export const ListNav = observer(function ListNav({count}:{count: number}) {
 
             <HStack spacing={10} zIndex={1}>
                 <Sort/>
-                <ViewToggle/>
+
+                {isLargerThanMd && <ViewToggle/>}
             </HStack>
         </Flex>
     )

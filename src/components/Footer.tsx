@@ -4,26 +4,34 @@ import {Box, Flex, HStack, Link, Stack, Text} from "@chakra-ui/react";
 
 export function Footer() {
     return (
-        <Box bg={'white'} height={'228px'}>
-            <Flex maxW={'1160px'} marginLeft={'auto'} marginRight={'auto'} position={'relative'}>
-                <FooterLogo/>
+        <Box bg={'white'} height={{md: '228px'}} pb={{base: '32px', md: 0}}>
+            <Flex maxW={'1160px'} marginLeft={'auto'} marginRight={'auto'} position={'relative'} direction={{base: 'column', md: 'row'}}>
+                <Box position={'absolute'}>
+                    <FooterLogo/>
+                </Box>
 
-                <HStack textTransform={'uppercase'} spacing={'85px'} ml={'120px'} alignItems={'flex-start'} mt={'42px'}>
-                    <Stack>
+                <Stack
+                    direction={{base: 'column', md: 'row'}}
+                    textTransform={'uppercase'}
+                    spacing={{base: '10px', md: '85px'}}
+                    ml={'120px'}
+                    alignItems={'flex-start'}
+                    mt={'42px'}>
+                    <Stack spacing={'10px'}>
                         <Link>Shop</Link>
                         <Link>How it works</Link>
                         <Link>Sustainability</Link>
                         <Link>About Us</Link>
                     </Stack>
 
-                    <Stack>
+                    <Stack spacing={'10px'}>
                         <Link>Jobs</Link>
                         <Link>FAQ'S</Link>
                         <Link>Contact us</Link>
                     </Stack>
-                </HStack>
+                </Stack>
 
-                <Stack marginLeft={'auto'} mt={'42px'} spacing={'46px'}>
+                <Stack marginLeft={{base: '120px', md: 'auto'}} mt={'42px'} spacing={{base: '32px', md: '46px'}}>
                     <HStack spacing={'10px'}>
                         <Link><InstaIcon/></Link>
                         <Link><YouTubeIcon/></Link>
