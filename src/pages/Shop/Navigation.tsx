@@ -1,6 +1,7 @@
 import * as React from 'react';
 import {observer} from "mobx-react";
-import {chakra, Flex, HStack, Stack, useRadio, useRadioGroup, UseRadioProps} from "@chakra-ui/react";
+import {Box, chakra, Flex, HStack, Stack, useRadio, useRadioGroup, UseRadioProps} from "@chakra-ui/react";
+import {ComingSoon} from "../../components/icons/ComingSoon";
 
 const RadioButtonBase = chakra(Flex, {
     baseStyle: {
@@ -24,6 +25,12 @@ const RadioButtonBase = chakra(Flex, {
         },
         _focus: {
             boxShadow: "none",
+        },
+        _disabled: {
+            cursor: 'initial',
+            userSelect: 'none',
+            color: 'basic.100',
+            borderColor: 'basic.100',
         }
     }
 })
@@ -35,7 +42,7 @@ function RadioButton(props: React.PropsWithChildren<UseRadioProps>) {
     const checkbox = getCheckboxProps();
 
     return (
-        <Stack as={'label'}>
+        <Stack as={'label'} position={'relative'}>
             <input {...input} />
             <RadioButtonBase {...checkbox} children={props.children}/>
         </Stack>
@@ -52,15 +59,18 @@ export const Navigation = observer(function Navigation() {
     })
 
     return (
-        <HStack justify={'center'} width={'100%'} spacing={0}>
-            {options.map((value) => {
-                const radio = getRadioProps({value})
-                return (
-                    <RadioButton key={value} {...radio}>
-                        {value}
-                    </RadioButton>
-                )
-            })}
+        <HStack justify={'center'} width={'100%'} spacing={0} position={'relative'}>
+            <RadioButton {...getRadioProps({value: 'new'})}>
+                {'new'}
+            </RadioButton>
+
+            <RadioButton  {...getRadioProps({value: 'resell'})} isDisabled={true}>
+                {'resell'}
+
+                <Box position={'absolute'} top={'-24px'} right={'-50%'}>
+                    <ComingSoon/>
+                </Box>
+            </RadioButton>
         </HStack>
     )
 })
