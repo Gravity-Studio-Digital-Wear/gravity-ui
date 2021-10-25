@@ -3,8 +3,8 @@ import {observer} from "mobx-react";
 import {useHistory} from "react-router-dom";
 import {useService} from "../../core/decorators/service";
 import {MAGIC} from "../../services/service-container";
-import {Spinner} from "@chakra-ui/react";
 import {sendAmplitudeData} from '../../utils/amplitude'
+import {PageSpinner} from "../../components/PageSpinner";
 
 export const OAuthCallbackPage = observer(() => {
     const history = useHistory();
@@ -25,5 +25,5 @@ export const OAuthCallbackPage = observer(() => {
             });
     }, []);
 
-    return <Spinner/>;
+    return <PageSpinner/>;
 })
