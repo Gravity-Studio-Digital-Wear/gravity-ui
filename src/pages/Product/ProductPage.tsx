@@ -23,14 +23,14 @@ import {RouteComponentProps} from "react-router";
 import {PageSpinner} from "../../components/PageSpinner";
 import {CartService} from "../../services/CartService";
 import {formatPrice} from "../../utils/price";
-import SwiperCore, {Pagination, Mousewheel} from 'swiper';
+import SwiperCore, {Mousewheel, Pagination} from 'swiper';
 import {Swiper, SwiperSlide} from "swiper/react";
 import {Link as RouterLink} from "react-router-dom";
 import {Routes} from "../../app/routes";
 import {IconBack} from "../../components/icons/IconBack";
 
 // install Swiper modules
-SwiperCore.use([Pagination,Mousewheel]);
+SwiperCore.use([Pagination, Mousewheel]);
 
 
 export const ProductPage = observer(function ProductPage({match}: RouteComponentProps<{ id: string }>) {
@@ -65,7 +65,7 @@ export const ProductPage = observer(function ProductPage({match}: RouteComponent
     return (
         <Box px={{base: '17px', md: 0}}>
             <Flex>
-                <Link as={RouterLink} to={{pathname: Routes.main, state: {refresh: false}}}  fontSize={18} textTransform={'uppercase'}
+                <Link as={RouterLink} to={{pathname: Routes.main}} fontSize={18} textTransform={'uppercase'}
                       textDecoration={'none'} display={'flex'} alignItems={'center'}>
                     <IconBack/>
                     <Text as={'span'} ml={'12px'}>Back to shopping</Text>
@@ -75,7 +75,7 @@ export const ProductPage = observer(function ProductPage({match}: RouteComponent
 
             <Grid templateColumns={'repeat(12, 1fr)'} gridGap={'20px'} mt={{base: '33px', md: '84px'}}>
                 <GridItem gridColumn={{base: 'span 12', md: 'span 7'}}>
-                    <Box maxH={{ base: '380px', md: '700px'}}
+                    <Box maxH={{base: '380px', md: '700px'}}
                          overflow={'hidden'}
                          position={'relative'}
                          sx={{
@@ -90,15 +90,15 @@ export const ProductPage = observer(function ProductPage({match}: RouteComponent
                          }}>
                         <Swiper
                             direction={'vertical'}
-                                height={700}
-                                slidesPerView={1}
-                                mousewheel={{
-                                    eventsTarget: 'wrapper'
+                            height={700}
+                            slidesPerView={1}
+                            mousewheel={{
+                                eventsTarget: 'wrapper'
 
-                                }}
-                                pagination={{
-                                    "clickable": true
-                                }}
+                            }}
+                            pagination={{
+                                "clickable": true
+                            }}
                         >
                             {product.images.slice(1).map((image: string) => {
                                 return (
@@ -128,7 +128,8 @@ export const ProductPage = observer(function ProductPage({match}: RouteComponent
                         {!isLargerThanMd && (
                             <>
                                 <Flex width={'100%'} spacing={'32px'}>
-                                    <HStack grow={1} spacing={'10px'} alignItems={'flex-end'} textTransform={'uppercase'}>
+                                    <HStack grow={1} spacing={'10px'} alignItems={'flex-end'}
+                                            textTransform={'uppercase'}>
                                         <Text as={'span'}
                                               fontSize={'15px'}
                                               color={'alert'}
@@ -180,7 +181,8 @@ export const ProductPage = observer(function ProductPage({match}: RouteComponent
                                 </Text>
 
                                 <Link color={'primary.500'} textTransform={'uppercase'} letterSpacing={'0.07em'}>
-                                    <Text as={'span'} borderBottom={'1px solid'} borderColor={'primary.500'}>How to wear it?</Text>
+                                    <Text as={'span'} borderBottom={'1px solid'} borderColor={'primary.500'}>How to wear
+                                        it?</Text>
                                 </Link>
                             </>
                         )}
@@ -192,7 +194,8 @@ export const ProductPage = observer(function ProductPage({match}: RouteComponent
                                 </Text>
 
                                 <Link color={'primary.500'} textTransform={'uppercase'} letterSpacing={'0.07em'}>
-                                    <Text as={'span'} borderBottom={'1px solid'} borderColor={'primary.500'}>How to wear it?</Text>
+                                    <Text as={'span'} borderBottom={'1px solid'} borderColor={'primary.500'}>How to wear
+                                        it?</Text>
                                 </Link>
 
                                 <HStack>

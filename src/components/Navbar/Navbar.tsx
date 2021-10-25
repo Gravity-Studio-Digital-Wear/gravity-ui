@@ -10,7 +10,7 @@ import {
     Menu,
     MenuButton,
     MenuItem,
-    MenuList,
+    MenuList, Spinner,
     Stack,
     useColorModeValue,
     useMediaQuery,
@@ -18,7 +18,7 @@ import {
 } from '@chakra-ui/react';
 import {observer} from "mobx-react";
 import {ReactComponent as Rune} from './rune.svg'
-import {NavLink as RouterLink} from 'react-router-dom';
+import {NavLink as RouterLink, useHistory} from 'react-router-dom';
 import {NavLink} from "./NavLink";
 import {Routes} from "../../app/routes";
 import {useService} from "../../core/decorators/service";
@@ -135,6 +135,8 @@ export const Navigation = observer(function Navigation() {
     const modalService = useService(ModalService);
     const magicOAuthProvider = useService(MagicOAuthProvider);
     const application = useService(GravityApplication);
+    const history = useHistory();
+
 
     const [md] = useToken(
         'breakpoints',
@@ -161,11 +163,11 @@ export const Navigation = observer(function Navigation() {
             <Flex
                 position={'absolute'}
                 alignItems={'center'}
-                zIndex={1}
                 justify={{base: 'center', md: 'flex-start'}}
                 w={{base: '100%'}}
                 height={'100%'}
                 top={'0'}
+                onClick={() => !isLargerThanMd && history.push(Routes.main)}
                 left={'0'}>
                 <Rune/>
             </Flex>
@@ -204,7 +206,11 @@ export const Navigation = observer(function Navigation() {
                                         borderColor={'primary.500'}> Log in</Button>
                                 ) : (
                                     <Box onClick={() => modalService.open('login')}>
-                                        <LoginButtonIcon/>
+                                        <Spinner/>
+
+
+
+                                        {/*<LoginButtonIcon/>*/}
                                     </Box>
                                 )
                             )

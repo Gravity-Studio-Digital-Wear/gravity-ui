@@ -136,7 +136,7 @@ export const ProfileItemPage = observer(function ProfileItemPage({match}: RouteC
     return (
         <Box px={{base: '17px', md: 0}} pb={{base: '80px', md: 0}}>
             <Flex>
-                <Link as={RouterLink} to={history.location.state.prevUrl || Routes.profile} fontSize={18}
+                <Link as={RouterLink} to={history.location.state?.prevUrl || Routes.profile} fontSize={18}
                       textTransform={'uppercase'}
                       textDecoration={'none'} display={'flex'} alignItems={'center'}>
                     <IconBack/>

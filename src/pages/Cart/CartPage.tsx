@@ -43,7 +43,7 @@ export const CartPage = observer(function CartPage() {
         <Stack spacing={'32px'} p={{base: '17px', md: 0}}>
             <Flex>
                 <Link as={RouterLink}
-                      to={{pathname: Routes.main, state: {refresh: false}}}
+                      to={{pathname: Routes.main}}
                       fontSize={18}
                       textTransform={'uppercase'}
                       textDecoration={'none'}
@@ -69,7 +69,7 @@ export const CartPage = observer(function CartPage() {
 
                     {cartService.productsCount === 0 && <CartEmpty/>}
                     {cartService.productsCount !== 0 && (
-                        <Grid templateColumns={'repeat(12, 1fr)'} gridGap={'32px'}>
+                        <Grid templateColumns={'repeat(12, 1fr)'} gridGap={{md: '32px'}}>
                             <GridItem gridColumn={{base: 'span 12', md: 'span 8'}}>
                                 {[...cartService.cart.values()]
                                     .map(({product, quantity}) =>
