@@ -21,7 +21,7 @@ export default defineConfig({
         reactRefresh(),
         replace({
             'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV),
-            'process.env.API_URL': JSON.stringify(process.env.API_URL),
+            'process.env.API_URL': JSON.stringify(process.env.API_URL)
         }),
         nodeResolve({browser: true}),
         commonjs({}),
