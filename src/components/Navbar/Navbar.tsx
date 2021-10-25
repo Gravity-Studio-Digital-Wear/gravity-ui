@@ -13,6 +13,7 @@ import {
     MenuList,
     Stack,
     useColorModeValue,
+    useMediaQuery,
     useToken,
 } from '@chakra-ui/react';
 import {observer} from "mobx-react";
@@ -75,12 +76,12 @@ const BurgerIcon = React.forwardRef(function BurgerIcon(props: IconProps, ref) {
 
 function LoginButtonIcon() {
     return (
-        <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <SvgWrapper width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
             <circle cx="9.00035" cy="4.92857" r="4.92857" fill="currentColor"/>
             <path fillRule="evenodd" clipRule="evenodd"
                   d="M5.05997 9.11632C3.21175 10.0133 1.71528 11.5217 0.833469 13.3786C-0.114185 15.3742 1.75532 17.25 3.96446 17.25H14.0359C16.245 17.25 18.1145 15.3742 17.1669 13.3786C16.2851 11.5217 14.7886 10.0133 12.9404 9.11632C11.9112 10.085 10.525 10.6785 9.00016 10.6785C7.47532 10.6785 6.08911 10.085 5.05997 9.11632Z"
                   fill="currentColor"/>
-        </svg>
+        </SvgWrapper>
     )
 }
 
@@ -135,6 +136,13 @@ export const Navigation = observer(function Navigation() {
     const magicOAuthProvider = useService(MagicOAuthProvider);
     const application = useService(GravityApplication);
 
+    const [md] = useToken(
+        'breakpoints',
+        ['md']
+    );
+
+    const [isLargerThanMd] = useMediaQuery(`(min-width: ${md})`)
+
     const logout = () => {
         magicOAuthProvider.logout();
         authService.clear();
@@ -171,7 +179,7 @@ export const Navigation = observer(function Navigation() {
                     marginLeft={'auto'}
                     width={'100%'}
                     marginRight={'auto'}
-                    maxW={{ md: 'calc(100vw - 126px - 72px - 64px)', "2xl": '1160px'}}
+                    maxW={{md: 'calc(100vw - 126px - 72px - 64px)', "2xl": '1160px'}}
                     zIndex={2}
                     px={{base: '26px', md: 0}}
                 >
@@ -184,15 +192,21 @@ export const Navigation = observer(function Navigation() {
                     <HStack marginLeft={'auto'} spacing={'27px'} zIndex={2}>
                         {!isAuthorized
                             ? (
-                                <Button
-                                    leftIcon={<LoginButtonIcon/>}
-                                    size={'sm'}
-                                    _hover={{bg: 'primary.500', color: 'white'}}
-                                    color={'primary.500'}
-                                    bg={'transparent'}
-                                    border={'1px solid'}
-                                    onClick={() => modalService.open('login')}
-                                    borderColor={'primary.500'}> Log in</Button>
+                                isLargerThanMd ? (
+                                    <Button
+                                        leftIcon={<LoginButtonIcon/>}
+                                        size={'sm'}
+                                        _hover={{bg: 'primary.500', color: 'white'}}
+                                        color={'primary.500'}
+                                        bg={'transparent'}
+                                        border={'1px solid'}
+                                        onClick={() => modalService.open('login')}
+                                        borderColor={'primary.500'}> Log in</Button>
+                                ) : (
+                                    <Box onClick={() => modalService.open('login')}>
+                                        <LoginButtonIcon/>
+                                    </Box>
+                                )
                             )
                             : (
                                 <Menu>

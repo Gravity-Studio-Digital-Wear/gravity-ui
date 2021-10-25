@@ -11,7 +11,7 @@ import {
     ModalContent,
     ModalOverlay,
     Stack,
-    Text
+    Text, useMediaQuery, useToken
 } from "@chakra-ui/react";
 import {IconFacebook} from "./icons/IconFacebook";
 import {IconGoogle} from "./icons/IconGoogle";
@@ -34,6 +34,14 @@ export const LoginModal = observer(function LoginModal() {
     const profileService = useService(ProfileService);
 
     const modalProps = useModalProps();
+
+    const [md] = useToken(
+        'breakpoints',
+        ['md']
+    );
+
+    const [isLargerThanMd] = useMediaQuery(`(min-width: ${md})`)
+
 
     const login = (provider: OAuthProvider) => {
         gravityApplication.setCachedProvider('magic');
@@ -74,9 +82,11 @@ export const LoginModal = observer(function LoginModal() {
                 <ModalCloseButton/>
 
                 <Flex flexDirection={'column'} alignItems={'center'} padding={'30px'} position={'relative'} py={'60px'}>
-                    <Box position={'absolute'} left={'0'}>
-                        <LoginSvg/>
-                    </Box>
+                    {isLargerThanMd && (
+                        <Box position={'absolute'} left={'0'}>
+                            <LoginSvg/>
+                        </Box>
+                    )}
 
                     <Heading fontSize={70} fontWeight={'bold'} letterSpacing={'0.05em'} textTransform={'uppercase'}>
                         Login
