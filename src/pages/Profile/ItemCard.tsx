@@ -3,11 +3,16 @@ import {Box, Button, Image, Stack, Text} from "@chakra-ui/react";
 import * as React from "react";
 import {observer} from "mobx-react";
 import {TicketStatus} from "./TicketStatus";
+import {ComingSoon} from "../../components/icons/ComingSoon";
 
-export const ItemCard = observer(function ItemCard({product, onClick, ticket}: { product: IProduct, ticket: ITicket, onClick: () => void }) {
+export const ItemCard = observer(function ItemCard({
+                                                       product,
+                                                       onClick,
+                                                       ticket
+                                                   }: { product: IProduct, ticket: ITicket, onClick: () => void }) {
     return (
         <Stack display={'flex'}
-               justifyContent={'flex-end'}
+               justifyContent={'flex-start'}
                position={'relative'}
                cursor={'pointer'}
                className={'g-card'}
@@ -37,9 +42,24 @@ export const ItemCard = observer(function ItemCard({product, onClick, ticket}: {
             </Stack>
 
             <Box>
-                <Button colorScheme={'primary'} textTransform={'uppercase'} w={'100%'}>
-                    Wear
-                </Button>
+                <Stack spacing={'16px'}>
+                    <Button isDisabled={ticket.status !== 'NEW'} colorScheme={'primary'} textTransform={'uppercase'} w={'100%'}>
+                        Wear
+                    </Button>
+
+                    {ticket.status === 'DONE' && (
+                        <Box position={'relative'}>
+                            <Button isDisabled={true} variant={'outline'} colorScheme={'primary'}
+                                    textTransform={'uppercase'} w={'100%'}>
+                                Resell
+                            </Button>
+                            <Box position={'absolute'} top={'-24px'} right={'-10px'}>
+                                <ComingSoon/>
+                            </Box>
+                        </Box>
+                    )}
+                </Stack>
+
             </Box>
         </Stack>
     )
