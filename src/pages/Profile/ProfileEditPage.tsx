@@ -43,7 +43,7 @@ export const ProfileEditPage = observer(function ProfileEditPage() {
     }
 
     return (
-        <Box>
+        <Box px={{base: '17px', md: 0}}>
             <Flex>
                 <Link as={RouterLink} to={Routes.profile} fontSize={18} textTransform={'uppercase'}
                       textDecoration={'none'} display={'flex'} alignItems={'center'}>
@@ -63,8 +63,6 @@ function ProfileEditForm(props: { profile: IProfile, onSubmit: (profile: Partial
         profile,
         onSubmit
     } = props;
-
-
 
 
     const {
@@ -107,9 +105,9 @@ function ProfileEditForm(props: { profile: IProfile, onSubmit: (profile: Partial
     const avatarValue = watch('avatar')
 
     return (
-        <Flex justify={'center'}>
-            <Stack maxW={'365px'} spacing={30}>
-                <Heading textTransform={'uppercase'} fontSize={70} fontWeight={'bold'}>Edit Profile</Heading>
+        <Flex justify={'center'} mt={{base: '33px', md: 0}}>
+            <Stack width={'100%'} maxW={{md: '365px'}} spacing={30}>
+                <Heading textTransform={'uppercase'} fontSize={{base: 42, md: 70}} fontWeight={'bold'}>Edit Profile</Heading>
 
                 <form onSubmit={handleSubmit(onSubmit)}>
                     <Stack spacing={30}>

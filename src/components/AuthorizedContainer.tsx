@@ -15,8 +15,8 @@ export const AuthorizedContainer = observer(function AuthorizedContainer(props: 
         <Box w="100%" justifyContent={'center'} position={'relative'} overflowX={'hidden'} >
             <Navigation/>
 
-            <Box mt={0} width={'100%'} bg={contentBg} minHeight={'100vh'} pb={'80px'}>
-                <Box pt={33} marginLeft={'auto'} marginRight={'auto'} maxW={'1160px'}>{children}</Box>
+            <Box mt={0} width={'100%'} bg={contentBg} minHeight={'100vh'} pb={{base: '32px', md: '80px'}}>
+                <Box pt={33} marginLeft={'auto'} marginRight={'auto'} maxW={{ lg: '1160px', "2xl": '1160px'}}>{children}</Box>
             </Box>
 
             <Footer/>

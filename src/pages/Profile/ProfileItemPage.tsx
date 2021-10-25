@@ -22,24 +22,23 @@ import {
     Text
 } from "@chakra-ui/react";
 import {formatPrice} from "../../utils/price";
-import {ChakraCarousel} from "../../components/Carousel";
 import {useDropzone} from "react-dropzone";
 import {WaredrobeService} from "../../services/WaredrobeService";
 import {TicketStatus} from "./TicketStatus";
 import {Routes} from "../../app/routes";
 import {IconBack} from "../../components/icons/IconBack";
 import {processUploadImgUrl} from "../../utils/imageUrl";
-import SwiperCore, {Pagination} from 'swiper';
+// import SwiperCore, {Pagination} from 'swiper';
 import {Swiper, SwiperSlide} from "swiper/react";
 import {sendAmplitudeData} from '../../utils/amplitude'
 
-// install Swiper modules
-SwiperCore.use([Pagination]);
+// // install Swiper modules
+// SwiperCore.use([Pagination]);
 
 export const ProfileItemPage = observer(function ProfileItemPage({match}: RouteChildrenProps<{ id: string }>) {
     const warehouseStore = useService(WarehouseStore)
     const waredrobeService = useService(WaredrobeService)
-    const history = useHistory<{prevUrl: string}>();
+    const history = useHistory<{ prevUrl: string }>();
 
     const onDrop = React.useCallback(acceptedFiles => {
         console.log(acceptedFiles)
@@ -135,18 +134,35 @@ export const ProfileItemPage = observer(function ProfileItemPage({match}: RouteC
     }
 
     return (
-        <Box>
+        <Box px={{base: '17px', md: 0}} pb={{base: '80px', md: 0}}>
             <Flex>
-                <Link as={RouterLink} to={history.location.state.prevUrl || Routes.profile} fontSize={18} textTransform={'uppercase'}
+                <Link as={RouterLink} to={history.location.state.prevUrl || Routes.profile} fontSize={18}
+                      textTransform={'uppercase'}
                       textDecoration={'none'} display={'flex'} alignItems={'center'}>
                     <IconBack/>
                     <Text as={'span'} ml={'12px'}>Go Back</Text>
                 </Link>
             </Flex>
-            <Grid templateColumns={'repeat(12, 1fr)'} gridGap={'20px'} mt={'84px'}>
-                <GridItem gridColumn={'span 7'}>
-                    <Box position={'relative'}>
-                        <Box position={'absolute'} top={0} right={24}>
+            <Grid templateColumns={'repeat(12, 1fr)'}
+                  gridGap={'20px'}
+                  mt={{base: '33px', md: '84px'}}
+            >
+                <GridItem gridColumn={{base: 'span 12', md: 'span 7'}}>
+                    <Box position={'relative'}
+                         maxH={{ base: '380px', md: '700px'}}
+                         overflow={'hidden'}
+                         sx={{
+                             '.swiper': {position: 'initial'},
+                             '.swiper-pagination-vertical': {
+                                 left: 0,
+                                 right: 'auto'
+                             },
+                             '.swiper-pagination-bullet-active': {
+                                 bg: 'primary.500'
+                             }
+                         }}
+                    >
+                        <Box position={'absolute'} top={0} right={{base: 2, md: 24}}>
                             <TicketStatus status={ticket.status}/>
                         </Box>
 
@@ -155,126 +171,139 @@ export const ProfileItemPage = observer(function ProfileItemPage({match}: RouteC
                         </Box>
                     </Box>
                 </GridItem>
-                <GridItem gridColumn={'span 5'}>
-                    <Stack spacing={'16px'}>
-                        <Heading as={'h1'} fontSize={43} textTransform={'uppercase'}
-                                 letterSpacing={'0.01em'}> {product.name}</Heading>
+                <GridItem gridColumn={{base: 'span 12', md: 'span 5'}}>
+                    <Box
+                        bg={{base: 'white', md: 'transparent'}}
+                        mx={{base: '-17px', md: 0}}
+                        p={{base: '16px', md: 0}}
+                        pb={{base: '84px', md: 0}}
+                    >
+                        <Stack
+                            spacing={'16px'}
+                        >
+                            <Heading as={'h1'} fontSize={43} textTransform={'uppercase'}
+                                     letterSpacing={'0.01em'}> {product.name}</Heading>
 
-                        <Text fontSize={'16px'}>
-                            {product.description}
-                        </Text>
+                            <Text fontSize={'16px'}>
+                                {product.description}
+                            </Text>
 
-                        <Link color={'primary.500'} textTransform={'uppercase'} letterSpacing={'0.07em'}>
-                            <Text as={'span'} borderBottom={'1px solid'} borderColor={'primary.500'}>How to wear it?</Text>
-                        </Link>
+                            <Link color={'primary.500'} textTransform={'uppercase'} letterSpacing={'0.07em'}>
+                                <Text as={'span'} borderBottom={'1px solid'} borderColor={'primary.500'}>How to wear it?</Text>
+                            </Link>
 
-                        <Flex w={'100%'} alignItems={'flex-end'}>
-                            <Stack grow={1} spacing={'0'} alignItems={'flex-start'} textTransform={'uppercase'}>
-                                <Text as={'span'}
-                                      fontSize={'15px'}
-                                      color={'alert'}
-                                      lineHeight={1}
-                                      textDecoration={'line-through'}>
-                                    {formatPrice(product.priceUSD * 1.5)} $
-                                </Text>
-                                <Text as={'span'}
-                                      fontSize={'25px'}
+                            {/*<Flex w={'100%'} alignItems={'flex-end'}>*/}
+                            {/*    <Stack grow={1} spacing={'0'} alignItems={'flex-start'} textTransform={'uppercase'}>*/}
+                            {/*        <Text as={'span'}*/}
+                            {/*              fontSize={'15px'}*/}
+                            {/*              color={'alert'}*/}
+                            {/*              lineHeight={1}*/}
+                            {/*              textDecoration={'line-through'}>*/}
+                            {/*            {formatPrice(product.priceUSD * 1.5)} $*/}
+                            {/*        </Text>*/}
+                            {/*        <Text as={'span'}*/}
+                            {/*              fontSize={'25px'}*/}
+                            {/*              fontWeight={'bold'}*/}
+                            {/*              letterSpacing={'0.02em'}*/}
+                            {/*              lineHeight={1}*/}
+                            {/*              color={'basic.500'}>*/}
+                            {/*            {formatPrice(product.priceUSD)} $*/}
+                            {/*        </Text>*/}
+                            {/*    </Stack>*/}
+
+                            {/*    <Box marginLeft={'auto'}>*/}
+                            {/*        <Button*/}
+                            {/*            isDisabled={true}*/}
+                            {/*            variant={'outline'}*/}
+                            {/*            colorScheme={'primary'}*/}
+                            {/*            textTransform={'uppercase'}*/}
+
+                            {/*            w={'265px'}>*/}
+                            {/*            Resell*/}
+                            {/*        </Button>*/}
+                            {/*    </Box>*/}
+                            {/*</Flex>*/}
+                        </Stack>
+
+                        {ticket.status === 'NEW' && (
+                            <Stack spacing={'16px'} mt={'30px'}>
+                                <Text textTransform={'uppercase'}
+                                      color={'basic.500'}
                                       fontWeight={'bold'}
                                       letterSpacing={'0.02em'}
-                                      lineHeight={1}
-                                      color={'basic.500'}>
-                                    {formatPrice(product.priceUSD)} $
-                                </Text>
+                                >Upload your photo</Text>
+
+                                <div {...getRootProps()} onClick={() => widget.open()}>
+                                    <input {...getInputProps()} />
+
+                                    <Flex justifyContent={'center'} px={'72px'} py={'21px'} border={'1px dashed'}
+                                          borderColor={'primary.500'}>
+                                        <Text textTransform={'uppercase'} letterSpacing={'0.02em'} fontSize={'16px'}
+                                              color={'basic.500'}>
+                                            upload up to 5 photos and We’LL choose the Best one for
+                                            you Drag and Drop or <Link as={'span'} color={'primary.500'}
+                                                                       textDecoration={'underline'}>click
+                                            here</Link>
+                                        </Text>
+                                    </Flex>
+                                </div>
+
+                                <HStack spacing={'8px'}>
+                                    {imageStore.images.map(img => {
+                                        return (
+                                            <Box key={img} position={'relative'}>
+                                                <Image src={img} boxSize={'83px'}/>
+
+                                                <Button
+                                                    onClick={() => imageStore.remove(img)}
+                                                    bg={'primary.500'}
+                                                    height={'16px'}
+                                                    width={'16px'}
+                                                    variant={'square'}
+                                                    position={'absolute'}
+                                                    top={'8px'}
+                                                    right={'8px'}>
+                                                    <CloseIcon/>
+                                                </Button>
+                                            </Box>
+                                        )
+                                    })}
+                                </HStack>
+
+
+                                <Text>See our photo recommendations <Link as={'span'} color={'primary.500'}
+                                                                          textDecoration={'underline'}>here</Link>.</Text>
+
+
+                                <Text textTransform={'uppercase'} color={'basic.500'} fontWeight={'bold'}
+                                      letterSpacing={'0.02em'}>...
+                                    or share a link</Text>
+
+                                <FormControl>
+                                    <InputGroup>
+                                        <InputLeftElement
+                                            pointerEvents="none"
+                                            children={<LinkIcon/>}
+                                        />
+                                        <Input
+                                            id="link"
+
+                                            placeholder="Paste link here"
+                                        />
+                                    </InputGroup>
+                                </FormControl>
+
+                                <Button onClick={() => uploadResult()}>Redeem wear</Button>
                             </Stack>
-
-                            <Box marginLeft={'auto'}>
-                                <Button
-                                    isDisabled={true}
-                                    variant={'outline'}
-                                    colorScheme={'primary'}
-                                    textTransform={'uppercase'}
-
-                                    w={'265px'}>
-                                    Resell
-                                </Button>
-                            </Box>
-                        </Flex>
-                    </Stack>
-
-                    {ticket.status === 'NEW' && (
-                        <Stack spacing={'16px'} mt={'30px'}>
-                            <Text textTransform={'uppercase'} color={'basic.500'} fontWeight={'bold'} letterSpacing={'0.02em'}>Upload
-                                your photo</Text>
-
-                            <div {...getRootProps()} onClick={() => widget.open()}>
-                                <input {...getInputProps()} />
-
-                                <Flex justifyContent={'center'} px={'72px'} py={'21px'} border={'1px dashed'}
-                                      borderColor={'primary.500'}>
-                                    <Text textTransform={'uppercase'} letterSpacing={'0.02em'} fontSize={'16px'}
-                                          color={'basic.500'}>
-                                        upload up to 5 photos and We’LL choose the Best one for
-                                        you Drag and Drop or <Link as={'span'} color={'primary.500'}
-                                                                   textDecoration={'underline'}>click
-                                        here</Link>
-                                    </Text>
-                                </Flex>
-                            </div>
-
-                            <HStack spacing={'8px'}>
-                                {imageStore.images.map(img => {
-                                    return (
-                                        <Box key={img} position={'relative'}>
-                                            <Image src={img} boxSize={'83px'}/>
-
-                                            <Button
-                                                onClick={() => imageStore.remove(img)}
-                                                bg={'primary.500'}
-                                                height={'16px'}
-                                                width={'16px'}
-                                                variant={'square'}
-                                                position={'absolute'}
-                                                top={'8px'}
-                                                right={'8px'}>
-                                                <CloseIcon/>
-                                            </Button>
-                                        </Box>
-                                    )
-                                })}
-                            </HStack>
-
-
-                            <Text>See our photo recommendations <Link as={'span'} color={'primary.500'}
-                                                                      textDecoration={'underline'}>here</Link>.</Text>
-
-
-                            <Text textTransform={'uppercase'} color={'basic.500'} fontWeight={'bold'} letterSpacing={'0.02em'}>...
-                                or share a link</Text>
-
-                            <FormControl>
-                                <InputGroup>
-                                    <InputLeftElement
-                                        pointerEvents="none"
-                                        children={<LinkIcon/>}
-                                    />
-                                    <Input
-                                        id="link"
-
-                                        placeholder="Paste link here"
-                                    />
-                                </InputGroup>
-                            </FormControl>
-
-                            <Button onClick={() => uploadResult()}>Redeem wear</Button>
-                        </Stack>
-                    )}
+                        )}
+                    </Box>
                 </GridItem>
 
                 <GridItem gridColumn={'span 12'}>
                     {ticket.status !== 'NEW' && (
-                        <Box >
+                        <Box>
                             <Heading letterSpacing={'0.01em'} color={'basic.500'} textTransform={'uppercase'}
-                                     fontWeight={'bold'} fontSize={43}>Your photo</Heading>
+                                     fontWeight={'bold'} fontSize={{base: 25, md:43}}>Your photo</Heading>
 
                             <Grid templateColumns={'repeat(2, 1fr)'} mt={'24px'}>
                                 <GridItem>
@@ -308,18 +337,17 @@ export const ProfileItemPage = observer(function ProfileItemPage({match}: RouteC
                         <Box mt={'36px'}>
                             <Flex>
                                 <Heading letterSpacing={'0.01em'} color={'basic.500'} textTransform={'uppercase'}
-                                         fontWeight={'bold'} fontSize={43}>Result</Heading>
+                                         fontWeight={'bold'} fontSize={{base: 25, md:43}}>Result</Heading>
 
 
-                                <Button isDisabled={true} marginLeft={'auto'}>By more wears</Button>
+                                {/*<Button isDisabled={true} marginLeft={'auto'}>By more wears</Button>*/}
                             </Flex>
-
 
                             <Stack mt={'36px'}>
                                 {ticket.resultImageLinks.map(img => {
                                     return (
                                         <Box key={img} position={'relative'}>
-                                            <Image src={img} width={'350px'}/>
+                                            <Image src={img} width={{base: '100%', md: '350px'}}/>
                                         </Box>
                                     )
                                 })}

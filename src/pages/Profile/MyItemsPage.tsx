@@ -1,44 +1,66 @@
 import * as React from 'react';
 import {observer} from "mobx-react";
-import {Box, Grid, GridItem, Spinner} from "@chakra-ui/react";
+import {Box, Flex, Grid, GridItem, Heading, Link, Spinner, Text, useMediaQuery, useToken} from "@chakra-ui/react";
 import {ItemCard} from "./ItemCard";
 import {Routes} from "../../app/routes";
 import {useService} from "../../core/decorators/service";
 import {WarehouseStore} from "../../stores/WarehouseStore";
 import {PageSpinner} from "../../components/PageSpinner";
-import {useHistory} from "react-router-dom";
+import {Link as RouterLink, useHistory} from "react-router-dom";
+import {IconBack} from "../../components/icons/IconBack";
 
 export const MyItemsPage = observer(function MyItemsPage() {
     const warehouseStore = useService(WarehouseStore)
     const {wardrobe} = warehouseStore
-    const history = useHistory()
+    const history = useHistory<{prevUrl: string}>()
 
     React.useEffect(() => {
         wardrobe.request()
     }, [])
 
+    const [md] = useToken(
+        'breakpoints',
+        ['md']
+    );
+
+    const [isLargerThanMd] = useMediaQuery(`(min-width: ${md})`)
+
     if (!warehouseStore.wardrobe.isSuccess) {
         return <PageSpinner/>
     }
 
-    console.log(history.location.pathname)
-
     return (
-        <Box>
-            <Grid templateColumns={'repeat(12, 1fr)'} gridGap={'32px'} mt={'60px'}>
-                <GridItem gridColumn={'span 2'}>
-                    <MyItemsSvg/>
-                </GridItem>
+        <Box color={'basic.500'} px={{base: '17px', md: 0}} pb={{base: '84px', md: 0}}>
+            <Flex mb={'16px'}>
+                <Link as={RouterLink} to={history.location.state?.prevUrl || Routes.profile} fontSize={18}
+                      textTransform={'uppercase'}
+                      textDecoration={'none'} display={'flex'} alignItems={'center'}>
+                    <IconBack/>
+                    <Text as={'span'} ml={'12px'}>Go Back</Text>
+                </Link>
+            </Flex>
 
-                <GridItem gridColumn={'span 1'}>
-                    <IconsSvg/>
-                </GridItem>
 
-                <GridItem gridColumn={'span 9'}>
+            <Heading textTransform={'uppercase'} fontSize={{base: 42, md: 70}} fontWeight={'bold'}>My items</Heading>
+
+            <Grid templateColumns={'repeat(12, 1fr)'} gridGap={{md: '32px'}} mt={'60px'}>
+                {isLargerThanMd && (
+                    <>
+                        <GridItem gridColumn={'span 2'}>
+                            <MyItemsSvg/>
+                        </GridItem>
+
+                        <GridItem gridColumn={'span 1'}>
+                            <IconsSvg/>
+                        </GridItem>
+                    </>
+                )}
+
+                <GridItem gridColumn={{base: 'span 12', md: 'span 9'}}>
 
                     {wardrobe.isSuccess
                         ? (
-                            <Grid gridTemplateColumns={'repeat(3, 1fr)'} gap={'30px'}>
+                            <Grid gridTemplateColumns={{base: '1fr', md: 'repeat(3, 1fr)'}} gap={'30px'}>
                                 {wardrobe.result.map(({items: {product}, ticket}) => {
                                     return (
                                         <ItemCard

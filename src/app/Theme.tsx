@@ -1,4 +1,5 @@
 export const GravityTheme = {
+
     colors: {
         primary: {
             600: '#523774',

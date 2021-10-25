@@ -1,6 +1,19 @@
 import * as React from 'react';
 import {observer} from "mobx-react";
-import {Box, Button, Flex, Grid, GridItem, Heading, HStack, Image, Spinner, Stack, Text} from "@chakra-ui/react";
+import {
+    Box,
+    Button,
+    Flex,
+    Grid,
+    GridItem,
+    Heading,
+    HStack,
+    Image,
+    Spinner,
+    Stack,
+    Text, useMediaQuery,
+    useToken
+} from "@chakra-ui/react";
 import {IconWallet} from "../../components/icons/IconWallet";
 import {IconEdit} from "../../components/icons/IconEdit";
 import {ItemCard} from "./ItemCard";
@@ -11,6 +24,7 @@ import {ProfileService} from "../../services/ProfileService";
 import {PageSpinner} from "../../components/PageSpinner";
 import {WarehouseStore} from "../../stores/WarehouseStore";
 import {NoAvatar} from "./NoAvatar";
+import {formatAddress} from "../../utils/address";
 
 function WalletAddress({address}: { address: string }) {
     return (
@@ -28,6 +42,12 @@ export const ProfilePage = observer(function ProfilePage() {
     const warehouseStore = useService(WarehouseStore)
 
     const history = useHistory()
+    const [md] = useToken(
+        'breakpoints',
+        ['md']
+    );
+
+    const [isLargerThanMd] = useMediaQuery(`(min-width: ${md})`)
 
     const handleClickEdit = () => {
         history.push(Routes.profileEdit);
@@ -47,18 +67,26 @@ export const ProfilePage = observer(function ProfilePage() {
     const {name, address} = profileService.profile;
 
     return (
-        <Grid templateColumns={'repeat(12, 1fr)'} gridGap={'32px'} mt={'60px'}>
-            <GridItem gridColumn={'span 2'}>
-                <HelloSvg/>
-            </GridItem>
+        <Grid templateColumns={'repeat(12, 1fr)'} gridGap={{base:'initial', md: '32px'}} mt={{md: '60px'}} px={'17px'}>
+            {isLargerThanMd && (
+                <GridItem gridColumn={'span 2'}>
+                    <HelloSvg/>
+                </GridItem>
+            )}
 
-            <GridItem gridColumn={'span 10'}>
-                <Flex bg={'white'} p={'40px'} position={'relative'}>
+            <GridItem gridColumn={{base: 'span 12', md: 'span 10'}}>
+                <Flex bg={'white'}
+                      p={{base: '15px', md: '40px'}}
+                      position={'relative'}
+                      flexDirection={{ base: 'column', md: 'row'}}
+                      alignItems={'center'}
+                >
                     {profileService.profile.avatar
                         ? <Image boxSize={'100px'} borderRadius="full" src={profileService.profile.avatar}/>
                         : <NoAvatar/>
                     }
-                    <Stack ml={'30px'}>
+
+                    <Stack ml={{md: '30px'}} width={'100%'} alignItems={{base: 'center', md: 'flex-start'}} justifyContent={'center'}>
                         <Text
                             letterSpacing={'0.02em'}
                             color={'basic.500'}
@@ -68,7 +96,7 @@ export const ProfilePage = observer(function ProfilePage() {
                         >{name}</Text>
 
                         <Flex>
-                            <WalletAddress address={address || ''}/>
+                            <WalletAddress address={(isLargerThanMd ? address : formatAddress(address)) || ''}/>
                         </Flex>
                     </Stack>
 
@@ -85,7 +113,7 @@ export const ProfilePage = observer(function ProfilePage() {
 
                     {wardrobe.isSuccess
                         ? (
-                            <Grid gridTemplateColumns={'repeat(3, 1fr)'} gap={'30px'}>
+                            <Grid gridTemplateColumns={{base: '1fr', md: 'repeat(3, 1fr)'}} gap={'30px'}>
                                 {wardrobe.result.map(({items: {product}, ticket}) => {
                                     return (
                                         <ItemCard

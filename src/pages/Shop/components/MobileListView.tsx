@@ -6,9 +6,9 @@ import {processImgUrl} from "../../../utils/imageUrl";
 
 export const Wrapper = (props: React.PropsWithChildren<{}>) => {
     return (
-        <Grid templateColumns={'repeat(2, 1fr)'} ml={'196px'} gridGap={'30px'} gridRowEnd={''}>
+        <Stack spacing={'42px'}>
             {props.children}
-        </Grid>
+        </Stack>
     )
 }
 
@@ -40,7 +40,7 @@ export function Card(props: IProduct & { onClickCard: () => void, onClickAdd: ()
                     <source src={processImgUrl(props.images[0])} type="video/webm"/>
                 </video>
             </figure>
-            
+
             <Stack position={'absolute'} left={0} bottom={'10px'} spacing={0}>
                 <Text textTransform={'uppercase'}
                       fontWeight={'bold'}
@@ -78,7 +78,7 @@ export function Card(props: IProduct & { onClickCard: () => void, onClickAdd: ()
             <Box
                 position={'absolute'}
                 opacity={0}
-                right={'90px'}
+                right={'5px'}
                 bottom={'10px'}
                 transition={'opacity .3s ease-in'}
                 onClick={(e) => {
@@ -87,7 +87,7 @@ export function Card(props: IProduct & { onClickCard: () => void, onClickAdd: ()
                 }}
                 sx={
                     {
-                        '.g-card:hover &': {
+                        '.g-card &': {
                             opacity: 1
                         }
                     }
@@ -128,4 +128,4 @@ function AddCartIcon() {
 }
 
 
-export const ChessListView = {Wrapper, Card};
+export const MobileListView = {Wrapper, Card};
