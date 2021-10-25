@@ -113,8 +113,7 @@ export const LoginModal = observer(function LoginModal() {
 
 
                     <Link textTransform={'uppercase'} letterSpacing={'0.07em'} color={'primary.500'} mt={'32px'}>
-                        <Text as={'span'} borderBottom={'1px solid'} borderColor={'primary.500'}>What the
-                            difference?</Text>
+                        <Text as={'span'} borderBottom={'1px solid'} borderColor={'primary.500'}>WHAT'S THE DIFFERENCE?</Text>
                     </Link>
                 </Flex>
             </ModalContent>
