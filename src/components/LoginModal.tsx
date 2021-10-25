@@ -48,6 +48,10 @@ export const LoginModal = observer(function LoginModal() {
     }
 
     const loginWithMetamask = async () => {
+        sendAmplitudeData('E_LOGIN_ATTEMPT', {
+            type: 'metamask'
+        })
+
         await injectedProvider.authenticate();
         await authService.authenticate(injectedProvider.publicAddress);
         await profileService.getProfile()
@@ -55,6 +59,10 @@ export const LoginModal = observer(function LoginModal() {
         authService.ensureAuthSuccess();
 
         gravityApplication.setCachedProvider('injected');
+
+        sendAmplitudeData('E_LOGIN_SUCCESS', {
+            type: 'metamask'
+        })
 
         modalProps.onClose()
     }
