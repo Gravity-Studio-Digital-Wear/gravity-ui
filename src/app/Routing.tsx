@@ -14,6 +14,8 @@ import {ProfileItemPage} from "../pages/Profile/ProfileItemPage";
 import {MyItemsPage} from "../pages/Profile/MyItemsPage";
 import {CheckoutPage} from "../pages/Cart/CheckoutPage";
 import {AuthGuard} from "../core/guards/auth-guard";
+import {SustainabilityPage} from "../pages/Sustainability";
+import {HowItWorksPage} from "../pages/HowItWorks";
 
 export const Routing = observer(function Routing() {
     const history = useHistory()
@@ -60,9 +62,11 @@ export const Routing = observer(function Routing() {
 
                             <Route path={Routes.checkout} component={CheckoutPage}/>
                             <Route path={Routes.cart} component={CartPage}/>
-                            <Route path={Routes.main} component={ShopPage} exact={true}/>
 
-                            {/* protected */}
+                            <Route path={Routes.sustainability} component={SustainabilityPage}/>
+                            <Route path={Routes.howItWorks} component={HowItWorksPage}/>
+
+                            <Route path={Routes.main} component={ShopPage} exact={true}/>
                         </Switch>
                     )
                 }}

@@ -229,8 +229,9 @@ export const ProductPage = observer(function ProductPage({match}: RouteComponent
                                         />
 
                                         <Text fontSize={'16px'} color={'alert'} textTransform={'uppercase'}
-                                              letterSpacing={'0.07em'}>{+product.__supply.remaningSupply || +product.__supply.maxSupply} pieces
-                                            left</Text>
+                                              letterSpacing={'0.07em'}>
+                                            {+product.__supply.remaningSupply !== 0 ? `${product.__supply.remaningSupply} pieces left` : `SOLD OUT`}
+                                        </Text>
                                     </HStack>
                                 </HStack>
 

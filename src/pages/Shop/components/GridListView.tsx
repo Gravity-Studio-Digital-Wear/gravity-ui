@@ -79,7 +79,7 @@ export const Card = observer(function Card(props: IProduct & { onClickCard: () =
                       bottom={0}
                       right={0}
                       textTransform={'uppercase'}>
-                    {+props.__supply.remaningSupply || +props.__supply.maxSupply} pieces left
+                    {+props.__supply.remaningSupply !== 0 ? `${props.__supply.remaningSupply} pieces left` : `SOLD OUT`}
                 </Text>
             </Stack>
 
@@ -99,6 +99,7 @@ export const Card = observer(function Card(props: IProduct & { onClickCard: () =
                     )
                     : (
                         <Button
+                            isDisabled={+props.__supply.remaningSupply === 0}
                             leftIcon={<IconCart/>}
                             variant={'solid'}
                             textTransform={'uppercase'}

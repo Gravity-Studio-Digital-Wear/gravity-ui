@@ -71,7 +71,7 @@ export function Card(props: IProduct & { onClickCard: () => void, onClickAdd: ()
                       letterSpacing={'0.07em'}
                       color={'alert'}
                       textTransform={'uppercase'}>
-                    {+props.__supply.remaningSupply || +props.__supply.maxSupply} pieces left
+                    {+props.__supply.remaningSupply !== 0 ? `${props.__supply.remaningSupply} pieces left` : `SOLD OUT`}
                 </Text>
             </Stack>
 
@@ -93,7 +93,7 @@ export function Card(props: IProduct & { onClickCard: () => void, onClickAdd: ()
                     }
                 }
             >
-                <AddCartIcon/>
+                {(+props.__supply.remaningSupply !== 0) && <AddCartIcon/>}
             </Box>
         </Box>
     )
