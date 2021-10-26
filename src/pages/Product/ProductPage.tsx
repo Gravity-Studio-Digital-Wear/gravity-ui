@@ -23,14 +23,14 @@ import {RouteComponentProps} from "react-router";
 import {PageSpinner} from "../../components/PageSpinner";
 import {CartService} from "../../services/CartService";
 import {formatPrice} from "../../utils/price";
-import SwiperCore, {Mousewheel, Pagination} from 'swiper';
+import SwiperCore, {Mousewheel, Pagination, Navigation, Keyboard} from 'swiper';
 import {Swiper, SwiperSlide} from "swiper/react";
 import {Link as RouterLink} from "react-router-dom";
 import {Routes} from "../../app/routes";
 import {IconBack} from "../../components/icons/IconBack";
 
 // install Swiper modules
-SwiperCore.use([Pagination, Mousewheel]);
+SwiperCore.use([Pagination, Mousewheel, Navigation, Keyboard]);
 
 
 export const ProductPage = observer(function ProductPage({match}: RouteComponentProps<{ id: string }>) {
@@ -79,23 +79,27 @@ export const ProductPage = observer(function ProductPage({match}: RouteComponent
                          overflow={'hidden'}
                          position={'relative'}
                          sx={{
-                             '.swiper': {position: 'initial'},
-                             '.swiper-pagination-vertical': {
+                             '.swiper-container': {position: 'initial'},
+                             '.swiper-pagination-bullets': {
                                  left: 0,
                                  right: 'auto'
+                             },
+                             '.swiper-pagination-bullet': {
+                                 w: isLargerThanMd ? '6px' :  '24px',
+                                 h: isLargerThanMd ? '24px' :  '6px',
+                                 borderRadius: 0,
+                                 right: 'auto',
+                                 bg: 'linear-gradient(180deg, #7B61FF 0%, #523774 94.9%)'
                              },
                              '.swiper-pagination-bullet-active': {
                                  bg: primary500
                              }
                          }}>
                         <Swiper
-                            direction={'vertical'}
+                            direction={isLargerThanMd ? 'vertical' : 'horizontal'}
                             height={700}
                             slidesPerView={1}
-                            mousewheel={{
-                                eventsTarget: 'wrapper'
-
-                            }}
+                            mousewheel
                             pagination={{
                                 "clickable": true
                             }}

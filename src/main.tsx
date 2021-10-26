@@ -4,8 +4,11 @@ import './polyfills'
 import './index.css'
 import './fonts/stylesheet.css'
 
-import 'swiper/swiper-bundle.css'
-// import "swiper/css/pagination";
+import 'swiper/swiper-bundle.min.css'
+import 'swiper/swiper.min.css'
+
+import "swiper/components/navigation/navigation.min.css";
+import "swiper/components/pagination/pagination.min.css";
 // import "swiper/css/mousewheel";
 
 import React from 'react'

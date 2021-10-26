@@ -19,7 +19,7 @@ import {
     InputLeftElement,
     Link,
     Stack,
-    Text
+    Text, useMediaQuery, useToken
 } from "@chakra-ui/react";
 import {formatPrice} from "../../utils/price";
 import {useDropzone} from "react-dropzone";
@@ -28,17 +28,23 @@ import {TicketStatus} from "./TicketStatus";
 import {Routes} from "../../app/routes";
 import {IconBack} from "../../components/icons/IconBack";
 import {processUploadImgUrl} from "../../utils/imageUrl";
-// import SwiperCore, {Pagination} from 'swiper';
+import SwiperCore, {Mousewheel, Pagination, Navigation, Keyboard} from 'swiper';
 import {Swiper, SwiperSlide} from "swiper/react";
 import {sendAmplitudeData} from '../../utils/amplitude'
 
-// // install Swiper modules
-// SwiperCore.use([Pagination]);
+/// install Swiper modules
+SwiperCore.use([Pagination, Mousewheel, Navigation, Keyboard]);
 
 export const ProfileItemPage = observer(function ProfileItemPage({match}: RouteChildrenProps<{ id: string }>) {
     const warehouseStore = useService(WarehouseStore)
     const waredrobeService = useService(WaredrobeService)
     const history = useHistory<{ prevUrl: string }>();
+
+    const [primary500, white] = useToken(
+        'colors',
+        ['primary.500', 'white']
+    )
+
 
     const onDrop = React.useCallback(acceptedFiles => {
         console.log(acceptedFiles)
@@ -87,6 +93,13 @@ export const ProfileItemPage = observer(function ProfileItemPage({match}: RouteC
         )
     })
 
+    const [md] = useToken(
+        'breakpoints',
+        ['md']
+    );
+
+    const [isLargerThanMd] = useMediaQuery(`(min-width: ${md})`)
+
     React.useEffect(() => {
         // warehouseStore.productItem.request(match.params.id)
 
@@ -101,8 +114,11 @@ export const ProfileItemPage = observer(function ProfileItemPage({match}: RouteC
     const {ticket, items: {product}} = warehouseStore.wardrobe.result.find(({ticket}) => ticket._id === match.params.id)
 
     const imageCarousel = (
-        <Swiper direction={'vertical'}
+        <Swiper
+                direction={isLargerThanMd ? 'vertical' : 'horizontal'}
                 height={700}
+                slidesPerView={1}
+                mousewheel
                 pagination={{
                     "clickable": true
                 }}
@@ -152,13 +168,20 @@ export const ProfileItemPage = observer(function ProfileItemPage({match}: RouteC
                          maxH={{ base: '380px', md: '700px'}}
                          overflow={'hidden'}
                          sx={{
-                             '.swiper': {position: 'initial'},
-                             '.swiper-pagination-vertical': {
+                             '.swiper-container': {position: 'initial'},
+                             '.swiper-pagination-bullets': {
                                  left: 0,
                                  right: 'auto'
                              },
+                             '.swiper-pagination-bullet': {
+                                 w: isLargerThanMd ? '6px' :  '24px',
+                                 h: isLargerThanMd ? '24px' :  '6px',
+                                 borderRadius: 0,
+                                 right: 'auto',
+                                 bg: 'linear-gradient(180deg, #7B61FF 0%, #523774 94.9%)'
+                             },
                              '.swiper-pagination-bullet-active': {
-                                 bg: 'primary.500'
+                                 bg: primary500
                              }
                          }}
                     >
