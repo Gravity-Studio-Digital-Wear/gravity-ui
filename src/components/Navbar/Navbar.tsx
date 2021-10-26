@@ -7,12 +7,16 @@ import {
     HStack,
     IconButton,
     IconProps,
+    Link,
     Menu,
     MenuButton,
     MenuItem,
-    MenuList, Spinner,
+    MenuList,
+    Spinner,
     Stack,
+    Text,
     useColorModeValue,
+    useDisclosure,
     useMediaQuery,
     useToken,
 } from '@chakra-ui/react';
@@ -26,6 +30,8 @@ import {AuthService, MagicOAuthProvider} from "../../services/AuthService";
 import {ModalService} from "../../services/ModalService";
 import {CartService} from "../../services/CartService";
 import {GravityApplication} from "../../app/Application";
+import {InstaIcon, TwitterIcon, YouTubeIcon} from "../icons/IconSocial";
+import {BurgerButton} from "./BurgerButton";
 
 const navLinks = [
     ['shop', Routes.main],
@@ -50,6 +56,45 @@ function Navigator() {
     )
 }
 
+
+function NavigatorMobile(props: { onClick: () => void }) {
+    return (
+        <Stack px={'17px'} mt={'90px'}>
+            {navLinks.map(([text, to]) => (
+                <NavLink
+                    fontSize={25}
+                    fontWeight={'bold'}
+                    py={'32px'}
+                    w={'100%'}
+                    textAlign={'center'}
+                    _first={{borderTop: '1px solid'}}
+                    borderBottom={'1px solid'}
+                    exact
+                    key={to}
+                    onClick={props.onClick}
+                    as={RouterLink}
+                    activeClassName={'g-nav-active'}
+                    to={to}>
+                    {text}
+                </NavLink>
+            ))}
+        </Stack>
+    )
+}
+
+function SocialLinks() {
+    return (
+        <Stack>
+            <HStack spacing={'10px'}>
+                <Link><InstaIcon/></Link>
+                <Link><YouTubeIcon/></Link>
+                <Link><TwitterIcon/></Link>
+            </HStack>
+        </Stack>
+    )
+}
+
+
 const SvgWrapper = chakra(chakra.svg, {
     baseStyle: {
         color: 'primary.500',
@@ -57,21 +102,6 @@ const SvgWrapper = chakra(chakra.svg, {
             color: 'alert'
         }
     }
-})
-
-const BurgerIcon = React.forwardRef(function BurgerIcon(props: IconProps, ref) {
-    return (
-        <SvgWrapper
-            ref={ref}
-            width={{base: '26px'}}
-            viewBox="0 0 26 22" fill="none" xmlns="http://www.w3.org/2000/svg"
-            {...props}
-        >
-            <path d="M0 1H26" stroke="#523774" strokeWidth="2"/>
-            <path d="M0 11H26" stroke="#523774" strokeWidth="2"/>
-            <path d="M0 21H26" stroke="#523774" strokeWidth="2"/>
-        </SvgWrapper>
-    )
 })
 
 function LoginButtonIcon() {
@@ -137,6 +167,7 @@ export const Navigation = observer(function Navigation() {
     const application = useService(GravityApplication);
     const history = useHistory();
 
+    const {isOpen, onOpen, onClose} = useDisclosure()
 
     const [md] = useToken(
         'breakpoints',
@@ -159,99 +190,126 @@ export const Navigation = observer(function Navigation() {
     )
 
     return (
-        <Box bg={'white'} position={'relative'}>
-            <Flex
-                position={'absolute'}
-                alignItems={'center'}
-                justify={{base: 'center', md: 'flex-start'}}
-                w={{base: '100%'}}
-                height={'100%'}
-                top={'0'}
-                onClick={() => !isLargerThanMd && history.push(Routes.main)}
-                left={'0'}>
-                <Rune/>
-            </Flex>
-
-
-            <Stack color={useColorModeValue('basic.500', 'basic.500')}
-                   height={'60px'}
-                   width={'100vw'}
-                   justify={'center'}>
-                <Flex
-                    marginLeft={'auto'}
-                    width={'100%'}
-                    marginRight={'auto'}
-                    maxW={{md: 'calc(100vw - 126px - 72px - 64px)', "2xl": '1160px'}}
-                    zIndex={2}
-                    px={{base: '26px', md: 0}}
-                >
-                    <BurgerIcon display={{base: 'initial', md: 'none'}} cursor={'pointer'}/>
-
-                    <Box display={{base: 'none', md: "flex"}} zIndex={2}>
-                        <Navigator/>
-                    </Box>
-
-                    <HStack marginLeft={'auto'} spacing={'27px'} zIndex={2}>
-                        {!isAuthorized
-                            ? (
-                                isLargerThanMd ? (
-                                    <Button
-                                        leftIcon={<LoginButtonIcon/>}
-                                        size={'sm'}
-                                        _hover={{bg: 'primary.500', color: 'white'}}
-                                        color={'primary.500'}
-                                        bg={'transparent'}
-                                        border={'1px solid'}
-                                        onClick={() => modalService.open('login')}
-                                        borderColor={'primary.500'}> Log in</Button>
-                                ) : (
-                                    <Box onClick={() => modalService.open('login')}>
-                                        <Spinner/>
-
-
-
-                                        {/*<LoginButtonIcon/>*/}
-                                    </Box>
-                                )
-                            )
-                            : (
-                                <Menu>
-                                    <MenuButton as={IconButton}
-                                                icon={<ProfileIcon/>}
-                                                variant="unstyled"/>
-
-                                    <MenuList zIndex={10}>
-                                        <MenuItem as={RouterLink} to={Routes.profile}>Profile</MenuItem>
-                                        <MenuItem as={RouterLink} to={Routes.myItems}
-                                            // icon={<ActiveMenuIcon/>}
-                                        >My items</MenuItem>
-                                        <MenuItem>Notifications</MenuItem>
-                                        <MenuItem onClick={() => logout()}>Log Out</MenuItem>
-                                    </MenuList>
-                                </Menu>
-                            )}
-
-                        <Box as={RouterLink} to={Routes.cart} cursor={'pointer'}>
-                            <CartIcon count={cartService.productsCount}/>
-                        </Box>
-                    </HStack>
-                </Flex>
-            </Stack>
-
-
-            <Flex
-                display={{base: 'none', md: "flex"}}
-                position={'absolute'} alignItems={'center'}
-                height={'100%'}
-                top={'0'}
-                right={'0'}
-                zIndex={1}
+        <>
+            <Box
+                position={'fixed'}
+                w={'100vw'}
+                bg={'white'}
+                zIndex={1000}
+                h={'calc(100% - 60px)'}
+                transition={'all ease-in .2s'}
+                transform={isOpen ? 'translateY(calc(100% + 120px))' : 'translateY(0)'}
+                top={'-100%'}
             >
-                <svg width="72" height="4" viewBox="0 0 72 4" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M0 2H113" stroke={primary500} strokeWidth="4"/>
-                </svg>
-            </Flex>
-        </Box>
+                <NavigatorMobile onClick={onClose}/>
+
+                <Box w={'100%'} display={'flex'} flexDirection={'column'} alignItems={'center'} position={'absolute'}
+                     bottom={'57px'}>
+                    <Text mb={4} color={'basic.500'} textTransform={'uppercase'} fontSize={18}>Follow us</Text>
+
+                    <SocialLinks/>
+                </Box>
+            </Box>
+
+            <Box zIndex={1001} bg={'white'} position={'relative'}>
+                <Flex
+                    position={'absolute'}
+                    alignItems={'center'}
+                    justify={{base: 'center', md: 'flex-start'}}
+                    w={{base: '100%'}}
+                    height={'100%'}
+                    top={'0'}
+                    onClick={() => !isLargerThanMd && history.push(Routes.main)}
+                    left={'0'}>
+                    <Rune/>
+                </Flex>
+
+                <Stack color={useColorModeValue('basic.500', 'basic.500')}
+                       height={'60px'}
+                       width={'100vw'}
+                       justify={'center'}>
+                    <Flex
+                        marginLeft={'auto'}
+                        width={'100%'}
+                        marginRight={'auto'}
+                        alignItems={'center'}
+                        maxW={{md: 'calc(100vw - 126px - 72px - 64px)', "2xl": '1160px'}}
+                        zIndex={2}
+                        px={{base: '26px', md: 0}}
+                    >
+                        {!isLargerThanMd && (
+                            <BurgerButton
+                                isOpen={isOpen}
+                                color={primary500}
+                                onClick={() => isOpen ? onClose() : onOpen()}
+                            />
+                        )}
+
+                        <Box display={{base: 'none', md: "flex"}} zIndex={2}>
+                            <Navigator/>
+                        </Box>
+
+                        <HStack marginLeft={'auto'} spacing={'27px'} zIndex={2}>
+                            {!isAuthorized
+                                ? (
+                                    isLargerThanMd ? (
+                                        <Button
+                                            leftIcon={<LoginButtonIcon/>}
+                                            size={'sm'}
+                                            _hover={{bg: 'primary.500', color: 'white'}}
+                                            color={'primary.500'}
+                                            bg={'transparent'}
+                                            border={'1px solid'}
+                                            onClick={() => modalService.open('login')}
+                                            borderColor={'primary.500'}> Log in</Button>
+                                    ) : (
+                                        <Box onClick={() => modalService.open('login')}>
+                                            <Spinner/>
+
+
+                                            {/*<LoginButtonIcon/>*/}
+                                        </Box>
+                                    )
+                                )
+                                : (
+                                    <Menu>
+                                        <MenuButton as={IconButton}
+                                                    icon={<ProfileIcon/>}
+                                                    variant="unstyled"/>
+
+                                        <MenuList zIndex={10}>
+                                            <MenuItem as={RouterLink} to={Routes.profile}>Profile</MenuItem>
+                                            <MenuItem as={RouterLink} to={Routes.myItems}
+                                                // icon={<ActiveMenuIcon/>}
+                                            >My items</MenuItem>
+                                            <MenuItem>Notifications</MenuItem>
+                                            <MenuItem onClick={() => logout()}>Log Out</MenuItem>
+                                        </MenuList>
+                                    </Menu>
+                                )}
+
+                            <Box as={RouterLink} to={Routes.cart} cursor={'pointer'}>
+                                <CartIcon count={cartService.productsCount}/>
+                            </Box>
+                        </HStack>
+                    </Flex>
+                </Stack>
+
+
+                <Flex
+                    display={{base: 'none', md: "flex"}}
+                    position={'absolute'} alignItems={'center'}
+                    height={'100%'}
+                    top={'0'}
+                    right={'0'}
+                    zIndex={1}
+                >
+                    <svg width="72" height="4" viewBox="0 0 72 4" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M0 2H113" stroke={primary500} strokeWidth="4"/>
+                    </svg>
+                </Flex>
+            </Box>
+        </>
     );
 })
 
