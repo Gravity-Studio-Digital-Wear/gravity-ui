@@ -30,8 +30,11 @@ export const GravityTheme = {
                 borderRadius: '0',
                 textTransform: 'uppercase',
                 minW: 'auto',
-
-
+                _disabled: {
+                    _hover: {
+                        bg: "primary.500"
+                    }
+                }
             },
 
             sizes: {
@@ -75,14 +78,19 @@ export const GravityTheme = {
                     minWidth: 'auto',
                     bg: "primary.500",
                     _hover: {
-                        bg: 'alert'
+                        bg: 'alert',
+                        color: 'white'
+                    },
+                    _disabled: {
+                        background: 'inherit',
                     }
                 }
             },
 
 
             defaultProps: {
-              variant: 'solid'
+                variant: 'solid',
+                colorScheme: 'primary'
             }
         },
 

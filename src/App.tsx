@@ -22,6 +22,8 @@ const breakpoints = createBreakpoints({
 const theme = extendTheme({...GravityTheme, breakpoints})
 
 
+console.log(theme)
+
 function App() {
     const [RootProvider] = useProviders([
         <ChakraProvider resetCSS={true} theme={theme}/>,

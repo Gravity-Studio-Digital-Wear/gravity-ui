@@ -24,6 +24,7 @@ import {useModalProps} from "../core/modal/modal";
 import {ProfileService} from "../services/ProfileService";
 import {GravityApplication} from "../app/Application";
 import {sendAmplitudeData} from '../utils/amplitude'
+import {isMetamaskAvailable} from "../utils/ethereum";
 
 export const LoginModal = observer(function LoginModal() {
     const magicOAuthProvider = useService(MagicOAuthProvider);
@@ -42,7 +43,10 @@ export const LoginModal = observer(function LoginModal() {
 
     const [isLargerThanMd] = useMediaQuery(`(min-width: ${md})`)
 
+    const isMetamask = React.useMemo(() => isMetamaskAvailable(), []);
 
+
+    console.log(isMetamask, !isMetamask)
     const login = (provider: OAuthProvider) => {
         gravityApplication.setCachedProvider('magic');
 
@@ -96,11 +100,28 @@ export const LoginModal = observer(function LoginModal() {
                         To purchase, you need to log in
                     </Text>
 
-                    <Box mb={'32px'}>
+                    <Box mb={'32px'} alignItems={'center'} display={'flex'} flexDirection={'column'}>
                         <Button w={'316px'}
-                                border={'1px solid'} borderColor={'basic.500'} bg={'#F6851B'}
+                                isDisabled={!isMetamask}
+                                border={'1px solid'}
+                                borderColor={'basic.500'}
+                                bg={'#F6851B'}
+                                _disabled={{
+                                    bg: '#F6851B',
+                                    opacity: .7,
+                                    _hover: {
+                                        cursor: 'initial'
+                                    }
+                                }}
                                 onClick={() => loginWithMetamask()}
-                                letterSpacing={'0.02em'} leftIcon={<IconMetamask/>}>Login with metamask</Button>
+                                letterSpacing={'0.02em'}
+                                leftIcon={<IconMetamask/>}
+                        >
+                            Login with metamask
+                        </Button>
+
+
+                        {!isMetamask && <Text mt={'16px'}>Available only through Desktop Google Chrome browser</Text>}
                     </Box>
 
                     <Divider width={'160px'} bg={'basic.100'}/>
