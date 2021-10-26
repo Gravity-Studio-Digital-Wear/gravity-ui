@@ -35,7 +35,7 @@ import {BurgerButton} from "./BurgerButton";
 
 const navLinks = [
     ['shop', Routes.main],
-    ['how it work\'s', Routes.howItWorks],
+    ['how it works', Routes.howItWorks],
     ['sustainability', Routes.sustainability]
 ]
 
