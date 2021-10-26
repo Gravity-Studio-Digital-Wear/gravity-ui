@@ -27,7 +27,7 @@ import {WaredrobeService} from "../../services/WaredrobeService";
 import {TicketStatus} from "./TicketStatus";
 import {Routes} from "../../app/routes";
 import {IconBack} from "../../components/icons/IconBack";
-import {processUploadImgUrl} from "../../utils/imageUrl";
+import {processImgUrl, processUploadImgUrl} from "../../utils/imageUrl";
 import SwiperCore, {Mousewheel, Pagination, Navigation, Keyboard} from 'swiper';
 import {Swiper, SwiperSlide} from "swiper/react";
 import {sendAmplitudeData} from '../../utils/amplitude'
@@ -123,15 +123,31 @@ export const ProfileItemPage = observer(function ProfileItemPage({match}: RouteC
                     "clickable": true
                 }}
         >
-            {product.images.slice(1).map((image: string) => {
+            {product.images.map((image: string) => {
                 return (
                     <SwiperSlide key={image}>
-                        <Image
-                            key={image}
-                            width={'100%'}
-                            pointerEvents={'none'}
-                            src={image}
-                        />
+                        {image.slice(-4) === 'webm'
+                            ? (
+                                <figure>
+                                    <video
+                                        playsInline muted
+                                        onMouseOver={(event) => (event.target as any).play()}
+                                        onMouseOut={event => {
+                                            (event.target as any).pause();
+                                            (event.target as any).currentTime = 0
+                                        }}
+                                    >
+                                        <source src={processImgUrl(image)} type="video/webm"/>
+                                    </video>
+                                </figure>
+                            )
+                            : (
+                                <Image
+                                    key={image}
+                                    width={'100%'}
+                                    src={image}
+                                />
+                            )}
                     </SwiperSlide>
                 )
             })}
