@@ -8,6 +8,9 @@ export const initAmplitude = () => {
      includeUtm: true,
      includeReferrer: true
   });
+  if (amplitude.getInstance().isNewSession()) {
+    sendAmplitudeData('E_NEW_SESSION')
+  }
 };
 
 export const setAmplitudeUserDevice = installationToken => {
