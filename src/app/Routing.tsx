@@ -16,6 +16,8 @@ import {CheckoutPage} from "../pages/Cart/CheckoutPage";
 import {AuthGuard} from "../core/guards/auth-guard";
 import {SustainabilityPage} from "../pages/Sustainability";
 import {HowItWorksPage} from "../pages/HowItWorks";
+import {TermsOfService} from "../pages/TermsOfService";
+import {Privacy} from "../pages/Privacy";
 
 export const Routing = observer(function Routing() {
     const history = useHistory()
@@ -65,6 +67,9 @@ export const Routing = observer(function Routing() {
 
                             <Route path={Routes.sustainability} component={SustainabilityPage}/>
                             <Route path={Routes.howItWorks} component={HowItWorksPage}/>
+
+                            <Route path={Routes.privacy} component={Privacy}/>
+                            <Route path={Routes.termsOfService} component={TermsOfService}/>
 
                             <Route path={Routes.main} component={ShopPage} exact={true}/>
                         </Switch>

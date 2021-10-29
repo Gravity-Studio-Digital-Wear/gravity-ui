@@ -1,7 +1,8 @@
 import * as React from 'react'
 import {Box, Flex, HStack, Link, Stack, Text} from "@chakra-ui/react";
 import {InstaIcon, TwitterIcon, YouTubeIcon} from "./icons/IconSocial";
-
+import {Link as RouterLink} from 'react-router-dom';
+import {Routes} from "../app/routes";
 
 export function Footer() {
     return (
@@ -41,12 +42,17 @@ export function Footer() {
                     </HStack>
 
                     <Stack textTransform={'uppercase'}>
-                        <Link>
-                            <Text as={'span'} _hover={{textDecoration: 'none'}} borderBottom={'1px solid'}
-                                  borderColor={'primary.500'}>Terms</Text>
+                        <Link as={RouterLink} to={Routes.termsOfService}>
+                            <Text as={'span'}
+                                  _hover={{textDecoration: 'none'}}
+                                  borderBottom={'1px solid'}
+                                  borderColor={'primary.500'}>Terms
+                            </Text>
                         </Link>
-                        <Link>
-                            <Text as={'span'} _hover={{textDecoration: 'none'}} borderBottom={'1px solid'}
+                        <Link as={RouterLink} to={Routes.privacy}>
+                            <Text as={'span'}
+                                  _hover={{textDecoration: 'none'}}
+                                  borderBottom={'1px solid'}
                                   borderColor={'primary.500'}>
                                 Privacy Policy
                             </Text>
