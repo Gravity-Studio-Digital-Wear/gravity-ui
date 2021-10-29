@@ -131,6 +131,15 @@ export const CartPage = observer(function CartPage() {
                                     >
                                         Checkout
                                     </Button>
+                                    <a href="https://opensea.io/GravityTheStudioShop" target="_blank">
+                                    <Button
+                                        textTransform={'uppercase'}
+                                        w={'100%'}
+                                        mt={'32px'}
+                                    >
+                                        Buy with Crypto on OpenSea
+                                    </Button>
+                                    </a>
                                 </Box>
                             </GridItem>
                         </Grid>
