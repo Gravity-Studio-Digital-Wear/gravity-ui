@@ -156,7 +156,7 @@ function CartItem({product, quantity}: { product: IProduct, quantity: number }) 
 
                     <Text fontSize={'12px'} color={'alert'} textTransform={'uppercase'}
                           letterSpacing={'0.07em'}>
-                        {+product.__supply.remaningSupply !== 0 ? `${product.__supply.remaningSupply} pieces left` : `SOLD OUT`}
+                        {+product.__supply.remaningSupply !== 0 ? `${product.__supply.remaningSupply}/${product.__supply.maxSupply} pieces left` : `SOLD OUT`}
                     </Text>
 
                     <QtyControl

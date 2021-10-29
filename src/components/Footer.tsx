@@ -1,6 +1,7 @@
 import * as React from 'react'
 import {Box, Flex, HStack, Link, Stack, Text} from "@chakra-ui/react";
 import {InstaIcon, TwitterIcon, YouTubeIcon} from "./icons/IconSocial";
+import {Routes} from "../app/routes";
 
 
 export function Footer() {
@@ -20,16 +21,13 @@ export function Footer() {
                     alignItems={'flex-start'}
                     mt={'42px'}>
                     <Stack spacing={'10px'}>
-                        <Link>Shop</Link>
-                        <Link>How it works</Link>
-                        <Link>Sustainability</Link>
-                        <Link>About Us</Link>
+                        <Link href={Routes.main}>Shop</Link>
+                        <Link href={Routes.howItWorks}>How it works</Link>
+                        <Link href={Routes.sustainability}>Sustainability</Link>
                     </Stack>
 
                     <Stack spacing={'10px'}>
-                        <Link>Jobs</Link>
-                        <Link>FAQ'S</Link>
-                        <Link>Contact us</Link>
+                        <Link href="https://www.gravitythestud.io/" isExternal>Contact us</Link>
                     </Stack>
                 </Stack>
 

@@ -145,7 +145,7 @@ export const ProductPage = observer(function ProductPage({match}: RouteComponent
                         pb={{base: '84px', md: 0}}
                     >
                         <Heading as={'h1'} fontSize={43} textTransform={'uppercase'}
-                                 letterSpacing={'0.01em'}>FRINGE</Heading>
+                                 letterSpacing={'0.01em'}>{product.name}</Heading>
 
                         {!isLargerThanMd && (
                             <>
@@ -174,7 +174,7 @@ export const ProductPage = observer(function ProductPage({match}: RouteComponent
                                           color={'alert'}
                                           textTransform={'uppercase'}
                                           letterSpacing={'0.07em'}>
-                                        {+product.__supply.remaningSupply || +product.__supply.maxSupply} pieces left
+                                        {product.__supply.remaningSupply}/{product.__supply.maxSupply} pieces left
                                     </Text>
                                 </Flex>
 
@@ -202,7 +202,7 @@ export const ProductPage = observer(function ProductPage({match}: RouteComponent
                                     {product.description}
                                 </Text>
 
-                                <Link color={'primary.500'} textTransform={'uppercase'} letterSpacing={'0.07em'}>
+                                <Link href={Routes.howItWorks} color={'primary.500'} textTransform={'uppercase'} letterSpacing={'0.07em'}>
                                     <Text as={'span'} borderBottom={'1px solid'} borderColor={'primary.500'}>How to wear
                                         it?</Text>
                                 </Link>
@@ -215,7 +215,7 @@ export const ProductPage = observer(function ProductPage({match}: RouteComponent
                                     {product.description}
                                 </Text>
 
-                                <Link color={'primary.500'} textTransform={'uppercase'} letterSpacing={'0.07em'}>
+                                <Link href={Routes.howItWorks} color={'primary.500'} textTransform={'uppercase'} letterSpacing={'0.07em'}>
                                     <Text as={'span'} borderBottom={'1px solid'} borderColor={'primary.500'}>How to wear
                                         it?</Text>
                                 </Link>
