@@ -13,6 +13,7 @@
     "@emotion/react": "^11.4.1",
     "@emotion/styled": "^11.3.0",
     "@magic-ext/oauth": "^0.10.0",
+    "@types/amplitude-js": "^8.0.1",
     "@types/react-table": "^7.7.2",
     "amplitude-js": "^8.8.0",
     "browserify-zlib": "^0.2.0",
