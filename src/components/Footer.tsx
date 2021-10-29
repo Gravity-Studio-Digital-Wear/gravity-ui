@@ -1,8 +1,8 @@
 import * as React from 'react'
 import {Box, Flex, HStack, Link, Stack, Text} from "@chakra-ui/react";
 import {InstaIcon, TwitterIcon, YouTubeIcon} from "./icons/IconSocial";
+import {Link as RouterLink} from 'react-router-dom';
 import {Routes} from "../app/routes";
-
 
 export function Footer() {
     return (
@@ -21,9 +21,9 @@ export function Footer() {
                     alignItems={'flex-start'}
                     mt={'42px'}>
                     <Stack spacing={'10px'}>
-                        <Link href={Routes.main}>Shop</Link>
-                        <Link href={Routes.howItWorks}>How it works</Link>
-                        <Link href={Routes.sustainability}>Sustainability</Link>
+                        <Link as={RouterLink} to={Routes.main}>Shop</Link>
+                        <Link as={RouterLink} to={Routes.howItWorks}>How it works</Link>
+                        <Link as={RouterLink} to={Routes.sustainability}>Sustainability</Link>
                     </Stack>
 
                     <Stack spacing={'10px'}>
@@ -39,12 +39,17 @@ export function Footer() {
                     </HStack>
 
                     <Stack textTransform={'uppercase'}>
-                        <Link>
-                            <Text as={'span'} _hover={{textDecoration: 'none'}} borderBottom={'1px solid'}
-                                  borderColor={'primary.500'}>Terms</Text>
+                        <Link as={RouterLink} to={Routes.termsOfService}>
+                            <Text as={'span'}
+                                  _hover={{textDecoration: 'none'}}
+                                  borderBottom={'1px solid'}
+                                  borderColor={'primary.500'}>Terms
+                            </Text>
                         </Link>
-                        <Link>
-                            <Text as={'span'} _hover={{textDecoration: 'none'}} borderBottom={'1px solid'}
+                        <Link as={RouterLink} to={Routes.privacy}>
+                            <Text as={'span'}
+                                  _hover={{textDecoration: 'none'}}
+                                  borderBottom={'1px solid'}
                                   borderColor={'primary.500'}>
                                 Privacy Policy
                             </Text>
