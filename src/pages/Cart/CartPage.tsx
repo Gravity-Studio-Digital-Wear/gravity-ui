@@ -131,6 +131,15 @@ export const CartPage = observer(function CartPage() {
                                     >
                                         Checkout
                                     </Button>
+                                    <a href="https://opensea.io/GravityTheStudioShop" target="_blank">
+                                    <Button
+                                        textTransform={'uppercase'}
+                                        w={'100%'}
+                                        mt={'32px'}
+                                    >
+                                        Buy with Crypto on OpenSea
+                                    </Button>
+                                    </a>
                                 </Box>
                             </GridItem>
                         </Grid>
@@ -156,7 +165,7 @@ function CartItem({product, quantity}: { product: IProduct, quantity: number }) 
 
                     <Text fontSize={'12px'} color={'alert'} textTransform={'uppercase'}
                           letterSpacing={'0.07em'}>
-                        {+product.__supply.remaningSupply !== 0 ? `${product.__supply.remaningSupply} pieces left` : `SOLD OUT`}
+                        {+product.__supply.remaningSupply !== 0 ? `${product.__supply.remaningSupply}/${product.__supply.maxSupply} pieces left` : `SOLD OUT`}
                     </Text>
 
                     <QtyControl

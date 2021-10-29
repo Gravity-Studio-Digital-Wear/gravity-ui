@@ -21,16 +21,13 @@ export function Footer() {
                     alignItems={'flex-start'}
                     mt={'42px'}>
                     <Stack spacing={'10px'}>
-                        <Link>Shop</Link>
-                        <Link>How it works</Link>
-                        <Link>Sustainability</Link>
-                        <Link>About Us</Link>
+                        <Link as={RouterLink} to={Routes.main}>Shop</Link>
+                        <Link as={RouterLink} to={Routes.howItWorks}>How it works</Link>
+                        <Link as={RouterLink} to={Routes.sustainability}>Sustainability</Link>
                     </Stack>
 
                     <Stack spacing={'10px'}>
-                        <Link>Jobs</Link>
-                        <Link>FAQ'S</Link>
-                        <Link>Contact us</Link>
+                        <Link href="https://www.gravitythestud.io/" isExternal>Contact us</Link>
                     </Stack>
                 </Stack>
 

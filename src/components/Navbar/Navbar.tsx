@@ -282,7 +282,6 @@ export const Navigation = observer(function Navigation() {
                                             <MenuItem as={RouterLink} to={Routes.myItems}
                                                 // icon={<ActiveMenuIcon/>}
                                             >My items</MenuItem>
-                                            <MenuItem>Notifications</MenuItem>
                                             <MenuItem onClick={() => logout()}>Log Out</MenuItem>
                                         </MenuList>
                                     </Menu>

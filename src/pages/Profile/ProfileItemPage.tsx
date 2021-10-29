@@ -227,7 +227,7 @@ export const ProfileItemPage = observer(function ProfileItemPage({match}: RouteC
                                 {product.description}
                             </Text>
 
-                            <Link color={'primary.500'} textTransform={'uppercase'} letterSpacing={'0.07em'}>
+                            <Link href={Routes.howItWorks} color={'primary.500'} textTransform={'uppercase'} letterSpacing={'0.07em'}>
                                 <Text as={'span'} borderBottom={'1px solid'} borderColor={'primary.500'}>How to wear it?</Text>
                             </Link>
 
