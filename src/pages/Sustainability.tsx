@@ -1,6 +1,7 @@
 import * as React from 'react';
 
 import {Box, Button, Flex, Grid, GridItem, Image, Text, useMediaQuery, useToken} from "@chakra-ui/react";
+import { Routes } from '../app/routes';
 
 export function SustainabilityPage() {
     return (
@@ -67,7 +68,11 @@ export function SustainabilityPage() {
                         resell it, and save some wardrobe space too.
                     </Text>
 
-                    <Button mt={'32px'} color={'primary.500'} bg={'white'} w={'270px'}>Go To Shoping</Button>
+                    <a href={Routes.main}>
+                        <Button mt={'32px'} color={'primary.500'} bg={'white'} w={'270px'}>
+                            Go To Shoping
+                        </Button>
+                    </a>
                 </Flex>
 
 
@@ -85,8 +90,9 @@ export function SustainabilityPage() {
                             carbon removal projects through the Stripe Climate program.
                         </Text>
 
-
-                        <Button  mt={'40px'}>Go to shopping</Button>
+                        <a href={Routes.main}>
+                            <Button  mt={'40px'}>Go to shopping</Button>
+                        </a>
                     </GridItem>
                     <GridItem  gridColumn={{base: 'span 12', md: 'span 5'}}>
                         <Box display={'flex'} justifyContent={'center'} mt={'20px'}>

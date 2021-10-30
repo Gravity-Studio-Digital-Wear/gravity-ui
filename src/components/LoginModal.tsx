@@ -127,10 +127,6 @@ export const LoginModal = observer(function LoginModal() {
                     <Divider width={'160px'} bg={'basic.100'}/>
 
                     <Stack spacing={'16px'} mt={'32px'}>
-                        <Button w={'316px'} border={'1px solid'} borderColor={'basic.500'} bg={'#157DC3'}
-                                onClick={() => login('facebook')}
-                                letterSpacing={'0.02em'} leftIcon={<IconFacebook/>}>Login with facebook</Button>
-
                         <Button w={'316px'}
                                 border={'1px solid'}
                                 borderColor={'basic.500'}

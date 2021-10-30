@@ -27,15 +27,21 @@ export function Footer() {
                     </Stack>
 
                     <Stack spacing={'10px'}>
-                        <Link href="https://www.gravitythestud.io/" isExternal>Contact us</Link>
+                        <Link href="https://forms.gle/AvVvcJciKJFCLdfk6" isExternal>Contact us</Link>
                     </Stack>
                 </Stack>
 
                 <Stack marginLeft={{base: '120px', md: 'auto'}} mt={'42px'} spacing={{base: '32px', md: '46px'}}>
                     <HStack spacing={'10px'}>
-                        <Link><InstaIcon/></Link>
-                        <Link><YouTubeIcon/></Link>
-                        <Link><TwitterIcon/></Link>
+                        <Link href="https://www.instagram.com/gravitythestudio/" isExternal>
+                            <InstaIcon/>
+                        </Link>
+                        <Link href="https://www.youtube.com/channel/UCKrbhUFFqg-Q2nyrfxN9xjQ" isExternal>
+                            <YouTubeIcon/>
+                        </Link>
+                        <Link href="https://twitter.com/GravitytheStud" isExternal>
+                            <TwitterIcon/>
+                        </Link>
                     </HStack>
 
                     <Stack textTransform={'uppercase'}>

@@ -284,27 +284,9 @@ export const ProfileItemPage = observer(function ProfileItemPage({match}: RouteC
                                     })}
                                 </HStack>
 
-                                <Text>See our photo recommendations <Link as={'span'} color={'primary.500'}
+                                <Text>See our photo recommendations <Link href={Routes.howItWorks} as={'a'} color={'primary.500'}
                                                                           textDecoration={'underline'}>here</Link>.</Text>
 
-
-                                <Text textTransform={'uppercase'} color={'basic.500'} fontWeight={'bold'}
-                                      letterSpacing={'0.02em'}>...
-                                    or share a link</Text>
-
-                                <FormControl>
-                                    <InputGroup>
-                                        <InputLeftElement
-                                            pointerEvents="none"
-                                            children={<LinkIcon/>}
-                                        />
-                                        <Input
-                                            id="link"
-
-                                            placeholder="Paste link here"
-                                        />
-                                    </InputGroup>
-                                </FormControl>
 
                                 <Button onClick={() => uploadResult()}>Redeem wear</Button>
                             </Stack>
@@ -426,7 +408,7 @@ export const ProfileItemPage = observer(function ProfileItemPage({match}: RouteC
                                         })}
                                     </HStack>
 
-                                    <Text>See our photo recommendations <Link as={'span'} color={'primary.500'}
+                                    <Text>See our photo recommendations <Link href={Routes.howItWorks} as={'a'} color={'primary.500'}
                                                                               textDecoration={'underline'}>here</Link>.</Text>
 
                                 </GridItem>
