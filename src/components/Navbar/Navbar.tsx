@@ -30,7 +30,7 @@ import {AuthService, MagicOAuthProvider} from "../../services/AuthService";
 import {ModalService} from "../../services/ModalService";
 import {CartService} from "../../services/CartService";
 import {GravityApplication} from "../../app/Application";
-import {InstaIcon, TwitterIcon, YouTubeIcon} from "../icons/IconSocial";
+import {DiscordIcon, InstaIcon, TelegramIcon, TwitterIcon, YouTubeIcon} from "../icons/IconSocial";
 import {BurgerButton} from "./BurgerButton";
 
 const navLinks = [
@@ -86,9 +86,23 @@ function SocialLinks() {
     return (
         <Stack>
             <HStack spacing={'10px'}>
-                <Link><InstaIcon/></Link>
-                <Link><YouTubeIcon/></Link>
-                <Link><TwitterIcon/></Link>
+                <Link href={'https://t.me/gravitythestudiogroup'} isExternal>
+                    <TelegramIcon/>
+                </Link>
+
+                <Link href={'https://discord.gg/DkqaUdY5'} isExternal>
+                    <DiscordIcon/>
+                </Link>
+
+                <Link href="https://www.instagram.com/gravitythestudio/" isExternal>
+                    <InstaIcon/>
+                </Link>
+                <Link href="https://www.youtube.com/channel/UCKrbhUFFqg-Q2nyrfxN9xjQ" isExternal>
+                    <YouTubeIcon/>
+                </Link>
+                <Link href="https://twitter.com/GravitytheStud" isExternal>
+                    <TwitterIcon/>
+                </Link>
             </HStack>
         </Stack>
     )
@@ -183,6 +197,8 @@ export const Navigation = observer(function Navigation() {
     }
 
     const isAuthorized = authService.isAuthorized;
+    const isAuthLoading = authService.authStatus === 'pending'
+
 
     const [primary500] = useToken(
         'colors',
@@ -264,10 +280,9 @@ export const Navigation = observer(function Navigation() {
                                             borderColor={'primary.500'}> Log in</Button>
                                     ) : (
                                         <Box onClick={() => modalService.open('login')}>
-                                            <Spinner/>
+                                            {/*<Spinner/>*/}
 
-
-                                            {/*<LoginButtonIcon/>*/}
+                                            {isAuthLoading ? <Spinner/> : <LoginButtonIcon/>}
                                         </Box>
                                     )
                                 )

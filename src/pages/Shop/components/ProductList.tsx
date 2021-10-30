@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {observer} from "mobx-react";
-import {Box, useMediaQuery, useToken} from "@chakra-ui/react";
+import {Box, RenderProps, useMediaQuery, useToast, useToken} from "@chakra-ui/react";
 import {GridListView} from "./GridListView";
 import {ChessListView} from "./ChessListView";
 import {useService} from "../../../core/decorators/service";
@@ -8,12 +8,14 @@ import {WarehouseStore} from "../../../stores/WarehouseStore";
 import {useHistory} from "react-router-dom";
 import {CartService} from "../../../services/CartService";
 import {MobileListView} from "./MobileListView";
+import {IProduct} from "../../../interfaces";
 
 
 export const ProductList = observer(function ProductList() {
     const warehouseStore = useService(WarehouseStore)
     const cartService = useService(CartService)
     const {products} = warehouseStore
+    const toast = useToast();
 
     const [md] = useToken(
         'breakpoints',
@@ -42,6 +44,34 @@ export const ProductList = observer(function ProductList() {
 
     const isChessListView = view === ChessListView;
 
+
+    const AddHandler = (p: IProduct) => {
+        cartService.add(p)
+
+        if (!isChessListView) {
+            return;
+        }
+
+        toast({
+            title: "Successfully added to cart",
+            // description: "We've created your account for you.",
+            status: "success",
+
+            render(props: RenderProps): React.ReactNode {
+                return (
+                    <Box bg={'primary.500'} letterSpacing={'0.02em'} p={'16px'} color={'white'}
+                         textTransform={'uppercase'}>
+                        Successfully added to cart
+                    </Box>
+                )
+            },
+
+            duration: 7000,
+            isClosable: true,
+        })
+    }
+
+
     return (
         <Box position={'relative'} mt={'60px'} width={'100%'}>
             {(isLargerThanMd && isChessListView) && <ClothingText/>}
@@ -50,7 +80,7 @@ export const ProductList = observer(function ProductList() {
                 {products.result?.map((p) => <Card
                     key={p._id}
                     onClickCard={() => history.push(`product/${p._id}`)}
-                    onClickAdd={() => cartService.add(p)}
+                    onClickAdd={() => AddHandler(p)}
                     {...p}
                 />)}
             </Wrapper>

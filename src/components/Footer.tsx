@@ -1,6 +1,6 @@
 import * as React from 'react'
 import {Box, Flex, HStack, Link, Stack, Text} from "@chakra-ui/react";
-import {InstaIcon, TwitterIcon, YouTubeIcon} from "./icons/IconSocial";
+import {DiscordIcon, InstaIcon, TelegramIcon, TwitterIcon, YouTubeIcon} from "./icons/IconSocial";
 import {Link as RouterLink} from 'react-router-dom';
 import {Routes} from "../app/routes";
 
@@ -28,11 +28,20 @@ export function Footer() {
 
                     <Stack spacing={'10px'}>
                         <Link href="https://forms.gle/AvVvcJciKJFCLdfk6" isExternal>Contact us</Link>
+                        <Link href="https://drive.google.com/file/d/13lQTANmVz4lrjMMBuB2a77p-iU_TsJfG" isExternal>White paper</Link>
                     </Stack>
                 </Stack>
 
                 <Stack marginLeft={{base: '120px', md: 'auto'}} mt={'42px'} spacing={{base: '32px', md: '46px'}}>
                     <HStack spacing={'10px'}>
+                        <Link href={'https://t.me/gravitythestudiogroup'} isExternal>
+                            <TelegramIcon/>
+                        </Link>
+
+                        <Link href={'https://discord.gg/DkqaUdY5'} isExternal>
+                            <DiscordIcon/>
+                        </Link>
+
                         <Link href="https://www.instagram.com/gravitythestudio/" isExternal>
                             <InstaIcon/>
                         </Link>

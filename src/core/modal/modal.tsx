@@ -2,7 +2,7 @@ import React from "react";
 import {useService} from "../decorators/service";
 import {ModalService} from "../../services/ModalService";
 import {observer} from "mobx-react";
-import {LoginModal} from "../../components/LoginModal";
+import {LoginModal, WhatTheDifferenceModal} from "../../components/LoginModal";
 
 export function useModalProps() {
     return React.useContext(ModalContext);
@@ -35,6 +35,10 @@ export const ModalProvider = observer(function ModalProvider(props: React.PropsW
         {
             key: 'login',
             component: <LoginModal/>
+        },
+        {
+            key: 'whatthediff',
+            component: <WhatTheDifferenceModal/>
         }
     ], [])
 

@@ -11,9 +11,10 @@ import {
     ModalContent,
     ModalOverlay,
     Stack,
-    Text, useMediaQuery, useToken
+    Text,
+    useMediaQuery,
+    useToken
 } from "@chakra-ui/react";
-import {IconFacebook} from "./icons/IconFacebook";
 import {IconGoogle} from "./icons/IconGoogle";
 import {IconMetamask} from "./icons/IconMetamask";
 import {observer} from "mobx-react";
@@ -25,6 +26,7 @@ import {ProfileService} from "../services/ProfileService";
 import {GravityApplication} from "../app/Application";
 import {sendAmplitudeData} from '../utils/amplitude'
 import {isMetamaskAvailable} from "../utils/ethereum";
+import {ModalService} from "../services/ModalService";
 
 export const LoginModal = observer(function LoginModal() {
     const magicOAuthProvider = useService(MagicOAuthProvider);
@@ -33,6 +35,7 @@ export const LoginModal = observer(function LoginModal() {
 
     const authService = useService(AuthService);
     const profileService = useService(ProfileService);
+    const modalService = useService(ModalService)
 
     const modalProps = useModalProps();
 
@@ -45,8 +48,6 @@ export const LoginModal = observer(function LoginModal() {
 
     const isMetamask = React.useMemo(() => isMetamaskAvailable(), []);
 
-
-    console.log(isMetamask, !isMetamask)
     const login = (provider: OAuthProvider) => {
         gravityApplication.setCachedProvider('magic');
 
@@ -137,14 +138,53 @@ export const LoginModal = observer(function LoginModal() {
                     </Stack>
 
 
-                    <Link textTransform={'uppercase'} letterSpacing={'0.07em'} color={'primary.500'} mt={'32px'}>
-                        <Text as={'span'} borderBottom={'1px solid'} borderColor={'primary.500'}>WHAT'S THE DIFFERENCE?</Text>
+                    <Link onClick={() => modalService.open('whatthediff')} textTransform={'uppercase'}
+                          letterSpacing={'0.07em'} color={'primary.500'} mt={'32px'}>
+                        <Text as={'span'} borderBottom={'1px solid'} borderColor={'primary.500'}>WHAT THE
+                            DIFFERENCE?</Text>
                     </Link>
                 </Flex>
             </ModalContent>
         </Modal>
     )
 })
+
+
+export function WhatTheDifferenceModal() {
+    const modalProps = useModalProps();
+
+    return (
+        <Modal {...modalProps}>
+            <ModalOverlay/>
+            <ModalContent>
+                <ModalCloseButton/>
+
+                <Box py={'88px'} textTransform={'uppercase'}>
+                    <Text fontWeight={'bold'} fontSize={25} mb={'24px'}>What the difference?</Text>
+
+                    <Text mb={'16px'} fontWeight={'bold'} fontSize={18} letterSpacing={'0.02em'}>Metamask Account
+                        (Recommended)</Text>
+
+                    <Text mb={'24px'}>A crypto-wallet that sits securely in your web browser.
+                        If you would like to set up your own Metamask wallet, please the following instructions. This
+                        wallet
+                        will allow you to enjoy the full GravityTheStudio experience.
+                    </Text>
+
+                    <Text mb={'16px'} fontWeight={'bold'} fontSize={18} letterSpacing={'0.02em'}>
+                        Google and Facebook Account
+                    </Text>
+
+                    <Text>We create you a cloud crypto-wallet.
+                        Note: This wallet cannot be exported from GravityTheStudio, Hence you will not be able to use
+                        this
+                        wallet when trying to buy/sell NFTs in a 3rd party marketplace.</Text>
+                </Box>
+            </ModalContent>
+        </Modal>
+    )
+}
+
 
 function LoginSvg() {
     return (

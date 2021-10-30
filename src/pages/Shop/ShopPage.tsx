@@ -13,6 +13,7 @@ import {RouteChildrenProps} from "react-router-dom";
 export const ShopPage = observer(function ShopPage({location}: RouteChildrenProps<{}, { refresh: boolean }>) {
     const products = useService(WarehouseStore).products
 
+
     React.useEffect(() => {
         if (location.state && !location.state.refresh) {
             return;
