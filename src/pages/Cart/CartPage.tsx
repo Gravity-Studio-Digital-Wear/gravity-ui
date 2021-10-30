@@ -129,15 +129,20 @@ export const CartPage = observer(function CartPage() {
                                         type={'submit'}
                                         onClick={() => cartService.checkout()}
                                     >
-                                        Checkout
+                                        Pay with a card (fiat)
                                     </Button>
+                                    <Box w={'100%'} textAlign={'center'}>
+                                        <Text mt={'12px'} lineHeight={'12px'}>
+                                        or
+                                        </Text>
+                                    </Box>
                                     <a href="https://opensea.io/GravityTheStudioShop" target="_blank">
                                     <Button
                                         textTransform={'uppercase'}
                                         w={'100%'}
-                                        mt={'32px'}
+                                        mt={'12px'}
                                     >
-                                        Buy with Crypto on OpenSea
+                                        Buy on opensea (crypto)
                                     </Button>
                                     </a>
                                 </Box>
