@@ -2,6 +2,7 @@ import * as React from 'react';
 import {Box, Grid, HStack, Stack, Text} from "@chakra-ui/react";
 import {IProduct} from "../../../interfaces";
 import {processImgUrl} from "../../../utils/imageUrl";
+import {TransparentVideo} from "../../../components/TransparentVideo";
 
 
 export const Wrapper = (props: React.PropsWithChildren<{}>) => {
@@ -35,11 +36,7 @@ export function Card(props: IProduct & { onClickCard: () => void, onClickAdd: ()
              onMouseOver={onMouseOver}
              onMouseOut={onMouseOut}
         >
-            <figure>
-                <video ref={videoRef} playsInline muted>
-                    <source src={processImgUrl(props.images[0])} type="video/webm"/>
-                </video>
-            </figure>
+            <TransparentVideo src={processImgUrl(props.images[0]).replace('https://gravity-dev-images.easychain.dev/', '/')}/>
             
             <Stack position={'absolute'} left={0} bottom={'10px'} spacing={0}>
                 <Text textTransform={'uppercase'}

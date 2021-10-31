@@ -1,7 +1,11 @@
 import * as React from 'react';
-import {Grid, GridItem, HStack, Image, Text} from "@chakra-ui/react";
+import {Box, Grid, GridItem, HStack, Image, Text} from "@chakra-ui/react";
+import {processImgUrl} from "../utils/imageUrl";
 
 export function HowItWorksPage() {
+    const ref = React.useRef(null);
+
+
 
     return (
         <Grid templateColumns={'repeat(12, 1fr)'} px={{base: '17px', md: 0}}>
@@ -24,6 +28,32 @@ export function HowItWorksPage() {
 
 
             <GridItem gridColumn={{base: 'span 12', md: 'span 10'}}>
+                <Box mb={'24px'}>
+                    <video  ref={ref}
+                            width="100%" height="auto"
+                            preload="auto" muted playsInline autoPlay loop>
+                        {/*<source*/}
+                        {/*    src={'https://images.gravitythestudio.shop/video/upload/w_966/q_auto:good/vc_auto/gravity/Site-Content/how-to-wear2_1_oxyfk3.webm'}*/}
+                        {/*    type="video/webm"*/}
+                        {/*/>*/}
+
+                        <source
+                            src={'https://images.gravitythestudio.shop/video/upload/w_966/q_auto:good/vc_auto/gravity/Site-Content/how-to-wear2_1_oxyfk3.mp4'}
+                            type='video/mp4; codecs="avc1.42E01E, mp4a.40.2"'
+                        />
+
+                        {/*<source*/}
+                        {/*    src={'https://images.gravitythestudio.shop/video/upload/w_966/q_auto:good/vc_auto/gravity/Site-Content/how-to-wear2_1_oxyfk3.ogg'}*/}
+                        {/*    type="video/ogg"*/}
+                        {/*/>*/}
+
+                        {/*<source*/}
+                        {/*    src={'https://images.gravitythestudio.shop/video/upload/w_966/q_auto:good/vc_auto/gravity/Site-Content/how-to-wear2_1_oxyfk3.mov'}*/}
+                        {/*    type="video/quicktime"*/}
+                        {/*/>*/}
+                    </video>
+                </Box>
+
                 <Image src={'/how_to_wear.gif'}/>
 
                 <Text fontSize={26} my={'60px'}>

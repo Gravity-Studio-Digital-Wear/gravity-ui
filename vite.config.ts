@@ -36,6 +36,13 @@ export default defineConfig({
                 // rewrite: (path) => path.replace(/^\/api/, '')
             },
 
+            '/video': {
+                target: 'https://gravity-dev-images.easychain.dev/',
+                changeOrigin: true,
+                secure: false,
+                // rewrite: (path) => path.replace(/^\/api/, '')
+            },
+
             // 'https://checkout.stripe.com/': {
             //     target: 'https://checkout.stripe.com/',
             //     changeOrigin: true,

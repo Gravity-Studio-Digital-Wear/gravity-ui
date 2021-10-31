@@ -43,12 +43,12 @@ export const ProductList = observer(function ProductList() {
     const history = useHistory()
 
     const isChessListView = view === ChessListView;
-
+    const isMobileListView = view === MobileListView;
 
     const AddHandler = (p: IProduct) => {
         cartService.add(p)
 
-        if (!isChessListView) {
+        if (!isChessListView && !isMobileListView) {
             return;
         }
 

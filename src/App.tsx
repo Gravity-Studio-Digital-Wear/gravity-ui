@@ -10,6 +10,7 @@ import {GravityTheme} from "./app/Theme";
 import {ModalProvider} from "./core/modal/modal";
 import {Routing} from "./app/Routing";
 import { createBreakpoints } from "@chakra-ui/theme-tools"
+import {TransparentVideo} from "./components/TransparentVideo";
 
 const breakpoints = createBreakpoints({
     sm: "320px",
