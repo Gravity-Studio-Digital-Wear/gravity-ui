@@ -1,7 +1,9 @@
 import * as React from 'react';
-import {Box, Grid, HStack, Stack, Text} from "@chakra-ui/react";
+import {Box, Grid, HStack, Image, Stack, Text} from "@chakra-ui/react";
 import {IProduct} from "../../../interfaces";
 import {processImgUrl} from "../../../utils/imageUrl";
+import {useService} from "../../../core/decorators/service";
+import {GravityApplication} from "../../../app/Application";
 import {TransparentVideo} from "../../../components/TransparentVideo";
 
 
@@ -36,8 +38,8 @@ export function Card(props: IProduct & { onClickCard: () => void, onClickAdd: ()
              onMouseOver={onMouseOver}
              onMouseOut={onMouseOut}
         >
-            <TransparentVideo src={processImgUrl(props.images[0]).replace('https://gravity-dev-images.easychain.dev/', '/')}/>
-            
+            <TransparentVideo videoUrl={props.images[0]} imageUrl={props.images[1]}/>
+
             <Stack position={'absolute'} left={0} bottom={'10px'} spacing={0}>
                 <Text textTransform={'uppercase'}
                       fontWeight={'bold'}

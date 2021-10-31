@@ -10,12 +10,15 @@ import {ProfileService} from "../services/ProfileService";
 import {initAmplitude} from "../utils/amplitude"
 
 import {persist} from "mobx-persist";
+import {checkSupportForTransparency} from "../utils/video";
 
 @service
 export class GravityApplication implements IBootstrapper {
     @persist
     @observable
     public cachedAuthProviderKey: string;
+
+    public isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
 
     @action
     public setCachedProvider(key: string) {
@@ -43,7 +46,7 @@ export class GravityApplication implements IBootstrapper {
         this.magicOAuth = this.sc.get(MagicOAuthProvider);
         this.injectedAuth = this.sc.get(InjectedAuthProvider);
 
-        this.cachedAuthProviderKey = localStorage.getItem('GRAVITY_CACHED_AUTH_PROVIDER')
+        this.cachedAuthProviderKey = localStorage.getItem('GRAVITY_CACHED_AUTH_PROVIDER');
     }
 
     onBootstrap() {

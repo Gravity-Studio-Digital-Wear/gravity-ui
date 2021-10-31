@@ -32,6 +32,8 @@ import {processImgUrl, processUploadImgUrl} from "../../utils/imageUrl";
 import SwiperCore, {Keyboard, Mousewheel, Navigation, Pagination} from 'swiper';
 import {Swiper, SwiperSlide} from "swiper/react";
 import {sendAmplitudeData} from '../../utils/amplitude'
+import {TransparentVideo} from "../../components/TransparentVideo";
+import {GravityApplication} from "../../app/Application";
 
 /// install Swiper modules
 SwiperCore.use([Pagination, Mousewheel, Navigation, Keyboard]);
@@ -93,7 +95,7 @@ export const ProfileItemPage = observer(function ProfileItemPage({match}: RouteC
             }
         )
     })
-
+    const app = useService(GravityApplication)
     const [md] = useToken(
         'breakpoints',
         ['md']
@@ -114,6 +116,9 @@ export const ProfileItemPage = observer(function ProfileItemPage({match}: RouteC
 
     const {ticket, items: {product}} = warehouseStore.wardrobe.result.find(({ticket}) => ticket._id === match.params.id)
 
+    const images = app.isSafari ? product.images.slice(1) : product.images;
+
+
     const imageCarousel = (
         <Swiper
             direction={isLargerThanMd ? 'vertical' : 'horizontal'}
@@ -124,7 +129,7 @@ export const ProfileItemPage = observer(function ProfileItemPage({match}: RouteC
                 "clickable": true
             }}
         >
-            {product.images.map((image: string) => {
+            {images.map((image: string) => {
                 return (
                     <SwiperSlide key={image}>
                         {image.slice(-4) === 'webm'

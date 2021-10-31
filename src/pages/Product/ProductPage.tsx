@@ -29,6 +29,8 @@ import {Link as RouterLink} from "react-router-dom";
 import {Routes} from "../../app/routes";
 import {IconBack} from "../../components/icons/IconBack";
 import {processImgUrl} from "../../utils/imageUrl";
+import {TransparentVideo} from "../../components/TransparentVideo";
+import {GravityApplication} from "../../app/Application";
 
 // install Swiper modules
 SwiperCore.use([Pagination, Mousewheel, Navigation, Keyboard]);
@@ -37,6 +39,7 @@ SwiperCore.use([Pagination, Mousewheel, Navigation, Keyboard]);
 export const ProductPage = observer(function ProductPage({match}: RouteComponentProps<{ id: string }>) {
     const warehouseStore = useService(WarehouseStore)
     const cartService = useService(CartService)
+    const app = useService(GravityApplication)
     const [primary500, white] = useToken(
         'colors',
         ['primary.500', 'white']
@@ -62,6 +65,8 @@ export const ProductPage = observer(function ProductPage({match}: RouteComponent
     const product = warehouseStore.productItem.result
 
     const cartItem = cartService.getProductCartItem(product)
+
+    const images = app.isSafari ? product.images.slice(1) : product.images;
 
     return (
         <Box px={{base: '17px', md: 0}}>
@@ -105,7 +110,7 @@ export const ProductPage = observer(function ProductPage({match}: RouteComponent
                                 "clickable": true
                             }}
                         >
-                            {product.images.map((image: string) => {
+                            {images.map((image: string) => {
                                 return (
                                     <SwiperSlide key={image}>
                                         {image.slice(-4) === 'webm'
@@ -202,7 +207,8 @@ export const ProductPage = observer(function ProductPage({match}: RouteComponent
                                     {product.description}
                                 </Text>
 
-                                <Link href={Routes.howItWorks} color={'primary.500'} textTransform={'uppercase'} letterSpacing={'0.07em'}>
+                                <Link href={Routes.howItWorks} color={'primary.500'} textTransform={'uppercase'}
+                                      letterSpacing={'0.07em'}>
                                     <Text as={'span'} borderBottom={'1px solid'} borderColor={'primary.500'}>How to wear
                                         it?</Text>
                                 </Link>
@@ -215,7 +221,8 @@ export const ProductPage = observer(function ProductPage({match}: RouteComponent
                                     {product.description}
                                 </Text>
 
-                                <Link href={Routes.howItWorks} color={'primary.500'} textTransform={'uppercase'} letterSpacing={'0.07em'}>
+                                <Link href={Routes.howItWorks} color={'primary.500'} textTransform={'uppercase'}
+                                      letterSpacing={'0.07em'}>
                                     <Text as={'span'} borderBottom={'1px solid'} borderColor={'primary.500'}>How to wear
                                         it?</Text>
                                 </Link>
