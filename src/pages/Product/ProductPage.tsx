@@ -157,13 +157,13 @@ export const ProductPage = observer(function ProductPage({match}: RouteComponent
                                 <Flex width={'100%'} spacing={'32px'}>
                                     <HStack grow={1} spacing={'10px'} alignItems={'flex-end'}
                                             textTransform={'uppercase'}>
-                                        <Text as={'span'}
+                                        {/*<Text as={'span'}
                                               fontSize={'15px'}
                                               color={'alert'}
                                               lineHeight={1}
                                               textDecoration={'line-through'}>
                                             {formatPrice(product.priceUSD * 1.5)} $
-                                        </Text>
+                                         </Text>*/}
                                         <Text as={'span'}
                                               fontSize={'25px'}
                                               fontWeight={'bold'}
@@ -244,13 +244,13 @@ export const ProductPage = observer(function ProductPage({match}: RouteComponent
 
                                 <Flex w={'100%'} alignItems={'flex-end'}>
                                     <Stack grow={1} spacing={'0'} alignItems={'flex-start'} textTransform={'uppercase'}>
-                                        <Text as={'span'}
+                                        {/*<Text as={'span'}
                                               fontSize={'15px'}
                                               color={'alert'}
                                               lineHeight={1}
                                               textDecoration={'line-through'}>
                                             {formatPrice(product.priceUSD * 1.5)} $
-                                        </Text>
+                                        </Text>*/}
                                         <Text as={'span'}
                                               fontSize={'25px'}
                                               fontWeight={'bold'}

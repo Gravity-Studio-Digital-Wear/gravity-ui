@@ -182,13 +182,13 @@ function CartItem({product, quantity}: { product: IProduct, quantity: number }) 
 
                 <HStack marginLeft={'auto'} spacing={'46px'} marginTop={'16px'} alignItems={'flex-start'}>
                     <Stack>
-                        <Text as={'span'}
+                        {/*<Text as={'span'}
                               fontSize={'15px'}
                               color={'basic.500'}
                               lineHeight={1}
                               textDecoration={'line-through'}>
                             {formatPrice(product.priceUSD * 1.5)} $
-                        </Text>
+                        </Text>*/}
                         <Text as={'span'}
                               fontSize={'25px'}
                               fontWeight={'bold'}
@@ -248,14 +248,14 @@ function CartItemMobile({product, quantity}: { product: IProduct, quantity: numb
 
                         <HStack spacing={'16px'} alignItems={'flex-start'}>
                             <Stack spacing={'8px'}>
-                                <Text as={'span'}
+                                {/*<Text as={'span'}
                                       pt={'5px'}
                                       fontSize={'15px'}
                                       color={'basic.500'}
                                       lineHeight={1}
                                       textDecoration={'line-through'}>
                                     {formatPrice(product.priceUSD * 1.5)} $
-                                </Text>
+                                </Text>*/}
                                 <Text as={'span'}
                                       fontSize={'15px'}
                                       color={'basic.500'}
