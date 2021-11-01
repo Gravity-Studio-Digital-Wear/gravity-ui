@@ -70,7 +70,7 @@ export function SustainabilityPage() {
 
                     <a href={Routes.main}>
                         <Button mt={'32px'} color={'primary.500'} bg={'white'} w={'270px'}>
-                            Go To Shoping
+                            Shop now
                         </Button>
                     </a>
                 </Flex>
@@ -91,7 +91,7 @@ export function SustainabilityPage() {
                         </Text>
 
                         <a href={Routes.main}>
-                            <Button  mt={'40px'}>Go to shopping</Button>
+                            <Button  mt={'40px'}>Shop now</Button>
                         </a>
                     </GridItem>
                     <GridItem  gridColumn={{base: 'span 12', md: 'span 5'}}>
