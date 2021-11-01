@@ -160,7 +160,7 @@ export function WhatTheDifferenceModal() {
                 <ModalCloseButton/>
 
                 <Box py={'88px'} textTransform={'uppercase'}>
-                    <Text fontWeight={'bold'} fontSize={25} mb={'24px'}>What the difference?</Text>
+                    <Text fontWeight={'bold'} fontSize={25} mb={'24px'}>What's the difference?</Text>
 
                     <Text mb={'16px'} fontWeight={'bold'} fontSize={18} letterSpacing={'0.02em'}>Metamask Account
                         (Recommended)</Text>

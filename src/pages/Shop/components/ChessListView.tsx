@@ -51,12 +51,12 @@ export function Card(props: IProduct & { onClickCard: () => void, onClickAdd: ()
 
                 <Text textTransform={'uppercase'}>
                     <HStack as={'span'} spacing={'11px'} alignItems={'flex-end'}>
-                        <Text as={'span'}
+                        {/*<Text as={'span'}
                               fontSize={'15px'}
                               lineHeight={1}
                               textDecoration={'line-through'}>
                             {Math.round(props.priceUSD + (props.priceUSD * 0.5)) / 100} $
-                        </Text>
+                        </Text>*/}
                         <Text as={'span'}
                               fontSize={'21px'}
                               lineHeight={1}
