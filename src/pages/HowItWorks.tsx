@@ -38,7 +38,7 @@ export function HowItWorksPage() {
                         {/*/>*/}
 
                         <source
-                            src={'https://images.gravitythestudio.shop/video/upload/q_auto:good/vc_auto/gravity/Site-Content/how-to-wear2_1_oxyfk3.mp4'}
+                            src={'https://images.gravitythestudio.shop/video/upload/ar_16:9,w_966/q_auto:good/vc_auto/gravity/Site-Content/how-to-wear2_1_oxyfk3.mp4'}
                             type='video/mp4; codecs="avc1.42E01E, mp4a.40.2"'
                         />
 
