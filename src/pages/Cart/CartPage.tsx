@@ -211,7 +211,7 @@ function CartItem({product, quantity, type}: { product: IProduct, quantity: numb
                     <QtyControl
                         value={quantity}
                         max={isRent ? 100 : +product.__supply.remaningSupply}
-                        onChange={(qty) => cartService.changeProductQty(product, qty)}
+                        onChange={(qty) => cartService.changeProductQty(product, qty, bidType)}
                     />
 
                 </Stack>
@@ -349,7 +349,7 @@ function CartItemMobile({product, quantity, type}: { product: IProduct, quantity
                     <QtyControl
                         value={quantity}
                         max={+product.__supply.remaningSupply}
-                        onChange={(qty) => cartService.changeProductQty(product, qty)}
+                        onChange={(qty) => cartService.changeProductQty(product, qty, bidType)}
                     />
                 </Box>
             </Stack>

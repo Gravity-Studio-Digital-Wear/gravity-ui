@@ -217,7 +217,7 @@ export const ProductPage = observer(function ProductPage({match}: RouteComponent
                                 <QtyControl
                                     max={isRent ? 1000 : +product.__supply.remaningSupply}
                                     value={cartItem.quantity}
-                                    onChange={(qty) => cartService.changeProductQty(product, qty)}
+                                    onChange={(qty) => cartService.changeProductQty(product, qty, bidType)}
                                 />
 
                                 <Box>
@@ -279,7 +279,7 @@ export const ProductPage = observer(function ProductPage({match}: RouteComponent
                                         <QtyControl
                                             max={isRent ? 1000 : +product.__supply.remaningSupply}
                                             value={cartItem.quantity}
-                                            onChange={(qty) => cartService.changeProductQty(product, qty)}
+                                            onChange={(qty) => cartService.changeProductQty(product, qty, bidType)}
                                         />
 
                                         {!isRent && (

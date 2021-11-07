@@ -72,14 +72,14 @@ export class CartService {
     }
 
     @action
-    changeProductQty(product: IProduct, qty: number) {
+    changeProductQty(product: IProduct, qty: number, type: TBidType) {
         let cartItem = this.cart.get(product._id)
 
         if (!cartItem) {
             cartItem = {
                 product,
                 quantity: 0,
-                type: 'ownership'
+                type: type || 'rent'
             };
         }
 
