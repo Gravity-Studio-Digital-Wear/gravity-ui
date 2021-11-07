@@ -61,6 +61,16 @@ export class CartService {
         this.cart.set(product._id, cartItem)
     }
 
+
+    @action
+    changeProductBidType(product: IProduct, type: TBidType) {
+        let cartItem = this.cart.get(product._id)
+
+        cartItem.type = type;
+
+        this.cart.set(product._id, cartItem)
+    }
+
     @action
     changeProductQty(product: IProduct, qty: number) {
         let cartItem = this.cart.get(product._id)
@@ -111,6 +121,7 @@ export class CartService {
         this.cart.delete(product._id)
     }
 
+
     public getProductCartItem(product: IProduct): TCartItem {
         let cartItem = this.cart.get(product._id)
 
@@ -126,18 +137,27 @@ export class CartService {
     }
 
     @computed
+    public get isOnlyRent() {
+        return [...this.cart.values()].every(r => r.type === 'rent');
+    }
+
+    @computed
     public get productsCount(): number {
         return [...this.cart.values()].reduce((acc, r) => acc + r.quantity, 0)
     }
 
     @computed
     public get total(): number {
-        return [...this.cart.values()].reduce((acc, r) => (acc + (r.quantity * r.product.priceUSD)), 0)
+        return [...this.cart.values()].reduce((acc, r) => {
+            const amount = r.type === 'rent' ? r.product.rentPriceUSD : r.product.priceUSD;
+
+            return acc + (amount * r.quantity);
+        }, 0)
     }
 
     @computed
     public get totalAfterDiscount(): number {
-        return [...this.cart.values()].reduce((acc, r) => acc + (r.quantity * r.product.priceUSD), 0)
+        return this.total;
     }
 
 
@@ -152,7 +172,7 @@ export class CartService {
         sendAmplitudeData('E_CHECKOUT_BEGIN')
         const cart = [...this.cart.values()].map(({product, type, quantity}) => ({
             productId: type === 'rent' ? product.rentProductId : product._id,
-            quantity: type === 'rent' ? 1 : quantity,
+            quantity: quantity,
         }))
 
         return http.post<{ success: boolean, checkoutUrl: string }>(ENDPOINTS.Cart.checkout, {cart})

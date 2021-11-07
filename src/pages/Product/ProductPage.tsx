@@ -9,7 +9,9 @@ import {
     Heading,
     HStack,
     Image,
-    Link, Radio, RadioGroup,
+    Link,
+    Radio,
+    RadioGroup,
     Stack,
     Text,
     useMediaQuery,
@@ -29,7 +31,6 @@ import {Link as RouterLink} from "react-router-dom";
 import {Routes} from "../../app/routes";
 import {IconBack} from "../../components/icons/IconBack";
 import {processImgUrl} from "../../utils/imageUrl";
-import {TransparentVideo} from "../../components/TransparentVideo";
 import {GravityApplication} from "../../app/Application";
 import {TBidType} from "../../interfaces";
 
@@ -176,7 +177,7 @@ export const ProductPage = observer(function ProductPage({match}: RouteComponent
                                               letterSpacing={'0.02em'}
                                               lineHeight={1}
                                               color={'basic.500'}>
-                                            {formatPrice(product.priceUSD)} $
+                                            {formatPrice(isRent ? product.rentPriceUSD : product.priceUSD)} $
                                         </Text>
                                     </HStack>
 
@@ -194,26 +195,25 @@ export const ProductPage = observer(function ProductPage({match}: RouteComponent
                                 </Flex>
 
                                 <Box>
-                                    <Text textTransform={'uppercase'} fontWeight={'bold'} color={'basic.500'}>Buy as</Text>
+                                    <Text textTransform={'uppercase'} fontWeight={'bold'} color={'basic.500'}>Buy
+                                        as</Text>
 
-                                    <RadioGroup mt={'12px'} defaultValue={bidType} onChange={(v) => setBidType(v as TBidType)}>
+                                    <RadioGroup mt={'12px'} defaultValue={bidType}
+                                                onChange={(v) => setBidType(v as TBidType)}>
                                         <Stack>
                                             <Radio value="rent">Rent one wear (90% discount)</Radio>
-                                            <Radio value="ownership" isDisabled={+product.__supply.remaningSupply === 0}>Ownership + one wear</Radio>
+                                            <Radio value="ownership"
+                                                   isDisabled={+product.__supply.remaningSupply === 0}>Ownership + one
+                                                wear</Radio>
                                         </Stack>
                                     </RadioGroup>
                                 </Box>
 
-                                {!isRent && (
-
-                                    <QtyControl
-                                        max={+product.__supply.remaningSupply}
-                                        value={cartItem.quantity}
-                                        onChange={(qty) => cartService.changeProductQty(product, qty)}
-                                    />
-                                )}
-
-
+                                <QtyControl
+                                    max={isRent ? 1000 : +product.__supply.remaningSupply}
+                                    value={cartItem.quantity}
+                                    onChange={(qty) => cartService.changeProductQty(product, qty)}
+                                />
 
                                 <Box>
                                     <Button
@@ -255,32 +255,35 @@ export const ProductPage = observer(function ProductPage({match}: RouteComponent
 
                                 <Stack spacing={'32px'}>
                                     <Box>
-                                        <Text textTransform={'uppercase'} fontWeight={'bold'} color={'basic.500'}>Buy as</Text>
+                                        <Text textTransform={'uppercase'} fontWeight={'bold'} color={'basic.500'}>Buy
+                                            as</Text>
 
-                                        <RadioGroup mt={'12px'} defaultValue={bidType} onChange={(v) => setBidType(v as TBidType)}>
+                                        <RadioGroup mt={'12px'} defaultValue={bidType}
+                                                    onChange={(v) => setBidType(v as TBidType)}>
                                             <Stack>
                                                 <Radio value="rent">Rent one wear (90% discount)</Radio>
-                                                <Radio value="ownership" isDisabled={+product.__supply.remaningSupply === 0}>Ownership + one wear</Radio>
+                                                <Radio value="ownership"
+                                                       isDisabled={+product.__supply.remaningSupply === 0}>Ownership +
+                                                    one wear</Radio>
                                             </Stack>
                                         </RadioGroup>
                                     </Box>
 
 
+                                    <HStack spacing={'32px'}>
+                                        <QtyControl
+                                            max={isRent ? 1000 : +product.__supply.remaningSupply}
+                                            value={cartItem.quantity}
+                                            onChange={(qty) => cartService.changeProductQty(product, qty)}
+                                        />
 
-                                    {!isRent && (
-                                        <HStack spacing={'32px'}>
-                                            <QtyControl
-                                                max={+product.__supply.remaningSupply}
-                                                value={cartItem.quantity}
-                                                onChange={(qty) => cartService.changeProductQty(product, qty)}
-                                            />
-
+                                        {!isRent && (
                                             <Text fontSize={'16px'} color={'alert'} textTransform={'uppercase'}
                                                   letterSpacing={'0.07em'}>
                                                 {+product.__supply.remaningSupply !== 0 ? `${product.__supply.remaningSupply}/${product.__supply.maxSupply} pieces left` : `SOLD OUT`}
                                             </Text>
-                                        </HStack>
-                                    )}
+                                        )}
+                                    </HStack>
 
 
                                 </Stack>
