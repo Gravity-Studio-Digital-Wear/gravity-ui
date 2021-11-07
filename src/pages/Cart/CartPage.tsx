@@ -10,7 +10,9 @@ import {
     HStack,
     Image,
     Input,
-    Link, Radio, RadioGroup,
+    Link,
+    Radio,
+    RadioGroup,
     Stack,
     Text,
     useMediaQuery,
@@ -132,20 +134,25 @@ export const CartPage = observer(function CartPage() {
                                     >
                                         Pay with a card (fiat)
                                     </Button>
-                                    <Box w={'100%'} textAlign={'center'}>
-                                        <Text mt={'12px'} lineHeight={'12px'}>
-                                        or
-                                        </Text>
-                                    </Box>
-                                    <a href="https://opensea.io/GravityTheStudioShop" target="_blank">
-                                    <Button
-                                        textTransform={'uppercase'}
-                                        w={'100%'}
-                                        mt={'12px'}
-                                    >
-                                        Buy on opensea (crypto)
-                                    </Button>
-                                    </a>
+
+                                    {!cartService.isOnlyRent && (
+                                      <>
+                                          <Box w={'100%'} textAlign={'center'}>
+                                              <Text mt={'12px'} lineHeight={'12px'}>
+                                                  or
+                                              </Text>
+                                          </Box>
+                                          <a href="https://opensea.io/GravityTheStudioShop" target="_blank">
+                                              <Button
+                                                  textTransform={'uppercase'}
+                                                  w={'100%'}
+                                                  mt={'12px'}
+                                              >
+                                                  Buy on opensea (crypto)
+                                              </Button>
+                                          </a>
+                                      </>
+                                    )}
                                 </Box>
                             </GridItem>
                         </Grid>
@@ -159,6 +166,11 @@ export const CartPage = observer(function CartPage() {
 function CartItem({product, quantity, type}: { product: IProduct, quantity: number, type: TBidType }) {
     const cartService = useService(CartService)
     const [bidType, setBidType] = React.useState<TBidType>(type);
+
+    const changeBidTypeHandler = (next: TBidType) =>  {
+        cartService.changeProductBidType(product, next);
+        setBidType(next);
+    }
 
     const isRent = bidType === 'rent';
 
@@ -186,21 +198,22 @@ function CartItem({product, quantity, type}: { product: IProduct, quantity: numb
                     <Box>
                         <Text textTransform={'uppercase'} fontWeight={'bold'} color={'basic.500'}>Buy as</Text>
 
-                        <RadioGroup mt={'12px'} defaultValue={bidType} onChange={(v) => setBidType(v as TBidType)}>
+                        <RadioGroup mt={'12px'} defaultValue={bidType} onChange={(v) => changeBidTypeHandler(v as TBidType)}>
                             <Stack>
                                 <Radio value="rent">Rent one wear (90% discount)</Radio>
-                                <Radio value="ownership" isDisabled={+product.__supply.remaningSupply === 0}>Ownership + one wear</Radio>
+                                <Radio value="ownership" isDisabled={+product.__supply.remaningSupply === 0}>Ownership +
+                                    one wear</Radio>
                             </Stack>
                         </RadioGroup>
                     </Box>
 
-                    {!isRent && (
-                        <QtyControl
-                            value={quantity}
-                            max={+product.__supply.remaningSupply}
-                            onChange={(qty) => cartService.changeProductQty(product, qty)}
-                        />
-                    )}
+
+                    <QtyControl
+                        value={quantity}
+                        max={isRent ? 100 : +product.__supply.remaningSupply}
+                        onChange={(qty) => cartService.changeProductQty(product, qty)}
+                    />
+
                 </Stack>
 
                 <HStack marginLeft={'auto'} spacing={'46px'} marginTop={'16px'} alignItems={'flex-start'}>
@@ -324,19 +337,19 @@ function CartItemMobile({product, quantity, type}: { product: IProduct, quantity
                         <RadioGroup mt={'12px'} defaultValue={bidType} onChange={(v) => setBidType(v as TBidType)}>
                             <Stack>
                                 <Radio value="rent">Rent one wear (90% discount)</Radio>
-                                <Radio value="ownership" isDisabled={+product.__supply.remaningSupply === 0}>Ownership + one wear</Radio>
+                                <Radio value="ownership" isDisabled={+product.__supply.remaningSupply === 0}>Ownership +
+                                    one wear</Radio>
                             </Stack>
                         </RadioGroup>
                     </Box>
 
 
-                    {!isRent && (
-                        <QtyControl
-                            value={quantity}
-                            max={+product.__supply.remaningSupply}
-                            onChange={(qty) => cartService.changeProductQty(product, qty)}
-                        />
-                    )}
+                    <QtyControl
+                        value={quantity}
+                        max={+product.__supply.remaningSupply}
+                        onChange={(qty) => cartService.changeProductQty(product, qty)}
+                    />
+
 
                 </Box>
             </Stack>
