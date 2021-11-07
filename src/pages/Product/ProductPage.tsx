@@ -57,6 +57,11 @@ export const ProductPage = observer(function ProductPage({match}: RouteComponent
 
     const [isLargerThanMd] = useMediaQuery(`(min-width: ${md})`)
 
+    const changeBidTypeHandler = (next: TBidType) =>  {
+        cartService.changeProductBidType(product, next);
+        setBidType(next);
+    }
+
 
     React.useEffect(() => {
         warehouseStore.productItem.request(match.params.id)
@@ -199,7 +204,7 @@ export const ProductPage = observer(function ProductPage({match}: RouteComponent
                                         as</Text>
 
                                     <RadioGroup mt={'12px'} defaultValue={bidType}
-                                                onChange={(v) => setBidType(v as TBidType)}>
+                                                onChange={(v) => changeBidTypeHandler(v as TBidType)}>
                                         <Stack>
                                             <Radio value="rent">Rent one wear (90% discount)</Radio>
                                             <Radio value="ownership"
@@ -259,7 +264,7 @@ export const ProductPage = observer(function ProductPage({match}: RouteComponent
                                             as</Text>
 
                                         <RadioGroup mt={'12px'} defaultValue={bidType}
-                                                    onChange={(v) => setBidType(v as TBidType)}>
+                                                    onChange={(v) => changeBidTypeHandler(v as TBidType)}>
                                             <Stack>
                                                 <Radio value="rent">Rent one wear (90% discount)</Radio>
                                                 <Radio value="ownership"
