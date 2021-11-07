@@ -211,7 +211,7 @@ function CartItem({product, quantity, type}: { product: IProduct, quantity: numb
                     <QtyControl
                         value={quantity}
                         max={isRent ? 100 : +product.__supply.remaningSupply}
-                        onChange={(qty) => cartService.changeProductQty(product, qty)}
+                        onChange={(qty) => cartService.changeProductQty(product, qty, bidType)}
                     />
 
                 </Stack>
@@ -256,6 +256,11 @@ function CartItemMobile({product, quantity, type}: { product: IProduct, quantity
     const [bidType, setBidType] = React.useState<TBidType>(type);
 
     const isRent = bidType === 'rent';
+
+    const changeBidTypeHandler = (next: TBidType) =>  {
+        cartService.changeProductBidType(product, next);
+        setBidType(next);
+    }
 
     function getProductPrice(p: IProduct) {
         return isRent ? p.rentPriceUSD : p.priceUSD
@@ -321,7 +326,6 @@ function CartItemMobile({product, quantity, type}: { product: IProduct, quantity
                         </HStack>
                     </Stack>
 
-
                     <Box grow={1}>
                         <Button variant={'square'} marginLeft={'auto'} onClick={() => cartService.clear(product)}>
                             <IconClose/>
@@ -330,11 +334,10 @@ function CartItemMobile({product, quantity, type}: { product: IProduct, quantity
                 </HStack>
 
                 <Box mt={'20px'}>
-
                     <Box mb={'20px'}>
                         <Text textTransform={'uppercase'} fontWeight={'bold'} color={'basic.500'}>Buy as</Text>
 
-                        <RadioGroup mt={'12px'} defaultValue={bidType} onChange={(v) => setBidType(v as TBidType)}>
+                        <RadioGroup mt={'12px'} defaultValue={bidType} onChange={(v) => changeBidTypeHandler(v as TBidType)}>
                             <Stack>
                                 <Radio value="rent">Rent one wear (90% discount)</Radio>
                                 <Radio value="ownership" isDisabled={+product.__supply.remaningSupply === 0}>Ownership +
@@ -343,14 +346,11 @@ function CartItemMobile({product, quantity, type}: { product: IProduct, quantity
                         </RadioGroup>
                     </Box>
 
-
                     <QtyControl
                         value={quantity}
                         max={+product.__supply.remaningSupply}
-                        onChange={(qty) => cartService.changeProductQty(product, qty)}
+                        onChange={(qty) => cartService.changeProductQty(product, qty, bidType)}
                     />
-
-
                 </Box>
             </Stack>
         </HStack>
