@@ -25,6 +25,7 @@ import {PageSpinner} from "../../components/PageSpinner";
 import {WarehouseStore} from "../../stores/WarehouseStore";
 import {NoAvatar} from "./NoAvatar";
 import {formatAddress} from "../../utils/address";
+import {IProduct} from "../../interfaces";
 
 function WalletAddress({address}: { address: string }) {
     return (
@@ -114,7 +115,16 @@ export const ProfilePage = observer(function ProfilePage() {
                     {wardrobe.isSuccess
                         ? (
                             <Grid gridTemplateColumns={{base: '1fr', md: 'repeat(3, 1fr)'}} gap={'30px'}>
-                                {wardrobe.result.map(({items: {product}, ticket}) => {
+                                {wardrobe.result.map(({items, ticket}) => {
+                                    let product;
+
+                                    if (ticket.type === 'buy') {
+                                        product = (items as {product: IProduct, supply: number}).product
+                                    }else  {
+                                        product = items as IProduct;
+                                    }
+
+
                                     return (
                                         <ItemCard
                                             key={ticket._id}

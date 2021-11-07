@@ -1,4 +1,4 @@
-import {IProduct} from "../interfaces";
+import {IProduct, TBidType} from "../interfaces";
 import {action, computed, makeAutoObservable, observable} from "mobx";
 import {ServiceContainer} from "../core/ServiceContainer";
 import {http} from "../core/transport/http";
@@ -10,7 +10,8 @@ import {sendAmplitudeData} from '../utils/amplitude'
 
 type TCartItem = {
     product: IProduct,
-    quantity: number
+    quantity: number,
+    type: TBidType,
 }
 
 export class CartService {
@@ -37,13 +38,14 @@ export class CartService {
     }
 
     @action
-    add(product: IProduct, qty?: number) {
+    add(product: IProduct, bidType: TBidType, qty?: number) {
         let cartItem = this.cart.get(product._id)
 
         if (!cartItem) {
             cartItem = {
                 product,
-                quantity: qty ? +qty : 1
+                quantity: qty ? +qty : 1,
+                type: bidType
             };
             sendAmplitudeData('E_CART_ADD', {
                 product: product._id,
@@ -52,6 +54,9 @@ export class CartService {
         } else {
             cartItem.quantity = qty ? +qty : +cartItem.quantity + 1;
         }
+
+
+        cartItem.type = bidType;
 
         this.cart.set(product._id, cartItem)
     }
@@ -63,14 +68,15 @@ export class CartService {
         if (!cartItem) {
             cartItem = {
                 product,
-                quantity: 0
+                quantity: 0,
+                type: 'ownership'
             };
         }
 
         if (qty === 0) {
             this.cart.delete(product._id)
             return;
-        } else  {
+        } else {
             cartItem.quantity = +qty;
         }
 
@@ -111,7 +117,8 @@ export class CartService {
         if (!cartItem) {
             cartItem = {
                 product,
-                quantity: 0
+                quantity: 0,
+                type: 'rent'
             };
         }
 
@@ -134,7 +141,6 @@ export class CartService {
     }
 
 
-
     @action
     public checkout() {
         if (!this.authService.isAuthorized) {
@@ -144,9 +150,9 @@ export class CartService {
         }
 
         sendAmplitudeData('E_CHECKOUT_BEGIN')
-        const cart = [...this.cart.values()].map(({product, quantity}) => ({
-            productId: product._id,
-            quantity
+        const cart = [...this.cart.values()].map(({product, type, quantity}) => ({
+            productId: type === 'rent' ? product.rentProductId : product._id,
+            quantity: type === 'rent' ? 1 : quantity,
         }))
 
         return http.post<{ success: boolean, checkoutUrl: string }>(ENDPOINTS.Cart.checkout, {cart})

@@ -14,6 +14,6 @@ export function myItems(): Promise<{ product: IProduct, supply: number }[]> {
     return http.get(ENDPOINTS.Warehouse.my)
 }
 
-export function wardrobe(): Promise<{ ticket: ITicket, items: {product:  IProduct, supply: number} }[]> {
+export function wardrobe(): Promise<{ ticket: ITicket, items: {product:  IProduct, supply: number} | IProduct }[]> {
     return http.get(ENDPOINTS.Wardrobe.items)
 }

@@ -139,6 +139,36 @@ export const GravityTheme = {
             }
         },
 
+        Radio: {
+            baseStyle : {
+                control: {
+                    borderColor: 'primary.500',
+                    w: '18px',
+                    h: '18px',
+                    _hover: {
+                        bg: 'transparent'
+                    },
+                    _checked: {
+                        bg: 'transparent',
+
+                        _before: {
+
+                            bg: 'primary.500'
+                        },
+                        _hover: {
+                            bg: 'transparent',
+                        }
+                    },
+                }
+
+            },
+
+
+            defaultProps: {
+                colorScheme: 'primary'
+            }
+        },
+
         Modal: {
             baseStyle: {
                 dialog: {

@@ -8,6 +8,7 @@ import {WarehouseStore} from "../../stores/WarehouseStore";
 import {PageSpinner} from "../../components/PageSpinner";
 import {Link as RouterLink, useHistory} from "react-router-dom";
 import {IconBack} from "../../components/icons/IconBack";
+import {IProduct} from "../../interfaces";
 
 export const MyItemsPage = observer(function MyItemsPage() {
     const warehouseStore = useService(WarehouseStore)
@@ -57,11 +58,19 @@ export const MyItemsPage = observer(function MyItemsPage() {
                 )}
 
                 <GridItem gridColumn={{base: 'span 12', md: 'span 9'}}>
-
                     {wardrobe.isSuccess
                         ? (
                             <Grid gridTemplateColumns={{base: '1fr', md: 'repeat(3, 1fr)'}} gap={'30px'}>
-                                {wardrobe.result.map(({items: {product}, ticket}) => {
+                                {wardrobe.result.map(({items, ticket}) => {
+                                    let product;
+
+                                    if (ticket.type === 'buy') {
+                                        product = (items as {product: IProduct, supply: number}).product
+                                    }else  {
+                                        product = items as IProduct;
+                                    }
+
+
                                     return (
                                         <ItemCard
                                             key={ticket._id}
