@@ -9,7 +9,7 @@ import {
     Heading,
     HStack,
     Image,
-    Link,
+    Link, Radio, RadioGroup,
     Stack,
     Text,
     useMediaQuery,
@@ -31,6 +31,7 @@ import {IconBack} from "../../components/icons/IconBack";
 import {processImgUrl} from "../../utils/imageUrl";
 import {TransparentVideo} from "../../components/TransparentVideo";
 import {GravityApplication} from "../../app/Application";
+import {TBidType} from "../../interfaces";
 
 // install Swiper modules
 SwiperCore.use([Pagination, Mousewheel, Navigation, Keyboard]);
@@ -40,6 +41,9 @@ export const ProductPage = observer(function ProductPage({match}: RouteComponent
     const warehouseStore = useService(WarehouseStore)
     const cartService = useService(CartService)
     const app = useService(GravityApplication)
+
+    const [bidType, setBidType] = React.useState<TBidType>('rent')
+
     const [primary500, white] = useToken(
         'colors',
         ['primary.500', 'white']
@@ -67,6 +71,8 @@ export const ProductPage = observer(function ProductPage({match}: RouteComponent
     const cartItem = cartService.getProductCartItem(product)
 
     const images = app.isSafari ? product.images.slice(1) : product.images;
+
+    const isRent = bidType === 'rent';
 
     return (
         <Box px={{base: '17px', md: 0}}>
@@ -174,28 +180,48 @@ export const ProductPage = observer(function ProductPage({match}: RouteComponent
                                         </Text>
                                     </HStack>
 
-                                    <Text fontSize={'16px'}
-                                          ml={'auto'}
-                                          color={'alert'}
-                                          textTransform={'uppercase'}
-                                          letterSpacing={'0.07em'}>
-                                        {+product.__supply.remaningSupply !== 0 ? `${product.__supply.remaningSupply}/${product.__supply.maxSupply} pieces left` : `SOLD OUT`}
-                                    </Text>
+                                    {!isRent && (
+                                        <Text fontSize={'16px'}
+                                              ml={'auto'}
+                                              color={'alert'}
+                                              textTransform={'uppercase'}
+                                              letterSpacing={'0.07em'}>
+                                            {+product.__supply.remaningSupply !== 0 ? `${product.__supply.remaningSupply}/${product.__supply.maxSupply} pieces left` : `SOLD OUT`}
+                                        </Text>
+                                    )}
+
+
                                 </Flex>
 
-                                <QtyControl
-                                    max={+product.__supply.remaningSupply}
-                                    value={cartItem.quantity}
-                                    onChange={(qty) => cartService.changeProductQty(product, qty)}
-                                />
+                                <Box>
+                                    <Text textTransform={'uppercase'} fontWeight={'bold'} color={'basic.500'}>Buy as</Text>
+
+                                    <RadioGroup mt={'12px'} defaultValue={bidType} onChange={(v) => setBidType(v as TBidType)}>
+                                        <Stack>
+                                            <Radio value="rent">Rent one wear (90% discount)</Radio>
+                                            <Radio value="ownership" isDisabled={+product.__supply.remaningSupply === 0}>Ownership + one wear</Radio>
+                                        </Stack>
+                                    </RadioGroup>
+                                </Box>
+
+                                {!isRent && (
+
+                                    <QtyControl
+                                        max={+product.__supply.remaningSupply}
+                                        value={cartItem.quantity}
+                                        onChange={(qty) => cartService.changeProductQty(product, qty)}
+                                    />
+                                )}
+
+
 
                                 <Box>
                                     <Button
-                                        isDisabled={+product.__supply.remaningSupply <= +cartService.getProductCartItem(product).quantity}
+                                        isDisabled={!isRent && (+product.__supply.remaningSupply <= +cartService.getProductCartItem(product).quantity)}
                                         leftIcon={<IconCart/>}
                                         colorScheme={'primary'}
                                         textTransform={'uppercase'}
-                                        onClick={() => cartService.add(product)}
+                                        onClick={() => cartService.add(product, bidType)}
                                         w={'100%'}
                                         maxW={'100%'}
                                     >
@@ -227,20 +253,37 @@ export const ProductPage = observer(function ProductPage({match}: RouteComponent
                                         it?</Text>
                                 </Link>
 
-                                <HStack>
-                                    <HStack spacing={'32px'}>
-                                        <QtyControl
-                                            max={+product.__supply.remaningSupply}
-                                            value={cartItem.quantity}
-                                            onChange={(qty) => cartService.changeProductQty(product, qty)}
-                                        />
+                                <Stack spacing={'32px'}>
+                                    <Box>
+                                        <Text textTransform={'uppercase'} fontWeight={'bold'} color={'basic.500'}>Buy as</Text>
 
-                                        <Text fontSize={'16px'} color={'alert'} textTransform={'uppercase'}
-                                              letterSpacing={'0.07em'}>
-                                            {+product.__supply.remaningSupply !== 0 ? `${product.__supply.remaningSupply}/${product.__supply.maxSupply} pieces left` : `SOLD OUT`}
-                                        </Text>
-                                    </HStack>
-                                </HStack>
+                                        <RadioGroup mt={'12px'} defaultValue={bidType} onChange={(v) => setBidType(v as TBidType)}>
+                                            <Stack>
+                                                <Radio value="rent">Rent one wear (90% discount)</Radio>
+                                                <Radio value="ownership" isDisabled={+product.__supply.remaningSupply === 0}>Ownership + one wear</Radio>
+                                            </Stack>
+                                        </RadioGroup>
+                                    </Box>
+
+
+
+                                    {!isRent && (
+                                        <HStack spacing={'32px'}>
+                                            <QtyControl
+                                                max={+product.__supply.remaningSupply}
+                                                value={cartItem.quantity}
+                                                onChange={(qty) => cartService.changeProductQty(product, qty)}
+                                            />
+
+                                            <Text fontSize={'16px'} color={'alert'} textTransform={'uppercase'}
+                                                  letterSpacing={'0.07em'}>
+                                                {+product.__supply.remaningSupply !== 0 ? `${product.__supply.remaningSupply}/${product.__supply.maxSupply} pieces left` : `SOLD OUT`}
+                                            </Text>
+                                        </HStack>
+                                    )}
+
+
+                                </Stack>
 
                                 <Flex w={'100%'} alignItems={'flex-end'}>
                                     <Stack grow={1} spacing={'0'} alignItems={'flex-start'} textTransform={'uppercase'}>
@@ -257,17 +300,17 @@ export const ProductPage = observer(function ProductPage({match}: RouteComponent
                                               letterSpacing={'0.02em'}
                                               lineHeight={1}
                                               color={'basic.500'}>
-                                            {formatPrice(product.priceUSD)} $
+                                            {formatPrice(isRent ? product.rentPriceUSD : product.priceUSD)} $
                                         </Text>
                                     </Stack>
 
                                     <Box marginLeft={'auto'}>
                                         <Button
-                                            isDisabled={+product.__supply.remaningSupply <= +cartService.getProductCartItem(product).quantity}
+                                            isDisabled={!isRent && (+product.__supply.remaningSupply <= +cartService.getProductCartItem(product).quantity)}
                                             leftIcon={<IconCart/>}
                                             colorScheme={'primary'}
                                             textTransform={'uppercase'}
-                                            onClick={() => cartService.add(product)}
+                                            onClick={() => cartService.add(product, bidType)}
                                             w={'265px'}>
                                             Add To Cart
                                         </Button>

@@ -34,6 +34,7 @@ import {Swiper, SwiperSlide} from "swiper/react";
 import {sendAmplitudeData} from '../../utils/amplitude'
 import {TransparentVideo} from "../../components/TransparentVideo";
 import {GravityApplication} from "../../app/Application";
+import {IProduct} from "../../interfaces";
 
 /// install Swiper modules
 SwiperCore.use([Pagination, Mousewheel, Navigation, Keyboard]);
@@ -114,9 +115,18 @@ export const ProfileItemPage = observer(function ProfileItemPage({match}: RouteC
         return <PageSpinner/>
     }
 
-    const {ticket, items: {product}} = warehouseStore.wardrobe.result.find(({ticket}) => ticket._id === match.params.id)
+    const {ticket, items} = warehouseStore.wardrobe.result.find(({ticket}) => ticket._id === match.params.id)
+
+    let product;
+
+    if (ticket.type === 'buy') {
+        product = (items as {product: IProduct, supply: number}).product
+    }else  {
+        product = items as IProduct;
+    }
 
     const images = app.isSafari ? product.images.slice(1) : product.images;
+
 
 
     const imageCarousel = (

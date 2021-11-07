@@ -1,10 +1,8 @@
 import * as React from 'react';
-import {Box, Grid, HStack, Image, Stack, Text} from "@chakra-ui/react";
+import {Box, Grid, HStack, Stack, Text} from "@chakra-ui/react";
 import {IProduct} from "../../../interfaces";
-import {processImgUrl} from "../../../utils/imageUrl";
-import {useService} from "../../../core/decorators/service";
-import {GravityApplication} from "../../../app/Application";
 import {TransparentVideo} from "../../../components/TransparentVideo";
+import {formatPrice} from "../../../utils/price";
 
 
 export const Wrapper = (props: React.PropsWithChildren<{}>) => {
@@ -61,17 +59,17 @@ export function Card(props: IProduct & { onClickCard: () => void, onClickAdd: ()
                               fontSize={'21px'}
                               lineHeight={1}
                               color={'alert'}>
-                            {props.priceUSD / 100} $
+                            {formatPrice(props.rentPriceUSD)} $
                         </Text>
                     </HStack>
                 </Text>
 
-                <Text fontSize={12}
-                      letterSpacing={'0.07em'}
-                      color={'alert'}
-                      textTransform={'uppercase'}>
-                    {+props.__supply.remaningSupply !== 0 ? `${props.__supply.remaningSupply}/${props.__supply.maxSupply} pieces left` : `SOLD OUT`}
-                </Text>
+                {/*<Text fontSize={12}*/}
+                {/*      letterSpacing={'0.07em'}*/}
+                {/*      color={'alert'}*/}
+                {/*      textTransform={'uppercase'}>*/}
+                {/*    {+props.__supply.remaningSupply !== 0 ? `${props.__supply.remaningSupply}/${props.__supply.maxSupply} pieces left` : `SOLD OUT`}*/}
+                {/*</Text>*/}
             </Stack>
 
             <Box
@@ -92,9 +90,7 @@ export function Card(props: IProduct & { onClickCard: () => void, onClickAdd: ()
                     }
                 }
             >
-                {+props.__supply.remaningSupply !== 0 && (
-                    <AddCartIcon/>
-                )}
+                <AddCartIcon/>
             </Box>
         </Box>
     )

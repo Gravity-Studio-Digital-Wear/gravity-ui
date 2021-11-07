@@ -1,6 +1,6 @@
 export type TRequestStatus = 'initial' | 'pending' | 'success' | 'error';
 export type TViewType = 'chess' | 'grid';
-
+export type TBidType = 'rent' | 'ownership';
 export type TStatus = 'NEW' | 'PROCESSING' | 'DONE' | 'REJECTED'
 
 export interface ISupply {
@@ -10,6 +10,7 @@ export interface ISupply {
 
 export interface ITicket {
     address: string
+    type: 'buy' | 'rent'
     createdAt: string
     productId: string
     resultImageLinks: string[]
@@ -23,9 +24,11 @@ export interface ITicket {
 
 export interface IProduct {
     _id: string,
+    rentProductId: string,
     name: string,
     description: string,
     priceUSD: number,
+    rentPriceUSD: number,
     contractId: string,
     tokenTypeId: string,
     images: string[],

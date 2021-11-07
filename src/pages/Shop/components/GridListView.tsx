@@ -8,6 +8,7 @@ import {CartService} from "../../../services/CartService";
 import {observer} from "mobx-react";
 import {useHistory} from "react-router-dom";
 import {Routes} from "../../../app/routes";
+import {formatPrice} from "../../../utils/price";
 
 
 export const Wrapper = (props: React.PropsWithChildren<{}>) => {
@@ -66,21 +67,21 @@ export const Card = observer(function Card(props: IProduct & { onClickCard: () =
                           fontSize={'21px'}
                           lineHeight={1}
                           color={'alert'}>
-                        {props.priceUSD / 100} $
+                        {formatPrice(props.rentPriceUSD)} $
                     </Text>
                 </HStack>
 
 
-                <Text fontSize={12}
-                      lineHeight={1}
-                      letterSpacing={'0.07em'}
-                      color={'alert'}
-                      position={'absolute'}
-                      bottom={0}
-                      right={0}
-                      textTransform={'uppercase'}>
-                    {+props.__supply.remaningSupply !== 0 ? `${props.__supply.remaningSupply}/${props.__supply.maxSupply} pieces left` : `SOLD OUT`}
-                </Text>
+                {/*<Text fontSize={12}*/}
+                {/*      lineHeight={1}*/}
+                {/*      letterSpacing={'0.07em'}*/}
+                {/*      color={'alert'}*/}
+                {/*      position={'absolute'}*/}
+                {/*      bottom={0}*/}
+                {/*      right={0}*/}
+                {/*      textTransform={'uppercase'}>*/}
+                {/*    {+props.__supply.remaningSupply !== 0 ? `${props.__supply.remaningSupply}/${props.__supply.maxSupply} pieces left` : `SOLD OUT`}*/}
+                {/*</Text>*/}
             </Stack>
 
             <Box>
@@ -99,7 +100,7 @@ export const Card = observer(function Card(props: IProduct & { onClickCard: () =
                     )
                     : (
                         <Button
-                            isDisabled={+props.__supply.remaningSupply === 0}
+                            // isDisabled={+props.__supply.remaningSupply === 0}
                             leftIcon={<IconCart/>}
                             variant={'solid'}
                             textTransform={'uppercase'}

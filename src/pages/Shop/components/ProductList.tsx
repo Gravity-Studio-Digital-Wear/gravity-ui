@@ -46,7 +46,7 @@ export const ProductList = observer(function ProductList() {
     const isMobileListView = view === MobileListView;
 
     const AddHandler = (p: IProduct) => {
-        cartService.add(p)
+        cartService.add(p, 'rent')
 
         if (!isChessListView && !isMobileListView) {
             return;

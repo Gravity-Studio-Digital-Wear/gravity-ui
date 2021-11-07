@@ -10,7 +10,7 @@ import {
     HStack,
     Image,
     Input,
-    Link,
+    Link, Radio, RadioGroup,
     Stack,
     Text,
     useMediaQuery,
@@ -20,7 +20,7 @@ import {QtyControl} from "../../components/QtyControl";
 import {IconClose} from "../../components/icons/IconClose";
 import {useService} from "../../core/decorators/service";
 import {CartService} from "../../services/CartService";
-import {IProduct} from "../../interfaces";
+import {IProduct, TBidType} from "../../interfaces";
 import {processImgUrl} from "../../utils/imageUrl";
 import {formatPrice} from "../../utils/price";
 import {Link as RouterLink, useHistory} from "react-router-dom";
@@ -72,11 +72,12 @@ export const CartPage = observer(function CartPage() {
                         <Grid templateColumns={'repeat(12, 1fr)'} gridGap={{md: '32px'}}>
                             <GridItem gridColumn={{base: 'span 12', md: 'span 8'}}>
                                 {[...cartService.cart.values()]
-                                    .map(({product, quantity}) =>
+                                    .map(({product, quantity, type}) =>
                                         <CartCmp
                                             key={product._id}
                                             product={product}
                                             quantity={quantity}
+                                            type={type}
                                         />
                                     )
                                 }
@@ -155,8 +156,15 @@ export const CartPage = observer(function CartPage() {
     )
 })
 
-function CartItem({product, quantity}: { product: IProduct, quantity: number }) {
+function CartItem({product, quantity, type}: { product: IProduct, quantity: number, type: TBidType }) {
     const cartService = useService(CartService)
+    const [bidType, setBidType] = React.useState<TBidType>(type);
+
+    const isRent = bidType === 'rent';
+
+    function getProductPrice(p: IProduct) {
+        return isRent ? p.rentPriceUSD : p.priceUSD
+    }
 
     return (
         <HStack width={'100%'} justifyContent={'flex-start'}>
@@ -168,16 +176,31 @@ function CartItem({product, quantity}: { product: IProduct, quantity: number }) 
                     <Text as={'h3'} fontWeight={'bold'} fontSize={25} textTransform={'uppercase'}
                           letterSpacing={'0.02em'}>{product.name}</Text>
 
-                    <Text fontSize={'12px'} color={'alert'} textTransform={'uppercase'}
-                          letterSpacing={'0.07em'}>
-                        {+product.__supply.remaningSupply !== 0 ? `${product.__supply.remaningSupply}/${product.__supply.maxSupply} pieces left` : `SOLD OUT`}
-                    </Text>
+                    {!isRent && (
+                        <Text fontSize={'12px'} color={'alert'} textTransform={'uppercase'}
+                              letterSpacing={'0.07em'}>
+                            {+product.__supply.remaningSupply !== 0 ? `${product.__supply.remaningSupply}/${product.__supply.maxSupply} pieces left` : `SOLD OUT`}
+                        </Text>
+                    )}
 
-                    <QtyControl
-                        value={quantity}
-                        max={+product.__supply.remaningSupply}
-                        onChange={(qty) => cartService.changeProductQty(product, qty)}
-                    />
+                    <Box>
+                        <Text textTransform={'uppercase'} fontWeight={'bold'} color={'basic.500'}>Buy as</Text>
+
+                        <RadioGroup mt={'12px'} defaultValue={bidType} onChange={(v) => setBidType(v as TBidType)}>
+                            <Stack>
+                                <Radio value="rent">Rent one wear (90% discount)</Radio>
+                                <Radio value="ownership" isDisabled={+product.__supply.remaningSupply === 0}>Ownership + one wear</Radio>
+                            </Stack>
+                        </RadioGroup>
+                    </Box>
+
+                    {!isRent && (
+                        <QtyControl
+                            value={quantity}
+                            max={+product.__supply.remaningSupply}
+                            onChange={(qty) => cartService.changeProductQty(product, qty)}
+                        />
+                    )}
                 </Stack>
 
                 <HStack marginLeft={'auto'} spacing={'46px'} marginTop={'16px'} alignItems={'flex-start'}>
@@ -195,13 +218,13 @@ function CartItem({product, quantity}: { product: IProduct, quantity: number }) 
                               letterSpacing={'0.02em'}
                               lineHeight={1}
                               color={'basic.500'}>
-                            {product.priceUSD / 100} $
+                            {formatPrice(getProductPrice(product))} $
                         </Text>
                         <Text as={'span'}
                               fontSize={'15px'}
                               color={'basic.500'}
                               lineHeight={1}>
-                            {quantity} x {product.priceUSD / 100} $
+                            {quantity} x {formatPrice(getProductPrice(product))} $
                         </Text>
                     </Stack>
 
@@ -214,8 +237,16 @@ function CartItem({product, quantity}: { product: IProduct, quantity: number }) 
     )
 }
 
-function CartItemMobile({product, quantity}: { product: IProduct, quantity: number }) {
+function CartItemMobile({product, quantity, type}: { product: IProduct, quantity: number, type: TBidType }) {
     const cartService = useService(CartService)
+
+    const [bidType, setBidType] = React.useState<TBidType>(type);
+
+    const isRent = bidType === 'rent';
+
+    function getProductPrice(p: IProduct) {
+        return isRent ? p.rentPriceUSD : p.priceUSD
+    }
 
     return (
         <HStack width={'100%'} justifyContent={'flex-start'}>
@@ -241,10 +272,12 @@ function CartItemMobile({product, quantity}: { product: IProduct, quantity: numb
                               textTransform={'uppercase'}
                               letterSpacing={'0.02em'}>{product.name}</Text>
 
-                        <Text fontSize={'12px'} color={'alert'} textTransform={'uppercase'}
-                              letterSpacing={'0.07em'}>
-                            {+product.__supply.remaningSupply !== 0 ? `${product.__supply.remaningSupply} pieces left` : `SOLD OUT`}
-                        </Text>
+                        {!isRent && (
+                            <Text fontSize={'12px'} color={'alert'} textTransform={'uppercase'}
+                                  letterSpacing={'0.07em'}>
+                                {+product.__supply.remaningSupply !== 0 ? `${product.__supply.remaningSupply} pieces left` : `SOLD OUT`}
+                            </Text>
+                        )}
 
                         <HStack spacing={'16px'} alignItems={'flex-start'}>
                             <Stack spacing={'8px'}>
@@ -284,11 +317,27 @@ function CartItemMobile({product, quantity}: { product: IProduct, quantity: numb
                 </HStack>
 
                 <Box mt={'20px'}>
-                    <QtyControl
-                        value={quantity}
-                        max={+product.__supply.remaningSupply}
-                        onChange={(qty) => cartService.changeProductQty(product, qty)}
-                    />
+
+                    <Box mb={'20px'}>
+                        <Text textTransform={'uppercase'} fontWeight={'bold'} color={'basic.500'}>Buy as</Text>
+
+                        <RadioGroup mt={'12px'} defaultValue={bidType} onChange={(v) => setBidType(v as TBidType)}>
+                            <Stack>
+                                <Radio value="rent">Rent one wear (90% discount)</Radio>
+                                <Radio value="ownership" isDisabled={+product.__supply.remaningSupply === 0}>Ownership + one wear</Radio>
+                            </Stack>
+                        </RadioGroup>
+                    </Box>
+
+
+                    {!isRent && (
+                        <QtyControl
+                            value={quantity}
+                            max={+product.__supply.remaningSupply}
+                            onChange={(qty) => cartService.changeProductQty(product, qty)}
+                        />
+                    )}
+
                 </Box>
             </Stack>
         </HStack>
