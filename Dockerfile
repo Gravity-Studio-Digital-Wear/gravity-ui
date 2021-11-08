@@ -3,9 +3,9 @@ FROM node:14-alpine as installer
 WORKDIR /app
 
 COPY package.json .
-# COPY package-lock.json .
+COPY package-lock.json .
 COPY .npmrc .npmrc
-RUN npm install
+RUN npm ci
 
 FROM installer AS build
 
