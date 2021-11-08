@@ -14,7 +14,6 @@ import {
     RadioGroup,
     Stack,
     Text,
-    useMediaQuery,
     useToken
 } from "@chakra-ui/react";
 import {IconCart} from "../../components/icons/IconCart";
@@ -33,6 +32,7 @@ import {IconBack} from "../../components/icons/IconBack";
 import {processImgUrl} from "../../utils/imageUrl";
 import {GravityApplication} from "../../app/Application";
 import {TBidType} from "../../interfaces";
+import { useMediaQuery } from 'react-responsive'
 
 // install Swiper modules
 SwiperCore.use([Pagination, Mousewheel, Navigation, Keyboard]);
@@ -55,7 +55,7 @@ export const ProductPage = observer(function ProductPage({match}: RouteComponent
         ['md']
     );
 
-    const [isLargerThanMd] = useMediaQuery(`(min-width: ${md})`)
+    const isLargerThanMd = useMediaQuery({ query: `(min-width: ${md})`})
 
     const changeBidTypeHandler = (next: TBidType) =>  {
         cartService.changeProductBidType(product, next);
@@ -255,7 +255,12 @@ export const ProductPage = observer(function ProductPage({match}: RouteComponent
                                 <Link href={Routes.howItWorks} color={'primary.500'} textTransform={'uppercase'}
                                       letterSpacing={'0.07em'}>
                                     <Text as={'span'} borderBottom={'1px solid'} borderColor={'primary.500'}>How to wear
-                                        it?</Text>
+                                        it</Text>
+                                </Link>
+
+                                <Link href={Routes.ownToEarn} color={'primary.500'} textTransform={'uppercase'}
+                                      letterSpacing={'0.07em'}>
+                                    <Text as={'span'} borderBottom={'1px solid'} borderColor={'primary.500'}>How to earn money as an owner</Text>
                                 </Link>
 
                                 <Stack spacing={'32px'}>
