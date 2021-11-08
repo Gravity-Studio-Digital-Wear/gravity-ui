@@ -66,6 +66,10 @@ export class CartService {
     changeProductBidType(product: IProduct, type: TBidType) {
         let cartItem = this.cart.get(product._id)
 
+        if (!cartItem) {
+            return;
+        }
+
         cartItem.type = type;
 
         this.cart.set(product._id, cartItem)

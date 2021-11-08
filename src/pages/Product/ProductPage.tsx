@@ -268,13 +268,16 @@ export const ProductPage = observer(function ProductPage({match}: RouteComponent
                                         <Text textTransform={'uppercase'} fontWeight={'bold'} color={'basic.500'}>Buy
                                             as</Text>
 
-                                        <RadioGroup mt={'12px'} defaultValue={bidType}
-                                                    onChange={(v) => changeBidTypeHandler(v as TBidType)}>
+                                        <RadioGroup mt={'12px'}
+                                                    defaultValue={bidType}
+                                                    onChange={(v) => changeBidTypeHandler(v as TBidType)}
+                                        >
                                             <Stack>
                                                 <Radio value="rent">Rent one wear (90% discount)</Radio>
                                                 <Radio value="ownership"
-                                                       isDisabled={+product.__supply.remaningSupply === 0}>Ownership +
-                                                    one wear</Radio>
+                                                       isDisabled={+product.__supply.remaningSupply === 0}>
+                                                    Ownership + one wear
+                                                </Radio>
                                             </Stack>
                                         </RadioGroup>
                                     </Box>
