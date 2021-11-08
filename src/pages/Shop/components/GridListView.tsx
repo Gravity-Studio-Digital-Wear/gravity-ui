@@ -72,16 +72,16 @@ export const Card = observer(function Card(props: IProduct & { onClickCard: () =
                 </HStack>
 
 
-                {/*<Text fontSize={12}*/}
-                {/*      lineHeight={1}*/}
-                {/*      letterSpacing={'0.07em'}*/}
-                {/*      color={'alert'}*/}
-                {/*      position={'absolute'}*/}
-                {/*      bottom={0}*/}
-                {/*      right={0}*/}
-                {/*      textTransform={'uppercase'}>*/}
-                {/*    {+props.__supply.remaningSupply !== 0 ? `${props.__supply.remaningSupply}/${props.__supply.maxSupply} pieces left` : `SOLD OUT`}*/}
-                {/*</Text>*/}
+                <Text fontSize={12}
+                      lineHeight={1}
+                      letterSpacing={'0.07em'}
+                      color={'alert'}
+                      position={'absolute'}
+                      bottom={0}
+                      right={0}
+                      textTransform={'uppercase'}>
+                    {+props.__supply.remaningSupply !== 0 ? `${props.__supply.remaningSupply}/${props.__supply.maxSupply} pieces left` : `ONLY RENT AVAILABLE`}
+                </Text>
             </Stack>
 
             <Box>

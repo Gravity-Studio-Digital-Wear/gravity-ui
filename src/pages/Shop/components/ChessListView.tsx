@@ -64,12 +64,12 @@ export function Card(props: IProduct & { onClickCard: () => void, onClickAdd: ()
                     </HStack>
                 </Text>
 
-                {/*<Text fontSize={12}*/}
-                {/*      letterSpacing={'0.07em'}*/}
-                {/*      color={'alert'}*/}
-                {/*      textTransform={'uppercase'}>*/}
-                {/*    {+props.__supply.remaningSupply !== 0 ? `${props.__supply.remaningSupply}/${props.__supply.maxSupply} pieces left` : `SOLD OUT`}*/}
-                {/*</Text>*/}
+                <Text fontSize={12}
+                      letterSpacing={'0.07em'}
+                      color={'alert'}
+                      textTransform={'uppercase'}>
+                    {+props.__supply.remaningSupply !== 0 ? `${props.__supply.remaningSupply}/${props.__supply.maxSupply} pieces left` : `ONLY RENT AVAILABLE`}
+                </Text>
             </Stack>
 
             <Box
