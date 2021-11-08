@@ -14,4 +14,4 @@ export const Routes = {
     termsOfService: '/terms-of-service',
     privacy: '/privacy-policy',
     authCallback: '/oauth/callback'
-}
+};
