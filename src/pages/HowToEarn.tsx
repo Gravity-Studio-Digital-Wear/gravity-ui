@@ -16,8 +16,6 @@ export function HowToEarn() {
 
     return (
         <Box p={{base: '17px', md: 0}} ref={boxRef}>
-            <Text fontSize={36} fontWeight={'bold'} mb={'60px'} textTransform={'uppercase'}>How to Earn</Text>
-
             <iframe
                 src="https://docs.google.com/presentation/d/e/2PACX-1vSlkZlbPtulkX9z5kNKdC0s1ZpB6M37c-sWqQM-X6M8bsJrmMu2Nzh45dOpd0xIYOWKNImjShR1ZzqN/embed?start=false&loop=false&delayms=3000"
                 frameBorder="0"
