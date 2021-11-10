@@ -238,10 +238,15 @@ export const ProductPage = observer(function ProductPage({match}: RouteComponent
                                     {product.description}
                                 </Text>
 
-                                <Link href={Routes.howItWorks} color={'primary.500'} textTransform={'uppercase'}
+                                <Link as={RouterLink} to={Routes.howItWorks} color={'primary.500'} textTransform={'uppercase'}
                                       letterSpacing={'0.07em'}>
                                     <Text as={'span'} borderBottom={'1px solid'} borderColor={'primary.500'}>How to wear
                                         it?</Text>
+                                </Link>
+
+                                <Link as={RouterLink} to={Routes.ownToEarn} color={'primary.500'} textTransform={'uppercase'}
+                                      letterSpacing={'0.07em'}>
+                                    <Text as={'span'} borderBottom={'1px solid'} borderColor={'primary.500'}>How to earn money as an owner</Text>
                                 </Link>
                             </>
                         )}
