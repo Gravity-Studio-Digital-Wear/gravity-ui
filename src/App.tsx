@@ -1,15 +1,14 @@
 import React from 'react'
 import {BrowserRouter} from "react-router-dom"
-
 import {ChakraProvider, extendTheme} from "@chakra-ui/react";
 import {useProviders} from "./app/useProviders";
-// import {Routing} from "./app/Routing";
 import {useService} from "./core/decorators/service";
 import {GravityApplication} from "./app/Application";
 import {GravityTheme} from "./app/Theme";
 import {ModalProvider} from "./core/modal/modal";
 import {Routing} from "./app/Routing";
 import {createBreakpoints} from "@chakra-ui/theme-tools"
+import {ScrollRestoration} from "./components/ScrollRestoration";
 
 const breakpoints = createBreakpoints({
     sm: "320px",
@@ -37,6 +36,7 @@ function App() {
 
     return (
         <RootProvider>
+            <ScrollRestoration/>
             <Routing/>
         </RootProvider>
     )
