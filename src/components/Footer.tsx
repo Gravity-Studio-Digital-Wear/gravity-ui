@@ -28,7 +28,7 @@ export function Footer() {
 
                     <Stack spacing={'10px'}>
                         <Link href="https://forms.gle/AvVvcJciKJFCLdfk6" isExternal>Contact us</Link>
-                        <Link href="https://drive.google.com/file/d/13lQTANmVz4lrjMMBuB2a77p-iU_TsJfG" isExternal>White paper</Link>
+                        <Link as={RouterLink} to={Routes.whitePaper}>White paper</Link>
                     </Stack>
                 </Stack>
 

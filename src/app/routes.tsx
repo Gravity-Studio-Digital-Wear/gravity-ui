@@ -10,6 +10,7 @@ export const Routes = {
     productPage: '/product/:id',
     howItWorks: '/how-it-works',
     ownToEarn: '/how-to-earn',
+    whitePaper: '/white-paper',
     sustainability: '/sustainability',
     termsOfService: '/terms-of-service',
     privacy: '/privacy-policy',

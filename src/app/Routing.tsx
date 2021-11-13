@@ -19,6 +19,7 @@ import {HowItWorksPage} from "../pages/HowItWorks";
 import {TermsOfService} from "../pages/TermsOfService";
 import {Privacy} from "../pages/Privacy";
 import {HowToEarn} from "../pages/HowToEarn";
+import {WhitePaper} from "../pages/WhitePaper";
 
 export const Routing = observer(function Routing() {
     const history = useHistory()
@@ -69,6 +70,7 @@ export const Routing = observer(function Routing() {
                             <Route path={Routes.sustainability} component={SustainabilityPage}/>
                             <Route path={Routes.howItWorks} component={HowItWorksPage}/>
                             <Route path={Routes.ownToEarn} component={HowToEarn}/>
+                            <Route path={Routes.whitePaper} component={WhitePaper}/>
 
                             <Route path={Routes.privacy} component={Privacy}/>
                             <Route path={Routes.termsOfService} component={TermsOfService}/>

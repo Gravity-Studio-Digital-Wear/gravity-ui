@@ -37,7 +37,8 @@ const navLinks = [
     ['shop', Routes.main],
     ['how it works', Routes.howItWorks],
     ['sustainability', Routes.sustainability],
-    ['own to earn', Routes.ownToEarn]
+    ['own to earn', Routes.ownToEarn],
+    ['white paper', Routes.whitePaper]
 ]
 
 function Navigator() {
@@ -60,7 +61,7 @@ function Navigator() {
 
 function NavigatorMobile(props: { onClick: () => void }) {
     return (
-        <Stack px={'17px'} mt={'90px'}>
+        <Stack px={'17px'} mt={'30px'}>
             {navLinks.map(([text, to]) => (
                 <NavLink
                     fontSize={25}
