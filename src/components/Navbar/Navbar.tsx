@@ -18,8 +18,9 @@ import {
     useColorModeValue,
     useDisclosure,
     useMediaQuery,
-    useToken,
+    useToken
 } from '@chakra-ui/react';
+import {css, Global} from '@emotion/react';
 import {observer} from "mobx-react";
 import {ReactComponent as Rune} from './rune.svg'
 import {NavLink as RouterLink, useHistory} from 'react-router-dom';
@@ -185,9 +186,11 @@ export const Navigation = observer(function Navigation() {
 
     const {isOpen, onOpen, onClose} = useDisclosure()
 
+    const breakpoint = 'lg'
+
     const [md] = useToken(
         'breakpoints',
-        ['md']
+        [breakpoint]
     );
 
     const [isLargerThanMd] = useMediaQuery(`(min-width: ${md})`)
@@ -209,6 +212,16 @@ export const Navigation = observer(function Navigation() {
 
     return (
         <>
+            {isOpen && (
+                <Global
+                    styles={css(`
+                    body {
+                        overflow-y: hidden
+                    }
+                `)}
+                />
+            )}
+
             <Box
                 position={'fixed'}
                 w={'100vw'}
@@ -216,24 +229,23 @@ export const Navigation = observer(function Navigation() {
                 zIndex={1000}
                 h={'calc(100% - 60px)'}
                 transition={'all ease-in .2s'}
-                transform={isOpen ? 'translateY(calc(100% + 120px))' : 'translateY(0)'}
-                top={'-100%'}
+                transform={isOpen ? 'translateY(calc(60px))' : 'translateY(-100%)'}
+                top={'0'}
+                overflowY={'auto'}
             >
-                <NavigatorMobile onClick={onClose}/>
+                {!isLargerThanMd && <NavigatorMobile onClick={onClose}/>}
 
-                <Box w={'100%'} display={'flex'} flexDirection={'column'} alignItems={'center'} position={'absolute'}
-                     bottom={'57px'}>
+                <Box py={'32px'} w={'100%'} display={'flex'} flexDirection={'column'} alignItems={'center'} bottom={'57px'}>
                     <Text mb={4} color={'basic.500'} textTransform={'uppercase'} fontSize={18}>Follow us</Text>
 
                     <SocialLinks/>
                 </Box>
             </Box>
-
-            <Box zIndex={1001} bg={'white'} position={'relative'}>
+            <Box zIndex={1001} bg={'white'} position={isOpen ? 'fixed' : 'relative'}>
                 <Flex
                     position={'absolute'}
                     alignItems={'center'}
-                    justify={{base: 'center', md: 'flex-start'}}
+                    justify={{base: 'center', [breakpoint]: 'flex-start'}}
                     w={{base: '100%'}}
                     height={'100%'}
                     top={'0'}
@@ -251,9 +263,9 @@ export const Navigation = observer(function Navigation() {
                         width={'100%'}
                         marginRight={'auto'}
                         alignItems={'center'}
-                        maxW={{md: 'calc(100vw - 126px - 72px - 64px)', "2xl": '1160px'}}
+                        maxW={{[breakpoint]: 'calc(100vw - 126px - 72px - 64px)', "2xl": '1160px'}}
                         zIndex={2}
-                        px={{base: '26px', md: 0}}
+                        px={{base: '26px', [breakpoint]: 0}}
                     >
                         {!isLargerThanMd && (
                             <BurgerButton
@@ -263,7 +275,7 @@ export const Navigation = observer(function Navigation() {
                             />
                         )}
 
-                        <Box display={{base: 'none', md: "flex"}} zIndex={2}>
+                        <Box display={{base: 'none', [breakpoint]: "flex"}} zIndex={2}>
                             <Navigator/>
                         </Box>
 
@@ -313,7 +325,7 @@ export const Navigation = observer(function Navigation() {
 
 
                 <Flex
-                    display={{base: 'none', md: "flex"}}
+                    display={{base: 'none', [breakpoint]: "flex"}}
                     position={'absolute'} alignItems={'center'}
                     height={'100%'}
                     top={'0'}
