@@ -164,6 +164,10 @@ export class CartService {
         return this.total;
     }
 
+    @action
+    public opensea() {
+        sendAmplitudeData('E_GO_OPENSEA')
+    }
 
     @action
     public checkout() {
@@ -174,6 +178,7 @@ export class CartService {
         }
 
         sendAmplitudeData('E_CHECKOUT_BEGIN')
+        
         const cart = [...this.cart.values()].map(({product, type, quantity}) => ({
             productId: type === 'rent' ? product.rentProductId : product._id,
             quantity: quantity,

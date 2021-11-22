@@ -147,6 +147,7 @@ export const CartPage = observer(function CartPage() {
                                                   textTransform={'uppercase'}
                                                   w={'100%'}
                                                   mt={'12px'}
+                                                  onClick={() => cartService.opensea()} 
                                               >
                                                   Buy on opensea (crypto)
                                               </Button>
