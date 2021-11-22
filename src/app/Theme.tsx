@@ -12,7 +12,8 @@ export const GravityTheme = {
             100: '#E1DDEB'
         },
         alert: '#7B61FF',
-        hover: ''
+        hover: '',
+        error: '#D63155'
     },
     fonts: {
         body: "Sofia Pro, sans-serif",

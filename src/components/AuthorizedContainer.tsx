@@ -5,7 +5,7 @@ import {observer} from "mobx-react";
 import {Footer} from "./Footer";
 
 const contentBg = `
-    conic-gradient(from 54.26deg at 31.74% 21.24%, #F2EDFF -144.13deg, #FFF8F5 33.04deg, #F2EDFF 215.87deg, #FFF8F5 393.04deg);
+    #FFF8F5;
 `
 
 export const AuthorizedContainer = observer(function AuthorizedContainer(props: React.PropsWithChildren<{}>) {

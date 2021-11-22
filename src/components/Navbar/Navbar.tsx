@@ -31,7 +31,7 @@ import {AuthService, MagicOAuthProvider} from "../../services/AuthService";
 import {ModalService} from "../../services/ModalService";
 import {CartService} from "../../services/CartService";
 import {GravityApplication} from "../../app/Application";
-import {DiscordIcon, InstaIcon, TelegramIcon, TwitterIcon, YouTubeIcon} from "../icons/IconSocial";
+import {DiscordIcon, InstaIcon, MediumIcon, TelegramIcon, TwitterIcon, YouTubeIcon} from "../icons/IconSocial";
 import {BurgerButton} from "./BurgerButton";
 
 const navLinks = [
@@ -103,8 +103,13 @@ function SocialLinks() {
                 <Link href="https://www.youtube.com/channel/UCKrbhUFFqg-Q2nyrfxN9xjQ" isExternal>
                     <YouTubeIcon/>
                 </Link>
+
                 <Link href="https://twitter.com/GravitytheStud" isExternal>
                     <TwitterIcon/>
+                </Link>
+
+                <Link href="https://medium.com/@gravitythestudio" isExternal>
+                    <MediumIcon/>
                 </Link>
             </HStack>
         </Stack>

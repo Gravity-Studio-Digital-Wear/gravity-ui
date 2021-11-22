@@ -51,7 +51,7 @@ export const ModalProvider = observer(function ModalProvider(props: React.PropsW
 
                     if (openPredefined) {
                         return (
-                            <ModalItem modalKey={openPredefined.key}>
+                            <ModalItem key={openPredefined.key} modalKey={openPredefined.key}>
                                 {openPredefined.component}
                             </ModalItem>
                         );

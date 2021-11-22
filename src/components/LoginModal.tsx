@@ -122,7 +122,7 @@ export const LoginModal = observer(function LoginModal() {
                         </Button>
 
 
-                        {!isMetamask && <Text mt={'16px'}>Available only through Desktop Google Chrome browser</Text>}
+                        {!isMetamask && <Text mt={'16px'} color={'error'}>Available only through Desktop Google Chrome browser</Text>}
                     </Box>
 
                     <Divider width={'160px'} bg={'basic.100'}/>

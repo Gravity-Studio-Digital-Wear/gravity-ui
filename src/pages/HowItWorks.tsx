@@ -1,11 +1,12 @@
 import * as React from 'react';
-import {Box, Grid, GridItem, HStack, Image, Text} from "@chakra-ui/react";
-import {processImgUrl} from "../utils/imageUrl";
+import {Box, Button, Grid, GridItem, HStack, Image, Text} from "@chakra-ui/react";
+import {Routes} from "../app/routes";
+import {useHistory} from "react-router-dom";
 
 export function HowItWorksPage() {
     const ref = React.useRef(null);
 
-
+    const history = useHistory()
 
     return (
         <Grid templateColumns={'repeat(12, 1fr)'} px={{base: '17px', md: 0}}>
@@ -29,9 +30,9 @@ export function HowItWorksPage() {
 
             <GridItem gridColumn={{base: 'span 12', md: 'span 10'}}>
                 <Box mb={'24px'}>
-                    <video  ref={ref}
-                            width="100%" height="auto"
-                            preload="auto" muted playsInline autoPlay loop>
+                    <video ref={ref}
+                           width="100%" height="auto"
+                           preload="auto" muted playsInline autoPlay loop>
                         {/*<source*/}
                         {/*    src={'https://images.gravitythestudio.shop/video/upload/w_966/q_auto:good/vc_auto/gravity/Site-Content/how-to-wear2_1_oxyfk3.webm'}*/}
                         {/*    type="video/webm"*/}
@@ -67,7 +68,8 @@ export function HowItWorksPage() {
                         <Image src={'/do.png'}/>
 
                         <HStack mt={'40px'}>
-                            <svg width="24" height="25" viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <svg width="24" height="25" viewBox="0 0 24 25" fill="none"
+                                 xmlns="http://www.w3.org/2000/svg">
                                 <circle cx="12" cy="12.5" r="12" fill="#A0DA9D"/>
                                 <path d="M7 12L11 16L17.5 9.5" stroke="white" strokeLinecap="square"/>
                             </svg>
@@ -105,6 +107,10 @@ export function HowItWorksPage() {
                         </Text>
                     </GridItem>
                 </Grid>
+
+
+                <Button mt={'64px'} w={'269px'} letterSpacing={'0.02em'} onClick={() => history.push(Routes.main)}>Go to
+                    shopping</Button>
             </GridItem>
         </Grid>
     );
