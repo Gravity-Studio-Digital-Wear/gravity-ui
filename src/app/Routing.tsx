@@ -20,6 +20,7 @@ import {TermsOfService} from "../pages/TermsOfService";
 import {Privacy} from "../pages/Privacy";
 import {HowToEarn} from "../pages/HowToEarn";
 import {WhitePaper} from "../pages/WhitePaper";
+import {Landing} from "../pages/Landing/Landing";
 
 export const Routing = observer(function Routing() {
     const history = useHistory()
@@ -39,8 +40,11 @@ export const Routing = observer(function Routing() {
                     return (
                         <Switch>
                             {/*<Route path={Routes.login} component={LoginPage}/>*/}
+
+
                             <Route path={Routes.authCallback} component={OAuthCallbackPage}/>
                             <Route path={Routes.productPage} component={ProductPage}/>
+
                             <ProtectedRoute path={Routes.profile} render={({match}) => {
                                 if (!r) {
 
@@ -71,6 +75,8 @@ export const Routing = observer(function Routing() {
                             <Route path={Routes.howItWorks} component={HowItWorksPage}/>
                             <Route path={Routes.ownToEarn} component={HowToEarn}/>
                             <Route path={Routes.whitePaper} component={WhitePaper}/>
+
+                            <Route path={'/__landing'} component={Landing}/>
 
                             <Route path={Routes.privacy} component={Privacy}/>
                             <Route path={Routes.termsOfService} component={TermsOfService}/>

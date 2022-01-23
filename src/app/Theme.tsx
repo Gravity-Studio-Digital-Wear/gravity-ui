@@ -21,6 +21,22 @@ export const GravityTheme = {
         link: "Sofia Pro, sans-serif"
     },
     components: {
+        Navigator: {
+            baseStyle: {
+                color: 'primary.500',
+                _hover: {
+                    color: 'alert'
+                }
+            },
+
+            variants: {
+                transparent: {
+                    color: 'white'
+                }
+            }
+        },
+
+
         Button: {
             baseStyle: {
                 outline: 0,
@@ -141,7 +157,7 @@ export const GravityTheme = {
         },
 
         Radio: {
-            baseStyle : {
+            baseStyle: {
                 control: {
                     borderColor: 'primary.500',
                     w: '18px',
