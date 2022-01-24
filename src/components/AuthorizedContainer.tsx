@@ -1,6 +1,6 @@
 import * as React from "react";
 import {Navigation} from "./Navbar/Navbar";
-import {Box, StylesProvider, useMultiStyleConfig} from "@chakra-ui/react";
+import {Box, StylesProvider, useMediaQuery, useMultiStyleConfig, useToken} from "@chakra-ui/react";
 import {observer} from "mobx-react";
 import {Footer} from "./Footer";
 import {useLocation} from "react-router-dom";
@@ -30,10 +30,15 @@ export const AuthorizedContainer = observer(function AuthorizedContainer(props: 
 
     const location = useLocation()
 
+    const [xl] = useToken(
+        'breakpoints',
+        ['xl']
+    );
+    const [isLargerThanXl] = useMediaQuery(`(min-width: ${xl})`)
 
     const styles = useMultiStyleConfig(
         'Navigator',
-        { variant: location.pathname === '/__landing' ?  'transparent' : 'default' }
+        { variant: location.pathname === '/__landing' && isLargerThanXl ?  'transparent' : 'default' }
     )
 
 

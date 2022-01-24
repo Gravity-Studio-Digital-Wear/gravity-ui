@@ -1,39 +1,73 @@
 import * as React from 'react';
-import {Box, Grid, GridItem, Text} from "@chakra-ui/react";
+import {Box, Flex, Grid, GridItem, Stack, Text, useMediaQuery, useToken} from "@chakra-ui/react";
 
 import {ReactComponent as Hex1} from './hex.svg'
-import {ReactComponent as Hex2} from './hex-2.svg'
-import {ReactComponent as Hex3} from './hex-3.svg'
+import {ReactComponent as Hex1MobileSvg} from './hex__mobile.svg'
 
+import {ReactComponent as CardsMobile} from './cards--mobile.svg'
+import {ReactComponent as LogosMobile} from './logos--mobile.svg'
+
+import {ReactComponent as Hex2} from './hex-2.svg'
+import {ReactComponent as Hex2MobileSvg} from './hex-2--mobile.svg'
+
+
+import {ReactComponent as Hex3} from './hex-3.svg'
+import {ReactComponent as Hex3MobileSvg} from './hex-2--mobile.svg'
 
 import {ReactComponent as CardsSvg} from './cards.svg'
+import {ReactComponent as AvatarsSvg} from './avatars--mobile.svg'
 
 
 export function Steps() {
+    const [xl] = useToken(
+        'breakpoints',
+        ['xl']
+    );
+    const [isLargerThanXl] = useMediaQuery(`(min-width: ${xl})`)
+
 
     return (
         <Box mt={'72px'}>
-            <Text lineHeight={'1'} ml={'64px'} textTransform={'uppercase'} fontSize={30} fontWeight={700}
-                  letterSpacing={'0.22em'} color={'primary.500'}>
+            <Text lineHeight={'1'}
+                  ml={'64px'}
+                  textTransform={'uppercase'}
+                  fontSize={30} fontWeight={700}
+                  letterSpacing={'0.22em'}
+                  color={'primary.500'}
+                  display={{base: 'none', xl: 'block'}}
+
+            >
                 Step 1
             </Text>
 
             <Box mt={'30px'} height={'769px'} position={'relative'}>
-                <Box position={'absolute'} top={0} left={0}>
+                <Box position={'absolute'} top={0} left={0} display={{base: 'none', xl: 'block'}}>
                     <Border/>
                 </Box>
 
-                <Box position={'absolute'} top={0} right={0}>
+                <Box position={'absolute'} top={0} right={0} display={{base: 'none', xl: 'block'}}>
                     <Step1Border/>
                 </Box>
 
-                <Box position={'relative'} top={'75px'}>
-                    <Box position={'relative'}>
-                        <Hex1/>
+                <Box position={'relative'} top={{base: '35px', xl:'75px'}} px={{base: '16px', xl: 0}}
+                     display={{base: 'flex', xl: 'block'}} justifyContent={'center'}
+                     flexDirection={'column'}
+                     alignItems={'center'}
 
-                        <Box top='210px' left={'60px'} position={'absolute'}>
-                            <Text fontSize={24} color={'white'}>Choose your look and pay <br/> by card or crypto.</Text>
-                        </Box>
+                >
+                    <Box position={'relative'}>
+                        {isLargerThanXl
+                            ? <>
+                                <Hex1/>
+
+                                <Box top='210px' left={'60px'} position={'absolute'}>
+                                    <Text fontSize={24} color={'white'}>Choose your look and pay <br/> by card or crypto.</Text>
+                                </Box>
+                            </>
+                            : <>
+                                <Hex1MobileSvg/>
+                            </>
+                        }
                     </Box>
 
                     <Box width={'447px'}
@@ -42,66 +76,87 @@ export function Steps() {
                          position={'absolute'}
                          right={'102px'}
                          top={'88px'}
+                         display={{base: 'none', xl: 'block'}}
                     />
+
+                    <Box width={'447px'}
+                         height={'350px'}
+                         bg={'url("/cards.svg")'}
+                         position={'absolute'}
+                         right={'102px'}
+                         top={'88px'}
+                         display={{base: 'none', xl: 'block'}}
+                    />
+
+                    <Box width={'342px'} mt={'42px'} display={{base: 'block', xl: 'none'}}>
+
+                        <CardsMobile/>
+                    </Box>
 
                 </Box>
 
 
             </Box>
 
-            <Box height={'769px'} position={'relative'}>
-                <Box position={'absolute'} top={'-60px'} left={0}>
+            <Box height={{base: '669px', xl:'769px'}} position={'relative'}>
+                <Box position={'absolute'} top={'-60px'} left={0} display={{base: 'none', xl: 'block'}}>
 
                     <Text lineHeight={'1'} ml={'64px'} textTransform={'uppercase'} fontSize={30} fontWeight={700}
                           letterSpacing={'0.22em'} color={'primary.500'}>
                         Step 2
                     </Text>
                 </Box>
-                <Box position={'absolute'} top={0} left={0}>
+                <Box position={'absolute'} top={0} left={0} display={{base: 'none', xl: 'block'}}>
                     <Step2Border/>
                 </Box>
 
+                {!isLargerThanXl && (
+                    <Stack alignItems={'center'} spacing={'42px'}>
+                        <Hex2MobileSvg/>
 
-                <Box>
-                    <Grid templateColumns={'1fr 1fr'} width={'100%'} pt={'120px'}>
-                        <GridItem display={'flex'} justifyContent={'center'} alignItems={'center'}>
+                        <LogosMobile/>
+                    </Stack>
+                )}
 
-                            <Box pl={'90px'}>
-                                <CardsSvg/>
-                            </Box>
+                {isLargerThanXl && (
+                    <Box>
+                        <Grid templateColumns={'1fr 1fr'} width={'100%'} pt={'120px'}>
+                            <GridItem display={'flex'} justifyContent={'center'} alignItems={'center'}>
 
-                        </GridItem>
-
-
-                        <GridItem display={'flex'} justifyContent={'center'} alignItems={'center'}>
-
-                            <Box position={'relative'}>
-                                <Hex2/>
-                                <Box top='230px' left={'68px'} position={'absolute'}>
-                                    <Text fontSize={24} color={'white'}>Select your Metaverses <br/>and apply for avatar
-                                        fitting</Text>
+                                <Box pl={'90px'}>
+                                    <CardsSvg/>
                                 </Box>
-                            </Box>
-                        </GridItem>
-                    </Grid>
-                </Box>
+
+                            </GridItem>
 
 
+                            <GridItem display={'flex'} justifyContent={'center'} alignItems={'center'}>
+
+                                <Box position={'relative'}>
+                                    <Hex2/>
+                                    <Box top='230px' left={'68px'} position={'absolute'}>
+                                        <Text fontSize={24} color={'white'}>Select your Metaverses <br/>and apply for avatar
+                                            fitting</Text>
+                                    </Box>
+                                </Box>
+                            </GridItem>
+                        </Grid>
+                    </Box>
+                )}
             </Box>
 
-            <Box height={'769px'} position={'relative'}>
-                <Box position={'absolute'} top={'-60px'} left={0}>
+            <Box height={{base: '669px', xl:'769px'}} position={'relative'}>
+                <Box position={'absolute'} top={'-60px'} left={0} display={{base: 'none', xl: 'block'}}>
 
                     <Text lineHeight={'1'} ml={'64px'} textTransform={'uppercase'} fontSize={30} fontWeight={700}
                           letterSpacing={'0.22em'} color={'primary.500'}>
                         Step 3
                     </Text>
                 </Box>
-                <Box position={'absolute'} top={0} left={0}>
+                <Box position={'absolute'} top={0} left={0} display={{base: 'none', xl: 'block'}}>
                     <Step3Border/>
                 </Box>
-
-                <Box position={'relative'} top={'74px'}>
+                <Box position={'relative'} top={'74px'} display={{base: 'none', xl: 'block'}}>
                     <Box position={'relative'}>
                         <Hex3/>
                         <Box top='200px' left={'68px'} position={'absolute'}>
@@ -119,6 +174,13 @@ export function Steps() {
                          top={'88px'}
                     />
                 </Box>
+
+                {/* Mobile */}
+                <Stack display={{base: 'flex', xl: 'none'}} alignItems={'center'} spacing={'42px'}>
+                    <Hex3MobileSvg/>
+
+                    <AvatarsSvg/>
+                </Stack>
             </Box>
         </Box>
     )

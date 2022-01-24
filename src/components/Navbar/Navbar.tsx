@@ -6,7 +6,6 @@ import {
     Flex,
     HStack,
     IconButton,
-    IconProps,
     Link,
     Menu,
     MenuButton,
@@ -15,9 +14,9 @@ import {
     Spinner,
     Stack,
     Text,
-    useColorModeValue,
     useDisclosure,
-    useMediaQuery, useStyles,
+    useMediaQuery,
+    useStyles,
     useToken
 } from '@chakra-ui/react';
 import {css, Global} from '@emotion/react';
@@ -118,15 +117,14 @@ function SocialLinks() {
 }
 
 
-const SvgWrapper = chakra(chakra.svg, {
-
-})
+const SvgWrapper = chakra(chakra.svg, {})
 
 function LoginButtonIcon() {
     const styles = useStyles();
 
     return (
-        <SvgWrapper __css={styles} width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <SvgWrapper __css={styles} width="18" height="18" viewBox="0 0 18 18" fill="none"
+                    xmlns="http://www.w3.org/2000/svg">
             <circle cx="9.00035" cy="4.92857" r="4.92857" fill="currentColor"/>
             <path fillRule="evenodd" clipRule="evenodd"
                   d="M5.05997 9.11632C3.21175 10.0133 1.71528 11.5217 0.833469 13.3786C-0.114185 15.3742 1.75532 17.25 3.96446 17.25H14.0359C16.245 17.25 18.1145 15.3742 17.1669 13.3786C16.2851 11.5217 14.7886 10.0133 12.9404 9.11632C11.9112 10.085 10.525 10.6785 9.00016 10.6785C7.47532 10.6785 6.08911 10.085 5.05997 9.11632Z"
@@ -183,7 +181,7 @@ function CartIcon({count}: { count: number }) {
     )
 }
 
-export const Navigation = observer(function Navigation({bg = 'white'}: {bg?: string}) {
+export const Navigation = observer(function Navigation({isLanding = false}: { isLanding?: boolean }) {
     const cartService = useService(CartService);
     const authService = useService(AuthService);
     const modalService = useService(ModalService);
@@ -197,12 +195,13 @@ export const Navigation = observer(function Navigation({bg = 'white'}: {bg?: str
 
     const styles = useStyles();
 
-    const [md] = useToken(
+    const [md, xl] = useToken(
         'breakpoints',
-        [breakpoint]
+        [breakpoint, 'xl']
     );
 
     const [isLargerThanMd] = useMediaQuery(`(min-width: ${md})`)
+    const [isLargerThanXl] = useMediaQuery(`(min-width: ${xl})`)
 
     const logout = () => {
         magicOAuthProvider.logout();
@@ -219,6 +218,8 @@ export const Navigation = observer(function Navigation({bg = 'white'}: {bg?: str
         ['primary.500', 'white']
     )
 
+    const menuBg = isLanding && !isLargerThanXl ? 'white' : 'transparent';
+
     return (
         <>
             {isOpen && (
@@ -234,7 +235,7 @@ export const Navigation = observer(function Navigation({bg = 'white'}: {bg?: str
             <Box
                 position={'fixed'}
                 w={'100vw'}
-                bg={bg}
+                bg={menuBg}
                 zIndex={1000}
                 h={'calc(100% - 60px)'}
                 transition={'all ease-in .2s'}
@@ -244,13 +245,14 @@ export const Navigation = observer(function Navigation({bg = 'white'}: {bg?: str
             >
                 {!isLargerThanMd && <NavigatorMobile onClick={onClose}/>}
 
-                <Box py={'32px'} w={'100%'} display={'flex'} flexDirection={'column'} alignItems={'center'} bottom={'57px'}>
+                <Box py={'32px'} w={'100%'} display={'flex'} flexDirection={'column'} alignItems={'center'}
+                     bottom={'57px'}>
                     <Text mb={4} color={'basic.500'} textTransform={'uppercase'} fontSize={18}>Follow us</Text>
 
                     <SocialLinks/>
                 </Box>
             </Box>
-            <Box zIndex={1001} bg={bg} position={isOpen ? 'fixed' : 'relative'}>
+            <Box zIndex={1001} bg={menuBg} position={isOpen ? 'fixed' : 'relative'}>
                 <Flex
                     position={'absolute'}
                     alignItems={'center'}
@@ -260,7 +262,10 @@ export const Navigation = observer(function Navigation({bg = 'white'}: {bg?: str
                     top={'0'}
                     onClick={() => !isLargerThanMd && history.push(Routes.main)}
                     left={'0'}>
-                    {bg === 'transparent' ? <RuneWhited/> : <Rune/>}
+                    {isLanding ?
+                        isLargerThanXl ? <RuneWhited/> : <Rune/>
+                        : <Rune/>
+                    }
                 </Flex>
 
                 <Stack color={styles.color as string}
@@ -296,11 +301,11 @@ export const Navigation = observer(function Navigation({bg = 'white'}: {bg?: str
                                             leftIcon={<LoginButtonIcon/>}
                                             size={'sm'}
                                             _hover={{bg: 'primary.500', color: 'white'}}
-                                            color={styles.color as  string}
+                                            color={styles.color as string}
                                             bg={'transparent'}
                                             border={'1px solid'}
                                             onClick={() => modalService.open('login')}
-                                            borderColor={styles.color as  string}> Log in</Button>
+                                            borderColor={styles.color as string}> Log in</Button>
                                     ) : (
                                         <Box onClick={() => modalService.open('login')}>
                                             {/*<Spinner/>*/}
@@ -341,7 +346,7 @@ export const Navigation = observer(function Navigation({bg = 'white'}: {bg?: str
                     zIndex={1}
                 >
                     <svg width="72" height="4" viewBox="0 0 72 4" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M0 2H113" stroke={styles.color as  string} strokeWidth="4"/>
+                        <path d="M0 2H113" stroke={styles.color as string} strokeWidth="4"/>
                     </svg>
                 </Flex>
             </Box>

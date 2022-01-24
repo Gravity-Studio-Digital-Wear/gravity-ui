@@ -2,7 +2,7 @@ import * as React from 'react';
 
 import SwiperCore, {Keyboard, Mousewheel, Navigation, Pagination} from 'swiper';
 import {Swiper, SwiperSlide} from "swiper/react";
-import {Box, Image, Text} from "@chakra-ui/react";
+import {Box, Text, useMediaQuery, useToken} from "@chakra-ui/react";
 
 // install Swiper modules
 SwiperCore.use([Pagination, Mousewheel, Navigation, Keyboard]);
@@ -26,27 +26,31 @@ const slides = [
 ]
 
 
-
-
 export function ElysiumSlider() {
+    const [xl] = useToken(
+        'breakpoints',
+        ['xl']
+    );
+    const [isLargerThanXl] = useMediaQuery(`(min-width: ${xl})`)
+
+
+    const w = isLargerThanXl ? '564px' : '342px';
+    const h = isLargerThanXl ? '747px' : '454px';
+
     return (
         <Swiper
             direction={'horizontal'}
-            slidesPerView={3}
+            slidesPerView={1}
             spaceBetween={30}
-            centeredSlides={true}
             pagination={false}
             mousewheel
             loop={true}
         >
-            {slides.map((slide) =>(
+            {slides.map((slide) => (
                 <SwiperSlide key={slide.image} className={'gr-elysium_slide'}>
-
-                    {/*<Image src={slide.image} width={'564px'}/>*/}
-
                     <Box
-                        width={'564px'}
-                        height={'747px'}
+                        width={w}
+                        height={h}
                         bg={'url(' + slide.image + ')'}
                         bgSize={'contain'}
                         position={'relative'}

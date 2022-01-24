@@ -2,7 +2,7 @@ import * as React from 'react';
 import {
     Box,
     Button,
-    chakra,
+    chakra, Flex,
     Grid,
     GridItem,
     HStack,
@@ -17,6 +17,11 @@ import {Navigation} from "../../components/Navbar/Navbar";
 import {Steps} from "./Steps";
 import {ElysiumSlider} from "./ElysiumSlider";
 import {InstagramSlider} from "./InstagramSlider";
+import SwiperCore, {Autoplay, Keyboard, Mousewheel, Pagination} from "swiper";
+import {Swiper, SwiperSlide} from "swiper/react";
+
+// install Swiper modules
+SwiperCore.use([Pagination, Mousewheel, Navigation, Keyboard, Autoplay]);
 
 const BgGradientTextCmp = chakra(Text, {
     baseStyle: {
@@ -34,36 +39,48 @@ const BgGradientText = (props: BgGradientProps) => {
 }
 
 function TopSlider() {
-
-
     return (
-        <Box bg={'url("/shape_1.png")'} width={'100%'} height={'778px'} position={'relative'}>
-            <Box position={'absolute'} top={0} left={0} >
-                <Navigation bg={'transparent'}/>
+        <Box bg={'url("/shape_1.png")'} width={'100%'} height={{base: '714px', xl: '778px'}} position={'relative'}>
+            <Box position={'absolute'} top={0} left={0} zIndex={1001}>
+                <Navigation isLanding={true}/>
             </Box>
 
             <Box
+                zIndex={1000}
                 maxWidth={'1132px'}
                 marginLeft={'auto'}
                 marginRight={'auto'}
                 height={'100%'}
                 position={'relative'}
             >
-                <Box position={'absolute'} bottom={0} right={0} width={'655px'} zIndex={1000}>
+                <Box position={'absolute'} bottom={0} right={0} width={{base: '343px',xl: '655px'}} zIndex={1000}>
                     <Image src={"/model_1.png"}/>
                 </Box>
 
-                <Box pt={'200px'} position={'relative'} zIndex={1001}>
-                    <Text textTransform={'uppercase'} fontSize={'94px'} fontWeight={'700'} color={'white'}
-                          letterSpacing={'0.01em'} lineHeight={1.1}>
+                <Box pt={{base: '140px', xl: '200px'}} position={'relative'} zIndex={1001} px={{base: '16px'}}
+                     display={{base: 'flex', xl: 'block'}}
+                     justifyContent={'center'}>
+                    <Text textTransform={'uppercase'}
+                          fontWeight={'700'}
+                          color={'white'}
+                          textAlign={{base: 'center', xl: 'left'}}
+                          fontSize={{base: '53px', xl: '94px'}}
+                          letterSpacing={'0.01em'} lineHeight={1.1}
+                    >
                         Be more in <br/> the Metaverse
                     </Text>
 
-                    <Text mt={'24px'} fontSize={24} fontWeight={'400'} color={'white'}>
+                    <Text
+                        mt={'24px'}
+                        fontSize={24}
+                        fontWeight={'400'}
+                        color={'white'}
+                        display={{base: 'none', xl: 'block'}}
+                    >
                         The first luxury collections crafted specifically for avatars.
                     </Text>
 
-                    <Button w={'220px'} mt={'40px'}>Discover now</Button>
+                    <Button w={'220px'} mt={'40px'} display={{base: 'none', xl: 'block'}}>Discover now</Button>
                 </Box>
             </Box>
         </Box>
@@ -82,7 +99,7 @@ function HowItWorks() {
                 position={'relative'}
             >
                 <Text align={'center'}
-                      textTransform={'uppercase'} fontSize={80} fontWeight={'700'} color={'basic.500'}
+                      textTransform={'uppercase'} fontSize={{base: 42, xl: 80}} fontWeight={'700'} color={'basic.500'}
                       letterSpacing={'0.03em'} lineHeight={1.1}
 
                 >
@@ -95,6 +112,11 @@ function HowItWorks() {
 
 
                 <Steps/>
+
+                <Flex justifyContent={'center'}>
+
+                    <Button w={'220px'} mt={'60px'}>See more</Button>
+                </Flex>
             </Box>
         </Box>
     )
@@ -110,9 +132,10 @@ function Bonuses() {
                 marginRight={'auto'}
                 height={'100%'}
                 position={'relative'}
+                px={{base: '16px', xl: 0}}
             >
                 <Text align={'left'}
-                      textTransform={'uppercase'} fontSize={80} fontWeight={'700'} color={'basic.500'}
+                      textTransform={'uppercase'} fontSize={{base: 53, xl: 80}} fontWeight={'700'} color={'basic.500'}
                       letterSpacing={'0.03em'} lineHeight={1.1}
 
                 >
@@ -124,7 +147,7 @@ function Bonuses() {
                 </Text>
 
 
-                <Grid templateColumns={'repeat(3, 1fr)'} rowGap={'60px'} mt={'60px'}>
+                <Grid templateColumns={{base: '1fr', xl: 'repeat(3, 1fr)'}} rowGap={{base: '30px', xl: '60px'}} mt={'60px'}>
                     <GridItem>
                         <HStack spacing={'24px'} align={'flex-start'}>
                             <BonusPlus/>
@@ -259,7 +282,7 @@ function BonusPlus() {
 function Elysium() {
 
     return (
-        <Box mt={'200px'}>
+        <Box mt={{base: '120px', xl: '200px'}}>
             <Box
                 mt={'100px'}
                 maxWidth={'1132px'}
@@ -267,9 +290,10 @@ function Elysium() {
                 marginRight={'auto'}
                 height={'100%'}
                 position={'relative'}
+                px={{base: '16px', xl: 0}}
             >
                 <Text align={'left'}
-                      textTransform={'uppercase'} fontSize={80} fontWeight={'700'} color={'basic.500'}
+                      textTransform={'uppercase'} fontSize={{base: 42, xl: 80}} fontWeight={'700'} color={'basic.500'}
                       letterSpacing={'0.03em'} lineHeight={1.1}
 
                 >
@@ -280,8 +304,7 @@ function Elysium() {
                     </BgGradientText>
                 </Text>
 
-
-                <Box position={'absolute'} top={4} right={0}>
+                <Box position={'absolute'} top={4} right={0} display={{base: 'none', xl: 'block'}}>
                     <svg width="164" height="168" viewBox="0 0 164 168" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <mask id="path-1-inside-1_923_7331" fill="white">
                             <path fill-rule="evenodd" clip-rule="evenodd"
@@ -293,11 +316,9 @@ function Elysium() {
                     </svg>
 
                 </Box>
-
-
             </Box>
 
-            <Box mt={'136px'}>
+            <Box mt={{ base: '44px', xl: '136px'}}>
                 <ElysiumSlider/>
             </Box>
         </Box>
@@ -306,7 +327,7 @@ function Elysium() {
 
 function WeAreLuxury() {
     return (
-        <Box mt={'200px'}>
+        <Box mt={{base: '120px', xl: '200px'}}>
             <Box
                 mt={'100px'}
                 maxWidth={'1132px'}
@@ -314,9 +335,10 @@ function WeAreLuxury() {
                 marginRight={'auto'}
                 height={'100%'}
                 position={'relative'}
+                px={{base: '16px', xl: 0}}
             >
                 <Text align={'left'}
-                      textTransform={'uppercase'} fontSize={80} fontWeight={'700'} color={'basic.500'}
+                      textTransform={'uppercase'} fontSize={{base: 42, xl: 80}} fontWeight={'700'} color={'basic.500'}
                       letterSpacing={'0.03em'} lineHeight={1.1}
 
                 >
@@ -324,10 +346,10 @@ function WeAreLuxury() {
                 </Text>
 
                 <Text align={'left'}
-                      textTransform={'uppercase'} fontSize={80} fontWeight={'700'} color={'basic.500'}
+                      textTransform={'uppercase'} fontSize={{base: 42, xl: 80}} fontWeight={'700'} color={'basic.500'}
                       letterSpacing={'0.03em'} lineHeight={1.1}
                       position={'relative'}
-                      left={'40%'}
+                      left={{base: '0',xl: '40%'}}
                 >
                     <Box position={'absolute'} top={'31px'} left={'-310px'}>
                         <svg width="153" height="19" viewBox="0 0 153 19" fill="none"
@@ -341,8 +363,8 @@ function WeAreLuxury() {
                     </BgGradientText>
                 </Text>
 
-                <Box position={'relative'} left={'40%'} width={'60%'} mt={'16px'}>
-                    <Text fontSize={'29px'} color={'basic.500'} lineHeight={'40px'}>
+                <Box position={'relative'} left={{base: '0',xl: '40%'}} width={{base: '100%', xl: '60%'}} mt={'16px'}>
+                    <Text fontSize={{base: '18px', xl: '29px'}} color={'basic.500'} lineHeight={{base: '29px', xl: '40px'}}>
                         exploring posthuman identity and status in virtual worlds. <br/><br/>
                         We redefine east-meets-west aesthetics from <br/> as well as speculative cyberpunk futures.
                         Through our collections we explore the story of a digital utopia overlaid on a physical dystopia
@@ -357,7 +379,7 @@ function WeAreLuxury() {
 
 function WeAreDressing() {
     return (
-        <Box mt={'200px'}>
+        <Box mt={{base: '120px', xl: '200px'}}>
             <Box
                 mt={'100px'}
                 maxWidth={'1132px'}
@@ -365,16 +387,17 @@ function WeAreDressing() {
                 marginRight={'auto'}
                 height={'100%'}
                 position={'relative'}
+                px={{base: '16px', xl: 0}}
             >
                 <Text align={'left'}
-                      textTransform={'uppercase'} fontSize={80} fontWeight={'700'} color={'basic.500'}
+                      textTransform={'uppercase'} fontWeight={'700'} color={'basic.500'}
                       letterSpacing={'0.03em'} lineHeight={1.1}
-
+                      fontSize={{base: 42, xl: 80}}
                 >
                     WHO WE'RE
                 </Text>
                 <Text align={'left'}
-                      textTransform={'uppercase'} fontSize={80} fontWeight={'700'} color={'basic.500'}
+                      textTransform={'uppercase'} fontSize={{base: 42, xl: 80}} fontWeight={'700'} color={'basic.500'}
                       letterSpacing={'0.03em'} lineHeight={1.1}
 
                 >
@@ -401,7 +424,7 @@ function WeAreDressing() {
 function WhatsHappening() {
 
     return (
-        <Box mt={'200px'}>
+        <Box mt={{base: '120px', xl: '200px'}}>
             <Box
                 mt={'100px'}
                 maxWidth={'1132px'}
@@ -409,9 +432,10 @@ function WhatsHappening() {
                 marginRight={'auto'}
                 height={'100%'}
                 position={'relative'}
+                px={{base: '16px', xl: 0}}
             >
                 <Text align={'left'}
-                      textTransform={'uppercase'} fontSize={80} fontWeight={'700'} color={'basic.500'}
+                      textTransform={'uppercase'} fontSize={{base: 42, xl: 80}} fontWeight={'700'} color={'basic.500'}
                       letterSpacing={'0.03em'} lineHeight={1.1}
 
                 >
@@ -419,9 +443,82 @@ function WhatsHappening() {
                                                  bg={'linear-gradient(270deg, #B89DDA 10.94%, #F07DAD 50.95%, #78B2FA 89.06%);'}> HAPPENING </BgGradientText>
                 </Text>
 
+                <Box display={{base: 'block', xl: 'none'}} mt={'42px'}>
+                    <Swiper
+                        direction={'horizontal'}
+                        slidesPerView={1}
+                        spaceBetween={30}
+                        pagination={false}
+                        mousewheel
+                        loop={true}
+                    >
+                        <SwiperSlide>
+                            <Box bg={'white'}>
+                                <Image src={'/news_1.png'}/>
+
+                                <Box px={'16px'}>
+                                    <Text fontWeight={700} letterSpacing={'0.02em'} fontSize={25} color={'basic.500'} mt={'20px'}>
+                                        WE'RE RAISING SEED FUNDS
+                                    </Text>
+
+                                    <Text fontWeight={400} mt={'70px'} mb={'18px'}>
+                                        21/12/2021
+                                    </Text>
 
 
-                <Grid templateColumns={'repeat(3, 1fr)'} columnGap={'30px'} mt={'50px'}>
+                                </Box>
+
+                                <svg width="359" height="2" viewBox="0 0 359 2" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M0 1H359" stroke="#523774" stroke-width="2"/>
+                                </svg>
+                            </Box>
+                        </SwiperSlide>
+                        <SwiperSlide>
+                            <Box bg={'white'}>
+                                <Image src={'/news_1.png'}/>
+
+                                <Box px={'16px'}>
+                                    <Text fontWeight={700} letterSpacing={'0.02em'} fontSize={25} color={'basic.500'} mt={'20px'}>
+                                        WE'RE RAISING SEED FUNDS
+                                    </Text>
+
+                                    <Text fontWeight={400} mt={'70px'} mb={'18px'}>
+                                        21/12/2021
+                                    </Text>
+
+
+                                </Box>
+
+                                <svg width="359" height="2" viewBox="0 0 359 2" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M0 1H359" stroke="#523774" stroke-width="2"/>
+                                </svg>
+                            </Box>
+                        </SwiperSlide>
+                        <SwiperSlide>
+                            <Box bg={'white'}>
+                                <Image src={'/news_1.png'}/>
+
+                                <Box px={'16px'}>
+                                    <Text fontWeight={700} letterSpacing={'0.02em'} fontSize={25} color={'basic.500'} mt={'20px'}>
+                                        WE'RE RAISING SEED FUNDS
+                                    </Text>
+
+                                    <Text fontWeight={400} mt={'70px'} mb={'18px'}>
+                                        21/12/2021
+                                    </Text>
+
+
+                                </Box>
+
+                                <svg width="359" height="2" viewBox="0 0 359 2" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M0 1H359" stroke="#523774" stroke-width="2"/>
+                                </svg>
+                            </Box>
+                        </SwiperSlide>
+                    </Swiper>
+                </Box>
+
+                <Grid display={{base: 'none', xl: 'grid'}} templateColumns={'repeat(3, 1fr)'} columnGap={'30px'} mt={'50px'}>
                     <GridItem>
                         <Box>
                             <Image src={'/news_1.png'}/>
@@ -491,7 +588,7 @@ function WhatsHappening() {
 
 function Partnership() {
     return (
-        <Box mt={'200px'}>
+        <Box mt={{base: '120px', xl: '200px'}}>
             <Box
                 mt={'100px'}
                 maxWidth={'1132px'}
@@ -499,15 +596,16 @@ function Partnership() {
                 marginRight={'auto'}
                 height={'100%'}
                 position={'relative'}
+                px={{base: '16px', xl: 0}}
             >
                 <Text align={'left'}
-                      textTransform={'uppercase'} fontSize={80} fontWeight={'700'} color={'basic.500'}
+                      textTransform={'uppercase'} fontSize={{base: 42, xl: 80}} fontWeight={'700'} color={'basic.500'}
                       letterSpacing={'0.03em'} lineHeight={1.1}
 
                 >
                     partnerships</Text>
 
-                <Grid templateColumns={'repeat(6, 1fr)'} mt={'30px'}>
+                <Grid templateColumns={{ base: 'repeat(2, 1fr)', xl: 'repeat(6, 1fr)'}} mt={'30px'}>
                     <GridItem>
                         <svg width="164" height="164" viewBox="0 0 164 164" fill="none" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink">
                             <g style={{mixBlendMode: 'multiply'}}>
@@ -692,7 +790,7 @@ function BeMore() {
                 alignItems={'center'}
             >
                 <Stack  spacing={'30px'}>
-                    <Text textAlign={'center'} textTransform={'uppercase'} fontSize={80} fontWeight={'700'} color={'white'}
+                    <Text textAlign={'center'} textTransform={'uppercase'} fontSize={{base: 53, xl: 80}} fontWeight={'700'} color={'white'}
                           letterSpacing={'0.05em'} lineHeight={1.1}>Be more in the <br/>Metaverse</Text>
 
                     <Box justifyContent={'center'} display={'flex'}>
