@@ -1,6 +1,6 @@
 <svg width="447" height="348" viewBox="0 0 447 348" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
     <rect x="271.918" y="41.0376" width="150" height="150" rx="24" fill="white"/>
-    <rect x="271.918" y="41.0376" width="150" height="150" rx="24" fill="url(#pattern0)"/>
+    <rect x="271.918" y="41.0376" width="150" height="150" rx="24" fill="url(#cards-desktop_pattern__svg)"/>
     <g style="mix-blend-mode:multiply" opacity="0.5">
         <path d="M0 348H447L434.837 336H0V348Z" fill="url(#paint0_radial_923_7773)"/>
         <path d="M0 348H447L434.837 336H0V348Z" fill="url(#paint1_angular_923_7773)" style="mix-blend-mode:soft-light"/>
@@ -22,7 +22,7 @@
     <rect x="159.635" y="135.683" width="132" height="132" rx="24" fill="#5EB9F5"/>
     <rect x="174.09" y="182.976" width="102.636" height="37.2306" fill="url(#pattern2)"/>
     <defs>
-        <pattern id="pattern0" patternContentUnits="objectBoundingBox" width="1" height="1">
+        <pattern id="cards-desktop_pattern__svg" patternContentUnits="objectBoundingBox" width="1" height="1">
             <use xlink:href="#image0_923_7773" transform="translate(0.0428962 0.327807) scale(0.00149625)"/>
         </pattern>
         <pattern id="pattern1" patternContentUnits="objectBoundingBox" width="1" height="1">

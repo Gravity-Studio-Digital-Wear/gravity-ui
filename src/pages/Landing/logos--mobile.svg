@@ -4,7 +4,7 @@
         <path d="M343 243H0L0.125275 238H343V243Z" fill="url(#paint1_radial_1041_10010)" style="mix-blend-mode:soft-light"/>
     </g>
     <rect x="212" y="32" width="114" height="114" rx="18.255" fill="white"/>
-    <rect x="212" y="32" width="114" height="114" rx="18.255" fill="url(#pattern0)"/>
+    <rect x="212" y="32" width="114" height="114" rx="18.255" fill="url(#logosm-desktop_pattern__svg)"/>
     <rect x="16" width="130" height="130" rx="18.255" fill="#FFE6D9"/>
     <g clip-path="url(#clip0_1041_10010)">
         <path d="M81.0002 109.068C105.338 109.068 125.068 89.3379 125.068 64.9999C125.068 40.662 105.338 20.9321 81.0002 20.9321C56.6622 20.9321 36.9324 40.662 36.9324 64.9999C36.9324 89.3379 56.6622 109.068 81.0002 109.068Z" fill="url(#paint2_linear_1041_10010)"/>
@@ -22,7 +22,7 @@
     <rect x="126" y="102" width="100" height="100" rx="18.255" fill="#5EB9F5"/>
     <rect x="136.951" y="137.462" width="77.7543" height="28.1306" fill="url(#pattern2)"/>
     <defs>
-        <pattern id="pattern0" patternContentUnits="objectBoundingBox" width="1" height="1">
+        <pattern id="logosm-desktop_pattern__svg" patternContentUnits="objectBoundingBox" width="1" height="1">
             <use xlink:href="#image0_1041_10010" transform="translate(0.0428962 0.327807) scale(0.00149625)"/>
         </pattern>
         <pattern id="pattern1" patternContentUnits="objectBoundingBox" width="1" height="1">

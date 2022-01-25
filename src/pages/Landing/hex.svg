@@ -165,7 +165,7 @@
             <g mask="url(#mask1_1000_7241)">
                 <g opacity="0.6">
                     <path d="M450.251 246.427L337.751 51.4275L112.751 51.4275L0.250732 246.427L112.751 441.428H337.751L450.251 246.427Z"
-                          fill="url(#pattern0)" fill-opacity="0.4" style="mix-blend-mode:overlay"/>
+                          fill="url(#hexhex-desktop_pattern__svg)" fill-opacity="0.4" style="mix-blend-mode:overlay"/>
                 </g>
             </g>
         </g>
@@ -217,7 +217,7 @@
           d="M193.227 138.041V131.928H195.227V138.041L201.34 138.041V140.041L195.227 140.041V146.154H193.227V140.041H187.114V138.041L193.227 138.041Z"
           fill="white"/>
     <defs>
-        <pattern id="pattern0" patternContentUnits="objectBoundingBox" width="0.29981" height="0.345934">
+        <pattern id="hexhex-desktop_pattern__svg" patternContentUnits="objectBoundingBox" width="0.29981" height="0.345934">
             <use xlink:href="#image0_1000_7241" transform="scale(0.00136277 0.00157243)"/>
         </pattern>
         <radialGradient id="paint0_radial_1000_7241" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse"

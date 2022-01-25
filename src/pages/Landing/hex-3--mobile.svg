@@ -14,7 +14,7 @@
             </mask>
             <g mask="url(#mask0_1048_11990)">
                 <g opacity="0.6">
-                    <rect width="342.537" height="296.866" transform="matrix(-1 0 0 1 343.955 19)" fill="url(#pattern0)" fill-opacity="0.4" style="mix-blend-mode:overlay"/>
+                    <rect width="342.537" height="296.866" transform="matrix(-1 0 0 1 343.955 19)" fill="url(#hexhex3-m_pattern__svg)" fill-opacity="0.4" style="mix-blend-mode:overlay"/>
                 </g>
             </g>
         </g>
@@ -45,7 +45,7 @@
     <path fill-rule="evenodd" clip-rule="evenodd" d="M103.313 89.1648L105.863 86.6155L106.697 87.4495L104.147 89.9988L106.697 92.5481L105.863 93.3821L103.313 90.8328L100.764 93.3821L99.93 92.5481L102.479 89.9988L99.93 87.4495L100.764 86.6155L103.313 89.1648Z" fill="white"/>
     <path fill-rule="evenodd" clip-rule="evenodd" d="M123.955 89.4092V85.804H125.135V89.4092L128.74 89.4092V90.5887H125.135V94.194H123.955V90.5887H120.35V89.4092L123.955 89.4092Z" fill="white"/>
     <defs>
-        <pattern id="pattern0" patternContentUnits="objectBoundingBox" width="0.29981" height="0.345934">
+        <pattern id="hexhex3-m_pattern__svg" patternContentUnits="objectBoundingBox" width="0.29981" height="0.345934">
             <use xlink:href="#image0_1048_11990" transform="scale(0.00136277 0.00157243)"/>
         </pattern>
         <radialGradient id="paint0_radial_1048_11990" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(27.491 -33.2892) rotate(56.57) scale(172.728 186.54)">

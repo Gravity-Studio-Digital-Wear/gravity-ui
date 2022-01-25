@@ -8,7 +8,7 @@
 <circle cx="146.21" cy="104.895" r="104.895" fill="url(#paint2_radial_1041_10539)"/>
 </mask>
 <g mask="url(#mask0_1041_10539)">
-<rect x="35.9807" y="3.11121" width="206.679" height="206.679" fill="url(#pattern0)"/>
+<rect x="35.9807" y="3.11121" width="206.679" height="206.679" fill="url(#avatars-m_pattern__svg)"/>
 </g>
 <mask id="mask1_1041_10539" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="8" y="61" width="199" height="167">
 <path d="M206.536 153.741C206.536 199.49 173.897 227.348 93.0868 227.348C47.3378 227.348 8 217.273 8 171.524C8 125.775 47.3378 61.6766 93.0868 61.6766C138.836 61.6766 206.536 107.992 206.536 153.741Z" fill="url(#paint3_radial_1041_10539)"/>
@@ -24,7 +24,7 @@
 </g>
 </g>
 <defs>
-<pattern id="pattern0" patternContentUnits="objectBoundingBox" width="1" height="1">
+<pattern id="avatars-m_pattern__svg" patternContentUnits="objectBoundingBox" width="1" height="1">
 <use xlink:href="#image0_1041_10539" transform="scale(0.001)"/>
 </pattern>
 <pattern id="pattern1" patternContentUnits="objectBoundingBox" width="1" height="1">

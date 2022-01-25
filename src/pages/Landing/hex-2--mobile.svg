@@ -10,7 +10,7 @@
             </mask>
             <g mask="url(#mask0_1048_11587)">
                 <g opacity="0.6">
-                    <rect width="342.537" height="296.866" transform="matrix(-1 0 0 1 343.955 11)" fill="url(#pattern0)" fill-opacity="0.4" style="mix-blend-mode:overlay"/>
+                    <rect width="342.537" height="296.866" transform="matrix(-1 0 0 1 343.955 11)" fill="url(#hex2m-desktop_pattern__svg)" fill-opacity="0.4" style="mix-blend-mode:overlay"/>
                 </g>
             </g>
         </g>
@@ -49,7 +49,7 @@
         </g>
     </g>
     <defs>
-        <pattern id="pattern0" patternContentUnits="objectBoundingBox" width="0.29981" height="0.345934">
+        <pattern id="hex2m-desktop_pattern__svg" patternContentUnits="objectBoundingBox" width="0.29981" height="0.345934">
             <use xlink:href="#image0_1048_11587" transform="scale(0.00136277 0.00157243)"/>
         </pattern>
         <radialGradient id="paint0_radial_1048_11587" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(81.399 -75.9837) rotate(51.6663) scale(481.38 550.121)">

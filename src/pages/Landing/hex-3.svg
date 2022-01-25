@@ -66,7 +66,7 @@
 </mask>
 <g mask="url(#mask1_1007_7854)">
 <g opacity="0.6">
-<rect width="454.888" height="452" transform="matrix(-1 0 0 1 453.149 20)" fill="url(#pattern0)" fill-opacity="0.4" style="mix-blend-mode:overlay"/>
+<rect width="454.888" height="452" transform="matrix(-1 0 0 1 453.149 20)" fill="url(#hexhex3-desk_pattern__svg)" fill-opacity="0.4" style="mix-blend-mode:overlay"/>
 </g>
 </g>
 </g>
@@ -100,7 +100,7 @@
 <rect x="288.99" y="284" width="177.994" height="184" fill="url(#paint5_radial_1007_7854)" style="mix-blend-mode:soft-light"/>
 </g>
 <defs>
-<pattern id="pattern0" patternContentUnits="objectBoundingBox" width="0.296588" height="0.298483">
+<pattern id="hexhex3-desk_pattern__svg" patternContentUnits="objectBoundingBox" width="0.296588" height="0.298483">
 <use xlink:href="#image0_1007_7854" transform="scale(0.00134813)"/>
 </pattern>
 <radialGradient id="paint0_radial_1007_7854" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(473.499 263.835) rotate(65.521) scale(355.959 436.04)">

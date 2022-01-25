@@ -1,12 +1,12 @@
 <svg width="123" height="34" viewBox="0 0 123 34" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
     <mask id="mask0" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="123" height="34">
-        <rect width="123" height="34" fill="url(#pattern0)"/>
+        <rect width="123" height="34" fill="url(#rune_pattern__svg)"/>
     </mask>
     <g mask="url(#mask0)">
         <rect width="126" height="34" fill="url(#paint0_linear)"/>
     </g>
     <defs>
-        <pattern id="pattern0" patternContentUnits="objectBoundingBox" width="1" height="1">
+        <pattern id="rune_pattern__svg" patternContentUnits="objectBoundingBox" width="1" height="1">
             <use xlink:href="#image0" transform="translate(1.01678 1) scale(0.000410962 0.00149925) rotate(180)"/>
         </pattern>
         <linearGradient id="paint0_linear" x1="121.5" y1="17" x2="-7.62272e-08" y2="17" gradientUnits="userSpaceOnUse">
