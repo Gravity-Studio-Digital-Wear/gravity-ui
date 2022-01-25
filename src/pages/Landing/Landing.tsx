@@ -53,8 +53,8 @@ function TopSlider() {
                 height={'100%'}
                 position={'relative'}
             >
-                <Box position={'absolute'} bottom={0} right={0} width={{base: '343px',xl: '655px'}} zIndex={1000}>
-                    <Image src={"/model_1.png"}/>
+                <Box position={'absolute'} bottom={0} left={'0'} width={'100%'} display={'flex'} justifyContent={{base: 'center', xl: 'flex-end'}}  zIndex={1000}>
+                    <Image src={"/model_1.png"} width={{base: '343px',xl: '655px'}}/>
                 </Box>
 
                 <Box pt={{base: '140px', xl: '200px'}} position={'relative'} zIndex={1001} px={{base: '16px'}}
@@ -147,78 +147,81 @@ function Bonuses() {
                 </Text>
 
 
-                <Grid templateColumns={{base: '1fr', xl: 'repeat(3, 1fr)'}} rowGap={{base: '30px', xl: '60px'}} mt={'60px'}>
-                    <GridItem>
-                        <HStack spacing={'24px'} align={'flex-start'}>
-                            <BonusPlus/>
+                <Box display={'flex'} justifyContent={'center'}>
+                    <Grid templateColumns={{base: '1fr', xl: 'repeat(3, 1fr)'}} rowGap={{base: '30px', xl: '60px'}} mt={'60px'}>
+                        <GridItem>
+                            <HStack spacing={'24px'} align={'flex-start'}>
+                                <BonusPlus/>
 
-                            <Text>
-                                Each design is {' '}
+                                <Text>
+                                    Each design is {' '}
 
-                                <BgGradientText as={'span'}
-                                                bg={'linear-gradient(270deg, #B89DDA 10.94%, #F07DAD 50.95%, #78B2FA 89.06%);'}>
-                                    a unique <br/>or mythic-ranked NFT
-                                </BgGradientText>
-                            </Text>
-                        </HStack>
-                    </GridItem>
-                    <GridItem>
-                        <HStack spacing={'24px'} align={'flex-start'}>
-                            <BonusPlus/>
+                                    <BgGradientText as={'span'}
+                                                    bg={'linear-gradient(270deg, #B89DDA 10.94%, #F07DAD 50.95%, #78B2FA 89.06%);'}>
+                                        a unique <br/>or mythic-ranked NFT
+                                    </BgGradientText>
+                                </Text>
+                            </HStack>
+                        </GridItem>
+                        <GridItem>
+                            <HStack spacing={'24px'} align={'flex-start'}>
+                                <BonusPlus/>
 
-                            <Text>
-                                Upload your photo to have {' '}
-                                <BgGradientText as={'span'}
-                                                bg={'linear-gradient(270deg, #B89DDA 10.94%, #F07DAD 50.95%, #78B2FA 89.06%);'}>
-                                    your <br/>NFT custom 3D-tailored
-                                </BgGradientText> {' '}
-                                and show off <br/> on your profiles
-                            </Text>
-                        </HStack>
-                    </GridItem>
-                    <GridItem>
-                        <HStack spacing={'24px'} align={'flex-start'}>
-                            <BonusPlus/>
+                                <Text>
+                                    Upload your photo to have {' '}
+                                    <BgGradientText as={'span'}
+                                                    bg={'linear-gradient(270deg, #B89DDA 10.94%, #F07DAD 50.95%, #78B2FA 89.06%);'}>
+                                        your <br/>NFT custom 3D-tailored
+                                    </BgGradientText> {' '}
+                                    and show off <br/> on your profiles
+                                </Text>
+                            </HStack>
+                        </GridItem>
+                        <GridItem>
+                            <HStack spacing={'24px'} align={'flex-start'}>
+                                <BonusPlus/>
 
-                            <Text>
-                                <BgGradientText as={'span'}
-                                                bg={'linear-gradient(270deg, #B89DDA 10.94%, #F07DAD 50.95%, #78B2FA 89.06%);'}>
+                                <Text>
+                                    <BgGradientText as={'span'}
+                                                    bg={'linear-gradient(270deg, #B89DDA 10.94%, #F07DAD 50.95%, #78B2FA 89.06%);'}>
 
-                                    Build the legend
-                                </BgGradientText> {' '}of your coveted <br/>
-                                NFT couture by renting out custom 3D <br/> tailorings to others
-                            </Text>
-                        </HStack>
-                    </GridItem>
-                    <GridItem>
-                        <HStack spacing={'24px'} align={'flex-start'}>
-                            <BonusPlus/>
+                                        Build the legend
+                                    </BgGradientText> {' '}of your coveted <br/>
+                                    NFT couture by renting out custom 3D <br/> tailorings to others
+                                </Text>
+                            </HStack>
+                        </GridItem>
+                        <GridItem>
+                            <HStack spacing={'24px'} align={'flex-start'}>
+                                <BonusPlus/>
 
-                            <Text>
+                                <Text>
 
-                                Access {' '}
-                                <BgGradientText as={'span'}
-                                                bg={'linear-gradient(270deg, #B89DDA 10.94%, #F07DAD 50.95%, #78B2FA 89.06%);'}>
-                                    exclusive launch events
-                                </BgGradientText>
-                                <br/> in the Metaverse
-                            </Text>
-                        </HStack>
-                    </GridItem>
-                    <GridItem>
-                        <HStack spacing={'24px'}>
-                            <BonusPlus/>
+                                    Access {' '}
+                                    <BgGradientText as={'span'}
+                                                    bg={'linear-gradient(270deg, #B89DDA 10.94%, #F07DAD 50.95%, #78B2FA 89.06%);'}>
+                                        exclusive launch events
+                                    </BgGradientText>
+                                    <br/> in the Metaverse
+                                </Text>
+                            </HStack>
+                        </GridItem>
+                        <GridItem>
+                            <HStack spacing={'24px'}>
+                                <BonusPlus/>
 
-                            <Text>
-                                <BgGradientText as={'span'}
-                                                bg={'linear-gradient(270deg, #B89DDA 10.94%, #F07DAD 50.95%, #78B2FA 89.06%);'}>
-                                    Collect and resell
-                                </BgGradientText> {' '}
-                                your rare virtual <br/> wardrobe
-                            </Text>
-                        </HStack>
-                    </GridItem>
-                </Grid>
+                                <Text>
+                                    <BgGradientText as={'span'}
+                                                    bg={'linear-gradient(270deg, #B89DDA 10.94%, #F07DAD 50.95%, #78B2FA 89.06%);'}>
+                                        Collect and resell
+                                    </BgGradientText> {' '}
+                                    your rare virtual <br/> wardrobe
+                                </Text>
+                            </HStack>
+                        </GridItem>
+                    </Grid>
+                </Box>
+
             </Box>
         </Box>
     )
@@ -422,7 +425,6 @@ function WeAreDressing() {
 }
 
 function WhatsHappening() {
-
     return (
         <Box mt={{base: '120px', xl: '200px'}}>
             <Box
@@ -468,9 +470,9 @@ function WhatsHappening() {
 
                                 </Box>
 
-                                <svg width="359" height="2" viewBox="0 0 359 2" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M0 1H359" stroke="#523774" stroke-width="2"/>
-                                </svg>
+
+
+                                <Box width={'100%'} height={'2px'} bg={'#523774'}/>
                             </Box>
                         </SwiperSlide>
                         <SwiperSlide>
@@ -489,9 +491,7 @@ function WhatsHappening() {
 
                                 </Box>
 
-                                <svg width="359" height="2" viewBox="0 0 359 2" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M0 1H359" stroke="#523774" stroke-width="2"/>
-                                </svg>
+                                <Box width={'100%'} height={'2px'} bg={'#523774'}/>
                             </Box>
                         </SwiperSlide>
                         <SwiperSlide>
@@ -510,9 +510,7 @@ function WhatsHappening() {
 
                                 </Box>
 
-                                <svg width="359" height="2" viewBox="0 0 359 2" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M0 1H359" stroke="#523774" stroke-width="2"/>
-                                </svg>
+                                <Box width={'100%'} height={'2px'} bg={'#523774'}/>
                             </Box>
                         </SwiperSlide>
                     </Swiper>

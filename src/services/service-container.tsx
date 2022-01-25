@@ -10,6 +10,7 @@ import {ModalService} from "./ModalService";
 import {ProfileService} from "./ProfileService";
 import {CartService} from "./CartService";
 import {WaredrobeService} from "./WaredrobeService";
+import {BlogService} from "./BlogService";
 
 export type MagicInstance = typeof magic;
 
@@ -37,6 +38,11 @@ sc.set(new CartStore(sc));
 sc.set(new CartService(sc))
 
 sc.set(new WaredrobeService(sc));
+
+
+//Hubspot
+
+sc.set(new BlogService(sc))
 
 //Application
 sc.set(new GravityApplication(sc))

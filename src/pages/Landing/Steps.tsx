@@ -40,7 +40,9 @@ export function Steps() {
                 Step 1
             </Text>
 
-            <Box mt={'30px'} height={'769px'} position={'relative'}>
+            <Box mt={'30px'}
+                 height={{base: '669px',md: 'auto', xl:'769px'}}
+                 position={'relative'}>
                 <Box position={'absolute'} top={0} left={0} display={{base: 'none', xl: 'block'}}>
                     <Border/>
                 </Box>
@@ -51,9 +53,8 @@ export function Steps() {
 
                 <Box position={'relative'} top={{base: '35px', xl:'75px'}} px={{base: '16px', xl: 0}}
                      display={{base: 'flex', xl: 'block'}} justifyContent={'center'}
-                     flexDirection={'column'}
+                     flexDirection={{base: 'column', md: 'row', xl: 'column'}}
                      alignItems={'center'}
-
                 >
                     <Box position={'relative'}>
                         {isLargerThanXl
@@ -70,35 +71,40 @@ export function Steps() {
                         }
                     </Box>
 
-                    <Box width={'447px'}
-                         height={'350px'}
-                         bg={'url("/cards.svg")'}
-                         position={'absolute'}
-                         right={'102px'}
-                         top={'88px'}
-                         display={{base: 'none', xl: 'block'}}
-                    />
-
-                    <Box width={'447px'}
-                         height={'350px'}
-                         bg={'url("/cards.svg")'}
-                         position={'absolute'}
-                         right={'102px'}
-                         top={'88px'}
-                         display={{base: 'none', xl: 'block'}}
-                    />
-
                     <Box width={'342px'} mt={'42px'} display={{base: 'block', xl: 'none'}}>
-
                         <CardsMobile/>
                     </Box>
+
+
+                    <Box width={'447px'}
+                         height={'350px'}
+                         bg={'url("/cards.svg")'}
+                         position={'absolute'}
+                         right={'102px'}
+                         top={'88px'}
+                         display={{base: 'none', xl: 'block'}}
+                    />
+
+                    <Box width={'447px'}
+                         height={'350px'}
+                         bg={'url("/cards.svg")'}
+                         position={'absolute'}
+                         right={'102px'}
+                         top={'88px'}
+                         display={{base: 'none', xl: 'block'}}
+                    />
+
+
 
                 </Box>
 
 
             </Box>
 
-            <Box height={{base: '669px', xl:'769px'}} position={'relative'}>
+            <Box
+                mt={{md: '60px', xl: 0}}
+                height={{base: '669px',md: 'auto', xl:'769px'}}
+                position={'relative'}>
                 <Box position={'absolute'} top={'-60px'} left={0} display={{base: 'none', xl: 'block'}}>
 
                     <Text lineHeight={'1'} ml={'64px'} textTransform={'uppercase'} fontSize={30} fontWeight={700}
@@ -111,7 +117,7 @@ export function Steps() {
                 </Box>
 
                 {!isLargerThanXl && (
-                    <Stack alignItems={'center'} spacing={'42px'}>
+                    <Stack alignItems={'center'} spacing={'42px'} flexDirection={{base: 'column', md: 'row', xl: 'column'}} justifyContent={'center'}>
                         <Hex2MobileSvg/>
 
                         <LogosMobile/>
@@ -145,7 +151,7 @@ export function Steps() {
                 )}
             </Box>
 
-            <Box height={{base: '669px', xl:'769px'}} position={'relative'}>
+            <Box height={{base: '669px', md: 'auto', xl:'769px'}} position={'relative'}>
                 <Box position={'absolute'} top={'-60px'} left={0} display={{base: 'none', xl: 'block'}}>
 
                     <Text lineHeight={'1'} ml={'64px'} textTransform={'uppercase'} fontSize={30} fontWeight={700}
@@ -176,7 +182,7 @@ export function Steps() {
                 </Box>
 
                 {/* Mobile */}
-                <Stack display={{base: 'flex', xl: 'none'}} alignItems={'center'} spacing={'42px'}>
+                <Stack display={{base: 'flex', xl: 'none'}} flexDirection={{base: 'column', md: 'row', xl: 'column'}} justifyContent={'center'} alignItems={'center'} spacing={'42px'}>
                     <Hex3MobileSvg/>
 
                     <AvatarsSvg/>

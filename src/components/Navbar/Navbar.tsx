@@ -218,7 +218,9 @@ export const Navigation = observer(function Navigation({isLanding = false}: { is
         ['primary.500', 'white']
     )
 
-    const menuBg = isLanding && !isLargerThanXl ? 'white' : 'transparent';
+    const menuBg = isLanding ?
+        isLargerThanXl ? 'transparent' : 'white'
+        : 'white';
 
     return (
         <>

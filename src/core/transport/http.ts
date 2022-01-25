@@ -21,7 +21,7 @@ interface HttpClient {
 
     use(...middlewares: HttpMiddleware[]): void;
 
-    get<Resp>(path: string, options?: HttpRequest): Promise<Resp>
+    get<Resp>(path: string, options?: Partial<HttpRequest & { init: RequestInit }>): Promise<Resp>
 
     post<Resp, Body = any>(path: string, body: Body, options?: Partial<HttpRequest & { init: RequestInit }>): Promise<Resp>
 
@@ -36,6 +36,13 @@ export const http: HttpClient = client.call({} as HttpClient, ({
 }))
 
 
+export const hubspotApi: HttpClient = client.call({} as HttpClient, ({
+    baseUrl: 'https://api.hubapi.com',
+    timeout: 5000,
+
+}))
+
+
 function client(this: HttpClient, options: HttpClientOptions): HttpClient {
     this.options = options;
     this.middlewares = []
@@ -43,7 +50,9 @@ function client(this: HttpClient, options: HttpClientOptions): HttpClient {
     const requestFactory = (method: string) => {
         return async (path: string, ...args: any[]) => {
             const req = new HttpRequest();
-            const controller = new AbortController()
+            const controller = new AbortController();
+
+
 
             // const timeoutId = setTimeout(() => controller.abort(), 5000)
 

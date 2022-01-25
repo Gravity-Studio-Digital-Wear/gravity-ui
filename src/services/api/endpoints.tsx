@@ -21,11 +21,16 @@ const Cart = {
     checkout: '/api/checkout/session'
 }
 
+const HubSpot = {
+    posts: '/content/api/v2/blog-posts'
+}
+
 export const NoAuth = [OAuth.challenge, OAuth.login, Warehouse.products, Warehouse.product, Warehouse.supply]
 
 export const ENDPOINTS = {
     OAuth,
     Warehouse,
     Wardrobe,
-    Cart
+    Cart,
+    HubSpot
 }
