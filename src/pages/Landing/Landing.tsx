@@ -792,7 +792,7 @@ export const Landing = () => {
             <WeAreLuxury/>
             <WeAreDressing/>
             <WhatsHappening/>
-            <Partnership/>
+            {/*<Partnership/>*/}
             <BeMore/>
         </Box>
     )
