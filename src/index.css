@@ -18,6 +18,7 @@
 @media screen and (min-width: 1200px) {
     .gr-insta_slide {
         width: 358px!important;
+        height: 358px!important;
     }
 }
 

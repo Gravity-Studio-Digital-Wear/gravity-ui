@@ -69,10 +69,6 @@ export function InstagramSlider() {
                         </Box>
                     </Box>
 
-
-
-
-
                 </SwiperSlide>
             ))}
         </Swiper>
