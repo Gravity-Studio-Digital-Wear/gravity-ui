@@ -38,11 +38,11 @@ export const AuthorizedContainer = observer(function AuthorizedContainer(props: 
 
     const styles = useMultiStyleConfig(
         'Navigator',
-        { variant: location.pathname === '/__landing' && isLargerThanXl ?  'transparent' : 'default' }
+        { variant: location.pathname === '/' && isLargerThanXl ?  'transparent' : 'default' }
     )
 
 
-    if (location.pathname === '/__landing') {
+    if (location.pathname === '/') {
         return (
             <StylesProvider value={styles}>
                 <LandingContainer>{children}</LandingContainer>

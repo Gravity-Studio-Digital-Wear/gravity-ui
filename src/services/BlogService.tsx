@@ -18,8 +18,8 @@ export class BlogService {
     fetchPosts() {
         this.requestStatus = 'pending'
 
-        return hubspotApi
-            .get(ENDPOINTS.HubSpot.posts + '?hapikey=17c0097f-bd91-45f7-93fe-ab7595ec72d8', {init: {mode: 'no-cors'}})
+        return http
+            .get(ENDPOINTS.HubSpot.posts)
             .then((res) => {
                 this.posts = res
                 this.requestStatus = 'success'

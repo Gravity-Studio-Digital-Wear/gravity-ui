@@ -23,6 +23,21 @@ const slides = [
         title: `Come with me.`,
         desc: `Nova wears the Venusian Gown.`
     },
+    {
+        image: '/elysium_slide_4.png',
+        title: `The Denizens are wearing the Water, Beta, and Porcelain dresses.`,
+        desc: `Nova wears the Venusian Gown.`
+    },
+    {
+        image: '/elysium_slide_5.png',
+        title: `Nova`,
+        desc: `Nova wears the Venusian Gown.`
+    },
+    {
+        image: '/elysium_slide_6.png',
+        title: `End of The Venusian chapter ✨`,
+        desc: `The Stranger is wearing the Feather Robe`
+    },
 ]
 
 
@@ -40,10 +55,13 @@ export function ElysiumSlider() {
     return (
         <Swiper
             direction={'horizontal'}
-            slidesPerView={1}
+            slidesPerView={'auto'}
             spaceBetween={30}
             pagination={false}
-            mousewheel
+            navigation={{
+                nextEl: '.elysium-next',
+                prevEl: '.elysium-prev'
+            }}
             loop={true}
         >
             {slides.map((slide) => (
@@ -65,5 +83,5 @@ export function ElysiumSlider() {
                 </SwiperSlide>
             ))}
         </Swiper>
-    )
+    );
 }

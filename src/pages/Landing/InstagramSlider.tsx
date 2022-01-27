@@ -8,19 +8,28 @@ SwiperCore.use([Pagination, Mousewheel, Navigation, Keyboard, Autoplay]);
 
 const slides = [
     {
-        image: 'inst_img_1.png'
+        image: 'insta_img_1.png',
+
+        inst: '@moonyueyue_'
     },
     {
-        image: 'inst_img_2.png'
+        image: 'insta_img_2.png',
+        inst: '@moonyueyue_'
     },
 
     {
-        image: 'inst_img_2.png'
+        image: 'insta_img_3.png',
+        inst: '@moonyueyue_'
     },
 
     {
-        image: 'inst_img_1.png'
-    }
+        image: 'insta_img_4.png',
+        inst: '@moonyueyue_'
+    },
+    {
+        image: 'insta_img_5.png',
+        inst: '@moonyueyue_'
+    },
 ]
 
 
@@ -52,7 +61,18 @@ export function InstagramSlider() {
         >
             {slides.map((slide) =>(
                 <SwiperSlide key={slide.image} className={'gr-insta_slide'}>
-                    <Image src={slide.image} height={w} width={h}/>
+                    <Box position={'relative'}>
+                        <Image src={slide.image} height={w} width={h} zIndex={1001}/>
+
+                        <Box zIndex={1002} position={'absolute'} bottom={'24px'} left={'24px'}>
+                            <Text color={'white'}>{slide.inst}</Text>
+                        </Box>
+                    </Box>
+
+
+
+
+
                 </SwiperSlide>
             ))}
         </Swiper>

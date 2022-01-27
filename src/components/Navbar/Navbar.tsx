@@ -35,7 +35,7 @@ import {DiscordIcon, InstaIcon, MediumIcon, TelegramIcon, TwitterIcon, YouTubeIc
 import {BurgerButton} from "./BurgerButton";
 
 const navLinks = [
-    ['shop', Routes.main],
+    ['shop', Routes.shop],
     ['how it works', Routes.howItWorks],
     ['sustainability', Routes.sustainability],
     ['own to earn', Routes.ownToEarn],
@@ -262,7 +262,8 @@ export const Navigation = observer(function Navigation({isLanding = false}: { is
                     w={{base: '100%'}}
                     height={'100%'}
                     top={'0'}
-                    onClick={() => !isLargerThanMd && history.push(Routes.main)}
+                    cursor={'pointer'}
+                    onClick={() =>  history.push(Routes.main)}
                     left={'0'}>
                     {isLanding ?
                         isLargerThanXl ? <RuneWhited/> : <Rune/>
@@ -322,7 +323,7 @@ export const Navigation = observer(function Navigation({isLanding = false}: { is
                                                     icon={<ProfileIcon/>}
                                                     variant="unstyled"/>
 
-                                        <MenuList zIndex={10}>
+                                        <MenuList zIndex={10} color={'basic.500'}>
                                             <MenuItem as={RouterLink} to={Routes.profile}>Profile</MenuItem>
                                             <MenuItem as={RouterLink} to={Routes.myItems}
                                                 // icon={<ActiveMenuIcon/>}

@@ -83,7 +83,7 @@ export const ProductPage = observer(function ProductPage({match}: RouteComponent
     return (
         <Box px={{base: '17px', md: 0}}>
             <Flex>
-                <Link as={RouterLink} to={{pathname: Routes.main}} fontSize={18} textTransform={'uppercase'}
+                <Link as={RouterLink} to={{pathname: Routes.shop}} fontSize={18} textTransform={'uppercase'}
                       textDecoration={'none'} display={'flex'} alignItems={'center'}>
                     <IconBack/>
                     <Text as={'span'} ml={'12px'}>Back to shopping</Text>

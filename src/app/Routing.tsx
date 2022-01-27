@@ -76,12 +76,12 @@ export const Routing = observer(function Routing() {
                             <Route path={Routes.ownToEarn} component={HowToEarn}/>
                             <Route path={Routes.whitePaper} component={WhitePaper}/>
 
-                            <Route path={'/__landing'} component={Landing}/>
+                            <Route path={'/shop'} component={ShopPage}/>
 
                             <Route path={Routes.privacy} component={Privacy}/>
                             <Route path={Routes.termsOfService} component={TermsOfService}/>
 
-                            <Route path={Routes.main} component={ShopPage} exact={true}/>
+                            <Route path={Routes.main} component={Landing} exact={true}/>
                         </Switch>
                     )
                 }}

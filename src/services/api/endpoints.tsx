@@ -22,7 +22,7 @@ const Cart = {
 }
 
 const HubSpot = {
-    posts: '/content/api/v2/blog-posts'
+    posts: '/api/hubspot/cms/v3/blogs/posts'
 }
 
 export const NoAuth = [OAuth.challenge, OAuth.login, Warehouse.products, Warehouse.product, Warehouse.supply]

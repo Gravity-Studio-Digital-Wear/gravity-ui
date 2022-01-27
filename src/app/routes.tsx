@@ -6,6 +6,7 @@ export const Routes = {
     login: '/login',
     cart: '/cart',
     checkout: '/checkout',
+    shop: 'shop',
     main: '/',
     productPage: '/product/:id',
     howItWorks: '/how-it-works',

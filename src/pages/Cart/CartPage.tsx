@@ -45,7 +45,7 @@ export const CartPage = observer(function CartPage() {
         <Stack spacing={'32px'} p={{base: '17px', md: 0}}>
             <Flex>
                 <Link as={RouterLink}
-                      to={{pathname: Routes.main}}
+                      to={{pathname: Routes.shop}}
                       fontSize={18}
                       textTransform={'uppercase'}
                       textDecoration={'none'}

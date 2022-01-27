@@ -1,24 +1,13 @@
 import * as React from 'react';
-import {
-    Box,
-    Button,
-    chakra, Flex,
-    Grid,
-    GridItem,
-    HStack,
-    Image,
-    PropsOf,
-    Stack,
-    StylesProvider,
-    Text,
-    useMultiStyleConfig
-} from "@chakra-ui/react";
+import {Box, Button, chakra, Flex, Grid, GridItem, HStack, Image, PropsOf, Stack, Text} from "@chakra-ui/react";
 import {Navigation} from "../../components/Navbar/Navbar";
 import {Steps} from "./Steps";
 import {ElysiumSlider} from "./ElysiumSlider";
 import {InstagramSlider} from "./InstagramSlider";
 import SwiperCore, {Autoplay, Keyboard, Mousewheel, Pagination} from "swiper";
 import {Swiper, SwiperSlide} from "swiper/react";
+import {useHistory, useLocation} from "react-router-dom";
+import {Routes} from "../../app/routes";
 
 // install Swiper modules
 SwiperCore.use([Pagination, Mousewheel, Navigation, Keyboard, Autoplay]);
@@ -39,6 +28,8 @@ const BgGradientText = (props: BgGradientProps) => {
 }
 
 function TopSlider() {
+    const history = useHistory();
+
     return (
         <Box bg={'url("/shape_1.png")'} width={'100%'} height={{base: '714px', xl: '778px'}} position={'relative'}>
             <Box position={'absolute'} top={0} left={0} zIndex={1001}>
@@ -53,9 +44,55 @@ function TopSlider() {
                 height={'100%'}
                 position={'relative'}
             >
-                <Box position={'absolute'} bottom={0} left={'0'} width={'100%'} display={'flex'} justifyContent={{base: 'center', xl: 'flex-end'}}  zIndex={1000}>
-                    <Image src={"/model_1.png"} width={{base: '343px',xl: '655px'}}/>
+                <Box position={'absolute'}
+                     bottom={0}
+                     left={'0'}
+                     width={'100%'}
+                     display={'flex'}
+                     justifyContent={{base: 'center', xl: 'flex-end'}}
+                     zIndex={1000}
+                >
+
+
+                    <Swiper direction={'horizontal'}
+                            navigation={{
+                                nextEl: '.avatars-next',
+                                prevEl: '.avatars-prev'
+                            }}
+                            slidesPerView={1}>
+                        <SwiperSlide>
+                            <Box display={'flex'} alignItems={'flex-end'} justifyContent={'flex-end'} height={'100%'}>
+                                <Image src={"/model_1.png"} width={{base: '343px', xl: '655px'}}/>
+                            </Box>
+                        </SwiperSlide>
+                        <SwiperSlide>
+                            <Box display={'flex'} alignItems={'flex-end'} justifyContent={'flex-end'} height={'100%'}>
+                                <Image src={"/model_2.png"} width={{base: '343px', xl: '655px'}}/>
+                            </Box>
+                        </SwiperSlide>
+                    </Swiper>
                 </Box>
+
+                <HStack spacing={'24px'} width={{base: '100%', xl: 'auto'}} display={'flex'} justifyContent={'center'} position={'absolute'} bottom={{base: '32px', xl: '102px'}} right={0} zIndex={1002}>
+                    <Box cursor={'pointer'} className={'avatars-prev'}>
+                        <svg width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="25" cy="25" r="25" fill="white"/>
+                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                  d="M20.286 25L28.4536 33.1676L27.2107 34.4105L17.8001 25L27.2107 15.5894L28.4536 16.8324L20.286 25Z"
+                                  fill="black"/>
+                        </svg>
+                    </Box>
+
+                    <Box cursor={'pointer'} className={'avatars-next'}>
+                        <svg width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <circle r="25" transform="matrix(-1 0 0 1 25 25)" fill="white"/>
+                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                  d="M29.7135 25L21.5459 33.1676L22.7889 34.4105L32.1994 25L22.7889 15.5894L21.5459 16.8324L29.7135 25Z"
+                                  fill="black"/>
+                        </svg>
+
+                    </Box>
+                </HStack>
 
                 <Box pt={{base: '140px', xl: '200px'}} position={'relative'} zIndex={1001} px={{base: '16px'}}
                      display={{base: 'flex', xl: 'block'}}
@@ -80,7 +117,12 @@ function TopSlider() {
                         The first luxury collections crafted specifically for avatars.
                     </Text>
 
-                    <Button w={'220px'} mt={'40px'} display={{base: 'none', xl: 'block'}}>Discover now</Button>
+                    <Button
+                        w={'220px'}
+                        mt={'40px'}
+                        display={{base: 'none', xl: 'block'}}
+                        onClick={() => history.push(Routes.shop)}
+                    >Discover now</Button>
                 </Box>
             </Box>
         </Box>
@@ -88,6 +130,9 @@ function TopSlider() {
 }
 
 function HowItWorks() {
+
+    const  history = useHistory()
+
     return (
         <Box>
             <Box
@@ -115,7 +160,7 @@ function HowItWorks() {
 
                 <Flex justifyContent={'center'}>
 
-                    <Button w={'220px'} mt={'60px'}>See more</Button>
+                    <Button w={'220px'} mt={'60px'} onClick={() => history.push(Routes.shop)}>See more</Button>
                 </Flex>
             </Box>
         </Box>
@@ -148,7 +193,8 @@ function Bonuses() {
 
 
                 <Box display={'flex'} justifyContent={'center'}>
-                    <Grid templateColumns={{base: '1fr', xl: 'repeat(3, 1fr)'}} rowGap={{base: '30px', xl: '60px'}} mt={'60px'}>
+                    <Grid templateColumns={{base: '1fr', xl: 'repeat(3, 1fr)'}} rowGap={{base: '30px', xl: '60px'}}
+                          mt={'60px'}>
                         <GridItem>
                             <HStack spacing={'24px'} align={'flex-start'}>
                                 <BonusPlus/>
@@ -319,9 +365,41 @@ function Elysium() {
                     </svg>
 
                 </Box>
+
+
             </Box>
 
-            <Box mt={{ base: '44px', xl: '136px'}}>
+
+            <Box mt={'57px'}
+                 maxWidth={'1132px'}
+                 marginLeft={'auto'}
+                 marginRight={'auto'}
+                 height={'100%'}
+                 position={'relative'}
+                 px={{base: '16px', xl: 0}}
+
+            >
+                <HStack justifyContent={'flex-end'}>
+                    <Box cursor={'pointer'} className={'elysium-prev'}>
+                        <svg width="44" height="44" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <rect x="43" y="43" width="42" height="42" transform="rotate(180 43 43)" fill="#523774"/>
+                            <path fill-rule="evenodd" clip-rule="evenodd" d="M19.3107 22L26.2803 28.9697L25.2197 30.0303L17.1893 22L25.2197 13.9697L26.2803 15.0303L19.3107 22Z" fill="white"/>
+                            <rect x="43" y="43" width="42" height="42" transform="rotate(180 43 43)" stroke="#39373E"/>
+                        </svg>
+
+                    </Box>
+                    <Box cursor={'pointer'} className={'elysium-next'}>
+                        <svg width="44" height="44" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <rect width="42" height="42" transform="matrix(1 0 0 -1 1 43)" fill="#523774"/>
+                            <path fill-rule="evenodd" clip-rule="evenodd" d="M24.6893 22L17.7197 28.9697L18.7803 30.0303L26.8107 22L18.7803 13.9697L17.7197 15.0303L24.6893 22Z" fill="white"/>
+                            <rect width="42" height="42" transform="matrix(1 0 0 -1 1 43)" stroke="#39373E"/>
+                        </svg>
+                    </Box>
+                </HStack>
+            </Box>
+
+
+            <Box mt={{base: '37px'}}>
                 <ElysiumSlider/>
             </Box>
         </Box>
@@ -352,7 +430,7 @@ function WeAreLuxury() {
                       textTransform={'uppercase'} fontSize={{base: 42, xl: 80}} fontWeight={'700'} color={'basic.500'}
                       letterSpacing={'0.03em'} lineHeight={1.1}
                       position={'relative'}
-                      left={{base: '0',xl: '40%'}}
+                      left={{base: '0', xl: '40%'}}
                 >
                     <Box position={'absolute'} top={'31px'} left={'-310px'}>
                         <svg width="153" height="19" viewBox="0 0 153 19" fill="none"
@@ -366,8 +444,9 @@ function WeAreLuxury() {
                     </BgGradientText>
                 </Text>
 
-                <Box position={'relative'} left={{base: '0',xl: '40%'}} width={{base: '100%', xl: '60%'}} mt={'16px'}>
-                    <Text fontSize={{base: '18px', xl: '29px'}} color={'basic.500'} lineHeight={{base: '29px', xl: '40px'}}>
+                <Box position={'relative'} left={{base: '0', xl: '40%'}} width={{base: '100%', xl: '60%'}} mt={'16px'}>
+                    <Text fontSize={{base: '18px', xl: '29px'}} color={'basic.500'}
+                          lineHeight={{base: '29px', xl: '40px'}}>
                         exploring posthuman identity and status in virtual worlds. <br/><br/>
                         We redefine east-meets-west aesthetics from <br/> as well as speculative cyberpunk futures.
                         Through our collections we explore the story of a digital utopia overlaid on a physical dystopia
@@ -418,13 +497,24 @@ function WeAreDressing() {
             </Box>
 
             <Box display={'flex'} justifyContent={'center'} mt={'40px'}>
-                <Button  color={'white'} onClick={() => window.open('https://www.instagram.com/gravitythestudio/')}>Find us on instagram</Button>
+                <Button color={'white'} onClick={() => window.open('https://www.instagram.com/gravitythestudio/')}>Find
+                    us on instagram</Button>
             </Box>
         </Box>
     )
 }
 
 function WhatsHappening() {
+    // const blog = useService(BlogService)
+
+    React.useEffect(() => {
+
+        // blog.fetchPosts();
+    }, [])
+
+
+    const history = useHistory();
+
     return (
         <Box mt={{base: '120px', xl: '200px'}}>
             <Box
@@ -459,7 +549,8 @@ function WhatsHappening() {
                                 <Image src={'/news_1.png'}/>
 
                                 <Box px={'16px'}>
-                                    <Text fontWeight={700} letterSpacing={'0.02em'} fontSize={25} color={'basic.500'} mt={'20px'}>
+                                    <Text fontWeight={700} letterSpacing={'0.02em'} fontSize={25} color={'basic.500'}
+                                          mt={'20px'}>
                                         WE'RE RAISING SEED FUNDS
                                     </Text>
 
@@ -471,7 +562,6 @@ function WhatsHappening() {
                                 </Box>
 
 
-
                                 <Box width={'100%'} height={'2px'} bg={'#523774'}/>
                             </Box>
                         </SwiperSlide>
@@ -480,7 +570,8 @@ function WhatsHappening() {
                                 <Image src={'/news_1.png'}/>
 
                                 <Box px={'16px'}>
-                                    <Text fontWeight={700} letterSpacing={'0.02em'} fontSize={25} color={'basic.500'} mt={'20px'}>
+                                    <Text fontWeight={700} letterSpacing={'0.02em'} fontSize={25} color={'basic.500'}
+                                          mt={'20px'}>
                                         WE'RE RAISING SEED FUNDS
                                     </Text>
 
@@ -499,7 +590,8 @@ function WhatsHappening() {
                                 <Image src={'/news_1.png'}/>
 
                                 <Box px={'16px'}>
-                                    <Text fontWeight={700} letterSpacing={'0.02em'} fontSize={25} color={'basic.500'} mt={'20px'}>
+                                    <Text fontWeight={700} letterSpacing={'0.02em'} fontSize={25} color={'basic.500'}
+                                          mt={'20px'}>
                                         WE'RE RAISING SEED FUNDS
                                     </Text>
 
@@ -516,12 +608,14 @@ function WhatsHappening() {
                     </Swiper>
                 </Box>
 
-                <Grid display={{base: 'none', xl: 'grid'}} templateColumns={'repeat(3, 1fr)'} columnGap={'30px'} mt={'50px'}>
+                <Grid display={{base: 'none', xl: 'grid'}} templateColumns={'repeat(3, 1fr)'} columnGap={'30px'}
+                      mt={'50px'}>
                     <GridItem>
                         <Box>
                             <Image src={'/news_1.png'}/>
 
-                            <Text fontWeight={700} letterSpacing={'0.02em'} fontSize={25} color={'basic.500'} mt={'20px'}>
+                            <Text fontWeight={700} letterSpacing={'0.02em'} fontSize={25} color={'basic.500'}
+                                  mt={'20px'}>
                                 WE'RE RAISING SEED FUNDS
                             </Text>
 
@@ -529,7 +623,8 @@ function WhatsHappening() {
                                 21/12/2021
                             </Text>
 
-                            <svg width="359" height="2" viewBox="0 0 359 2" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <svg width="359" height="2" viewBox="0 0 359 2" fill="none"
+                                 xmlns="http://www.w3.org/2000/svg">
                                 <path d="M0 1H359" stroke="#523774" stroke-width="2"/>
                             </svg>
 
@@ -539,7 +634,8 @@ function WhatsHappening() {
                         <Box>
                             <Image src={'/news_1.png'}/>
 
-                            <Text fontWeight={700} letterSpacing={'0.02em'} fontSize={25} color={'basic.500'} mt={'20px'}>
+                            <Text fontWeight={700} letterSpacing={'0.02em'} fontSize={25} color={'basic.500'}
+                                  mt={'20px'}>
                                 WE'RE RAISING SEED FUNDS
                             </Text>
 
@@ -547,7 +643,8 @@ function WhatsHappening() {
                                 21/12/2021
                             </Text>
 
-                            <svg width="359" height="2" viewBox="0 0 359 2" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <svg width="359" height="2" viewBox="0 0 359 2" fill="none"
+                                 xmlns="http://www.w3.org/2000/svg">
                                 <path d="M0 1H359" stroke="#523774" stroke-width="2"/>
                             </svg>
 
@@ -557,7 +654,8 @@ function WhatsHappening() {
                         <Box>
                             <Image src={'/news_1.png'}/>
 
-                            <Text fontWeight={700} letterSpacing={'0.02em'} fontSize={25} color={'basic.500'} mt={'20px'}>
+                            <Text fontWeight={700} letterSpacing={'0.02em'} fontSize={25} color={'basic.500'}
+                                  mt={'20px'}>
                                 WE'RE RAISING SEED FUNDS
                             </Text>
 
@@ -565,7 +663,8 @@ function WhatsHappening() {
                                 21/12/2021
                             </Text>
 
-                            <svg width="359" height="2" viewBox="0 0 359 2" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <svg width="359" height="2" viewBox="0 0 359 2" fill="none"
+                                 xmlns="http://www.w3.org/2000/svg">
                                 <path d="M0 1H359" stroke="#523774" stroke-width="2"/>
                             </svg>
 
@@ -574,7 +673,7 @@ function WhatsHappening() {
 
 
                     <GridItem colSpan={3} justifyContent={'center'} display={'flex'}>
-                        <Button mt={'40px'}>
+                        <Button mt={'40px'} onClick={() => history.push(Routes.shop)}>
                             See More
                         </Button>
                     </GridItem>
@@ -603,7 +702,7 @@ function Partnership() {
                 >
                     partnerships</Text>
 
-                <Grid templateColumns={{ base: 'repeat(2, 1fr)', xl: 'repeat(6, 1fr)'}} mt={'30px'}>
+                <Grid templateColumns={{base: 'repeat(2, 1fr)', xl: 'repeat(6, 1fr)'}} mt={'30px'}>
                     <GridItem>
                         <Image src={'/insta_partner.svg'}
                                width={164}/>
@@ -648,6 +747,8 @@ function Partnership() {
 }
 
 function BeMore() {
+    const history = useHistory();
+
     return (
         <Box
             mt={'100px'}
@@ -667,12 +768,13 @@ function BeMore() {
                 justifyContent={'center'}
                 alignItems={'center'}
             >
-                <Stack  spacing={'30px'}>
-                    <Text textAlign={'center'} textTransform={'uppercase'} fontSize={{base: 53, xl: 80}} fontWeight={'700'} color={'white'}
+                <Stack spacing={'30px'}>
+                    <Text textAlign={'center'} textTransform={'uppercase'} fontSize={{base: 53, xl: 80}}
+                          fontWeight={'700'} color={'white'}
                           letterSpacing={'0.05em'} lineHeight={1.1}>Be more in the <br/>Metaverse</Text>
 
                     <Box justifyContent={'center'} display={'flex'}>
-                        <Button>Discover now</Button>
+                        <Button onClick={() => history.push(Routes.shop)}>Discover now</Button>
                     </Box>
                 </Stack>
             </Box>
