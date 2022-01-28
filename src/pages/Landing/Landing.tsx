@@ -704,39 +704,18 @@ function Partnership() {
 
                 <Grid templateColumns={{base: 'repeat(2, 1fr)', xl: 'repeat(6, 1fr)'}} mt={'30px'}>
                     <GridItem>
-                        <Image src={'/insta_partner.svg'}
+                        <Image src={'/partner_1.png'}
+                               mixBlendMode={'multiply'}
                                width={164}/>
                     </GridItem>
                     <GridItem>
-                        <Image src={'/insta_partner.svg'}
+                        <Image src={'/partner_2.png'}
+                               mixBlendMode={'multiply'}
                                width={164}/>
                     </GridItem>
                     <GridItem>
-                        <Image src={'/insta_partner.svg'}
-                               width={164}/>
-                    </GridItem>
-                    <GridItem>
-                        <Image src={'/insta_partner.svg'}
-                               width={164}/>
-                    </GridItem>
-                    <GridItem>
-                        <Image src={'/insta_partner.svg'}
-                               width={164}/>
-                    </GridItem>
-                    <GridItem>
-                        <Image src={'/insta_partner.svg'}
-                               width={164}/>
-                    </GridItem>
-                    <GridItem>
-                        <Image src={'/insta_partner.svg'}
-                               width={164}/>
-                    </GridItem>
-                    <GridItem>
-                        <Image src={'/insta_partner.svg'}
-                               width={164}/>
-                    </GridItem>
-                    <GridItem>
-                        <Image src={'/insta_partner.svg'}
+                        <Image src={'/partner_3.png'}
+                               mixBlendMode={'multiply'}
                                width={164}/>
                     </GridItem>
                 </Grid>
@@ -792,7 +771,7 @@ export const Landing = () => {
             <WeAreLuxury/>
             <WeAreDressing/>
             <WhatsHappening/>
-            {/*<Partnership/>*/}
+            <Partnership/>
             <BeMore/>
         </Box>
     )
