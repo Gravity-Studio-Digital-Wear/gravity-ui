@@ -5,6 +5,7 @@ import {useService} from "../../core/decorators/service";
 import {MAGIC} from "../../services/service-container";
 import {sendAmplitudeData} from '../../utils/amplitude'
 import {PageSpinner} from "../../components/PageSpinner";
+import {Routes} from "../../app/routes";
 
 export const OAuthCallbackPage = observer(() => {
     const history = useHistory();
@@ -13,6 +14,7 @@ export const OAuthCallbackPage = observer(() => {
 
     React.useEffect(() => {
         // On mount, we try to login with a Magic credential in the URL query.
+
         magic.oauth.getRedirectResult()
             .then(e => {
                 const provider = e.oauth.provider
@@ -21,7 +23,7 @@ export const OAuthCallbackPage = observer(() => {
                 })
             })
             .finally(() => {
-                history.push("/");
+                history.push(Routes.shop);
             });
     }, []);
 

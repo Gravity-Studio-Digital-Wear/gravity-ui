@@ -6,8 +6,21 @@ import {ElysiumSlider} from "./ElysiumSlider";
 import {InstagramSlider} from "./InstagramSlider";
 import SwiperCore, {Autoplay, Keyboard, Mousewheel, Pagination} from "swiper";
 import {Swiper, SwiperSlide} from "swiper/react";
-import {useHistory, useLocation} from "react-router-dom";
+import {useHistory} from "react-router-dom";
 import {Routes} from "../../app/routes";
+import {BlogService} from "../../services/BlogService";
+import {useService} from "../../core/decorators/service";
+import {observer} from "mobx-react";
+
+
+function formatDate(date: string) {
+
+    const d = new Date(date);
+
+
+    return new Intl.DateTimeFormat('en-GB').format(d);
+}
+
 
 // install Swiper modules
 SwiperCore.use([Pagination, Mousewheel, Navigation, Keyboard, Autoplay]);
@@ -73,7 +86,8 @@ function TopSlider() {
                     </Swiper>
                 </Box>
 
-                <HStack spacing={'24px'} width={{base: '100%', xl: 'auto'}} display={'flex'} justifyContent={'center'} position={'absolute'} bottom={{base: '32px', xl: '102px'}} right={0} zIndex={1002}>
+                <HStack spacing={'24px'} width={{base: '100%', xl: 'auto'}} display={'flex'} justifyContent={'center'}
+                        position={'absolute'} bottom={{base: '32px', xl: '102px'}} right={0} zIndex={1002}>
                     <Box cursor={'pointer'} className={'avatars-prev'}>
                         <svg width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <circle cx="25" cy="25" r="25" fill="white"/>
@@ -131,7 +145,7 @@ function TopSlider() {
 
 function HowItWorks() {
 
-    const  history = useHistory()
+    const history = useHistory()
 
     return (
         <Box>
@@ -383,7 +397,9 @@ function Elysium() {
                     <Box cursor={'pointer'} className={'elysium-prev'}>
                         <svg width="44" height="44" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <rect x="43" y="43" width="42" height="42" transform="rotate(180 43 43)" fill="#523774"/>
-                            <path fill-rule="evenodd" clip-rule="evenodd" d="M19.3107 22L26.2803 28.9697L25.2197 30.0303L17.1893 22L25.2197 13.9697L26.2803 15.0303L19.3107 22Z" fill="white"/>
+                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                  d="M19.3107 22L26.2803 28.9697L25.2197 30.0303L17.1893 22L25.2197 13.9697L26.2803 15.0303L19.3107 22Z"
+                                  fill="white"/>
                             <rect x="43" y="43" width="42" height="42" transform="rotate(180 43 43)" stroke="#39373E"/>
                         </svg>
 
@@ -391,7 +407,9 @@ function Elysium() {
                     <Box cursor={'pointer'} className={'elysium-next'}>
                         <svg width="44" height="44" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <rect width="42" height="42" transform="matrix(1 0 0 -1 1 43)" fill="#523774"/>
-                            <path fill-rule="evenodd" clip-rule="evenodd" d="M24.6893 22L17.7197 28.9697L18.7803 30.0303L26.8107 22L18.7803 13.9697L17.7197 15.0303L24.6893 22Z" fill="white"/>
+                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                  d="M24.6893 22L17.7197 28.9697L18.7803 30.0303L26.8107 22L18.7803 13.9697L17.7197 15.0303L24.6893 22Z"
+                                  fill="white"/>
                             <rect width="42" height="42" transform="matrix(1 0 0 -1 1 43)" stroke="#39373E"/>
                         </svg>
                     </Box>
@@ -504,12 +522,12 @@ function WeAreDressing() {
     )
 }
 
-function WhatsHappening() {
-    // const blog = useService(BlogService)
+const WhatsHappening = observer(function WhatsHappening() {
+    const blog = useService(BlogService);
 
     React.useEffect(() => {
 
-        // blog.fetchPosts();
+        blog.fetchPosts();
     }, [])
 
 
@@ -536,140 +554,95 @@ function WhatsHappening() {
                 </Text>
 
                 <Box display={{base: 'block', xl: 'none'}} mt={'42px'}>
-                    <Swiper
-                        direction={'horizontal'}
-                        slidesPerView={1}
-                        spaceBetween={30}
-                        pagination={false}
-                        mousewheel
-                        loop={true}
-                    >
-                        <SwiperSlide>
-                            <Box bg={'white'}>
-                                <Image src={'/news_1.png'}/>
-
-                                <Box px={'16px'}>
-                                    <Text fontWeight={700} letterSpacing={'0.02em'} fontSize={25} color={'basic.500'}
-                                          mt={'20px'}>
-                                        WE'RE RAISING SEED FUNDS
-                                    </Text>
-
-                                    <Text fontWeight={400} mt={'70px'} mb={'18px'}>
-                                        21/12/2021
-                                    </Text>
 
 
-                                </Box>
+
+                    {blog.posts.length && (
 
 
-                                <Box width={'100%'} height={'2px'} bg={'#523774'}/>
-                            </Box>
-                        </SwiperSlide>
-                        <SwiperSlide>
-                            <Box bg={'white'}>
-                                <Image src={'/news_1.png'}/>
 
-                                <Box px={'16px'}>
-                                    <Text fontWeight={700} letterSpacing={'0.02em'} fontSize={25} color={'basic.500'}
-                                          mt={'20px'}>
-                                        WE'RE RAISING SEED FUNDS
-                                    </Text>
+                        <Swiper
+                            direction={'horizontal'}
+                            slidesPerView={'auto'}
+                            spaceBetween={8}
+                            width={342}
+                            pagination={false}
+                            mousewheel
+                            loop={true}
+                        >
+                            {blog.posts.map(post => {
 
-                                    <Text fontWeight={400} mt={'70px'} mb={'18px'}>
-                                        21/12/2021
-                                    </Text>
+                                return (
+                                    <SwiperSlide key={post.id} className={'gr-news_slide'}>
+                                        <Box bg={'white'} >
+                                            <Box
+                                                width={'100%'}
+                                                bg={'url(' + post.featuredImage + ')'}
+                                                bgPosition={'center'}
+                                                bgSize={'contain'}
+                                                bgRepeat={'no-repeat'}
+                                                height={'232px'}
+                                            />
 
+                                            <Box height={'160px'} position={'relative'} px={'16px'}>
+                                                <Text fontWeight={700} letterSpacing={'0.02em'} fontSize={25}
+                                                      color={'basic.500'}
+                                                      mt={'20px'}>
+                                                    {post.name}
+                                                </Text>
 
-                                </Box>
+                                                <Text fontWeight={400} position={'absolute'} bottom={'18px'}>
 
-                                <Box width={'100%'} height={'2px'} bg={'#523774'}/>
-                            </Box>
-                        </SwiperSlide>
-                        <SwiperSlide>
-                            <Box bg={'white'}>
-                                <Image src={'/news_1.png'}/>
+                                                    {formatDate(post.publishDate)}
+                                                </Text>
+                                            </Box>
 
-                                <Box px={'16px'}>
-                                    <Text fontWeight={700} letterSpacing={'0.02em'} fontSize={25} color={'basic.500'}
-                                          mt={'20px'}>
-                                        WE'RE RAISING SEED FUNDS
-                                    </Text>
-
-                                    <Text fontWeight={400} mt={'70px'} mb={'18px'}>
-                                        21/12/2021
-                                    </Text>
-
-
-                                </Box>
-
-                                <Box width={'100%'} height={'2px'} bg={'#523774'}/>
-                            </Box>
-                        </SwiperSlide>
-                    </Swiper>
+                                            <Box width={'100%'} height={'2px'} bg={'#523774'}/>
+                                        </Box>
+                                    </SwiperSlide>
+                                )
+                            })
+                            }
+                        </Swiper>
+                    )}
                 </Box>
 
                 <Grid display={{base: 'none', xl: 'grid'}} templateColumns={'repeat(3, 1fr)'} columnGap={'30px'}
                       mt={'50px'}>
-                    <GridItem>
-                        <Box>
-                            <Image src={'/news_1.png'}/>
 
-                            <Text fontWeight={700} letterSpacing={'0.02em'} fontSize={25} color={'basic.500'}
-                                  mt={'20px'}>
-                                WE'RE RAISING SEED FUNDS
-                            </Text>
+                    {blog.posts.slice(0, 3).map(post => {
+                        return (
+                            <GridItem key={post.id}>
+                                <Box>
 
-                            <Text fontWeight={400} mt={'70px'} mb={'18px'}>
-                                21/12/2021
-                            </Text>
+                                    <Box
+                                        width={'100%'}
+                                        bg={'url(' + post.featuredImage + ')'}
+                                        bgPosition={'center'}
+                                        bgSize={'contain'}
+                                        bgRepeat={'no-repeat'}
+                                        height={'232px'}
+                                    />
+                                    {/*<Image src={post.featuredImage} width={'100%'}/>*/}
 
-                            <svg width="359" height="2" viewBox="0 0 359 2" fill="none"
-                                 xmlns="http://www.w3.org/2000/svg">
-                                <path d="M0 1H359" stroke="#523774" stroke-width="2"/>
-                            </svg>
+                                    <Box height={'160px'} position={'relative'}>
+                                        <Text fontWeight={700} letterSpacing={'0.02em'} fontSize={25}
+                                              color={'basic.500'}
+                                              mt={'20px'}>
+                                            {post.name}
+                                        </Text>
 
-                        </Box>
-                    </GridItem>
-                    <GridItem>
-                        <Box>
-                            <Image src={'/news_1.png'}/>
+                                        <Text fontWeight={400} position={'absolute'} bottom={'18px'}>
+                                            {formatDate(post.publishDate)}
+                                        </Text>
 
-                            <Text fontWeight={700} letterSpacing={'0.02em'} fontSize={25} color={'basic.500'}
-                                  mt={'20px'}>
-                                WE'RE RAISING SEED FUNDS
-                            </Text>
-
-                            <Text fontWeight={400} mt={'70px'} mb={'18px'}>
-                                21/12/2021
-                            </Text>
-
-                            <svg width="359" height="2" viewBox="0 0 359 2" fill="none"
-                                 xmlns="http://www.w3.org/2000/svg">
-                                <path d="M0 1H359" stroke="#523774" stroke-width="2"/>
-                            </svg>
-
-                        </Box>
-                    </GridItem>
-                    <GridItem>
-                        <Box>
-                            <Image src={'/news_1.png'}/>
-
-                            <Text fontWeight={700} letterSpacing={'0.02em'} fontSize={25} color={'basic.500'}
-                                  mt={'20px'}>
-                                WE'RE RAISING SEED FUNDS
-                            </Text>
-
-                            <Text fontWeight={400} mt={'70px'} mb={'18px'}>
-                                21/12/2021
-                            </Text>
-
-                            <svg width="359" height="2" viewBox="0 0 359 2" fill="none"
-                                 xmlns="http://www.w3.org/2000/svg">
-                                <path d="M0 1H359" stroke="#523774" stroke-width="2"/>
-                            </svg>
-
-                        </Box>
-                    </GridItem>
+                                        <Box width={'100%'} height={'2px'} bg={'#523774'} position={'absolute'}
+                                             bottom={0}/>
+                                    </Box>
+                                </Box>
+                            </GridItem>
+                        )
+                    })}
 
 
                     <GridItem colSpan={3} justifyContent={'center'} display={'flex'}>
@@ -681,7 +654,7 @@ function WhatsHappening() {
             </Box>
         </Box>
     )
-}
+})
 
 function Partnership() {
     return (
