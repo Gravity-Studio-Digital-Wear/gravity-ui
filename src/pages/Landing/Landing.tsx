@@ -531,6 +531,10 @@ const WhatsHappening = observer(function WhatsHappening() {
 
     const history = useHistory();
 
+    const toPost = (id: string) => {
+        history.push(Routes.news + '/' + id);
+    }
+
     return (
         <Box mt={{base: '120px', xl: '200px'}}>
             <Box
@@ -552,13 +556,7 @@ const WhatsHappening = observer(function WhatsHappening() {
                 </Text>
 
                 <Box display={{base: 'block', xl: 'none'}} mt={'42px'}>
-
-
-
                     {blog.posts.length && (
-
-
-
                         <Swiper
                             direction={'horizontal'}
                             slidesPerView={'auto'}
@@ -572,7 +570,7 @@ const WhatsHappening = observer(function WhatsHappening() {
 
                                 return (
                                     <SwiperSlide key={post.id} className={'gr-news_slide'}>
-                                        <Box bg={'white'} >
+                                        <Box bg={'white'} cursor={'pointer'} onClick={()=> toPost(post.id)}>
                                             <Box
                                                 width={'100%'}
                                                 bg={'url(' + post.featuredImage + ')'}
@@ -582,11 +580,18 @@ const WhatsHappening = observer(function WhatsHappening() {
                                                 height={'232px'}
                                             />
 
-                                            <Box height={'160px'} position={'relative'} px={'16px'}>
+                                            <Box height={'210px'} position={'relative'} px={'16px'}>
                                                 <Text fontWeight={700} letterSpacing={'0.02em'} fontSize={25}
                                                       color={'basic.500'}
                                                       mt={'20px'}>
                                                     {post.name}
+                                                </Text>
+
+                                                <Text fontWeight={400} letterSpacing={'0.02em'} fontSize={16}
+                                                      color={'basic.500'}
+                                                      position={'absolute'} bottom={'58px'}
+                                                      mt={'20px'}>
+                                                    {post.metaDescription}
                                                 </Text>
 
                                                 <Text fontWeight={400} position={'absolute'} bottom={'18px'}>
@@ -611,8 +616,7 @@ const WhatsHappening = observer(function WhatsHappening() {
                     {blog.posts.slice(0, 3).map(post => {
                         return (
                             <GridItem key={post.id}>
-                                <Box>
-
+                                <Box cursor={'pointer'} onClick={()=> toPost(post.id)}>
                                     <Box
                                         width={'100%'}
                                         bg={'url(' + post.featuredImage + ')'}
@@ -623,11 +627,18 @@ const WhatsHappening = observer(function WhatsHappening() {
                                     />
                                     {/*<Image src={post.featuredImage} width={'100%'}/>*/}
 
-                                    <Box height={'160px'} position={'relative'}>
+                                    <Box height={'210px'} position={'relative'}>
                                         <Text fontWeight={700} letterSpacing={'0.02em'} fontSize={25}
                                               color={'basic.500'}
                                               mt={'20px'}>
                                             {post.name}
+                                        </Text>
+
+                                        <Text fontWeight={400} letterSpacing={'0.02em'} fontSize={16}
+                                              color={'basic.500'}
+                                              position={'absolute'} bottom={'58px'}
+                                              mt={'20px'}>
+                                            {post.metaDescription}
                                         </Text>
 
                                         <Text fontWeight={400} position={'absolute'} bottom={'18px'}>
