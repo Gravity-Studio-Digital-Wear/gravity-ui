@@ -644,7 +644,7 @@ const WhatsHappening = observer(function WhatsHappening() {
 
 
                     <GridItem colSpan={3} justifyContent={'center'} display={'flex'}>
-                        <Button mt={'40px'} onClick={() => history.push(Routes.shop)}>
+                        <Button mt={'40px'} onClick={() => history.push(Routes.news)}>
                             See More
                         </Button>
                     </GridItem>
