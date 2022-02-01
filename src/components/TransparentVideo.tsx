@@ -3,9 +3,10 @@ import {processImgUrl} from "../utils/imageUrl";
 import {Image} from "@chakra-ui/react";
 import {useService} from "../core/decorators/service";
 import {GravityApplication} from "../app/Application";
+import {observer} from "mobx-react";
 
 
-export const TransparentVideo = ({imageUrl, videoUrl}: { imageUrl: string, videoUrl: string }) => {
+export const TransparentVideo = observer(({imageUrl, videoUrl}: { imageUrl: string, videoUrl: string }) => {
     const app = useService(GravityApplication)
 
     return (
@@ -24,4 +25,4 @@ export const TransparentVideo = ({imageUrl, videoUrl}: { imageUrl: string, video
                 </figure>
             )
     )
-};
+});
