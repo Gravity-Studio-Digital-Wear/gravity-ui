@@ -2,7 +2,7 @@ import * as React from 'react';
 import {observer} from "mobx-react";
 import {useService} from "../../core/decorators/service";
 import {BlogService} from "../../services/BlogService";
-import {Box, Flex, Grid, GridItem, HStack, Image, Text, useMediaQuery, useToken} from "@chakra-ui/react";
+import {Box, Grid, GridItem, HStack, Image, Text, useMediaQuery, useToken} from "@chakra-ui/react";
 import {BgGradientText} from "../../components/GradientText";
 import {formatDate} from "../../utils/date";
 import {useHistory} from "react-router-dom";
@@ -43,7 +43,8 @@ export const WhatsHappening = observer(function WhatsHappening() {
                     WHAT'S {' '}
 
                     <br/>
-                    <BgGradientText as={'span'} bg={'linear-gradient(270deg, #B89DDA 10.94%, #F07DAD 50.95%, #78B2FA 89.06%);'}> HAPPENING </BgGradientText>
+                    <BgGradientText as={'span'}
+                                    bg={'linear-gradient(270deg, #B89DDA 10.94%, #F07DAD 50.95%, #78B2FA 89.06%);'}> HAPPENING </BgGradientText>
                 </Text>
             </Box>
 
@@ -78,15 +79,18 @@ export const WhatsHappening = observer(function WhatsHappening() {
 
 
                             return (
-                                <GridItem key={post.id} colSpan={isFullPage ? 3 : 1} position={'relative'} pb={isFullPage ? 0 : '120px'}>
+                                <GridItem key={post.id} colSpan={isFullPage ? 3 : 1} position={'relative'}
+                                          pb={isFullPage ? 0 : '120px'}>
                                     {isFullPage
                                         ? <Box display={'flex'}>
                                             <Image
                                                 src={post.featuredImage}
                                                 maxH={'400px'}
+                                                cursor={'pointer'}
+                                                onClick={() => toPost(post.id)}
                                             />
 
-                                            <Box position={'relative'} flexGrow={1} pl={'24px'} >
+                                            <Box position={'relative'} flexGrow={1} pl={'24px'}>
                                                 <HStack spacing={'10px'}>
                                                     {post.tagIds.map((tagId) => {
                                                         const tag = blog.tags.result.results.find(t => +t.id === +tagId)
@@ -95,7 +99,8 @@ export const WhatsHappening = observer(function WhatsHappening() {
                                                         }
 
                                                         return (
-                                                            <Box transform={'scale(.75)'} left={'-10px'} position={'relative'}>
+                                                            <Box transform={'scale(.75)'} left={'-10px'}
+                                                                 position={'relative'}>
                                                                 <Tag key={tagId} text={tag.name} isActive={false}/>
                                                             </Box>
                                                         )
@@ -120,7 +125,8 @@ export const WhatsHappening = observer(function WhatsHappening() {
                                                       dangerouslySetInnerHTML={{__html: post.postBody}}
                                                 />
 
-                                                <Text fontWeight={400}  fontSize={23} position={'absolute'} bottom={'18px'}>
+                                                <Text fontWeight={400} fontSize={23} position={'absolute'}
+                                                      bottom={'18px'}>
                                                     {formatDate(post.publishDate)}
                                                 </Text>
 
@@ -136,9 +142,9 @@ export const WhatsHappening = observer(function WhatsHappening() {
                                                 bgSize={'contain'}
                                                 bgRepeat={'no-repeat'}
                                                 height={'232px'}
+                                                cursor={'pointer'}
+                                                onClick={() => toPost(post.id)}
                                             />
-
-
                                             <Box>
 
                                                 <Box>
@@ -150,7 +156,8 @@ export const WhatsHappening = observer(function WhatsHappening() {
                                                             }
 
                                                             return (
-                                                                <Box transform={'scale(.75)'} left={'-10px'} position={'relative'}>
+                                                                <Box transform={'scale(.75)'} left={'-10px'}
+                                                                     position={'relative'}>
                                                                     <Tag key={tagId} text={tag.name} isActive={false}/>
                                                                 </Box>
                                                             )
@@ -175,7 +182,6 @@ export const WhatsHappening = observer(function WhatsHappening() {
                                                       position={'absolute'} bottom={'48px'}
                                                       dangerouslySetInnerHTML={{__html: post.postBody}}
                                                 />
-
 
                                                 <Text fontWeight={400} position={'absolute'} bottom={'18px'}>
                                                     {formatDate(post.publishDate)}

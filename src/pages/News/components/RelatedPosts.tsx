@@ -35,6 +35,8 @@ export const RelatedPosts = observer(function RelatedPosts () {
                                 bgSize={'contain'}
                                 bgRepeat={'no-repeat'}
                                 height={'232px'}
+                                cursor={'pointer'}
+                                onClick={() => toPost(post.id)}
                             />
 
                             <Box>
