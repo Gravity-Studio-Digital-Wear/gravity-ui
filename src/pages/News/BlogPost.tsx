@@ -1,6 +1,6 @@
 import * as React from 'react'
 import {observer} from "mobx-react";
-import {Box, Flex, HStack, Image, Link, Spinner, Stack, Text} from "@chakra-ui/react";
+import {Box, Flex, HStack, Image, Link, Stack, Text} from "@chakra-ui/react";
 import {Link as RouterLink, useRouteMatch} from "react-router-dom";
 import {useService} from "../../core/decorators/service";
 import {BlogService} from "../../services/BlogService";
@@ -10,7 +10,6 @@ import {IconBack} from "../../components/icons/IconBack";
 import {PageSpinner} from "../../components/PageSpinner";
 import {formatDate} from "../../utils/date";
 import {RelatedPosts} from "./components/RelatedPosts";
-import {BgGradientText} from "../../components/GradientText";
 
 
 export const BlogPost = observer(function BlogPost() {
@@ -24,7 +23,7 @@ export const BlogPost = observer(function BlogPost() {
         if (blog.tags.requestStatus !== 'success') {
             blog.tags.request();
         }
-    }, [])
+    }, [match.params.id])
 
     if (blog.postRequestStatus !== 'success' || blog.tags.requestStatus !== 'success') {
 
@@ -86,7 +85,7 @@ export const BlogPost = observer(function BlogPost() {
 
                 <Box mt={'30px'} display={'flex'} justifyContent={'center'}>
 
-                    <Image src={blog.post.featuredImage}  width={'100%'} height={'auto'}/>
+                    <Image src={blog.post.featuredImage} width={'100%'} height={'auto'}/>
                 </Box>
 
 
@@ -112,7 +111,8 @@ export const BlogPost = observer(function BlogPost() {
             <Box>
                 <Box mt={{base: '60px', xl: '120px'}}>
                     <Text align={'left'}
-                          textTransform={'uppercase'} fontSize={{base: 42, xl: 60}} fontWeight={'700'} color={'basic.500'}
+                          textTransform={'uppercase'} fontSize={{base: 42, xl: 60}} fontWeight={'700'}
+                          color={'basic.500'}
                           letterSpacing={'0.03em'} lineHeight={1.1}
 
                     >

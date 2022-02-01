@@ -76,9 +76,9 @@ export class BlogService {
         })
 
 
-        reaction(() => this.post.id, () => {
+        reaction(() => this.post, () => {
             this.related.request(this.post.id);
-        })
+        });
     }
 
 
@@ -135,7 +135,7 @@ export class BlogService {
 
     @action
     fetchPost(id: string) {
-        this.requestStatus = 'pending'
+        this.postRequestStatus = 'pending'
 
         // TODO move to our cloud
         return fetch('https://warm-savannah-02639.herokuapp.com/hubspot/blog/posts/' + id)
