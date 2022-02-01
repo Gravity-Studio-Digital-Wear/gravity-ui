@@ -23,7 +23,7 @@ export const RelatedPosts = observer(function RelatedPosts () {
     }
 
     return (
-        <Grid templateColumns={'repeat(3, 1fr)'}  gridRowGap={'30px'} gridColumnGap={'30px'} mt={'140px'}>
+        <Grid templateColumns={{base: '1fr', xl: 'repeat(3, 1fr)'}}  gridRowGap={'30px'} gridColumnGap={'30px'} mt={{base: '30px', xl: '140px'}}>
             {blog.related.result.map((post, index) => {
                 return (
                     <GridItem key={post.id} position={'relative'} pb={'120px'}>

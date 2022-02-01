@@ -2,7 +2,7 @@ import * as React from 'react';
 import {observer} from "mobx-react";
 import {useService} from "../../core/decorators/service";
 import {BlogService} from "../../services/BlogService";
-import {Box, Flex, Grid, GridItem, HStack, Image, Text} from "@chakra-ui/react";
+import {Box, Flex, Grid, GridItem, HStack, Image, Text, useMediaQuery, useToken} from "@chakra-ui/react";
 import {BgGradientText} from "../../components/GradientText";
 import {formatDate} from "../../utils/date";
 import {useHistory} from "react-router-dom";
@@ -25,11 +25,16 @@ export const WhatsHappening = observer(function WhatsHappening() {
         blog.tags.request()
     }, [])
 
+    const [xl] = useToken(
+        'breakpoints',
+        ['xl']
+    );
+    const [isLargerThanXl] = useMediaQuery(`(min-width: ${xl})`)
 
 
     return (
-        <Box>
-            <Box mt={'90px'}>
+        <Box px={{base: '16px', xl: 0}}>
+            <Box mt={{base: '45px', xl: '90px'}}>
                 <Text align={'left'}
                       textTransform={'uppercase'} fontSize={{base: 42, xl: 110}} fontWeight={'700'} color={'basic.500'}
                       letterSpacing={'0.03em'} lineHeight={1.1}
@@ -62,14 +67,19 @@ export const WhatsHappening = observer(function WhatsHappening() {
 
             {!blog.isPostsLoading && (
                 <>
-                    <Grid templateColumns={'repeat(3, 1fr)'}  gridRowGap={'30px'} gridColumnGap={'30px'} mt={'140px'}>
+                    <Grid templateColumns={{base: '1fr', xl: 'repeat(3, 1fr)'}}
+                          gridRowGap={'30px'}
+                          gridColumnGap={'30px'}
+                          mt={{base: '45px', xl: '140px'}}>
                         {blog.posts.map((post, index) => {
                             const isFirst = index === 0;
 
-                            return (
-                                <GridItem key={post.id} colSpan={isFirst ? 3 : 1} position={'relative'} pb={isFirst ? 0 : '120px'}>
+                            const isFullPage = isFirst && isLargerThanXl;
 
-                                    {isFirst
+
+                            return (
+                                <GridItem key={post.id} colSpan={isFullPage ? 3 : 1} position={'relative'} pb={isFullPage ? 0 : '120px'}>
+                                    {isFullPage
                                         ? <Box display={'flex'}>
                                             <Image
                                                 src={post.featuredImage}

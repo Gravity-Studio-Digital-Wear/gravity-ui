@@ -35,7 +35,7 @@ export const BlogPost = observer(function BlogPost() {
 
 
     return (
-        <Stack spacing={'32px'}>
+        <Stack spacing={'32px'} px={{base: '16px', xl: 0}}>
             <Flex>
                 <Link as={RouterLink}
                       to={{pathname: Routes.news}}
@@ -112,9 +112,9 @@ export const BlogPost = observer(function BlogPost() {
 
 
             <Box>
-                <Box mt={'120px'}>
+                <Box mt={{base: '60px', xl: '120px'}}>
                     <Text align={'left'}
-                          textTransform={'uppercase'} fontSize={60} fontWeight={'700'} color={'basic.500'}
+                          textTransform={'uppercase'} fontSize={{base: 42, xl: 60}} fontWeight={'700'} color={'basic.500'}
                           letterSpacing={'0.03em'} lineHeight={1.1}
 
                     >
