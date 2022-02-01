@@ -122,7 +122,7 @@ export const WhatsHappening = observer(function WhatsHappening() {
                                                       fontSize={23}
                                                       color={'basic.500'}
                                                       mt={'20px'}
-                                                      dangerouslySetInnerHTML={{__html: post.postBody}}
+                                                      dangerouslySetInnerHTML={{__html: post.metaDescription}}
                                                 />
 
                                                 <Text fontWeight={400} fontSize={23} position={'absolute'}
@@ -180,7 +180,7 @@ export const WhatsHappening = observer(function WhatsHappening() {
                                                       color={'basic.500'}
                                                       mt={'20px'}
                                                       position={'absolute'} bottom={'48px'}
-                                                      dangerouslySetInnerHTML={{__html: post.postBody}}
+                                                      dangerouslySetInnerHTML={{__html: post.metaDescription}}
                                                 />
 
                                                 <Text fontWeight={400} position={'absolute'} bottom={'18px'}>

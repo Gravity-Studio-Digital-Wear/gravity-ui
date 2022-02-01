@@ -72,7 +72,7 @@ export const RelatedPosts = observer(function RelatedPosts () {
                                       color={'basic.500'}
                                       mt={'20px'}
                                       position={'absolute'} bottom={'48px'}
-                                      dangerouslySetInnerHTML={{__html: post.postBody}}
+                                      dangerouslySetInnerHTML={{__html: post.metaDescription}}
                                 />
 
 

@@ -105,8 +105,6 @@ export const BlogPost = observer(function BlogPost() {
 
                         <Text mt={'40px'} dangerouslySetInnerHTML={{__html: blog.post.postBody}}/>
                     </Box>
-
-
                 </Box>
             </Box>
 
