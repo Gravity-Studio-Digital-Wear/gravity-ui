@@ -39,7 +39,8 @@ const navLinks = [
     ['how it works', Routes.howItWorks],
     ['sustainability', Routes.sustainability],
     ['own to earn', Routes.ownToEarn],
-    ['white paper', Routes.whitePaper]
+    ['white paper', Routes.whitePaper],
+    ['what\'s happening', Routes.news]
 ]
 
 function Navigator() {

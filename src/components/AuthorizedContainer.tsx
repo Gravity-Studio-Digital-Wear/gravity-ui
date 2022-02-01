@@ -4,6 +4,8 @@ import {Box, StylesProvider, useMediaQuery, useMultiStyleConfig, useToken} from 
 import {observer} from "mobx-react";
 import {Footer} from "./Footer";
 import {useLocation} from "react-router-dom";
+import {Routes} from "../app/routes";
+import {BeMore} from "../pages/Landing/components/BeMoreInMetavers";
 
 const contentBg = `
     #FFF8F5;
@@ -41,6 +43,7 @@ export const AuthorizedContainer = observer(function AuthorizedContainer(props: 
         { variant: location.pathname === '/' && isLargerThanXl ?  'transparent' : 'default' }
     )
 
+    const isNews = location.pathname.startsWith(Routes.news);
 
     if (location.pathname === '/') {
         return (
@@ -59,6 +62,7 @@ export const AuthorizedContainer = observer(function AuthorizedContainer(props: 
                 <Box pt={33} marginLeft={'auto'} marginRight={'auto'} maxW={{ lg: '1160px', "2xl": '1160px'}}>{children}</Box>
             </Box>
 
+            {isNews && <BeMore/>}
             <Footer/>
         </Box>
         </StylesProvider>
