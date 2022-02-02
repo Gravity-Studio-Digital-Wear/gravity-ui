@@ -39,7 +39,6 @@ export const http: HttpClient = client.call({} as HttpClient, ({
 export const hubspotApi: HttpClient = client.call({} as HttpClient, ({
     baseUrl: 'https://api.hubapi.com',
     timeout: 5000,
-
 }))
 
 

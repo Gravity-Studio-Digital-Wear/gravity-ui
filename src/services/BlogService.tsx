@@ -39,6 +39,8 @@ interface IBlogPost {
     useFeaturedImage: boolean
 }
 
+const baseUrl = process.env.API_URL || window.location.origin;
+
 interface IBlogTag {
     id: string;
     deletedAt: string;
@@ -46,14 +48,14 @@ interface IBlogTag {
 }
 
 function fetchTags(): Promise<{ results: IBlogTag[] }> {
-    return fetch('https://warm-savannah-02639.herokuapp.com/hubspot/blog/tags')
+    return fetch(baseUrl + '/api/hubspot/blog/tags')
         .then((res) => {
             return res.json()
         })
 }
 
 function fetchRelated(id: string): Promise<IBlogPost[]> {
-    return fetch(`https://warm-savannah-02639.herokuapp.com/hubspot/blog/posts/${id}/related`)
+    return fetch(baseUrl + `/api/hubspot/blog/posts/${id}/related`)
         .then((res) => {
             return res.json()
         })
@@ -105,7 +107,7 @@ export class BlogService {
     @action
     fetchPostList() {
         this.requestStatus = 'pending'
-        const url = new URL('https://warm-savannah-02639.herokuapp.com/hubspot/blog/posts')
+        const url = new URL(baseUrl + '/api/hubspot/blog/posts')
         if (!!this.selectedTag) {
             url.searchParams.set('tagId', this.selectedTag)
         }
@@ -138,7 +140,7 @@ export class BlogService {
         this.postRequestStatus = 'pending'
 
         // TODO move to our cloud
-        return fetch('https://warm-savannah-02639.herokuapp.com/hubspot/blog/posts/' + id)
+        return fetch(baseUrl + '/api/hubspot/blog/posts/' + id)
             .then((res) => {
                 return res.json()
             })
