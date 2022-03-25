@@ -20,7 +20,7 @@ import {TermsOfService} from "../pages/TermsOfService";
 import {Privacy} from "../pages/Privacy";
 import {HowToEarn} from "../pages/HowToEarn";
 import {WhitePaper} from "../pages/WhitePaper";
-import {Landing} from "../pages/Landing/Landing";
+import {Landing} from "../pages/LandingV2/Landing";
 import {WhatsHappening} from "../pages/News/WhatsHappening";
 import {BlogPost} from "../pages/News/BlogPost";
 
@@ -41,9 +41,6 @@ export const Routing = observer(function Routing() {
                 {(r, { protected: ProtectedRoute}) => {
                     return (
                         <Switch>
-                            {/*<Route path={Routes.login} component={LoginPage}/>*/}
-
-
                             <Route path={Routes.authCallback} component={OAuthCallbackPage}/>
                             <Route path={Routes.productPage} component={ProductPage}/>
 

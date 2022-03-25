@@ -22,3 +22,6 @@ export const magic = new Magic("pk_live_2F5A5F02878460F4", {
 magic.network = 'matic';
 
 export const web3 = new Web3();
+
+
+console.log(web3)

@@ -1,28 +1,61 @@
 @import "./fonts/stylesheet.css";
 
+@property --border {
+    syntax: '<length>';
+    inherits: true;
+    initial-value: 0;
+}
+
+.gr-connect-button {
+    --path: 0 0, 100% 0, 100% 100%, 0 100%;
+    --border: 1px;
+    --edges: '0 0, 11px 11px, 0 0, 0px 0px';
+}
+
+.gr-polygon-btn {
+    --border: 1px;
+    --edges: '0 0, 18px 18px, 8px 8px, 8px 8px';
+}
+
+.gr-insta-slider-box {
+    --border: 2px;
+    --edges: '0 0, 24px 24px, 0 0, 0 0';
+}
+
+.gr-news-slider-box {
+    --border: 2px;
+    --edges: '0 0, 30px 30px, 21px 21px, 21px 21px';
+}
+
 .gr-elysium_slide {
-    width: 342px!important;
+    width: 342px !important;
 }
 
 @media screen and (min-width: 1200px) {
     .gr-elysium_slide {
-        width: 564px!important;
+        width: 564px !important;
     }
 }
 
 .gr-insta_slide {
-    width: 310px!important;
-    height: 310px!important;
+    width: 310px !important;
+    height: 310px !important;
 }
 
 .gr-news_slide {
-    width: 342px!important;
+    width: 342px !important;
+}
+
+
+.gr-insta_slide--v2 {
+    width: 358px!important;
+    height: 408px!important;
 }
 
 @media screen and (min-width: 1200px) {
     .gr-insta_slide {
-        width: 358px!important;
-        height: 358px!important;
+        width: 358px !important;
+        height: 358px !important;
     }
 }
 

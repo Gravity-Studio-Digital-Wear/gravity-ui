@@ -7,12 +7,21 @@
     <title>Vite App</title>
     <script src="https://upload-widget.cloudinary.com/global/all.js" type="text/javascript"></script>
 
-    <!-- Start of HubSpot Embed Code -->
-    <script type="text/javascript" id="hs-script-loader" async defer src="//js.hs-scripts.com/21323827.js"></script>
-    <!-- End of HubSpot Embed Code -->
+<!--    &lt;!&ndash; Start of HubSpot Embed Code &ndash;&gt;-->
+<!--    <script type="text/javascript" id="hs-script-loader" async defer src="//js.hs-scripts.com/21323827.js"></script>-->
+<!--    &lt;!&ndash; End of HubSpot Embed Code &ndash;&gt;-->
   </head>
   <body>
+
+
+
+<!--    <div class="box" style="clip-path:polygon(var(&#45;&#45;path));-webkit-mask:paint(polygon-border)"></div>-->
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
+
+
+  <script>
+    CSS.paintWorklet.addModule('./sliced-edge-worklet.js');
+  </script>
   </body>
 </html>

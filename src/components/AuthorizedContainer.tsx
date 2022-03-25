@@ -11,18 +11,18 @@ const contentBg = `
     #FFF8F5;
 `
 
-const bgLanding = 'conic-gradient(from 54.26deg at 31.74% 21.24%, #F2EDFF -144.13deg, #FFF8F5 33.04deg, #F2EDFF 215.87deg, #FFF8F5 393.04deg)'
+const bgLanding = `
+conic-gradient(from 110.08deg at -26.41% 97.6%, #7468F6 -73.13deg, rgba(255, 255, 255, 0.36) 83.07deg, #ECC9F7 193.38deg, #74E3FF 217.15deg, #7468F6 286.87deg, rgba(255, 255, 255, 0.36) 443.07deg)
+`
 
 function LandingContainer(props: React.PropsWithChildren<{}>) {
     const {children} = props;
 
     return (
-        <Box w="100%" justifyContent={'center'} position={'relative'} overflowX={'hidden'} >
-            <Box mt={0} width={'100%'} bg={bgLanding} minHeight={'100vh'}>
-                <Box>{children}</Box>
+        <Box w="100%" justifyContent={'center'} position={'relative'} overflowX={'hidden'} bg={bgLanding}>
+            <Box mt={0} width={'100%'} minHeight={'100vh'}>
+                {children}
             </Box>
-
-            <Footer/>
         </Box>
     )
 }
@@ -40,31 +40,30 @@ export const AuthorizedContainer = observer(function AuthorizedContainer(props: 
 
     const styles = useMultiStyleConfig(
         'Navigator',
-        { variant: location.pathname === '/' && isLargerThanXl ?  'transparent' : 'default' }
+        {variant: location.pathname === '/' && isLargerThanXl ? 'transparent' : 'default'}
     )
 
     const isNews = location.pathname.startsWith(Routes.news);
 
     if (location.pathname === '/') {
         return (
-            <StylesProvider value={styles}>
-                <LandingContainer>{children}</LandingContainer>
-            </StylesProvider>
+            <LandingContainer>{children}</LandingContainer>
         )
     }
 
     return (
         <StylesProvider value={styles}>
-        <Box w="100%" justifyContent={'center'} position={'relative'} overflowX={'hidden'} >
-            <Navigation/>
+            <Box w="100%" justifyContent={'center'} position={'relative'} overflowX={'hidden'}>
+                <Navigation/>
 
-            <Box mt={0} width={'100%'} bg={contentBg} minHeight={'100vh'} pb={{base: '32px', md: '80px'}}>
-                <Box pt={33} marginLeft={'auto'} marginRight={'auto'} maxW={{ lg: '1160px', "2xl": '1160px'}}>{children}</Box>
+                <Box mt={0} width={'100%'} bg={contentBg} minHeight={'100vh'} pb={{base: '32px', md: '80px'}}>
+                    <Box pt={33} marginLeft={'auto'} marginRight={'auto'}
+                         maxW={{lg: '1160px', "2xl": '1160px'}}>{children}</Box>
+                </Box>
+
+                {isNews && <BeMore/>}
+                <Footer/>
             </Box>
-
-            {isNews && <BeMore/>}
-            <Footer/>
-        </Box>
         </StylesProvider>
     )
 })
