@@ -48,14 +48,19 @@
 
 
 .gr-insta_slide--v2 {
-    width: 358px!important;
-    height: 408px!important;
+    width: 340px !important;
+    height: 408px !important;
 }
 
 @media screen and (min-width: 1200px) {
     .gr-insta_slide {
         width: 358px !important;
         height: 358px !important;
+    }
+
+    .gr-insta_slide--v2 {
+        width: 358px!important;
+        height: 408px!important;
     }
 }
 

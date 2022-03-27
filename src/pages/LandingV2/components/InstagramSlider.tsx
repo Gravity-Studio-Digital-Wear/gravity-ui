@@ -40,9 +40,8 @@ export function InstagramSlider(props: BoxProps) {
     );
     const [isLargerThanXl] = useMediaQuery(`(min-width: ${xl})`)
 
-
-    const w = isLargerThanXl ? '358px' : '310px';
-    const h = isLargerThanXl ? '358px' : '310px';
+    const w = isLargerThanXl ? '358px' : '340px';
+    const h = '408px';
 
     return (
         <Box {...props}>
@@ -63,12 +62,12 @@ export function InstagramSlider(props: BoxProps) {
                 {slides.map((slide) => (
                     <SwiperSlide key={slide.image} className={'gr-insta_slide--v2'}>
                         <Box
-                            w={w}
-                            h={'408px'}
+                            w={'auto'}
+                            h={h}
                         >
                             <Box
                                 width={'100%'}
-                                height={'408px'}
+                                height={h}
                                 position={'absolute'}
                                 top={0}
                                 zIndex={3}
@@ -77,7 +76,7 @@ export function InstagramSlider(props: BoxProps) {
                                     WebkitMask: 'paint(polygon-border)'
                                 }}
                                 bgColor={'white'}
-                                __css={{
+                                css={{
                                     transitionDelay: '300ms',
                                     transition: 'top ease-out 100ms',
                                 }}
@@ -91,8 +90,9 @@ export function InstagramSlider(props: BoxProps) {
                                     as={Flex}
                                     alignItems={'flex-start'}
                                 >
-                                    <Box display={'inline-block'} mr={'12px'}> <InstVector/></Box>
-
+                                    <Box display={'inline-block'} mr={'12px'}>
+                                        <InstVector/>
+                                    </Box>
 
                                     {slide.inst}
                                 </Text>
@@ -101,13 +101,12 @@ export function InstagramSlider(props: BoxProps) {
                             <Box position={'absolute'}
                                  bottom={0}
                                  zIndex={1}
-                                 w={'358px'}
-                                 h={'358px'}
+                                 w={w}
+                                 h={w}
                             >
                                 <Image src={slide.image} height={w} width={h} zIndex={1001}/>
                             </Box>
                         </Box>
-
                     </SwiperSlide>
                 ))}
             </Swiper>

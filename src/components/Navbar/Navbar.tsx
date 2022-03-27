@@ -23,6 +23,8 @@ import {css, Global} from '@emotion/react';
 import {observer} from "mobx-react";
 import {ReactComponent as Rune} from './rune.svg'
 import {ReactComponent as RuneWhited} from './rune_whited.svg'
+import {ReactComponent as LogoSVG} from './logo.svg'
+
 import {NavLink as RouterLink, useHistory} from 'react-router-dom';
 import {NavLink} from "./NavLink";
 import {Routes} from "../../app/routes";
@@ -266,9 +268,8 @@ export const Navigation = observer(function Navigation({isLanding = false}: { is
                     cursor={'pointer'}
                     onClick={() =>  history.push(Routes.main)}
                     left={'0'}>
-                    {isLanding ?
-                        isLargerThanXl ? <RuneWhited/> : <Rune/>
-                        : <Rune/>
+                    {isLanding &&
+                        (isLargerThanXl ? <RuneWhited/> : <Rune/>)
                     }
                 </Flex>
 
@@ -294,6 +295,10 @@ export const Navigation = observer(function Navigation({isLanding = false}: { is
                         )}
 
                         <Box display={{base: 'none', [breakpoint]: "flex"}} zIndex={2}>
+                            <Box mr={'32px'}>
+                                <LogoSVG/>
+                            </Box>
+
                             <Navigator/>
                         </Box>
 

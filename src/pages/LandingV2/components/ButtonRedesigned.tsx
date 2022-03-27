@@ -1,11 +1,19 @@
 import * as React from 'react';
-import {Box, Button, ButtonProps, Text} from "@chakra-ui/react";
+import {Box, Button, ButtonProps, ComponentWithAs, Text} from "@chakra-ui/react";
 
-const FilledPolygon = '0 0, calc(100% - 18px) 0, 100% 18px, 100% calc(100% - 8px), calc(100% - 8px) 100%, 8px 100%, 0 calc(100% - 8px)'
+const FilledPolygon = `
+0 0, 
+calc(100% - 18px) 0, 
+100% 18px, 
+100% calc(100% - 8px), 
+calc(100% - 8px) 100%, 
+8px 100%, 
+0 calc(100% - 8px)
+`
 
-export const ButtonRedisigned = ({children, ...props}: ButtonProps) => {
+export const ButtonRedesigned = ({children, ...props}: ButtonProps) => {
 
-
+console.log(props)
     return (
         <Button
             h={'56px'}

@@ -1,31 +1,75 @@
 import * as React from 'react';
-import {Flex, HStack, LinkBox} from "@chakra-ui/react";
+import {Box, BoxProps, Flex, HStack, LinkBox, useMediaQuery, useToken} from "@chakra-ui/react";
 import {ReactComponent as Logo} from '../assets/logo.svg';
 import {ConnectButton} from "./ConnectButton";
+import {Routes} from "../../../app/routes";
+import {useHistory} from "react-router-dom";
 
 
 export function Header() {
+    const [md, xl] = useToken(
+        'breakpoints',
+        ['lg', 'xl']
+    );
+
+    const [isLargerThanMd] = useMediaQuery(`(min-width: ${md})`)
+    const [isLargerThanXl] = useMediaQuery(`(min-width: ${xl})`)
+
+    const isDesktop = isLargerThanXl;
+
+    const history = useHistory();
+
     return (
-        <Flex height={'78px'} alignItems={'center'}>
-            <Logo/>
+        <Flex height={'78px'}
+              alignItems={'center'}
 
-            <HStack
-                ml={'60px'}
-                textTransform={'uppercase'}
-                color={'white'}
-                letterSpacing={'0.03em'}
-                spacing={'24px'}
-                fontSize={'14px'}
-            >
-                <LinkBox>NFT Drop</LinkBox>
+              p={{base: '15px', xl: 0}}
+        >
 
-                <LinkBox>for fashion brands</LinkBox>
-                <LinkBox>for metaverse developers</LinkBox>
+            <Box cursor={'pointer'} onClick={() =>  history.push(Routes.main)}>
+                <Logo/>
+            </Box>
 
-                <LinkBox>MEET THE TEAM</LinkBox>
-            </HStack>
+            {isDesktop && (
+                <>
+                    <HStack
+                        display={'none'}
+                        ml={'60px'}
+                        textTransform={'uppercase'}
+                        color={'white'}
+                        letterSpacing={'0.03em'}
+                        spacing={'24px'}
+                        fontSize={'14px'}
+                    >
+                        <LinkBox>NFT Drop</LinkBox>
 
-            <ConnectButton ml={'auto'}/>
+                        <LinkBox>for fashion brands</LinkBox>
+                        <LinkBox>for metaverse developers</LinkBox>
+
+                        <LinkBox>MEET THE TEAM</LinkBox>
+                    </HStack>
+
+                    <ConnectButton display={'none'} ml={'auto'}/>
+                </>
+            )}
+
+
+            {!isDesktop && (
+                <BurgerButton display={'none'} ml={'auto'}/>
+            )}
         </Flex>
+    )
+}
+
+
+function BurgerButton(props: BoxProps) {
+    return (
+        <Box {...props}>
+            <svg width="24" height="18" viewBox="0 0 24 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M0 1H24" stroke="white" stroke-width="2"/>
+                <path d="M10 9H24" stroke="white" stroke-width="2"/>
+                <path d="M0 17L24 17" stroke="white" stroke-width="2"/>
+            </svg>
+        </Box>
     )
 }

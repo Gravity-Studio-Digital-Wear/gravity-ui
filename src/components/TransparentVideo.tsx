@@ -16,17 +16,19 @@ export const TransparentVideo = observer(({
     const ref = React.useRef();
 
     React.useEffect(() => {
-        if (infinite) {
 
+        console.log(ref.current, app.isSafari)
+
+        if (infinite) {
 
             (ref.current as any).play()
         }
 
 
-    }, [])
+    }, [ref])
 
     return (
-        app.isSafari
+        false
             ? (<Image src={processImgUrl(imageUrl)}/>)
             : (
                 <figure>

@@ -1,19 +1,46 @@
 import * as React from 'react';
 import {Header} from "./components/Header";
-import {Box, BoxProps, Flex, Grid, GridItem, HStack, Link, LinkBox, Stack, Text} from "@chakra-ui/react";
-import {ButtonRedisigned} from "./components/ButtonRedisigned";
+import {
+    Box,
+    BoxProps,
+    Flex,
+    Grid,
+    GridItem,
+    HStack,
+    Image,
+    Link,
+    LinkBox,
+    Stack,
+    Text,
+    useMediaQuery,
+    useToken
+} from "@chakra-ui/react";
+import {ButtonRedesigned} from "./components/ButtonRedesigned";
 
-import {ReactComponent as Logo} from './assets/logo.svg';
 import {ReactComponent as RectangleShape} from './assets/rectangle.svg';
+import {ReactComponent as RectangleMobileShape} from './assets/rectangle--mobile.svg';
+import {ReactComponent as XShapes} from './assets/xshapes.svg';
+import {ReactComponent as CodeShape} from './assets/code.svg';
 import {ReactComponent as SlashesShape} from './assets/slashes.svg';
+import {ReactComponent as Logo} from './assets/logo.svg';
 
+
+import {TransparentVideo} from "../../components/TransparentVideo";
+import {getBox} from "css-box-model";
 import {Possibilities} from "./components/Possibilities";
 import {InstagramSlider} from "./components/InstagramSlider";
 import {WhatsHappening} from "./components/WhatsHappening";
 import {OurPartners} from "./components/OurPartners";
-import {DiscordIcon, InstaIcon, TelegramIcon, TwitterIcon, YouTubeIcon} from "../../components/icons/IconSocial";
-import {TransparentVideo} from "../../components/TransparentVideo";
-import {getBox} from "css-box-model";
+import {
+    DiscordIcon,
+    InstaIcon,
+    MediumIcon,
+    TelegramIcon,
+    TwitterIcon,
+    YouTubeIcon
+} from "../../components/icons/IconSocial";
+import {Link as RouterLink, useHistory, useLocation} from "react-router-dom";
+import {Routes} from "../../app/routes";
 
 const {contentBox} = getBox(window.document.body)
 
@@ -27,85 +54,141 @@ export function Landing() {
         return (hDiv2 * 2 * x) + 'px';
     }
 
+    const [md, xl] = useToken(
+        'breakpoints',
+        ['lg', 'xl']
+    );
+
+    const [isLargerThanMd] = useMediaQuery(`(min-width: ${md})`)
+    const [isLargerThanXl] = useMediaQuery(`(min-width: ${xl})`)
+
+
+    const history = useHistory();
+
+    const joinWhitelist = () => {
+        window.open('https://www.premint.xyz/gravity-the-studio/ ', '_blank')
+    }
+
+    const findUsInstagram = () => {
+        window.open('https://www.instagram.com/gravitythestudio/ ', '_blank')
+    }
+
+
     return (
-        <Stack spacing={0} fontFamily={'Montserrat'}>
-            <Block bgImage={'/landing/bg-1-min.jpg'} h={bgHeight('788px')} position={'relative'}>
+        <Stack spacing={0} fontFamily={'Montserrat'} overflow={'hidden'}>
+            <Background
+                overflow={'hidden'}
+                position={'fixed'}
+                zIndex={0}
+                top={0}
+                left={0}
+            />
 
-                <Box position={'absolute'} top={'10%'} right={'-20%'} w={'90%'} zIndex={0}>
-                    <TransparentVideo
-                        videoUrl={'https://res.cloudinary.com/dxgophqoh/video/upload/q_70/v1648203083/output_y0svwb.webm'}
-                        imageUrl={''}
-                        infinite={true}
-                    />
-                </Box>
-
-                <Box position={'absolute'} top={'15%'} right={'0%'} w={'60%'} zIndex={0}>
-
-
-                    <TransparentVideo
-                        videoUrl={'https://res.cloudinary.com/dxgophqoh/video/upload/c_scale,q_auto:eco,w_1237/v1648202298/output_hjoavx.webm'}
-                        imageUrl={''}
-                        infinite={true}
-                    />
-                </Box>
-
+            <Block position={'relative'}>
+                {isLargerThanXl && (
+                    <Box position={'absolute'} top={'10%'} right={'-20%'} w={'90%'} zIndex={0}>
+                        <TransparentVideo
+                            videoUrl={'https://res.cloudinary.com/dxgophqoh/video/upload/q_70/v1648203083/output_y0svwb.webm'}
+                            imageUrl={''}
+                            infinite={true}
+                        />
+                    </Box>
+                )}
+                {isLargerThanXl && (
+                    <Box position={'absolute'} top={'15%'} right={'0%'} w={'60%'} zIndex={0}>
+                        <TransparentVideo
+                            videoUrl={'https://res.cloudinary.com/dxgophqoh/video/upload/c_scale,q_auto:eco,w_1237/v1648202298/output_hjoavx.webm'}
+                            imageUrl={''}
+                            infinite={true}
+                        />
+                    </Box>
+                )}
 
 
                 <Centered>
                     <Header/>
-                    <Box position={'absolute'} top={0} right={0} width={'666px'}>
-                        {/*<TransparentVideo*/}
-                        {/*    videoUrl={'https://res.cloudinary.com/dxgophqoh/video/upload/v1648140034/pacan_vejtdz.webm'}*/}
 
-                        {/*    imageUrl={''}*/}
-                        {/*/>*/}
-                    </Box>
-                    <Box mt={'163px'}>
+                    <Box mt={{base: '100px', xl: '163px'}} position={'relative'}>
+                        {isLargerThanXl && (
+                            <Box position={'absolute'} top={'-100px'} right={'350px'} zIndex={0}>
+                                <CodeShape/>
+                            </Box>
+                        )}
+
+                        {isLargerThanXl && (
+                            <Box position={'absolute'} top={'100px'} right={'130px'} zIndex={0}>
+                                <XShapes/>
+                            </Box>
+                        )}
+
                         <Text
                             fontFamily={'All Round Gothic'}
-                            fontSize={54}
+                            fontSize={{base: 34, xl: 54}}
                             color={'white'}
-                            lineHeight={'68px'}
+                            lineHeight={{base: '44px', xl: '68px'}}
                             position={'relative'}
                         >
                             Be who you want
                             <br/> wherever you go
 
-                            <Box position={'absolute'} top={'-24px'} left={'-24px'}>
+                            <Box position={'absolute'} top={'-24px'} left={'-24px'}
+                                 display={{base: 'none', xl: 'block'}}>
                                 <RectangleShape/>
                             </Box>
 
+
+                            <Box position={'absolute'} top={'-48px'} left={0} display={{base: 'block', xl: 'none'}}>
+                                <RectangleMobileShape/>
+                            </Box>
                         </Text>
 
-                        <Text maxW={'640px'} color={'white'} fontSize={21} mt={'16px'} letterSpacing={'0.01em'}>
-
+                        <Text maxW={'640px'} color={'white'} fontSize={{base: 17, xl: 21}} mt={'16px'}
+                              letterSpacing={'0.01em'}>
                             We make virtual clothes universally wearable, valuable in real currency, and invincible
                             against
                             the decisions of any one game studio. Get exclusive first access to the movement changing
                             downloadable content forever.
                         </Text>
 
-
-
-
-
-                        <ButtonRedisigned mt={'36px'}>JOIN THE WHITELIST</ButtonRedisigned>
+                        <ButtonRedesigned mt={'36px'} onClick={joinWhitelist}>
+                            JOIN THE WHITELIST
+                        </ButtonRedesigned>
                     </Box>
+
+
+                    {!isLargerThanXl && (
+                        <Box position={'relative'} display={'flex'} justifyContent={'center'} mt={'100px'}>
+                            <Box maxW={'300px'} position={'relative'} left={'60px'}>
+                                <TransparentVideo
+                                    videoUrl={'https://res.cloudinary.com/dxgophqoh/video/upload/c_crop,h_1080,w_770,x_606,y_100,q_auto:eco/v1648202298/output_hjoavx.webm'}
+                                    imageUrl={''}
+                                    infinite={true}
+                                />
+                            </Box>
+
+                            <Box position={'absolute'} top={0} left={0}>
+                                <CodeShape/>
+                            </Box>
+
+                            <Box position={'absolute'} right={0} bottom={'100px'}>
+                                <XShapes/>
+                            </Box>
+                        </Box>
+                    )}
                 </Centered>
             </Block>
 
-            <Block bgImage={'/landing/bg-2-min.jpg'} h={bgHeight('836px')} position={'relative'}>
+            <Block>
                 <Centered>
-
                     <Text
                         fontFamily={'All Round Gothic'}
-                        fontSize={54}
+                        fontSize={{base: 34, xl: 54}}
                         color={'white'}
-                        lineHeight={'68px'}
+                        lineHeight={{base: '44px', xl: '68px'}}
                         position={'relative'}
+                        mt={{base: '0px', xl: '300px'}}
                     >
                         Buy once, wear everywhere
-
 
                         <Box position={'absolute'} bottom={'-100px'}>
 
@@ -113,72 +196,97 @@ export function Landing() {
                         </Box>
                     </Text>
 
-                    <Grid templateColumns={'1fr 1fr 1fr'}  gridColumnGap={'30px'} position={'relative'}>
+                    <Grid templateColumns={{base: '1fr', xl: '1fr 1fr 1fr'}} gridColumnGap={'30px'}
+                          position={'relative'}>
                         <Box>
                             <Text fontFamily={'All Round Gothic'} color={'white'} fontSize={24} mt={'145px'}>
                                 Barriers are so web2
                             </Text>
 
-                            <Text maxW={'350px'} color={'white'} fontSize={17} mt={'16px'} letterSpacing={'0.01em'}>
-
+                            <Text maxW={'350px'} color={'white'} fontSize={{base: 16, xl: 17}} mt={'16px'}
+                                  letterSpacing={'0.01em'}>
                                 Seamlessly wear your NFT apparel on your avatars across metaverses, or flex in your
                                 social media photos. Keep it rolling with rare artist-collaborated ornament add-ons and
                                 exclusive community bonuses.
                             </Text>
                         </Box>
 
+                        <Box position={'relative'} display={{base: 'flex', xl: 'block'}} justifyContent={'center'}>
+                            <Box width={{base: '300px', xl: '100%'}}
+                                 left={0}
+                                 mt={{xl: '90px'}}
 
-                        <Box position={'relative'}>
-
-                            <Box  width={'100%'} left={0} mt={'90px'}>
+                            >
                                 <TransparentVideo
                                     videoUrl={'https://res.cloudinary.com/dxgophqoh/video/upload/c_crop,h_1080,w_870,x_520,y_130/v1648204264/output_pw9auv.webm'}
                                     imageUrl={''}
                                     infinite={true}
                                 />
                             </Box>
-
                         </Box>
 
                         <Possibilities/>
                     </Grid>
-
-
                 </Centered>
             </Block>
 
-            <Block bgImage={'/landing/bg-3-min.jpg'} h={bgHeight('1020px')} position={'relative'}>
+            <Block position={'relative'}>
                 <Centered>
                     <Text
                         fontFamily={'All Round Gothic'}
-                        fontSize={54}
+                        fontSize={{base: 34, xl: 54}}
                         color={'white'}
-                        lineHeight={'68px'}
+                        lineHeight={{base: '44px', xl: '68px'}}
                         position={'relative'}
+                        mt={{base: '160px'}}
                     >
                         We are <br/> Gravity <br/> the Studio
 
-
-                        <Box position={'absolute'} top={'-24px'} left={'-24px'}>
+                        <Box position={'absolute'} top={'-24px'} left={'-24px'} display={{base: 'none', xl: 'block'}}>
                             <RectangleShape/>
-
                         </Box>
-                        <Box position={'absolute'} bottom={'-36px'} left={'170px'}>
 
+                        <Box position={'absolute'} top={'-48px'} left={0} display={{base: 'block', xl: 'none'}}>
+                            <RectangleMobileShape/>
+                        </Box>
+                        {isLargerThanXl && (
+
+
+                            <Box position={'absolute'}
+                                 right={'-20px'}
+                                 bottom={'-30px'}
+                            >
+                                <CodeShape/>
+                            </Box>
+                        )}
+
+
+                        <Box position={'absolute'}
+                             bottom={{base: '0', xl: '-36px'}}
+                             left={{xl: '170px'}}
+                             right={{base: 0, xl: '0'}}
+                        >
                             <SlashesShape/>
                         </Box>
 
-                        <Box position={'absolute'} width={'100%'} height={'100%'} display={'flex'} justifyContent={'center'} alignItems={'center'}>
+                        <Box position={'absolute'}
+                             width={'100%'}
+                             height={'100%'}
+                             display={'flex'}
+                             justifyContent={'center'}
+                             alignItems={'center'}
+                        >
 
-                            <TransparentVideo
-                                infinite={true}
-                                videoUrl={'https://res.cloudinary.com/dxgophqoh/video/upload/v1648202570/output_lo3sg6.webm'}
-                                imageUrl={''}
-                            />
+                            {isLargerThanXl && (
+                                <TransparentVideo
+                                    infinite={true}
+                                    videoUrl={'https://res.cloudinary.com/dxgophqoh/video/upload/v1648202570/output_lo3sg6.webm'}
+                                    imageUrl={''}
+                                />)}
                         </Box>
                     </Text>
 
-                    <Box mt={'460px'}>
+                    <Box mt={{xl: '460px'}}>
                         <Text maxW={'650px'} color={'white'} fontSize={17} mt={'16px'} letterSpacing={'0.01em'}>
                             We’re a blockchain-driven platform revolutionizing how gamers show off in virtual worlds.
                             Buy your look in one game and still be wearing it everywhere else you play, no repurchase
@@ -187,41 +295,63 @@ export function Landing() {
                             technology is integrated.
                         </Text>
                     </Box>
+
+                    {!isLargerThanXl && (
+                        <Box mt={'40px'} position={'relative'}>
+                            <Box position={'absolute'}
+                                 right={'-20px'}
+                                 bottom={'-80px'}
+                            >
+                                <CodeShape/>
+                            </Box>
+
+                            {!isLargerThanXl && (
+                                <TransparentVideo
+                                    infinite={true}
+                                    videoUrl={'https://res.cloudinary.com/dxgophqoh/video/upload/v1648202570/output_lo3sg6.webm'}
+                                    imageUrl={''}
+                                />
+                            )}
+                        </Box>
+                    )}
                 </Centered>
             </Block>
 
-            <Block bgImage={'/landing/bg-4-min.jpg'} h={bgHeight('832px')}>
+            <Block>
                 <Centered>
                     <Text
                         fontFamily={'All Round Gothic'}
-                        fontSize={54}
+                        fontSize={{base: 34, xl: 54}}
                         color={'white'}
-                        lineHeight={'68px'}
+                        lineHeight={{base: '44px', xl: '68px'}}
                         position={'relative'}
+                        mt={{base: '160px'}}
                     >
                         Who we’re dressing
                     </Text>
-
-
                 </Centered>
 
                 <InstagramSlider mt={'40px'}/>
 
                 <Centered>
                     <Flex justifyContent={'center'} mt={'60px'}>
-                        <ButtonRedisigned w={'308px'}>FIND US ON INSTAGRAM</ButtonRedisigned>
+
+                        <ButtonRedesigned w={'308px'} onClick={findUsInstagram}>
+                            FIND US ON INSTAGRAM
+                        </ButtonRedesigned>
                     </Flex>
                 </Centered>
             </Block>
 
-            <Block bgImage={'/landing/bg-5-min.jpg'} h={bgHeight('943px')}>
+            <Block>
                 <Centered>
                     <Text
                         fontFamily={'All Round Gothic'}
-                        fontSize={54}
+                        fontSize={{base: 34, xl: 54}}
                         color={'white'}
-                        lineHeight={'68px'}
+                        lineHeight={{base: '44px', xl: '68px'}}
                         position={'relative'}
+                        mt={{base: '120px'}}
                     >
                         What’s happening
                     </Text>
@@ -229,67 +359,71 @@ export function Landing() {
                     <WhatsHappening/>
 
                     <Flex justifyContent={'center'} mt={'60px'}>
-                        <ButtonRedisigned w={'193px'}>SEE MORE</ButtonRedisigned>
+                        <ButtonRedesigned w={'193px'} onClick={() => history.push(Routes.shop)}>SEE MORE</ButtonRedesigned>
                     </Flex>
                 </Centered>
             </Block>
 
-            <Block bgImage={'/landing/bg-6-min.jpg'} h={bgHeight('364px')}>
+            <Block>
                 <Centered>
                     <OurPartners/>
                 </Centered>
             </Block>
 
-            <Block bgImage={'/landing/bg-7-min.jpg'} h={bgHeight('627px')}>
+            <Block>
                 <Centered>
                     <Box
                         color={'white'}
                         display={'flex'}
-                        alignItems={'center'}
+                        alignItems={{base: 'flex-start', xl: 'center'}}
                         flexDirection={'column'}
-
                         fontWeight={700}
                         letterSpacing={'0.11em'}
-                        fontSize={75}
+                        fontSize={{base: 39, xl: 75}}
                         textTransform={'uppercase'}
+                        mt={{base: '120px', xl: '300px'}}
                     >
                         <Text fontFamily={'All Round Gothic'}>
                             Be more in the
                         </Text>
+
                         <Text
                             fontFamily={'All Round Gothic'}
                             css={{
                                 color: 'transparent',
-                                WebkitTextStroke: '2px',
+                                WebkitTextStroke: isLargerThanXl ? '2px' : '1px',
                                 WebkitTextStrokeColor: 'white',
                             }}
                         >
                             Metaverse
                         </Text>
 
-                        <ButtonRedisigned mt={'40px'} w={'269px'}>JOIN THE WHITELIST</ButtonRedisigned>
+                        <ButtonRedesigned mt={'40px'} w={'269px'} onClick={joinWhitelist}>JOIN THE WHITELIST</ButtonRedesigned>
                     </Box>
                 </Centered>
             </Block>
 
-            <Block bgImage={'/landing/bg-8-min.jpg'} h={bgHeight('222px')}>
+            <Block pb={'60px'}>
                 <Centered>
-                    <Box height={'1px'} w={'100%'} bgColor={'white'}/>
-
+                    <Box height={'1px'} w={'100%'} bgColor={'white'} mt={{base: '60px', xl: '160px'}}/>
 
                     <Box mt={'60px'}>
-                        <Grid templateColumns={'repeat(4, 1fr)'}>
+                        <Grid
+                            templateColumns={{base: '1fr', xl: 'repeat(4, 1fr)'}}
+                            gridRowGap={'30px'}
+                        >
                             <Box>
                                 <Logo/>
                             </Box>
 
-                            <GridItem colSpan={2}>
-                                <Grid templateColumns={'repeat(2, 1fr)'}
+                            <GridItem colSpan={2} >
+                                <Grid templateColumns={{base: '1fr', xl: 'repeat(2, 1fr)'}}
                                       fontSize={'14px'}
                                       color={'white'}
                                       textTransform={'uppercase'}
                                       width={'100%'}
                                       gridRowGap={'16px'}
+                                      display={'none'}
                                       letterSpacing={'0.03em'}
                                 >
                                     <LinkBox>NFT Drop</LinkBox>
@@ -299,8 +433,8 @@ export function Landing() {
                                 </Grid>
                             </GridItem>
 
-                            <Box>
-                                <Text mb={'16px'} color={'white'} letterSpacing={'0.03em'}>FOLLOW US</Text>
+                            <Stack spacing={'16px'}>
+                                <Text  color={'white'} letterSpacing={'0.03em'}>FOLLOW US</Text>
 
                                 <HStack
                                     spacing={'10px'}
@@ -311,7 +445,7 @@ export function Landing() {
                                     <Link href={'https://t.me/gravitythestudiogroup'} isExternal>
                                         <TelegramIcon color={'#D4F23F'} _hover={{color: '#D9FF1D'}}/>
                                     </Link>
-                                    <Link href={'https://discord.gg/DkqaUdY5'} isExternal>
+                                    <Link href={'https://discord.gg/Ejh4jEPRDC'} isExternal>
                                         <DiscordIcon color={'#D4F23F'} _hover={{color: '#D9FF1D'}}/>
                                     </Link>
                                     <Link href="https://www.instagram.com/gravitythestudio/" isExternal>
@@ -323,8 +457,37 @@ export function Landing() {
                                     <Link href="https://twitter.com/GravitytheStud" isExternal>
                                         <TwitterIcon color={'#D4F23F'} _hover={{color: '#D9FF1D'}}/>
                                     </Link>
+
+                                    <Link href="https://medium.com/@gravitythestudio" isExternal>
+                                        <MediumIcon color={'#D4F23F'} _hover={{color: '#D9FF1D'}}/>
+                                    </Link>
                                 </HStack>
-                            </Box>
+
+                                <Stack textTransform={'uppercase'} color={'white'} spacing={'10px'} pt={'16px'}>
+                                    <Link _hover={{textDecoration:'none'}} isExternal={true} href={'https://forms.gle/AvVvcJciKJFCLdfk6'}>
+                                        <Text as={'span'}
+                                              borderBottom={'1px solid'}
+                                              borderColor={'white'}>
+                                            Contact us
+                                        </Text>
+                                    </Link>
+
+                                    <Link as={RouterLink} to={Routes.termsOfService}  _hover={{textDecoration: 'none'}}>
+                                        <Text as={'span'}
+                                              _hover={{textDecoration: 'none'}}
+                                              borderBottom={'1px solid'}
+                                              borderColor={'white'}>Terms
+                                        </Text>
+                                    </Link>
+                                    <Link as={RouterLink} to={Routes.privacy}  _hover={{textDecoration: 'none'}}>
+                                        <Text as={'span'}
+                                              borderBottom={'1px solid'}
+                                              borderColor={'white'}>
+                                            Privacy Policy
+                                        </Text>
+                                    </Link>
+                                </Stack>
+                            </Stack>
                         </Grid>
                     </Box>
                 </Centered>
@@ -335,7 +498,7 @@ export function Landing() {
 
 const Block = (props: BoxProps) => {
     return (
-        <Box height={'100vh'} bgSize={'contain'} {...props}>
+        <Box height={'auto'} zIndex={2}  {...props}>
             {props.children}
         </Box>
     )
@@ -343,8 +506,29 @@ const Block = (props: BoxProps) => {
 
 const Centered = ({children}) => {
     return (
-        <Box marginLeft={'auto'} marginRight={'auto'} maxW={{lg: '1160px', "2xl": '1160px'}}>
+        <Box
+            marginLeft={'auto'}
+            marginRight={'auto'}
+            maxW={{lg: '1160px', "2xl": '1160px'}}
+            px={{base: '16px', xl: 0}}
+        >
             {children}
+        </Box>
+    )
+}
+
+
+function Background(props: BoxProps) {
+    return (
+        <Box {...props}>
+            <Image src={'/landing/bg-1-min.jpg'}/>
+            <Image src={'/landing/bg-2-min.jpg'}/>
+            <Image src={'/landing/bg-3-min.jpg'}/>
+            <Image src={'/landing/bg-4-min.jpg'}/>
+            <Image src={'/landing/bg-5-min.jpg'}/>
+            <Image src={'/landing/bg-6-min.jpg'}/>
+            <Image src={'/landing/bg-7-min.jpg'}/>
+            <Image src={'/landing/bg-8-min.jpg'}/>
         </Box>
     )
 }

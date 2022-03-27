@@ -45,12 +45,12 @@ export function Possibilities() {
     const {isOpen, onClose, onOpen} = useDisclosure()
 
     return (
-        <Stack spacing={'24px'} mt={'120px'}>
+        <Stack spacing={'24px'} mt={{base: '60px', xl: '120px'}}>
             <Flex alignItems={'center'}>
                 <Box position={'relative'}>
                     <Image
-                        w={'84px'}
-                        h={'84px'}
+                        w={{base: '70px', xl: '84px'}}
+                        h={{base: '70px', xl: '84px'}}
                         src={'/landing/voxelated.png'}
                     />
 
@@ -71,8 +71,8 @@ export function Possibilities() {
             <Flex alignItems={'center'}>
                 <Box position={'relative'}>
                     <Image
-                        w={'84px'}
-                        h={'84px'}
+                        w={{base: '70px', xl: '84px'}}
+                        h={{base: '70px', xl: '84px'}}
                         src={'/landing/stylized.png'}
                     />
                     <PlusButton
@@ -91,8 +91,8 @@ export function Possibilities() {
             <Flex alignItems={'center'}>
                 <Box position={'relative'}>
                     <Image
-                        w={'84px'}
-                        h={'84px'}
+                        w={{base: '70px', xl: '84px'}}
+                        h={{base: '70px', xl: '84px'}}
                         src={'/landing/realistic.png'}
                     />
                     <PlusButton
@@ -111,8 +111,8 @@ export function Possibilities() {
             <Flex alignItems={'center'}>
                 <Box position={'relative'}>
                     <Image
-                        w={'84px'}
-                        h={'84px'}
+                        w={{base: '70px', xl: '84px'}}
+                        h={{base: '70px', xl: '84px'}}
                         src={'/landing/virtualphoto.png'}
                     />
                     <PlusButton

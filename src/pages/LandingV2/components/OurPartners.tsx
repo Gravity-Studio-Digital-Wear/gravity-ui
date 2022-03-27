@@ -4,13 +4,13 @@ import {Box, Flex, Grid, GridItem, Image, Text} from "@chakra-ui/react";
 
 export function OurPartners() {
     return (
-        <Flex mr={'40px'}>
+        <Flex mr={'40px'} flexDirection={{base: 'column', xl: 'row'}} mt={{base: '120px', xl: '300px'}}>
             <Box flexGrow={1}>
                 <Text
                     fontFamily={'All Round Gothic'}
-                    fontSize={54}
+                    fontSize={{base: 34, xl: 54}}
                     color={'white'}
-                    lineHeight={'68px'}
+                    lineHeight={{base: '44px', xl: '68px'}}
                     position={'relative'}
                 >
                     Our Partners
@@ -21,6 +21,7 @@ export function OurPartners() {
                 ml={'auto'}
                 templateColumns={{base: 'repeat(3, 1fr)'}}
                 gridColumnGap={'30px'}
+                mt={{base: '36px', xl: 0}}
             >
                 <GridItem>
                     <Image src={'/partner_1.png'}
