@@ -271,11 +271,14 @@ export const Navigation = observer(function Navigation({isLanding = false}: { is
                     {isLanding &&
                         (isLargerThanXl ? <RuneWhited/> : <Rune/>)
                     }
+
+                    {!isLargerThanMd && <Rune/>}
                 </Flex>
 
                 <Stack color={styles.color as string}
                        height={'60px'}
                        width={'100vw'}
+                       position={'relative'}
                        justify={'center'}>
                     <Flex
                         marginLeft={'auto'}
@@ -294,8 +297,12 @@ export const Navigation = observer(function Navigation({isLanding = false}: { is
                             />
                         )}
 
+
                         <Box display={{base: 'none', [breakpoint]: "flex"}} zIndex={2}>
-                            <Box mr={'32px'}>
+                            <Box mr={'32px'}
+                                 cursor={'pointer'}
+                                 onClick={() =>  history.push(Routes.main)}
+                            >
                                 <LogoSVG/>
                             </Box>
 
