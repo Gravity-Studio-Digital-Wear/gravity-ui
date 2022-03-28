@@ -1,56 +1,31 @@
 import * as React from 'react';
-import {Header} from "./components/Header";
-import {
-    Box,
-    BoxProps,
-    Flex,
-    Grid,
-    GridItem,
-    HStack,
-    Image,
-    Link,
-    LinkBox,
-    Stack,
-    Text,
-    useMediaQuery,
-    useToken
-} from "@chakra-ui/react";
+import {Box, BoxProps, Flex, Grid, Image, Stack, Text, useMediaQuery, useToken} from "@chakra-ui/react";
 
 import {ReactComponent as RectangleShape} from './assets/rectangle.svg';
 import {ReactComponent as RectangleMobileShape} from './assets/rectangle--mobile.svg';
 import {ReactComponent as XShapes} from './assets/xshapes.svg';
 import {ReactComponent as CodeShape} from './assets/code.svg';
 import {ReactComponent as SlashesShape} from './assets/slashes.svg';
-import {ReactComponent as Logo} from './assets/logo.svg';
 
 import {TransparentVideo} from "../../components/TransparentVideo";
-import {getBox} from "css-box-model";
 import {Possibilities} from "./components/Possibilities";
 import {InstagramSlider} from "./components/InstagramSlider";
 import {WhatsHappening} from "./components/WhatsHappening";
 import {OurPartners} from "./components/OurPartners";
-
-import {
-    DiscordIcon,
-    InstaIcon,
-    MediumIcon,
-    TelegramIcon,
-    TwitterIcon,
-    YouTubeIcon
-} from "../../components/icons/IconSocial";
-import {Link as RouterLink, useHistory, useLocation} from "react-router-dom";
+import {useHistory} from "react-router-dom";
 import {Routes} from "../../app/routes";
 import {PolygonBorder} from "./components/PolygonBorder";
 import {sendAmplitudeData} from "../../utils/amplitude";
+import {Page} from "../../core/Page";
+import {LandingContainer} from "../../components/containers/LandingContainer";
 
-export function Landing() {
+export const Landing: Page = () => {
     const [md, xl] = useToken(
         'breakpoints',
         ['lg', 'xl']
     );
 
     const [isLargerThanXl] = useMediaQuery(`(min-width: ${xl})`)
-
 
     const history = useHistory();
 
@@ -68,14 +43,6 @@ export function Landing() {
 
     return (
         <Stack spacing={0} fontFamily={'Montserrat'} overflow={'hidden'}>
-            <Background
-                overflow={'hidden'}
-                position={'fixed'}
-                zIndex={0}
-                top={0}
-                left={0}
-            />
-
             <Block position={'relative'}>
                 {isLargerThanXl && (
                     <Box position={'absolute'} top={'10%'} right={'-20%'} w={'90%'} zIndex={0}>
@@ -84,11 +51,12 @@ export function Landing() {
                             imageUrl={''}
                             infinite={true}
                             fallback={
-                                <Image  src={'/landing/screen-1-bg.png'}/>
+                                <Image src={'/landing/screen-1-bg.png'}/>
                             }
                         />
                     </Box>
                 )}
+
                 {isLargerThanXl && (
                     <Box position={'absolute'} top={'15%'} right={'0%'} w={'60%'} zIndex={0}>
                         <TransparentVideo
@@ -100,8 +68,6 @@ export function Landing() {
                 )}
 
                 <Centered>
-                    <Header/>
-
                     <Box mt={{base: '100px', xl: '163px'}} position={'relative'}>
                         {isLargerThanXl && (
                             <Box position={'absolute'} top={'-100px'} right={'350px'} zIndex={0}>
@@ -145,7 +111,9 @@ export function Landing() {
                         </Text>
 
 
-                        <PolygonBorder mt={'36px'} onClick={joinWhitelist} w={'269px'}>JOIN THE WHITELIST</PolygonBorder>
+                        <PolygonBorder mt={'36px'} onClick={joinWhitelist} w={'269px'}>
+                            JOIN THE WHITELIST
+                        </PolygonBorder>
                     </Box>
 
 
@@ -391,103 +359,22 @@ export function Landing() {
                             Metaverse
                         </Text>
 
-                        <PolygonBorder mt={'40px'} w={'269px'} onClick={joinWhitelist}>JOIN THE WHITELIST</PolygonBorder>
+                        <PolygonBorder mt={'40px'} w={'269px'} onClick={joinWhitelist}>JOIN THE
+                            WHITELIST</PolygonBorder>
                     </Box>
                 </Centered>
             </Block>
 
             <Block pb={'60px'}>
                 <Centered>
-                    <Box height={'1px'} w={'100%'} bgColor={'white'} mt={{base: '60px', xl: '160px'}}/>
 
-                    <Box mt={'60px'}>
-                        <Grid
-                            templateColumns={{base: '1fr', xl: 'repeat(4, 1fr)'}}
-                            gridRowGap={'30px'}
-                        >
-                            <Box>
-                                <Logo/>
-                            </Box>
-
-                            <GridItem colSpan={2} >
-                                <Grid templateColumns={{base: '1fr', xl: 'repeat(2, 1fr)'}}
-                                      fontSize={'14px'}
-                                      color={'white'}
-                                      textTransform={'uppercase'}
-                                      width={'100%'}
-                                      gridRowGap={'16px'}
-                                      display={'none'}
-                                      letterSpacing={'0.03em'}
-                                >
-                                    <LinkBox>NFT Drop</LinkBox>
-                                    <LinkBox>for fashion brands</LinkBox>
-                                    <LinkBox>for metaverse developers</LinkBox>
-                                    <LinkBox>MEET THE TEAM</LinkBox>
-                                </Grid>
-                            </GridItem>
-
-                            <Stack spacing={'16px'}>
-                                <Text  color={'white'} letterSpacing={'0.03em'}>FOLLOW US</Text>
-
-                                <HStack
-                                    spacing={'10px'}
-                                    sx={{
-                                        '--social-icon-fill': '#39373E'
-                                    }}
-                                >
-                                    <Link href={'https://t.me/gravitythestudiogroup'} isExternal>
-                                        <TelegramIcon color={'#D4F23F'} _hover={{color: '#D9FF1D'}}/>
-                                    </Link>
-                                    <Link href={'https://discord.gg/Ejh4jEPRDC'} isExternal>
-                                        <DiscordIcon color={'#D4F23F'} _hover={{color: '#D9FF1D'}}/>
-                                    </Link>
-                                    <Link href="https://www.instagram.com/gravitythestudio/" isExternal>
-                                        <InstaIcon color={'#D4F23F'} _hover={{color: '#D9FF1D'}}/>
-                                    </Link>
-                                    <Link href="https://www.youtube.com/channel/UCKrbhUFFqg-Q2nyrfxN9xjQ" isExternal>
-                                        <YouTubeIcon color={'#D4F23F'} _hover={{color: '#D9FF1D'}}/>
-                                    </Link>
-                                    <Link href="https://twitter.com/GravitytheStud" isExternal>
-                                        <TwitterIcon color={'#D4F23F'} _hover={{color: '#D9FF1D'}}/>
-                                    </Link>
-
-                                    <Link href="https://medium.com/@gravitythestudio" isExternal>
-                                        <MediumIcon color={'#D4F23F'} _hover={{color: '#D9FF1D'}}/>
-                                    </Link>
-                                </HStack>
-
-                                <Stack textTransform={'uppercase'} color={'white'} spacing={'10px'} pt={'16px'}>
-                                    <Link _hover={{textDecoration:'none'}} isExternal={true} href={'https://forms.gle/AvVvcJciKJFCLdfk6'}>
-                                        <Text as={'span'}
-                                              borderBottom={'1px solid'}
-                                              borderColor={'white'}>
-                                            Contact us
-                                        </Text>
-                                    </Link>
-
-                                    <Link as={RouterLink} to={Routes.termsOfService}  _hover={{textDecoration: 'none'}}>
-                                        <Text as={'span'}
-                                              _hover={{textDecoration: 'none'}}
-                                              borderBottom={'1px solid'}
-                                              borderColor={'white'}>Terms
-                                        </Text>
-                                    </Link>
-                                    <Link as={RouterLink} to={Routes.privacy}  _hover={{textDecoration: 'none'}}>
-                                        <Text as={'span'}
-                                              borderBottom={'1px solid'}
-                                              borderColor={'white'}>
-                                            Privacy Policy
-                                        </Text>
-                                    </Link>
-                                </Stack>
-                            </Stack>
-                        </Grid>
-                    </Box>
                 </Centered>
             </Block>
         </Stack>
     )
 }
+
+Landing.getPageContainer = LandingContainer;
 
 const Block = (props: BoxProps) => {
     return (

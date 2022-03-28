@@ -1,7 +1,6 @@
 import * as React from 'react';
 import {Box, BoxProps, Flex, HStack, LinkBox, useMediaQuery, useToken} from "@chakra-ui/react";
-import {ReactComponent as Logo} from '../assets/logo.svg';
-import {ConnectButton} from "./ConnectButton";
+import {ReactComponent as Logo} from '../../../pages/LandingV2/assets/logo.svg';
 import {Routes} from "../../../app/routes";
 import {useHistory} from "react-router-dom";
 
@@ -49,7 +48,7 @@ export function Header() {
                         <LinkBox>MEET THE TEAM</LinkBox>
                     </HStack>
 
-                    <ConnectButton display={'none'} ml={'auto'}/>
+                    {/*<ConnectButton display={'none'} ml={'auto'}/>*/}
                 </>
             )}
 

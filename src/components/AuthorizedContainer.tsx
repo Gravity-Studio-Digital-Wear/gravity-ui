@@ -15,7 +15,7 @@ const bgLanding = `
 conic-gradient(from 110.08deg at -26.41% 97.6%, #7468F6 -73.13deg, rgba(255, 255, 255, 0.36) 83.07deg, #ECC9F7 193.38deg, #74E3FF 217.15deg, #7468F6 286.87deg, rgba(255, 255, 255, 0.36) 443.07deg)
 `
 
-function LandingContainer(props: React.PropsWithChildren<{}>) {
+export function LandingContainer(props: React.PropsWithChildren<{}>) {
     const {children} = props;
 
     return (

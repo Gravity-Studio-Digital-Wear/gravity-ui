@@ -10,9 +10,12 @@ import {IconBack} from "../../components/icons/IconBack";
 import {PageSpinner} from "../../components/PageSpinner";
 import {formatDate} from "../../utils/date";
 import {RelatedPosts} from "./components/RelatedPosts";
+import {Page} from "../../core/Page";
+import {BaseContainer} from "../../components/containers/BaseContainer";
 
 
-export const BlogPost = observer(function BlogPost() {
+// @ts-ignore
+export const BlogPost: Page = observer(function BlogPost() {
     const blog = useService(BlogService)
     const match = useRouteMatch<{ id: string }>();
 
@@ -64,7 +67,7 @@ export const BlogPost = observer(function BlogPost() {
 
                 <Text align={'center'}
                       maxW={'745px'}
-                      textTransform={'uppercase'} fontSize={{base: 42, xl: 60}} fontWeight={'700'} color={'basic.500'}
+                      textTransform={'uppercase'} fontSize={{base: 42, xl: 60}} fontWeight={'700'} color={'white'}
                       letterSpacing={'0.03em'} lineHeight={1.1}
                 >
                     {blog.post.name}
@@ -73,7 +76,7 @@ export const BlogPost = observer(function BlogPost() {
 
                 <Text align={'center'}
                       maxW={'745px'}
-                      textTransform={'uppercase'} fontSize={23} fontWeight={'400'} color={'basic.300'}
+                      textTransform={'uppercase'} fontSize={23} fontWeight={'400'} color={'white'}
                       letterSpacing={'0.03em'} lineHeight={1.1}>
                     {formatDate(blog.post.publishDate)}
                 </Text>
@@ -90,12 +93,9 @@ export const BlogPost = observer(function BlogPost() {
 
 
                 <Box mt={'90px'} display={'flex'} justifyContent={'center'}>
-
-
                     <Box maxW={'745px'} flexBasis={'100%'}>
                         <Text align={'left'}
-
-                              textTransform={'uppercase'} fontSize={40} fontWeight={'700'} color={'basic.500'}
+                              textTransform={'uppercase'} fontSize={40} fontWeight={'700'} color={'white'}
                               letterSpacing={'0.03em'} lineHeight={1.1}
                         >
                             {blog.post.name}
@@ -112,7 +112,7 @@ export const BlogPost = observer(function BlogPost() {
                 <Box mt={{base: '60px', xl: '120px'}}>
                     <Text align={'left'}
                           textTransform={'uppercase'} fontSize={{base: 42, xl: 60}} fontWeight={'700'}
-                          color={'basic.500'}
+                          color={'white'}
                           letterSpacing={'0.03em'} lineHeight={1.1}
 
                     >
@@ -125,3 +125,6 @@ export const BlogPost = observer(function BlogPost() {
         </Stack>
     );
 });
+
+
+BlogPost.getPageContainer = BaseContainer;

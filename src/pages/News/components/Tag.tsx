@@ -6,13 +6,13 @@ export function Tag({ text, onClick, isActive }: {text: string, onClick?: () => 
         <Box  height={'34px'} position={'relative'} cursor={onClick ? 'pointer' : 'initial'} onClick={() => onClick && onClick()}>
             <Box width={'100%'}
                  height={'100%'}
-                 bgColor={'basic.500'}
+                 bgColor={'#FFFFFF'}
                  position={'absolute'}
                  clipPath={'polygon(10px 0%, calc(100% - 10px) 0%, 100% 10px, 100% calc(100% - 10px), calc(100% - 10px) 100%, 10px 100%, 0% calc(100% - 10px), 0% 10px);'}/>
 
             <Box width={'100%'}
                  height={'100%'}
-                 bgColor={isActive ? 'primary.300' : 'basic.100'}
+                 bgColor={isActive ? 'basic.500' : '#7468F6'}
                  position={'absolute'}
                  clipPath={'polygon(10.5px 2px, calc(100% - 10.5px) 2px, calc(100% - 2px) 10.5px, calc(100% - 2px) calc(100% - 10.5px), calc(100% - 10.5px) calc(100% - 2px), 10.5px calc(100% - 2px), 2px calc(100% - 10.5px), 2px 10.5px)'}/>
 

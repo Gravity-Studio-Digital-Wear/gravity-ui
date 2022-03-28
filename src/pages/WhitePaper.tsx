@@ -1,8 +1,9 @@
 import * as React from 'react';
 import {Box} from "@chakra-ui/react";
+import {Page} from "../core/Page";
 
 
-export function WhitePaper() {
+export const WhitePaper: Page = () => {
     const boxRef = React.useRef<HTMLDivElement>(null)
 
     const [frameH, setFrameH] = React.useState(0)
@@ -27,3 +28,5 @@ export function WhitePaper() {
         </Box>
     )
 }
+
+WhitePaper.getPageContainer = ({children}) => <div>{children}</div>
