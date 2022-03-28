@@ -10,6 +10,7 @@
 <!--    &lt;!&ndash; Start of HubSpot Embed Code &ndash;&gt;-->
 <!--    <script type="text/javascript" id="hs-script-loader" async defer src="//js.hs-scripts.com/21323827.js"></script>-->
 <!--    &lt;!&ndash; End of HubSpot Embed Code &ndash;&gt;-->
+    <script src="https://unpkg.com/css-paint-polyfill"></script>
   </head>
   <body>
 
@@ -21,7 +22,27 @@
 
 
   <script>
-    CSS.paintWorklet.addModule('./sliced-edge-worklet.js');
+
+    if ('paintWorklet' in CSS) {
+      // Safari TP fix.
+      // Safari only accepts source code as a string instead file path.
+      if (navigator.userAgent.includes('Safari')
+              && !navigator.userAgent.includes('Chrome')) {
+        (async function() {
+          const response = await fetch('paint.js');
+          const blob = await response.blob();
+          const reader = new FileReader();
+
+          reader.addEventListener('load', () => {
+            CSS.paintWorklet.addModule(reader.result);
+          });
+
+          reader.readAsText(blob);
+        })();
+      } else {
+        CSS.paintWorklet.addModule('./sliced-edge-worklet.js');
+      }
+    }
   </script>
   </body>
 </html>
