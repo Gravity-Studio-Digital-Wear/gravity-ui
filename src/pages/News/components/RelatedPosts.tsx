@@ -47,7 +47,7 @@ export const RelatedPosts = observer(function RelatedPosts () {
                             backdropFilter: 'blur(44px)'
                         }}
                     >
-                        <Polygon zIndex={2} position={'absolute'} width={'100%'} height={'100%'}/>
+                        <Polygon zIndex={2} pointerEvents={'none'} position={'absolute'} width={'100%'} height={'100%'}/>
                         <Box >
                             <Box
                                 width={'100%'}

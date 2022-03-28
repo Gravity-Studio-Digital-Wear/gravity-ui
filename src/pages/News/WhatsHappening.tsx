@@ -101,7 +101,6 @@ export const WhatsHappening: Page = observer(function WhatsHappening() {
 
                             const isFullPage = isFirst && isLargerThanXl;
 
-
                             return (
                                 <GridItem key={post.id} colSpan={isFullPage ? 3 : 1} position={'relative'}
                                           pb={isFullPage ? 0 : '120px'}>
@@ -166,10 +165,9 @@ export const WhatsHappening: Page = observer(function WhatsHappening() {
                                                 backdropFilter: 'blur(44px)'
                                             }}
                                         >
-                                            <Polygon zIndex={2} position={'absolute'} width={'100%'} height={'100%'}/>
+                                            <Polygon zIndex={2} pointerEvents={'none'} position={'absolute'} width={'100%'} height={'100%'}/>
 
                                             <Box
-
                                                 zIndex={3}
                                                 width={'100%'}
                                                 bg={'url(' + post.featuredImage + ')'}
