@@ -12,8 +12,6 @@ calc(100% - 8px) 100%,
 `
 
 export const ButtonRedesigned = ({children, ...props}: ButtonProps) => {
-
-console.log(props)
     return (
         <Button
             h={'56px'}
@@ -41,10 +39,12 @@ console.log(props)
                 top={0}
                 className={'gr-polygon-btn  gr-button__backside-border'}
                 style={{
-                    WebkitMask: 'paint(polygon-border)'
+
                 }}
                 bgColor={'white'}
                 __css={{
+                    WebkitMask: 'paint(polygon-border)',
+                    mask: 'paint(polygon-border)',
                     transitionDelay: '300ms',
                     transition: 'top ease-out 100ms',
                 }}

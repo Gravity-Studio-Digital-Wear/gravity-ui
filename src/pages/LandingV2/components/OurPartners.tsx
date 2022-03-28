@@ -24,17 +24,17 @@ export function OurPartners() {
                 mt={{base: '36px', xl: 0}}
             >
                 <GridItem>
-                    <Image src={'/partner_1.png'}
+                    <Image src={'/landing/vault hill.png'}
                            mixBlendMode={'multiply'}
                            width={164}/>
                 </GridItem>
                 <GridItem>
-                    <Image src={'/partner_2.png'}
+                    <Image src={'/landing/outlier ventures.png'}
                            mixBlendMode={'multiply'}
                            width={164}/>
                 </GridItem>
                 <GridItem>
-                    <Image src={'/partner_3.png'}
+                    <Image src={'/landing//tai.png'}
                            mixBlendMode={'multiply'}
                            width={164}/>
                 </GridItem>

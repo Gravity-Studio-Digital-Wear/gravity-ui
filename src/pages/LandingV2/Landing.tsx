@@ -15,7 +15,6 @@ import {
     useMediaQuery,
     useToken
 } from "@chakra-ui/react";
-import {ButtonRedesigned} from "./components/ButtonRedesigned";
 
 import {ReactComponent as RectangleShape} from './assets/rectangle.svg';
 import {ReactComponent as RectangleMobileShape} from './assets/rectangle--mobile.svg';
@@ -24,13 +23,13 @@ import {ReactComponent as CodeShape} from './assets/code.svg';
 import {ReactComponent as SlashesShape} from './assets/slashes.svg';
 import {ReactComponent as Logo} from './assets/logo.svg';
 
-
 import {TransparentVideo} from "../../components/TransparentVideo";
 import {getBox} from "css-box-model";
 import {Possibilities} from "./components/Possibilities";
 import {InstagramSlider} from "./components/InstagramSlider";
 import {WhatsHappening} from "./components/WhatsHappening";
 import {OurPartners} from "./components/OurPartners";
+
 import {
     DiscordIcon,
     InstaIcon,
@@ -41,35 +40,28 @@ import {
 } from "../../components/icons/IconSocial";
 import {Link as RouterLink, useHistory, useLocation} from "react-router-dom";
 import {Routes} from "../../app/routes";
-
-const {contentBox} = getBox(window.document.body)
-
+import {PolygonBorder} from "./components/PolygonBorder";
+import {sendAmplitudeData} from "../../utils/amplitude";
 
 export function Landing() {
-    const bgHeight = (height: string) => {
-        const x = Math.floor(contentBox.width) / 2880;
-
-        const hDiv2 = parseInt(height);
-
-        return (hDiv2 * 2 * x) + 'px';
-    }
-
     const [md, xl] = useToken(
         'breakpoints',
         ['lg', 'xl']
     );
 
-    const [isLargerThanMd] = useMediaQuery(`(min-width: ${md})`)
     const [isLargerThanXl] = useMediaQuery(`(min-width: ${xl})`)
 
 
     const history = useHistory();
 
     const joinWhitelist = () => {
+        sendAmplitudeData('E_MINT-BTN_FOLLOW')
         window.open('https://www.premint.xyz/gravity-the-studio/ ', '_blank')
     }
 
     const findUsInstagram = () => {
+        sendAmplitudeData('E_INST-BTN_FOLLOW')
+
         window.open('https://www.instagram.com/gravitythestudio/ ', '_blank')
     }
 
@@ -91,6 +83,9 @@ export function Landing() {
                             videoUrl={'https://res.cloudinary.com/dxgophqoh/video/upload/q_70/v1648203083/output_y0svwb.webm'}
                             imageUrl={''}
                             infinite={true}
+                            fallback={
+                                <Image  src={'/landing/screen-1-bg.png'}/>
+                            }
                         />
                     </Box>
                 )}
@@ -98,12 +93,11 @@ export function Landing() {
                     <Box position={'absolute'} top={'15%'} right={'0%'} w={'60%'} zIndex={0}>
                         <TransparentVideo
                             videoUrl={'https://res.cloudinary.com/dxgophqoh/video/upload/c_scale,q_auto:eco,w_1237/v1648202298/output_hjoavx.webm'}
-                            imageUrl={''}
+                            imageUrl={'/landing/avatar-with-alpha.gif'}
                             infinite={true}
                         />
                     </Box>
                 )}
-
 
                 <Centered>
                     <Header/>
@@ -150,9 +144,8 @@ export function Landing() {
                             downloadable content forever.
                         </Text>
 
-                        <ButtonRedesigned mt={'36px'} onClick={joinWhitelist}>
-                            JOIN THE WHITELIST
-                        </ButtonRedesigned>
+
+                        <PolygonBorder mt={'36px'} onClick={joinWhitelist} w={'269px'}>JOIN THE WHITELIST</PolygonBorder>
                     </Box>
 
 
@@ -161,7 +154,7 @@ export function Landing() {
                             <Box maxW={'300px'} position={'relative'} left={'60px'}>
                                 <TransparentVideo
                                     videoUrl={'https://res.cloudinary.com/dxgophqoh/video/upload/c_crop,h_1080,w_770,x_606,y_100,q_auto:eco/v1648202298/output_hjoavx.webm'}
-                                    imageUrl={''}
+                                    imageUrl={'/landing/CharacterAnimationWithAlphagif.gif'}
                                     infinite={true}
                                 />
                             </Box>
@@ -219,7 +212,7 @@ export function Landing() {
                             >
                                 <TransparentVideo
                                     videoUrl={'https://res.cloudinary.com/dxgophqoh/video/upload/c_crop,h_1080,w_870,x_520,y_130/v1648204264/output_pw9auv.webm'}
-                                    imageUrl={''}
+                                    imageUrl={'/landing/coat.png'}
                                     infinite={true}
                                 />
                             </Box>
@@ -239,6 +232,7 @@ export function Landing() {
                         lineHeight={{base: '44px', xl: '68px'}}
                         position={'relative'}
                         mt={{base: '160px'}}
+                        zIndex={2}
                     >
                         We are <br/> Gravity <br/> the Studio
 
@@ -250,8 +244,6 @@ export function Landing() {
                             <RectangleMobileShape/>
                         </Box>
                         {isLargerThanXl && (
-
-
                             <Box position={'absolute'}
                                  right={'-20px'}
                                  bottom={'-30px'}
@@ -275,13 +267,14 @@ export function Landing() {
                              display={'flex'}
                              justifyContent={'center'}
                              alignItems={'center'}
+                             zIndex={0}
                         >
 
                             {isLargerThanXl && (
                                 <TransparentVideo
                                     infinite={true}
                                     videoUrl={'https://res.cloudinary.com/dxgophqoh/video/upload/v1648202570/output_lo3sg6.webm'}
-                                    imageUrl={''}
+                                    imageUrl={'/landing/cloud.png'}
                                 />)}
                         </Box>
                     </Text>
@@ -336,9 +329,9 @@ export function Landing() {
                 <Centered>
                     <Flex justifyContent={'center'} mt={'60px'}>
 
-                        <ButtonRedesigned w={'308px'} onClick={findUsInstagram}>
+                        <PolygonBorder w={'308px'} onClick={findUsInstagram}>
                             FIND US ON INSTAGRAM
-                        </ButtonRedesigned>
+                        </PolygonBorder>
                     </Flex>
                 </Centered>
             </Block>
@@ -359,7 +352,7 @@ export function Landing() {
                     <WhatsHappening/>
 
                     <Flex justifyContent={'center'} mt={'60px'}>
-                        <ButtonRedesigned w={'193px'} onClick={() => history.push(Routes.shop)}>SEE MORE</ButtonRedesigned>
+                        <PolygonBorder w={'193px'} onClick={() => history.push(Routes.news)}>SEE MORE</PolygonBorder>
                     </Flex>
                 </Centered>
             </Block>
@@ -398,7 +391,7 @@ export function Landing() {
                             Metaverse
                         </Text>
 
-                        <ButtonRedesigned mt={'40px'} w={'269px'} onClick={joinWhitelist}>JOIN THE WHITELIST</ButtonRedesigned>
+                        <PolygonBorder mt={'40px'} w={'269px'} onClick={joinWhitelist}>JOIN THE WHITELIST</PolygonBorder>
                     </Box>
                 </Centered>
             </Block>

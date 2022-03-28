@@ -4,8 +4,10 @@ import {BlogService} from "../../../services/BlogService";
 import * as React from "react";
 import {useHistory} from "react-router-dom";
 import {Routes} from "../../../app/routes";
-import {Box, Grid, GridItem, Text} from "@chakra-ui/react";
+import {Box, BoxProps, Grid, GridItem, Text} from "@chakra-ui/react";
 import {Swiper, SwiperSlide} from "swiper/react";
+import {toPath} from "svg-points";
+import {getBox} from "css-box-model";
 
 function formatDate(date: string) {
     const d = new Date(date);
@@ -150,23 +152,26 @@ export const WhatsHappening = observer(function WhatsHappening() {
                                     backdropFilter: 'blur(44px)'
                                 }}
                                 h={'480px'}
+                                position={'relative'}
                             >
-                                <Box
-                                    width={'100%'}
-                                    height={'100%'}
-                                    position={'absolute'}
-                                    top={0}
-                                    zIndex={3}
-                                    className={'gr-news-slider-box  gr-button__backside-border'}
-                                    style={{
-                                        WebkitMask: 'paint(polygon-border)'
-                                    }}
-                                    bgColor={'white'}
-                                    __css={{
-                                        transitionDelay: '300ms',
-                                        transition: 'top ease-out 100ms',
-                                    }}
-                                />
+                                <Polygon zIndex={4} position={'absolute'} width={'100%'} height={'100%'}/>
+
+                                {/*<Box*/}
+                                {/*    width={'100%'}*/}
+                                {/*    height={'100%'}*/}
+                                {/*    position={'absolute'}*/}
+                                {/*    top={0}*/}
+                                {/*    zIndex={3}*/}
+                                {/*    className={'gr-news-slider-box  gr-button__backside-border'}*/}
+                                {/*    style={{*/}
+                                {/*        WebkitMask: 'paint(polygon-border)'*/}
+                                {/*    }}*/}
+                                {/*    bgColor={'white'}*/}
+                                {/*    __css={{*/}
+                                {/*        transitionDelay: '300ms',*/}
+                                {/*        transition: 'top ease-out 100ms',*/}
+                                {/*    }}*/}
+                                {/*/>*/}
 
                                 <Box
                                     width={'100%'}
@@ -209,3 +214,82 @@ export const WhatsHappening = observer(function WhatsHappening() {
         </>
     )
 });
+
+// TODO
+function polygon(w, h, offset: { x: number, y: number }) {
+    const baseEdges = [[0, 0], [w, 0], [w, h], [0, h]];
+    const edges = [[0, 0], [30, 30], [21, 21], [21, 21],]
+
+    let edgesCoords = [];
+
+    for (let i = 0; i < baseEdges.length; i++) {
+        const [x0, y0] = baseEdges[i];
+        const [dx, dy] = edges[i];
+
+        if (dx === 0 && dy === 0) {
+            edgesCoords.push({x: x0, y: y0});
+
+            continue;
+        }
+
+
+        const ddx = {
+            x: x0 === 0 ? dx : x0 - dx,
+            y: y0,
+        };
+
+        const ddy = {
+            x: x0,
+            y: y0 === 0 ? dy : y0 - dy,
+        };
+
+        if (i % 2 === 0) {
+
+            edgesCoords.push(ddy, ddx)
+        } else {
+            edgesCoords.push(ddx, ddy)
+        }
+    }
+
+    edgesCoords[0].moveTo = true;
+
+
+    return toPath(edgesCoords)
+}
+
+const Polygon = (props: BoxProps) => {
+    const ref = React.useRef()
+
+    const [data, set] = React.useState(null);
+
+    React.useEffect(() => {
+        const dim = getBox(ref.current);
+
+        const w = dim.contentBox.width;
+        const h = dim.contentBox.height;
+
+        set({
+            path: polygon(w, h, {x: 0, y: 0}),
+            w,
+            h
+        })
+    }, [ref])
+
+    return (
+        <Box ref={ref} {...props}>
+            {(data !== null) && (
+                <svg viewBox={`0 0 ${data.w} ${data.h}`} fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                        className={'gr-polygon-btn-outline'}
+                        d={data.path + 'Z'}
+                        fill="none"
+                        stroke="#ffffff"
+                        strokeWidth={'2px'}
+                        fillRule="evenodd"
+                        clipRule="evenodd"
+                    />
+                </svg>
+            )}
+        </Box>
+    );
+}
