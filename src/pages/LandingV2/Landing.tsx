@@ -122,7 +122,7 @@ export const Landing: Page = () => {
                             <Box maxW={'300px'} position={'relative'} left={'60px'}>
                                 <TransparentVideo
                                     videoUrl={'https://res.cloudinary.com/dxgophqoh/video/upload/c_crop,h_1080,w_770,x_606,y_100,q_auto:eco/v1648202298/output_hjoavx.webm'}
-                                    imageUrl={'/landing/CharacterAnimationWithAlphagif.gif'}
+                                    imageUrl={'/landing/avatar-with-alpha.gif'}
                                     infinite={true}
                                 />
                             </Box>
