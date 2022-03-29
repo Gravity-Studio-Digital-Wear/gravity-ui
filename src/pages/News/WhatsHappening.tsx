@@ -2,9 +2,21 @@ import * as React from 'react';
 import {observer} from "mobx-react";
 import {useService} from "../../core/decorators/service";
 import {BlogService} from "../../services/BlogService";
-import {Box, BoxProps, Grid, GridItem, HStack, Image, Text, useMediaQuery, useToken} from "@chakra-ui/react";
+import {
+    Box,
+    BoxProps,
+    Flex,
+    Grid,
+    GridItem,
+    HStack,
+    Image,
+    Link,
+    Text,
+    useMediaQuery,
+    useToken
+} from "@chakra-ui/react";
 import {formatDate} from "../../utils/date";
-import {useHistory} from "react-router-dom";
+import {Link as RouterLink, useHistory} from "react-router-dom";
 import {Routes} from "../../app/routes";
 import {Tag} from "./components/Tag";
 import {PageSpinner} from "../../components/PageSpinner";
@@ -14,6 +26,7 @@ import {toPath} from "svg-points";
 import {getBox} from "css-box-model";
 import {ReactComponent as RectangleShape} from "../LandingV2/assets/rectangle.svg";
 import {ReactComponent as RectangleMobileShape} from "../LandingV2/assets/rectangle--mobile.svg";
+import {IconBack} from "../../components/icons/IconBack";
 
 const BlogItemPolygon = `
     0 0, 
@@ -50,6 +63,21 @@ export const WhatsHappening: Page = observer(function WhatsHappening() {
 
     return (
         <Box px={{base: '16px', xl: 0}}>
+            <Flex>
+                <Link as={RouterLink}
+                      to={{pathname: Routes.main}}
+                      fontSize={18}
+                      textTransform={'uppercase'}
+                      textDecoration={'none'}
+                      display={'flex'}
+                      alignItems={'center'}
+                >
+                    <IconBack/>
+                    <Text as={'span'} ml={'12px'}>Go Back</Text>
+                </Link>
+            </Flex>
+
+
             <Text
                 fontFamily={'All Round Gothic'}
                 fontSize={{base: 34, xl: 54}}

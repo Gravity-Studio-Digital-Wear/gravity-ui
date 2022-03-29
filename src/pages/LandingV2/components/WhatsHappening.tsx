@@ -66,22 +66,7 @@ export const WhatsHappening = observer(function WhatsHappening() {
                                             backdropFilter: 'blur(44px)'
                                         }}
                                     >
-                                        <Box
-                                            width={'100%'}
-                                            height={'100%'}
-                                            position={'absolute'}
-                                            top={0}
-                                            zIndex={3}
-                                            className={'gr-news-slider-box  gr-button__backside-border'}
-                                            style={{
-                                                WebkitMask: 'paint(polygon-border)'
-                                            }}
-                                            bgColor={'white'}
-                                            __css={{
-                                                transitionDelay: '300ms',
-                                                transition: 'top ease-out 100ms',
-                                            }}
-                                        />
+                                        <Polygon zIndex={4} position={'absolute'} width={'100%'} height={'100%'}/>
 
                                         <Box
                                             width={'100%'}
@@ -155,23 +140,6 @@ export const WhatsHappening = observer(function WhatsHappening() {
                                 position={'relative'}
                             >
                                 <Polygon zIndex={4} position={'absolute'} width={'100%'} height={'100%'}/>
-
-                                {/*<Box*/}
-                                {/*    width={'100%'}*/}
-                                {/*    height={'100%'}*/}
-                                {/*    position={'absolute'}*/}
-                                {/*    top={0}*/}
-                                {/*    zIndex={3}*/}
-                                {/*    className={'gr-news-slider-box  gr-button__backside-border'}*/}
-                                {/*    style={{*/}
-                                {/*        WebkitMask: 'paint(polygon-border)'*/}
-                                {/*    }}*/}
-                                {/*    bgColor={'white'}*/}
-                                {/*    __css={{*/}
-                                {/*        transitionDelay: '300ms',*/}
-                                {/*        transition: 'top ease-out 100ms',*/}
-                                {/*    }}*/}
-                                {/*/>*/}
 
                                 <Box
                                     width={'100%'}
