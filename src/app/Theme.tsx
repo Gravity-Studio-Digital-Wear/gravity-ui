@@ -35,8 +35,6 @@ export const GravityTheme = {
                 }
             }
         },
-
-
         Button: {
             baseStyle: {
                 outline: 0,
@@ -110,7 +108,6 @@ export const GravityTheme = {
                 colorScheme: 'primary'
             }
         },
-
         Input: {
             baseStyle: {
                 field: {
@@ -139,8 +136,6 @@ export const GravityTheme = {
                 variant: "basic",
             },
         },
-
-
         Menu: {
             baseStyle: {
                 list: {
@@ -155,7 +150,6 @@ export const GravityTheme = {
                 }
             }
         },
-
         Radio: {
             baseStyle: {
                 control: {
@@ -185,7 +179,6 @@ export const GravityTheme = {
                 colorScheme: 'primary'
             }
         },
-
         Modal: {
             baseStyle: {
                 dialog: {
@@ -208,8 +201,15 @@ export const GravityTheme = {
 
         Progress: {
             baseStyle: {
-                track: {bg: 'white'},
-                filledTrack: {bg: '#FFAC02'}
+                track: {
+                    bg: 'rgba(255,255,255, 0.2)',
+                    borderRadius: '6px'
+                },
+                filledTrack: {
+                    bg: 'linear-gradient(270deg, #FFFFFF 0%, rgba(255, 255, 255, 0) 94.62%)',
+                    opacity: '1',
+                    transitionProperty: 'width'
+                }
             },
 
             variants: {

@@ -24,7 +24,7 @@ export const TransparentVideo = observer((props: { imageUrl: string, videoUrl: s
     }, [ref])
 
     return (
-        app.isSafari
+        true
             ? (props.fallback ? props.fallback : <Image src={imageUrl}/>)
             : (
                 <figure>

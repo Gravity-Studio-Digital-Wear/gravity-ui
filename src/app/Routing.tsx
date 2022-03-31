@@ -3,7 +3,6 @@ import {observer} from "mobx-react";
 import {sendAmplitudeData} from '../utils/amplitude'
 import {Route, Switch, useHistory} from "react-router-dom";
 import {Routes} from "./routes";
-import {AuthGuard} from "../core/guards/auth-guard";
 import {TermsOfService} from "../pages/TermsOfService";
 import {Privacy} from "../pages/Privacy";
 import {Landing} from "../pages/LandingV2/Landing";
@@ -24,26 +23,17 @@ export const Routing = observer(function Routing() {
     })
     return (
         <PageResolver>
-            {(Route) => {
+            {(Route) => (
+                <Switch>
+                    <Route path={Routes.news + '/:id'} component={BlogPost}/>
+                    <Route path={Routes.news} exact={true} component={WhatsHappening}/>
 
-                return (
-                    <AuthGuard fn={s => s === 'authenticated'}>
-                        {(r, {protected: ProtectedRoute}) => {
-                            return (
-                                <Switch>
-                                    <Route path={Routes.news + '/:id'} component={BlogPost}/>
-                                    <Route path={Routes.news} exact={true} component={WhatsHappening}/>
+                    <Route path={Routes.privacy} component={Privacy}/>
+                    <Route path={Routes.termsOfService} component={TermsOfService}/>
 
-                                    <Route path={Routes.privacy} component={Privacy}/>
-                                    <Route path={Routes.termsOfService} component={TermsOfService}/>
-
-                                    <Route path={Routes.main} component={Landing} exact={true}/>
-                                </Switch>
-                            )
-                        }}
-                    </AuthGuard>
-                )
-            }}
+                    <Route path={Routes.main} component={Landing} exact={true}/>
+                </Switch>
+            )}
         </PageResolver>
     )
 })

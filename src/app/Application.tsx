@@ -15,6 +15,15 @@ import {initGa} from "../utils/gtag";
 
 @service
 export class GravityApplication implements IBootstrapper {
+    @observable
+    public isLoaded: boolean  = false;
+
+
+    @persist
+    @observable
+    public isSubscribedEmail: boolean;
+
+
     @persist
     @observable
     public cachedAuthProviderKey: string;
@@ -26,6 +35,18 @@ export class GravityApplication implements IBootstrapper {
         this.cachedAuthProviderKey = key;
 
         localStorage.setItem('GRAVITY_CACHED_AUTH_PROVIDER', key)
+    }
+
+    @action
+    public setAppLoaded() {
+        this.isLoaded = true;
+    }
+
+
+    @action
+    public persistSubscribe() {
+        this.isSubscribedEmail = true;
+        localStorage.setItem('IS_SUBSCRIBED_EMAIL', 'true');
     }
 
     public web3: Web3
@@ -48,6 +69,7 @@ export class GravityApplication implements IBootstrapper {
         this.injectedAuth = this.sc.get(InjectedAuthProvider);
 
         this.cachedAuthProviderKey = localStorage.getItem('GRAVITY_CACHED_AUTH_PROVIDER');
+        this.isSubscribedEmail = localStorage.getItem('IS_SUBSCRIBED_EMAIL') === 'true';
     }
 
     onBootstrap() {

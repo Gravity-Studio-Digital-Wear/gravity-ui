@@ -1,16 +1,15 @@
 import * as React from 'react';
 import {ReactElement} from 'react';
 import {Route as BaseRoute, RouteProps} from "react-router-dom";
+import {LoaderOverlay} from "../components/LoaderOverlay";
 
 export interface Page extends React.FunctionComponent {
     getPageContainer: ({children}: { children: any }) => ReactElement<any, any> | null
 }
 
-
 export const PageResolver = ({children}) => {
     const Route = (props: RouteProps) => {
         let Container;
-
 
         if ((props.component as Page).getPageContainer !== undefined) {
             Container = (props.component as Page).getPageContainer
@@ -19,9 +18,13 @@ export const PageResolver = ({children}) => {
 
             const component = ({children, ...rest}) => {
                 return (
-                    <Container>
-                        <Cmp {...rest}/>
-                    </Container>
+                    <>
+                        <LoaderOverlay/>
+
+                        <Container>
+                            <Cmp {...rest}/>
+                        </Container>
+                    </>
                 )
             }
 

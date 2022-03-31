@@ -97,8 +97,8 @@ function client(this: HttpClient, options: HttpClientOptions): HttpClient {
                     if (response.ok) {
                         return await response.json()
                     } else {
-                        const errorMessage = await response.text()
-                        return Promise.reject(new Error(errorMessage))
+                        const errorMessage = await response.json();
+                        return Promise.reject(errorMessage)
                     }
                 })
         }
