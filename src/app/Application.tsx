@@ -11,6 +11,7 @@ import {initAmplitude} from "../utils/amplitude"
 
 import {persist} from "mobx-persist";
 import {checkSupportForTransparency} from "../utils/video";
+import {initGa} from "../utils/gtag";
 
 @service
 export class GravityApplication implements IBootstrapper {
@@ -18,7 +19,7 @@ export class GravityApplication implements IBootstrapper {
     @observable
     public cachedAuthProviderKey: string;
 
-    public isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+    public isSafari =  /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
 
     @action
     public setCachedProvider(key: string) {
@@ -50,6 +51,7 @@ export class GravityApplication implements IBootstrapper {
     }
 
     onBootstrap() {
+        initGa();
         this.initAmplitude();
         this.addHttpAuthMiddleware();
         this.checkAuth();

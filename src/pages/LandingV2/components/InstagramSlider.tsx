@@ -21,7 +21,7 @@ const slides = [
 
     {
         image: 'insta_img_3.png',
-        inst: '@moonyueyue_'
+        inst: '@leila_ismailli'
     },
 
     {
@@ -30,7 +30,7 @@ const slides = [
     },
     {
         image: 'insta_img_5.png',
-        inst: '@moonyueyue_'
+        inst: '@guichupie'
     },
 ]
 
