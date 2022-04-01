@@ -48,7 +48,7 @@ export const TransparentVideo = observer((props: MediaProps) => {
 
     return (
         app.isSafari
-            ? (props.fallback ? props.fallback : <Image src={imageUrl}/>)
+            ? (props.fallback ? props.fallback : <ImageFallback src={imageUrl} onImageLoaded={onLoaded}/>)
             : (
                 <Video
                     loop={true}
@@ -64,6 +64,11 @@ export const TransparentVideo = observer((props: MediaProps) => {
             )
     )
 })
+
+
+function ImageFallback({src, onImageLoaded}: { src: string, onImageLoaded}) {
+    return <Image src={src} onLoad={onImageLoaded}/>
+}
 
 function Video(props: VideoProps) {
     const {loop, sources, infinite, onVideoLoaded} = props;

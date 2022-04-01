@@ -52,12 +52,8 @@ export const Block1 = observer(() => {
     const canvas = (
         <TransparentVideo
             videoUrl={'https://res.cloudinary.com/dxgophqoh/video/upload/q_70/v1648203083/output_y0svwb.webm'}
-            imageUrl={''}
+            imageUrl={'/landing/screen-1-bg.png'}
             infinite={true}
-            fallback={
-                <Image src={'/landing/screen-1-bg.png'}/>
-            }
-
             onLoaded={() => {
                 pageLoadingStore.done('canvas');
             }}
