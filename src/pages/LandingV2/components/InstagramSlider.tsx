@@ -4,6 +4,9 @@ import {Swiper, SwiperSlide} from "swiper/react";
 import {Box, BoxProps, Flex, Image, Text, useMediaQuery, useToken} from "@chakra-ui/react";
 import {toPath} from "svg-points";
 import {getBox} from "css-box-model";
+import {observer} from "mobx-react";
+import {useService} from "../../../core/decorators/service";
+import {PageLoadingStore} from "../../../stores/PageLoadingStore";
 
 // install Swiper modules
 SwiperCore.use([Pagination, Mousewheel, Navigation, Keyboard, Autoplay]);
@@ -105,12 +108,12 @@ export function InstagramSlider(props: BoxProps) {
 function InstVector() {
     return (
         <svg width="4" height="26" viewBox="0 0 4 26" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M2 2V24" stroke="url(#paint0_linear_1878_665)" stroke-width="4" stroke-linecap="round"/>
+            <path d="M2 2V24" stroke="url(#paint0_linear_1878_665)" strokeWidth="4" strokeLinecap="round"/>
             <defs>
                 <linearGradient id="paint0_linear_1878_665" x1="2.5" y1="2" x2="2.5" y2="24"
                                 gradientUnits="userSpaceOnUse">
-                    <stop stop-color="white" stop-opacity="0"/>
-                    <stop offset="1" stop-color="white"/>
+                    <stop stopColor="white" stopOpacity="0"/>
+                    <stop offset="1" stopColor="white"/>
                 </linearGradient>
             </defs>
         </svg>
@@ -160,12 +163,16 @@ function polygon(w, h, offset: { x: number, y: number }) {
 }
 
 
-const Polygon = (props: BoxProps) => {
+const Polygon = observer((props: BoxProps) => {
     const ref = React.useRef()
-
+    const pageLoadingStore = useService(PageLoadingStore)
     const [data, set] = React.useState(null);
 
     React.useEffect(() => {
+        if (!pageLoadingStore.isPageLoaded) {
+            return;
+        }
+
         const dim = getBox(ref.current);
 
         const w = dim.contentBox.width;
@@ -176,7 +183,7 @@ const Polygon = (props: BoxProps) => {
             w,
             h
         })
-    }, [ref])
+    }, [ref, pageLoadingStore.isPageLoaded])
 
     return (
         <Box ref={ref} {...props}>
@@ -195,4 +202,4 @@ const Polygon = (props: BoxProps) => {
             )}
         </Box>
     );
-}
+})

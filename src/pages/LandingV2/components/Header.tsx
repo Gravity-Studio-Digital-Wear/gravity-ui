@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {Box, BoxProps, Flex, HStack, LinkBox, useMediaQuery, useToken} from "@chakra-ui/react";
-import {ReactComponent as Logo} from '../assets/logo.svg';
+import  {ReactComponent as Logo }from '../assets/logo.svg';
 import {ConnectButton} from "./ConnectButton";
 import {Routes} from "../../../app/routes";
 import {useHistory} from "react-router-dom";

@@ -2,8 +2,19 @@ import * as React from 'react';
 import {Box, Heading, Text} from "@chakra-ui/react";
 import {Page} from "../core/Page";
 import {BaseContainer} from "../components/containers/BaseContainer";
+import {usePageLoader} from "../hooks/usePageLoader";
 
 export const TermsOfService: Page = () => {
+    const pageLoadingStore = usePageLoader({
+        breakpoints: {
+            all: 100
+        }
+    })
+
+    React.useEffect(() => {
+        pageLoadingStore.done('all')
+    }, [])
+
     return (
         <Box px={{base: '17px', md: 0}}>
             <Heading textTransform={'uppercase'}>Terms of Service</Heading>

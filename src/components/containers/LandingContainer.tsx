@@ -8,14 +8,6 @@ import {Header} from "./elements/Header";
 export const LandingContainer = (props: React.PropsWithChildren<{}>) => {
     return (
         <Stack spacing={0} fontFamily={'Montserrat'} overflow={'hidden'} color={'white'}>
-            <Background
-                overflow={'hidden'}
-                position={'fixed'}
-                zIndex={0}
-                top={0}
-                left={0}
-            />
-
             <Centered zIndex={2}>
                 <Header/>
             </Centered>

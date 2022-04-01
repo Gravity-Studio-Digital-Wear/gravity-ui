@@ -11,7 +11,6 @@ import {http} from "../../../core/transport/http";
 import {observer} from "mobx-react";
 import {useService} from "../../../core/decorators/service";
 import {GravityApplication} from "../../../app/Application";
-import {runInAction} from "mobx";
 
 const sendEmail = (email: string) => {
     return http.post('/api/hubspot/contacts', {
@@ -42,7 +41,7 @@ export const Footer = observer(() => {
 
         sendEmail(email)
             .then(() => {
-               app.persistSubscribe();
+                app.persistSubscribe();
             })
             .catch((err) => {
                 console.error(err.message)
@@ -75,7 +74,7 @@ export const Footer = observer(() => {
                               pb={'64px'}
                         >
                             <LinkBox>
-                                <Link>
+                                <Link as={'span'}>
                                     <RouterLink to={Routes.news}>Blog</RouterLink>
                                 </Link>
                             </LinkBox>

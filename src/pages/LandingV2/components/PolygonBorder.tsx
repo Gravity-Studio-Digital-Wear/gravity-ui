@@ -2,6 +2,9 @@ import * as React from 'react';
 import {Box, BoxProps, Button, ButtonProps} from "@chakra-ui/react";
 import {getBox} from "css-box-model";
 import {toPath} from 'svg-points'
+import {observer} from "mobx-react";
+import {useService} from "../../../core/decorators/service";
+import {PageLoadingStore} from "../../../stores/PageLoadingStore";
 
 
 function polygon(w, h, offset: { x: number, y: number }) {
@@ -46,12 +49,18 @@ function polygon(w, h, offset: { x: number, y: number }) {
 }
 
 
-const Polygon = (props: BoxProps) => {
+const Polygon = observer((props: BoxProps) => {
+    const pageLoadingStore = useService(PageLoadingStore)
+
     const ref = React.useRef()
 
     const [data, set] = React.useState(null);
 
-    React.useEffect(() => {
+    React.useLayoutEffect(() => {
+        if (!pageLoadingStore.isPageLoaded) {
+            return;
+        }
+
         const dim = getBox(ref.current);
 
         const w = dim.contentBox.width;
@@ -62,7 +71,7 @@ const Polygon = (props: BoxProps) => {
             w,
             h
         })
-    }, [ref])
+    }, [ref, pageLoadingStore.value])
 
     return (
         <Box ref={ref} {...props}>
@@ -90,7 +99,7 @@ const Polygon = (props: BoxProps) => {
             )}
         </Box>
     );
-}
+})
 
 
 export function PolygonBorder({children, ...props}: ButtonProps) {

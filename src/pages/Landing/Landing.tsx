@@ -303,34 +303,34 @@ function BonusPlus() {
             <defs>
                 <radialGradient id="paint0_radial_923_7114" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse"
                                 gradientTransform="translate(16.4836 -0.427024) rotate(55.614) scale(49.4657 54.1533)">
-                    <stop offset="0.0677083" stop-color="#FDF6F8"/>
-                    <stop offset="0.318717" stop-color="#EB80B2"/>
-                    <stop offset="0.640473" stop-color="#B89DDA"/>
-                    <stop offset="0.91993" stop-color="#7B61FF"/>
-                    <stop offset="1" stop-color="#523774"/>
+                    <stop offset="0.0677083" stopColor="#FDF6F8"/>
+                    <stop offset="0.318717" stopColor="#EB80B2"/>
+                    <stop offset="0.640473" stopColor="#B89DDA"/>
+                    <stop offset="0.91993" stopColor="#7B61FF"/>
+                    <stop offset="1" stopColor="#523774"/>
                 </radialGradient>
                 <radialGradient id="paint1_angular_923_7114" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse"
                                 gradientTransform="translate(17.1101 4.27784) rotate(70.2767) scale(48.3638 19.7978)">
-                    <stop offset="0.229703" stop-color="white" stop-opacity="0.72"/>
+                    <stop offset="0.229703" stopColor="white" stopOpacity="0.72"/>
                     <stop offset="0.244792"/>
-                    <stop offset="0.421875" stop-color="white" stop-opacity="0.72"/>
+                    <stop offset="0.421875" stopColor="white" stopOpacity="0.72"/>
                     <stop offset="0.608329"/>
-                    <stop offset="0.778141" stop-color="white" stop-opacity="0.72"/>
+                    <stop offset="0.778141" stopColor="white" stopOpacity="0.72"/>
                     <stop offset="0.969728"/>
                 </radialGradient>
                 <radialGradient id="paint2_radial_923_7114" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse"
                                 gradientTransform="translate(7.01587 -8.33784) rotate(55.614) scale(46.3741 50.7687)">
-                    <stop offset="0.0677083" stop-color="#FDF6F8"/>
-                    <stop offset="0.318717" stop-color="#EB80B2"/>
-                    <stop offset="0.640473" stop-color="#B89DDA"/>
-                    <stop offset="0.91993" stop-color="#7B61FF"/>
-                    <stop offset="1" stop-color="#523774"/>
+                    <stop offset="0.0677083" stopColor="#FDF6F8"/>
+                    <stop offset="0.318717" stopColor="#EB80B2"/>
+                    <stop offset="0.640473" stopColor="#B89DDA"/>
+                    <stop offset="0.91993" stopColor="#7B61FF"/>
+                    <stop offset="1" stopColor="#523774"/>
                 </radialGradient>
                 <radialGradient id="paint3_angular_923_7114" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse"
                                 gradientTransform="translate(7.60317 -3.92703) rotate(70.2767) scale(45.3411 18.5604)">
-                    <stop offset="0.229703" stop-color="white" stop-opacity="0.72"/>
+                    <stop offset="0.229703" stopColor="white" stopOpacity="0.72"/>
                     <stop offset="0.244792"/>
-                    <stop offset="0.421875" stop-color="white" stop-opacity="0.72"/>
+                    <stop offset="0.421875" stopColor="white" stopOpacity="0.72"/>
                     <stop offset="0.608329"/>
                     <stop offset="0.778141" stop-color="white" stop-opacity="0.72"/>
                     <stop offset="0.969728"/>

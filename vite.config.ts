@@ -1,19 +1,23 @@
 import {defineConfig} from 'vite'
 import reactRefresh from '@vitejs/plugin-react-refresh'
 import replace from '@rollup/plugin-replace';
-
-import nodePolyfills from 'rollup-plugin-polyfill-node';
-import commonjs from '@rollup/plugin-commonjs';
-import {nodeResolve} from '@rollup/plugin-node-resolve';
-
-const svgr = require('@svgr/rollup').default
-
+const svgr = require('@svgr/rollup').default;
 
 // https://vitejs.dev/config/
 export default defineConfig({
     build: {
+        rollupOptions: {
+            manualChunks: {
+                'vendor': [
+                    'node_modules/react/index.js',
+                    'node_modules/react-dom/index.js'
+                ]
+            },
+        },
+        commonjsOptions: {transformMixedEsModules: true},
 
-      commonjsOptions: {transformMixedEsModules: true}
+
+
     },
 
     plugins: [
@@ -22,13 +26,17 @@ export default defineConfig({
         replace({
             'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV),
             'process.env.API_URL': JSON.stringify(process.env.API_URL)
-        }),
-        nodeResolve({browser: true}),
-        commonjs({}),
-        nodePolyfills( /* options */ )
+        })
     ],
     server: {
         proxy: {
+            '/api/hubspot/contacts': {
+                target: 'http://localhost:3013/',
+                secure: false,
+                rewrite: (path) => '/hubspot/contacts',
+
+            },
+
             '/api': {
                 target: 'https://gravity-dev.easychain.dev/',
                 changeOrigin: true,

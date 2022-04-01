@@ -27,6 +27,7 @@ import {getBox} from "css-box-model";
 import {ReactComponent as RectangleShape} from "../LandingV2/assets/rectangle.svg";
 import {ReactComponent as RectangleMobileShape} from "../LandingV2/assets/rectangle--mobile.svg";
 import {IconBack} from "../../components/icons/IconBack";
+import {usePageLoader} from "../../hooks/usePageLoader";
 
 const BlogItemPolygon = `
     0 0, 
@@ -41,6 +42,16 @@ const BlogItemPolygon = `
 // @ts-ignore
 export const WhatsHappening: Page = observer(function WhatsHappening() {
     const blog = useService(BlogService);
+
+    const pageLoadingStore = usePageLoader({
+        breakpoints: {
+            all: 100
+        }
+    })
+
+    React.useEffect(() => {
+        pageLoadingStore.done('all')
+    }, [])
 
     const history = useHistory()
 
@@ -150,7 +161,7 @@ export const WhatsHappening: Page = observer(function WhatsHappening() {
                                                         }
 
                                                         return (
-                                                            <Box transform={'scale(.75)'} left={'-10px'}
+                                                            <Box key={tagId} transform={'scale(.75)'} left={'-10px'}
                                                                  position={'relative'}>
                                                                 <Tag key={tagId} text={tag.name} isActive={false}/>
                                                             </Box>

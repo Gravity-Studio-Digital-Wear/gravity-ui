@@ -5,7 +5,8 @@ interface EthereumProvider {
 
 interface Window {
     ethereum: EthereumProvider & any;
-    dataLayer: any
+    dataLayer: any;
+    preloadedImages: any;
 }
 
 interface SvgrComponent

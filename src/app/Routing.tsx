@@ -1,14 +1,60 @@
 import * as React from 'react';
+import {Suspense} from 'react';
 import {observer} from "mobx-react";
 import {sendAmplitudeData} from '../utils/amplitude'
 import {Route, Switch, useHistory} from "react-router-dom";
 import {Routes} from "./routes";
-import {TermsOfService} from "../pages/TermsOfService";
-import {Privacy} from "../pages/Privacy";
-import {Landing} from "../pages/LandingV2/Landing";
-import {WhatsHappening} from "../pages/News/WhatsHappening";
-import {BlogPost} from "../pages/News/BlogPost";
-import {PageResolver} from "../core/Page";
+import {LandingContainer} from "../components/containers/LandingContainer";
+import {LoaderOverlay} from "../components/LoaderOverlay";
+import {Background} from "../components/containers/elements/Background";
+import {loadComponent} from "../core/loadables/context";
+import {BaseContainer} from "../components/containers/BaseContainer";
+
+const Landing = React.lazy(() => import("../pages/LandingV2/Landing"))
+const BlogPost = React.lazy(() => import("../pages/News/BlogPost")
+    .then(({BlogPost}) => ({default: BlogPost}))
+)
+const WhatsHappening = React.lazy(() =>
+    import("../pages/News/WhatsHappening")
+        .then(({WhatsHappening}) => ({default: WhatsHappening}))
+);
+
+const Privacy = React.lazy(() =>
+    import("../pages/Privacy")
+        .then(({Privacy}) => ({default: Privacy}))
+);
+
+const TermsOfService = React.lazy(() =>
+    import("../pages/TermsOfService")
+        .then(({TermsOfService}) => ({default: TermsOfService}))
+)
+
+const Bg = React.lazy(() => {
+    const preload = [
+        '/landing/bg-1-min.jpg',
+        '/landing/bg-2-min.jpg',
+        '/landing/bg-3-min.jpg'
+    ]
+
+    function imageLoaded(src: string): Promise<any> {
+        return new Promise((resolve) => {
+            const img = new Image();
+
+            img.src = src;
+
+            img.onload = () => {
+                resolve(img)
+            };
+        })
+    }
+
+    return Promise.all(preload.map(imageLoaded))
+        .then(loaded => {
+            window.preloadedImages = loaded;
+
+            return {default: Background};
+        });
+})
 
 export const Routing = observer(function Routing() {
     const history = useHistory()
@@ -21,19 +67,46 @@ export const Routing = observer(function Routing() {
         trackPageView()
         history.listen(trackPageView)
     })
+
     return (
-        <PageResolver>
-            {(Route) => (
+        <Suspense fallback={''}>
+            <Bg
+                overflow={'hidden'}
+                position={'fixed'}
+                zIndex={0}
+                top={0}
+                left={0}
+            />
+
+            <LoaderOverlay/>
+
+            <Suspense fallback={''}>
                 <Switch>
-                    <Route path={Routes.news + '/:id'} component={BlogPost}/>
-                    <Route path={Routes.news} exact={true} component={WhatsHappening}/>
+                    <Route path={Routes.news + '/:id'} component={base(BlogPost)}/>
+                    <Route path={Routes.news} exact={true} component={base(WhatsHappening)}/>
 
-                    <Route path={Routes.privacy} component={Privacy}/>
-                    <Route path={Routes.termsOfService} component={TermsOfService}/>
+                    <Route path={Routes.privacy} component={base(Privacy)}/>
+                    <Route path={Routes.termsOfService} component={base(TermsOfService)}/>
 
-                    <Route path={Routes.main} component={Landing} exact={true}/>
+                    <Route path={Routes.main} component={() => {
+                        return (
+                            <LandingContainer>
+                                <Landing/>
+                            </LandingContainer>
+                        )
+                    }} exact={true}/>
                 </Switch>
-            )}
-        </PageResolver>
+            </Suspense>
+        </Suspense>
+
     )
 })
+
+
+function base(Cmp) {
+    return (props) => (
+        <BaseContainer>
+            <Cmp {...props}/>
+        </BaseContainer>
+    )
+}

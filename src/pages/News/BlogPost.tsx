@@ -12,6 +12,7 @@ import {formatDate} from "../../utils/date";
 import {RelatedPosts} from "./components/RelatedPosts";
 import {Page} from "../../core/Page";
 import {BaseContainer} from "../../components/containers/BaseContainer";
+import {usePageLoader} from "../../hooks/usePageLoader";
 
 
 // @ts-ignore
@@ -19,6 +20,15 @@ export const BlogPost: Page = observer(function BlogPost() {
     const blog = useService(BlogService)
     const match = useRouteMatch<{ id: string }>();
 
+    const pageLoadingStore = usePageLoader({
+        breakpoints: {
+            all: 100
+        }
+    })
+
+    React.useEffect(() => {
+        pageLoadingStore.done('all')
+    }, [])
 
     React.useEffect(() => {
         blog.fetchPost(match.params.id)

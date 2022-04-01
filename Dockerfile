@@ -14,6 +14,7 @@ COPY tsconfig.json tsconfig.json
 COPY index.html index.html
 COPY src src
 COPY public public
+COPY vite.config.ts vite.config.ts
 
 ARG OUTLINE
 RUN npm run build
@@ -22,7 +23,7 @@ FROM nginx AS production
 
 WORKDIR /usr/share/nginx/html
 
-COPY --from=build /app/build /usr/share/nginx/html
+COPY --from=build /app/dist /usr/share/nginx/html
 COPY ./nginx.conf /etc/nginx/conf.d/default.conf
 COPY ./inject_env.sh .
 
