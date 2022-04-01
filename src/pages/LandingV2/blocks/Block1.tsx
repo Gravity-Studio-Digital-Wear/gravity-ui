@@ -40,6 +40,10 @@ export const Block1 = observer(() => {
             infinite={true}
             onLoaded={() => {
                 pageLoadingStore.done('avatar');
+                if (!isLargerThanXl) {
+
+                    pageLoadingStore.done('canvas');
+                }
             }}
         />
     );
@@ -129,11 +133,7 @@ export const Block1 = observer(() => {
                 {!isLargerThanXl && (
                     <Box position={'relative'} display={'flex'} justifyContent={'center'} mt={'100px'}>
                         <Box maxW={'300px'} position={'relative'} left={'60px'}>
-                            <TransparentVideo
-                                videoUrl={'https://res.cloudinary.com/dxgophqoh/video/upload/c_crop,h_1080,w_770,x_606,y_100,q_auto:eco/v1648202298/output_hjoavx.webm'}
-                                imageUrl={'/landing/avatar-with-alpha.gif'}
-                                infinite={true}
-                            />
+                            {avatar}
                         </Box>
 
                         <Box position={'absolute'} top={0} left={0}>
