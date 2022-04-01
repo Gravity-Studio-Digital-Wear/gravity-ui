@@ -74,8 +74,14 @@ export const Footer = observer(() => {
                               letterSpacing={'0.03em'}
                               pb={'64px'}
                         >
-                            <LinkBox>Blog</LinkBox>
-                            <LinkBox>Contact Us</LinkBox>
+                            <LinkBox>
+                                <Link>
+                                    <RouterLink to={Routes.news}>Blog</RouterLink>
+                                </Link>
+                            </LinkBox>
+                            <LinkBox>
+                                <Link isExternal={true} href={'https://forms.gle/AvVvcJciKJFCLdfk6'}>Contact Us</Link>
+                            </LinkBox>
                         </Grid>
                         <HStack spacing={'12px'} position={'absolute'} bottom={0} letterSpacing={'0.03em'}>
                             <Link as={RouterLink} to={Routes.termsOfService} _hover={{textDecoration: 'none'}}>

@@ -1,7 +1,7 @@
 import {getEnv} from "./env";
 
 export function initGa() {
-    install(getEnv('GA_MEASURMENT_ID', ''));
+    install(getEnv('REACT_GA_MEASURMENT_ID', ''));
 }
 
 
