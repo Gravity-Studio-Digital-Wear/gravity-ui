@@ -4,6 +4,7 @@ import {useService} from "../core/decorators/service";
 import {GravityApplication} from "../app/Application";
 import {observer} from "mobx-react";
 import {Image} from "@chakra-ui/react";
+import {IS_ANY_SAFARI} from "../utils/userAgent";
 
 export type MediaProps = {
     imageUrl: string,
@@ -47,7 +48,7 @@ export const TransparentVideo = observer((props: MediaProps) => {
 
 
     return (
-        app.isSafari
+        IS_ANY_SAFARI
             ? (props.fallback ? props.fallback : <ImageFallback src={imageUrl} onImageLoaded={onLoaded}/>)
             : (
                 <Video

@@ -7,6 +7,7 @@ interface Window {
     ethereum: EthereumProvider & any;
     dataLayer: any;
     preloadedImages: any;
+    DocumentTouch: any;
 }
 
 interface SvgrComponent
