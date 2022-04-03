@@ -15,8 +15,7 @@ import {usePageLoader} from "../../../hooks/usePageLoader";
 export const Block1 = observer(() => {
     const pageLoadingStore = usePageLoader({
         breakpoints: {
-            avatar: 20,
-            canvas: 80
+            all: 100
         }
     })
 
@@ -24,6 +23,11 @@ export const Block1 = observer(() => {
         'breakpoints',
         ['lg', 'xl']
     );
+
+
+    React.useEffect(()=> {
+        pageLoadingStore.done('all');
+    },[])
 
     const [isLargerThanXl] = useMediaQuery(`(min-width: ${xl})`)
 
@@ -33,45 +37,45 @@ export const Block1 = observer(() => {
     }
 
 
-    const avatar = (
-        <TransparentVideo
-            videoUrl={'https://res.cloudinary.com/dxgophqoh/video/upload/c_scale,q_auto:eco,w_1237/v1648202298/output_hjoavx.webm'}
-            imageUrl={'/landing/avatar-with-alpha.gif'}
-            infinite={true}
-            onLoaded={() => {
-                pageLoadingStore.done('avatar');
-                if (!isLargerThanXl) {
-
-                    pageLoadingStore.done('canvas');
-                }
-            }}
-        />
-    );
-
-
-    const canvas = (
-        <TransparentVideo
-            videoUrl={'https://res.cloudinary.com/dxgophqoh/video/upload/q_70/v1648203083/output_y0svwb.webm'}
-            imageUrl={'/landing/screen-1-bg.png'}
-            infinite={true}
-            onLoaded={() => {
-                pageLoadingStore.done('canvas');
-            }}
-        />
-    );
+    // const avatar = (
+    //     <TransparentVideo
+    //         videoUrl={'https://res.cloudinary.com/dxgophqoh/video/upload/c_scale,q_auto:eco,w_1237/v1648202298/output_hjoavx.webm'}
+    //         imageUrl={'/landing/avatar-with-alpha.gif'}
+    //         infinite={true}
+    //         onLoaded={() => {
+    //             pageLoadingStore.done('avatar');
+    //             if (!isLargerThanXl) {
+    //
+    //                 pageLoadingStore.done('canvas');
+    //             }
+    //         }}
+    //     />
+    // );
+    //
+    //
+    // const canvas = (
+    //     <TransparentVideo
+    //         videoUrl={'https://res.cloudinary.com/dxgophqoh/video/upload/q_70/v1648203083/output_y0svwb.webm'}
+    //         imageUrl={'/landing/screen-1-bg.png'}
+    //         infinite={true}
+    //         onLoaded={() => {
+    //             pageLoadingStore.done('canvas');
+    //         }}
+    //     />
+    // );
 
     return (
         <Block position={'relative'}>
             {isLargerThanXl && (
                 <Box position={'absolute'} top={'10%'} right={'-20%'} w={'90%'} zIndex={0}>
 
-                    {canvas}
+                    {/*{canvas}*/}
                 </Box>
             )}
 
             {isLargerThanXl && (
                 <Box position={'absolute'} top={'15%'} right={'0%'} w={'60%'} zIndex={0}>
-                    {avatar}
+                    {/*{avatar}*/}
                 </Box>
             )}
 
@@ -129,7 +133,7 @@ export const Block1 = observer(() => {
                 {!isLargerThanXl && (
                     <Box position={'relative'} display={'flex'} justifyContent={'center'} mt={'100px'}>
                         <Box maxW={'300px'} position={'relative'} left={'60px'}>
-                            {avatar}
+                            {/*{avatar}*/}
                         </Box>
 
                         <Box position={'absolute'} top={0} left={0}>
