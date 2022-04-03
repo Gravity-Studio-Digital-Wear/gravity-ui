@@ -30,13 +30,6 @@ export default defineConfig({
     ],
     server: {
         proxy: {
-            '/api/hubspot/contacts': {
-                target: 'http://localhost:3013/',
-                secure: false,
-                rewrite: (path) => '/hubspot/contacts',
-
-            },
-
             '/api': {
                 target: 'https://gravity-dev.easychain.dev/',
                 changeOrigin: true,

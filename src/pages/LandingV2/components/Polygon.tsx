@@ -68,7 +68,7 @@ export const Polygon = observer((props: BoxProps & TPolygonProps) => {
     const [data, set] = React.useState(null);
 
     React.useLayoutEffect(() => {
-        const resizeObserver = new ResizeObserver((entries) => {
+        const resizeObserver = new window.ResizeObserver((entries) => {
             entries.map((entry, index) => {
                 const w = entry.contentRect.width
                 const h = entry.contentRect.height

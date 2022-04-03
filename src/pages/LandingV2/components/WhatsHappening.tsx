@@ -72,6 +72,9 @@ export const WhatsHappening = observer(function WhatsHappening() {
                                             position={'absolute'}
                                             width={'100%'}
                                             height={'100%'}
+                                            config={{
+                                                edges: [[0, 0], [30, 30], [21, 21], [21, 21]]
+                                            }}
                                         >
                                             {data => (
                                                 <path
