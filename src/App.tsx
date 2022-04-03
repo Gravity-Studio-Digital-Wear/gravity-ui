@@ -11,6 +11,7 @@ import {Routing} from "./app/Routing";
 import {ScrollRestoration} from "./components/ScrollRestoration";
 import {useService} from "./core/decorators/service";
 import {GravityApplication} from "./app/Application";
+import {ErrorBoundary} from "./components/ErrorBoundary";
 
 const breakpoints = {
     sm: "320px",
@@ -36,10 +37,12 @@ function App() {
     React.useEffect(() => application.onBootstrap(), [])
 
     return (
-        <RootProvider>
-            <ScrollRestoration/>
-            <Routing/>
-        </RootProvider>
+        <ErrorBoundary>
+            <RootProvider>
+                <ScrollRestoration/>
+                <Routing/>
+            </RootProvider>
+        </ErrorBoundary>
     )
 }
 
