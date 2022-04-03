@@ -1,6 +1,5 @@
 import * as React from 'react';
 import {Box, BoxProps, Button, ButtonProps} from "@chakra-ui/react";
-import {getBox} from "css-box-model";
 import {toPath} from 'svg-points'
 import {observer} from "mobx-react";
 import {useService} from "../../../core/decorators/service";
@@ -50,28 +49,29 @@ function polygon(w, h, offset: { x: number, y: number }) {
 
 
 const Polygon = observer((props: BoxProps) => {
-    const pageLoadingStore = useService(PageLoadingStore)
-
     const ref = React.useRef()
 
     const [data, set] = React.useState(null);
 
     React.useLayoutEffect(() => {
-        if (!pageLoadingStore.isPageLoaded) {
-            return;
-        }
+        const resizeObserver = new ResizeObserver((entries) => {
+            entries.map((entry, index) => {
+                const w = entry.contentRect.width
+                const h = entry.contentRect.height
 
-        const dim = getBox(ref.current);
 
-        const w = dim.contentBox.width;
-        const h = dim.contentBox.height;
-
-        set({
-            path: polygon(w, h - 6, {x: 0, y: 0}),
-            w,
-            h
+                set({
+                    path: polygon(w, h - 6, {x: 0, y: 0}),
+                    w,
+                    h
+                })
+            })
         })
-    }, [ref, pageLoadingStore.value])
+
+        resizeObserver.observe(ref.current);
+
+        return () => resizeObserver.unobserve(ref.current);
+    }, [])
 
     return (
         <Box ref={ref} {...props}>

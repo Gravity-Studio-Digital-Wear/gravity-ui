@@ -28,6 +28,7 @@ import {ReactComponent as RectangleShape} from "../LandingV2/assets/rectangle.sv
 import {ReactComponent as RectangleMobileShape} from "../LandingV2/assets/rectangle--mobile.svg";
 import {IconBack} from "../../components/icons/IconBack";
 import {usePageLoader} from "../../hooks/usePageLoader";
+import {Polygon} from "../LandingV2/components/Polygon";
 
 const BlogItemPolygon = `
     0 0, 
@@ -204,7 +205,29 @@ export const WhatsHappening: Page = observer(function WhatsHappening() {
                                                 backdropFilter: 'blur(44px)'
                                             }}
                                         >
-                                            <Polygon zIndex={2} pointerEvents={'none'} position={'absolute'} width={'100%'} height={'100%'}/>
+                                            <Polygon
+                                                zIndex={2}
+                                                position={'absolute'}
+                                                width={'100%'}
+                                                height={'100%'}
+                                                userSelect={'none'}
+                                                pointerEvents={'none'}
+                                                config={{
+                                                    edges: [[0, 0], [30, 30], [21, 21], [21, 21]]
+                                                }}
+                                            >
+                                                {data => (
+                                                    <path
+                                                        className={'gr-polygon-btn-outline'}
+                                                        d={data.path + 'Z'}
+                                                        fill="none"
+                                                        stroke="#ffffff"
+                                                        strokeWidth={'2px'}
+                                                        fillRule="evenodd"
+                                                        clipRule="evenodd"
+                                                    />
+                                                )}
+                                            </Polygon>
 
                                             <Box
                                                 zIndex={3}
@@ -260,7 +283,6 @@ export const WhatsHappening: Page = observer(function WhatsHappening() {
                                                 </Text>
                                             </Box>
                                         </Box>
-
                                     }
                                 </GridItem>
                             )
@@ -271,85 +293,3 @@ export const WhatsHappening: Page = observer(function WhatsHappening() {
         </Box>
     );
 });
-
-
-WhatsHappening.getPageContainer = BaseContainer;
-
-// TODO
-function polygon(w, h, offset: { x: number, y: number }) {
-    const baseEdges = [[0, 0], [w, 0], [w, h], [0, h]];
-    const edges = [[0, 0], [30, 30], [21, 21], [21, 21],]
-
-    let edgesCoords = [];
-
-    for (let i = 0; i < baseEdges.length; i++) {
-        const [x0, y0] = baseEdges[i];
-        const [dx, dy] = edges[i];
-
-        if (dx === 0 && dy === 0) {
-            edgesCoords.push({x: x0, y: y0});
-
-            continue;
-        }
-
-
-        const ddx = {
-            x: x0 === 0 ? dx : x0 - dx,
-            y: y0,
-        };
-
-        const ddy = {
-            x: x0,
-            y: y0 === 0 ? dy : y0 - dy,
-        };
-
-        if (i % 2 === 0) {
-
-            edgesCoords.push(ddy, ddx)
-        } else {
-            edgesCoords.push(ddx, ddy)
-        }
-    }
-
-    edgesCoords[0].moveTo = true;
-
-
-    return toPath(edgesCoords)
-}
-
-const Polygon = (props: BoxProps) => {
-    const ref = React.useRef()
-
-    const [data, set] = React.useState(null);
-
-    React.useEffect(() => {
-        const dim = getBox(ref.current);
-
-        const w = dim.contentBox.width;
-        const h = dim.contentBox.height;
-
-        set({
-            path: polygon(w, h, {x: 0, y: 0}),
-            w,
-            h
-        })
-    }, [ref])
-
-    return (
-        <Box ref={ref} {...props}>
-            {(data !== null) && (
-                <svg viewBox={`0 0 ${data.w} ${data.h}`} fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path
-                        className={'gr-polygon-btn-outline'}
-                        d={data.path + 'Z'}
-                        fill="none"
-                        stroke="#ffffff"
-                        strokeWidth={'2px'}
-                        fillRule="evenodd"
-                        clipRule="evenodd"
-                    />
-                </svg>
-            )}
-        </Box>
-    );
-}
