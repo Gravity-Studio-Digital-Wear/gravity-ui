@@ -9,6 +9,8 @@ import {GravityTheme} from "./app/Theme";
 import {Routing} from "./app/Routing";
 // import {createBreakpoints} from "@chakra-ui/theme-tools"
 import {ScrollRestoration} from "./components/ScrollRestoration";
+import {useService} from "./core/decorators/service";
+import {GravityApplication} from "./app/Application";
 
 const breakpoints = {
     sm: "320px",
@@ -29,9 +31,9 @@ function App() {
         <BrowserRouter/>
     ])
 
-    // const application = useService(GravityApplication)
+    const application = useService(GravityApplication)
 
-    // React.useEffect(() => application.onBootstrap(), [])
+    React.useEffect(() => application.onBootstrap(), [])
 
     return (
         <RootProvider>
