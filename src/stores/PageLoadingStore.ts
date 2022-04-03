@@ -65,6 +65,6 @@ export class PageLoadingStore {
 
     @computed
     get isPageLoaded() {
-        return this.value >= 1;
+        return this.value >= 100;
     }
 }

@@ -49,7 +49,7 @@ export const TransparentVideo = observer((props: MediaProps) => {
 
     return (
         IS_ANY_SAFARI
-            ? (props.fallback ? props.fallback : <ImageFallback src={imageUrl} onImageLoaded={onLoaded}/>)
+            ? <ImageFallback src={imageUrl} onImageLoaded={onLoaded}/>
             : (
                 <Video
                     loop={true}
