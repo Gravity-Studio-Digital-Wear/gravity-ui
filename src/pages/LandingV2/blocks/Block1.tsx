@@ -63,7 +63,7 @@ export const Block1 = observer(() => {
     return (
         <Block position={'relative'}>
             {isLargerThanXl && (
-                <Box position={'absolute'} top={'10%'} right={'-20%'} w={'90%'} zIndex={0}>
+                <Box position={'absolute'} top={'5%'} right={'-20%'} w={'90%'} zIndex={0}>
 
                     {canvas}
                 </Box>
@@ -128,7 +128,7 @@ export const Block1 = observer(() => {
 
                 {!isLargerThanXl && (
                     <Box position={'relative'} display={'flex'} justifyContent={'center'} mt={'100px'}>
-                        <Box maxW={'300px'} position={'relative'} left={'60px'}>
+                        <Box maxW={'700px'} transform={'scale(1.5)'} height={'320px'} position={'relative'} left={'60px'}>
                             {avatar}
                         </Box>
 

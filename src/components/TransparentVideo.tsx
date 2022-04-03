@@ -48,7 +48,7 @@ export const TransparentVideo = observer((props: MediaProps) => {
 
 
     return (
-        IS_ANY_SAFARI
+        true
             ? <ImageFallback src={imageUrl} onImageLoaded={onLoaded}/>
             : (
                 <Video

@@ -2,28 +2,13 @@ import * as React from 'react';
 import {observer} from "mobx-react";
 import {useService} from "../../core/decorators/service";
 import {BlogService} from "../../services/BlogService";
-import {
-    Box,
-    BoxProps,
-    Flex,
-    Grid,
-    GridItem,
-    HStack,
-    Image,
-    Link,
-    Text,
-    useMediaQuery,
-    useToken
-} from "@chakra-ui/react";
+import {Box, Flex, Grid, GridItem, HStack, Image, Link, Text, useMediaQuery, useToken} from "@chakra-ui/react";
 import {formatDate} from "../../utils/date";
 import {Link as RouterLink, useHistory} from "react-router-dom";
 import {Routes} from "../../app/routes";
 import {Tag} from "./components/Tag";
 import {PageSpinner} from "../../components/PageSpinner";
 import {Page} from "../../core/Page";
-import {BaseContainer} from "../../components/containers/BaseContainer";
-import {toPath} from "svg-points";
-import {getBox} from "css-box-model";
 import {ReactComponent as RectangleShape} from "../LandingV2/assets/rectangle.svg";
 import {ReactComponent as RectangleMobileShape} from "../LandingV2/assets/rectangle--mobile.svg";
 import {IconBack} from "../../components/icons/IconBack";
@@ -138,12 +123,14 @@ export const WhatsHappening: Page = observer(function WhatsHappening() {
                           mt={{base: '45px', xl: '140px'}}>
                         {blog.posts.map((post, index) => {
                             const isFirst = index === 0;
-
                             const isFullPage = isFirst && isLargerThanXl;
 
                             return (
-                                <GridItem key={post.id} colSpan={isFullPage ? 3 : 1} position={'relative'}
-                                          pb={isFullPage ? 0 : '120px'}>
+                                <GridItem key={post.id}
+                                          colSpan={isFullPage ? 3 : 1}
+                                          position={'relative'}
+
+                                >
                                     {isFullPage
                                         ? <Box display={'flex'} position={'relative'}>
                                             <Image

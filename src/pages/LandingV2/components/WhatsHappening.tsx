@@ -1,6 +1,6 @@
 import {observer} from "mobx-react";
 import {useService} from "../../../core/decorators/service";
-import {BlogService} from "../../../services/BlogService";
+import {BlogService, IBlogPost} from "../../../services/BlogService";
 import * as React from "react";
 import {useHistory} from "react-router-dom";
 import {Routes} from "../../../app/routes";
@@ -40,6 +40,8 @@ export const WhatsHappening = observer(function WhatsHappening() {
     const toPost = (id: string) => {
         history.push(Routes.news + '/' + id);
     }
+
+
 
     return (
         <>
@@ -100,7 +102,7 @@ export const WhatsHappening = observer(function WhatsHappening() {
                                         <Box height={'220px'} position={'relative'} px={'16px'}>
                                             <Text fontWeight={'bold'}
                                                   letterSpacing={'0.02em'}
-                                                  fontSize={25}
+                                                  fontSize={21}
                                                   textTransform={'uppercase'}
                                                   fontFamily={'All Round Gothic'}
                                                   mt={'20px'}>
@@ -194,7 +196,7 @@ export const WhatsHappening = observer(function WhatsHappening() {
                                 <Box height={'220px'} position={'relative'} px={'16px'}>
                                     <Text fontWeight={'bold'}
                                           letterSpacing={'0.02em'}
-                                          fontSize={25}
+                                          fontSize={21}
                                           textTransform={'uppercase'}
                                           fontFamily={'All Round Gothic'}
                                           mt={'20px'}>

@@ -3,7 +3,7 @@ import {action, autorun, computed, makeAutoObservable, observable, reaction, toJ
 import {TRequestStatus} from "../interfaces";
 import {ApiRequest} from "../core/ApiRequest";
 
-interface IBlogPost {
+export interface IBlogPost {
     archived: boolean
     attachedStylesheets: any
     authorName: string
@@ -59,6 +59,14 @@ function fetchRelated(id: string): Promise<IBlogPost[]> {
         .then((res) => {
             return res.json()
         })
+}
+
+
+function sortPosts(posts: IBlogPost[]) {
+    return posts.sort((a,b) => {
+
+        return (new Date(b.publishDate) as any) - (new Date(a.publishDate) as any)
+    })
 }
 
 
@@ -120,7 +128,9 @@ export class BlogService {
                 return res.json()
             })
             .then(({results}) => {
-                this.posts = results;
+
+
+                this.posts = sortPosts(results);
                 this.requestStatus = 'success'
             })
             .catch((err) => {

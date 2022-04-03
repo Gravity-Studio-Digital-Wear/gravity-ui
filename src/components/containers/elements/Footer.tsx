@@ -36,12 +36,16 @@ export const Footer = observer(() => {
 
     const isSubscribed = app.isSubscribedEmail;
 
+    const [subscribeMessage, setSubscribeMessage]= React.useState('')
+
     const submitFn = ({email}) => {
         clearErrors();
 
         sendEmail(email)
             .then(() => {
                 app.persistSubscribe();
+
+                setSubscribeMessage('You have been successfully subscribed!');
             })
             .catch((err) => {
                 console.error(err.message)
@@ -125,11 +129,21 @@ export const Footer = observer(() => {
                                 <TwitterIcon color={'#D4F23F'} _hover={{color: '#D9FF1D'}}/>
                             </Link>
 
-                            <Link href="https://medium.com/@gravitythestudio" isExternal>
+                            <Link href="https://medium.com/gravity-the-studio" isExternal>
                                 <MediumIcon color={'#D4F23F'} _hover={{color: '#D9FF1D'}}/>
                             </Link>
                         </HStack>
 
+
+                        {isSubscribed && subscribeMessage && (
+
+
+                            <Stack>
+                                <Text>
+                                    {subscribeMessage}
+                                </Text>
+                            </Stack>
+                        )}
 
                         {!isSubscribed && (
                             <Stack spacing={'10px'} pt={'16px'}>
