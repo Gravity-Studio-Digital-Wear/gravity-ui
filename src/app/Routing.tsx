@@ -10,6 +10,8 @@ import {Background} from "../components/containers/elements/Background";
 import {BaseContainer} from "../components/containers/BaseContainer";
 import {NFTDrop} from "../pages/NFTDrop";
 import {Team} from "../pages/Team";
+import {useDisclosure} from "@chakra-ui/react";
+import {OverlayMenu} from "../components/containers/elements/Header";
 
 const Landing = React.lazy(() => import("../pages/LandingV2/Landing"))
 const BlogPost = React.lazy(() => import("../pages/News/BlogPost")
@@ -34,7 +36,6 @@ const TermsOfService = React.lazy(() =>
 //     import("../pages/NFTDrop/index")
 //         .then(({NFTDrop}) => ({default: NFTDrop}))
 // )
-
 
 
 const Bg = React.lazy(() => {
@@ -76,6 +77,8 @@ export const Routing = observer(function Routing() {
         history.listen(trackPageView)
     })
 
+    const disclosure = useDisclosure();
+
     return (
         <Suspense fallback={''}>
             <Bg
@@ -88,41 +91,42 @@ export const Routing = observer(function Routing() {
 
             <LoaderOverlay/>
 
-            <Suspense fallback={''}>
-                <Switch>
-                    <Route path={Routes.news + '/:id'} component={base(BlogPost)}/>
-                    <Route path={Routes.news} exact={true} component={base(WhatsHappening)}/>
+            <OverlayMenu.Provider value={disclosure}>
+                <Suspense fallback={''}>
+                    <Switch>
+                        <Route path={Routes.news + '/:id'} component={base(BlogPost)}/>
+                        <Route path={Routes.news} exact={true} component={base(WhatsHappening)}/>
 
-                    <Route path={Routes.privacy} component={base(Privacy)}/>
-                    <Route path={Routes.termsOfService} component={base(TermsOfService)}/>
+                        <Route path={Routes.privacy} component={base(Privacy)}/>
+                        <Route path={Routes.termsOfService} component={base(TermsOfService)}/>
 
-                    <Route path={Routes.team} component={() => {
-                        return (
-                            <LandingContainer>
-                                <Team/>
-                            </LandingContainer>
-                        )
-                    }}/>
+                        <Route path={Routes.team} component={() => {
+                            return (
+                                <LandingContainer>
+                                    <Team/>
+                                </LandingContainer>
+                            )
+                        }}/>
 
-                    <Route path={Routes.nftDrop} component={() => {
-                        return (
-                            <LandingContainer>
-                                <NFTDrop/>
-                            </LandingContainer>
-                        )
-                    }}/>
+                        <Route path={Routes.nftDrop} component={() => {
+                            return (
+                                <LandingContainer>
+                                    <NFTDrop/>
+                                </LandingContainer>
+                            )
+                        }}/>
 
-                    <Route path={Routes.main} component={() => {
-                        return (
-                            <LandingContainer>
-                                <Landing/>
-                            </LandingContainer>
-                        )
-                    }} exact={true}/>
-                </Switch>
-            </Suspense>
+                        <Route path={Routes.main} component={() => {
+                            return (
+                                <LandingContainer>
+                                    <Landing/>
+                                </LandingContainer>
+                            )
+                        }} exact={true}/>
+                    </Switch>
+                </Suspense>
+            </OverlayMenu.Provider>
         </Suspense>
-
     )
 })
 

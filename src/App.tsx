@@ -33,11 +33,14 @@ function App() {
 
     React.useEffect(() => application.onBootstrap(), [])
 
+
     return (
         <ErrorBoundary>
             <RootProvider>
+
                 <ScrollRestoration/>
                 <Routing/>
+
             </RootProvider>
         </ErrorBoundary>
     )
