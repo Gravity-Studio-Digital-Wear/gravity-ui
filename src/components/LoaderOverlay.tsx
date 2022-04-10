@@ -11,6 +11,7 @@ export const LoaderOverlay = observer(() => {
     const pageLoadingStore = useService(PageLoadingStore);
 
     const isLoaded = pageLoadingStore.isPageLoaded;
+    return  null;
 
     return (
         <>

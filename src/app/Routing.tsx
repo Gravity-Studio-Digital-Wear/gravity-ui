@@ -7,8 +7,8 @@ import {Routes} from "./routes";
 import {LandingContainer} from "../components/containers/LandingContainer";
 import {LoaderOverlay} from "../components/LoaderOverlay";
 import {Background} from "../components/containers/elements/Background";
-import {loadComponent} from "../core/loadables/context";
 import {BaseContainer} from "../components/containers/BaseContainer";
+import {NFTDrop} from "../pages/NFTDrop";
 
 const Landing = React.lazy(() => import("../pages/LandingV2/Landing"))
 const BlogPost = React.lazy(() => import("../pages/News/BlogPost")
@@ -28,6 +28,13 @@ const TermsOfService = React.lazy(() =>
     import("../pages/TermsOfService")
         .then(({TermsOfService}) => ({default: TermsOfService}))
 )
+
+// const NFTDrop = React.lazy(() =>
+//     import("../pages/NFTDrop/index")
+//         .then(({NFTDrop}) => ({default: NFTDrop}))
+// )
+
+
 
 const Bg = React.lazy(() => {
     const preload = [
@@ -88,6 +95,18 @@ export const Routing = observer(function Routing() {
                     <Route path={Routes.privacy} component={base(Privacy)}/>
                     <Route path={Routes.termsOfService} component={base(TermsOfService)}/>
 
+
+                    <Route path={Routes.nftDrop} component={() => {
+
+
+                        return (
+                            <LandingContainer>
+                                <NFTDrop/>
+                            </LandingContainer>
+
+                        )
+                    }}/>
+
                     <Route path={Routes.main} component={() => {
                         return (
                             <LandingContainer>
@@ -108,5 +127,13 @@ function base(Cmp) {
         <BaseContainer>
             <Cmp {...props}/>
         </BaseContainer>
+    )
+}
+
+function landing(Cmp) {
+    return (props) => (
+        <LandingContainer>
+            <Cmp {...props}/>
+        </LandingContainer>
     )
 }

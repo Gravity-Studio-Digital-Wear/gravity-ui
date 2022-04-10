@@ -2,8 +2,6 @@ import * as React from 'react';
 import {Box, BoxProps, Button, ButtonProps} from "@chakra-ui/react";
 import {toPath} from 'svg-points'
 import {observer} from "mobx-react";
-import {useService} from "../../../core/decorators/service";
-import {PageLoadingStore} from "../../../stores/PageLoadingStore";
 
 
 function polygon(w, h, offset: { x: number, y: number }) {

@@ -9,6 +9,7 @@ export const Routes = {
     shop: '/shop',
     news: '/news',
     main: '/',
+    nftDrop: '/nft-drop',
     productPage: '/product/:id',
     howItWorks: '/how-it-works',
     ownToEarn: '/how-to-earn',

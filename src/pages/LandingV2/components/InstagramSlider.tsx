@@ -76,8 +76,6 @@ export function InstagramSlider(props: BoxProps) {
                                 position={'absolute'}
                                 width={'100%'}
                                 height={'100%'}
-
-
                                 config={{
                                     edges: [[0, 0], [18, 23], [0, 0], [0, 0]]
                                 }}

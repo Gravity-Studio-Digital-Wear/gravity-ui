@@ -2,7 +2,7 @@ import * as React from 'react';
 import {Box, BoxProps, Flex, HStack, LinkBox, useMediaQuery, useToken} from "@chakra-ui/react";
 import {ReactComponent as Logo} from '../../../pages/LandingV2/assets/logo.svg';
 import {Routes} from "../../../app/routes";
-import {useHistory} from "react-router-dom";
+import {useHistory, Link} from "react-router-dom";
 
 
 export function Header() {
@@ -32,7 +32,6 @@ export function Header() {
             {isDesktop && (
                 <>
                     <HStack
-                        display={'none'}
                         ml={'60px'}
                         textTransform={'uppercase'}
                         color={'white'}
@@ -40,12 +39,17 @@ export function Header() {
                         spacing={'24px'}
                         fontSize={'14px'}
                     >
-                        <LinkBox>NFT Drop</LinkBox>
+                        <LinkBox>
+                            <Link to={Routes.nftDrop}>NFT Drop</Link>
 
-                        <LinkBox>for fashion brands</LinkBox>
-                        <LinkBox>for metaverse developers</LinkBox>
 
-                        <LinkBox>MEET THE TEAM</LinkBox>
+
+                        </LinkBox>
+
+                        {/*<LinkBox>for fashion brands</LinkBox>*/}
+                        {/*<LinkBox>for metaverse developers</LinkBox>*/}
+
+                        {/*<LinkBox>MEET THE TEAM</LinkBox>*/}
                     </HStack>
 
                     {/*<ConnectButton display={'none'} ml={'auto'}/>*/}

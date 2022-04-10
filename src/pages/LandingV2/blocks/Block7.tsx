@@ -20,38 +20,37 @@ export const Block7 = () => {
     }
     return (
         <Block>
-        <Centered>
-            <Box
-                color={'white'}
-                display={'flex'}
-                alignItems={{base: 'flex-start', xl: 'center'}}
-                flexDirection={'column'}
-                fontWeight={700}
-                letterSpacing={'0.11em'}
-                fontSize={{base: 39, xl: 75}}
-                textTransform={'uppercase'}
-                mt={{base: '120px', xl: '300px'}}
-            >
-                <Text fontFamily={'All Round Gothic'}>
-                    Be more in the
-                </Text>
-
-                <Text
-                    fontFamily={'All Round Gothic'}
-                    css={{
-                        color: 'transparent',
-                        WebkitTextStroke: isLargerThanXl ? '2px' : '1px',
-                        WebkitTextStrokeColor: 'white',
-                    }}
+            <Centered>
+                <Box
+                    color={'white'}
+                    display={'flex'}
+                    alignItems={{base: 'flex-start', xl: 'center'}}
+                    flexDirection={'column'}
+                    fontWeight={700}
+                    letterSpacing={'0.11em'}
+                    fontSize={{base: 39, xl: 75}}
+                    textTransform={'uppercase'}
+                    mt={{base: '120px', xl: '300px'}}
                 >
-                    Metaverse
-                </Text>
+                    <Text fontFamily={'All Round Gothic'}>
+                        Be who you want <br/> wherever you go
+                    </Text>
 
-                <PolygonBorder mt={'40px'} w={'269px'} onClick={joinWhitelist}>JOIN THE
-                    WHITELIST</PolygonBorder>
-            </Box>
-        </Centered>
+                    {/*<Text*/}
+                    {/*    fontFamily={'All Round Gothic'}*/}
+                    {/*    css={{*/}
+                    {/*        color: 'transparent',*/}
+                    {/*        WebkitTextStroke: isLargerThanXl ? '2px' : '1px',*/}
+                    {/*        WebkitTextStrokeColor: 'white',*/}
+                    {/*    }}*/}
+                    {/*>*/}
+                    {/*    Metaverse*/}
+                    {/*</Text>*/}
+
+                    <PolygonBorder mt={'40px'} w={'269px'} onClick={joinWhitelist}>JOIN THE
+                        WHITELIST</PolygonBorder>
+                </Box>
+            </Centered>
     </Block>
-
     )
 }
