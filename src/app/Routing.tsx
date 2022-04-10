@@ -9,6 +9,7 @@ import {LoaderOverlay} from "../components/LoaderOverlay";
 import {Background} from "../components/containers/elements/Background";
 import {BaseContainer} from "../components/containers/BaseContainer";
 import {NFTDrop} from "../pages/NFTDrop";
+import {Team} from "../pages/Team";
 
 const Landing = React.lazy(() => import("../pages/LandingV2/Landing"))
 const BlogPost = React.lazy(() => import("../pages/News/BlogPost")
@@ -95,15 +96,19 @@ export const Routing = observer(function Routing() {
                     <Route path={Routes.privacy} component={base(Privacy)}/>
                     <Route path={Routes.termsOfService} component={base(TermsOfService)}/>
 
+                    <Route path={Routes.team} component={() => {
+                        return (
+                            <LandingContainer>
+                                <Team/>
+                            </LandingContainer>
+                        )
+                    }}/>
 
                     <Route path={Routes.nftDrop} component={() => {
-
-
                         return (
                             <LandingContainer>
                                 <NFTDrop/>
                             </LandingContainer>
-
                         )
                     }}/>
 

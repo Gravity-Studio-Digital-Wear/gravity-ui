@@ -41,9 +41,10 @@ export function Header() {
                     >
                         <LinkBox>
                             <Link to={Routes.nftDrop}>NFT Drop</Link>
+                        </LinkBox>
 
-
-
+                        <LinkBox>
+                            <Link to={Routes.team}>Meet the team</Link>
                         </LinkBox>
 
                         {/*<LinkBox>for fashion brands</LinkBox>*/}

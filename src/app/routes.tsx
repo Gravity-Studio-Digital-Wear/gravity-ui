@@ -10,6 +10,7 @@ export const Routes = {
     news: '/news',
     main: '/',
     nftDrop: '/nft-drop',
+    team: '/team',
     productPage: '/product/:id',
     howItWorks: '/how-it-works',
     ownToEarn: '/how-to-earn',
