@@ -112,7 +112,7 @@ export const Team = () => {
                         </Box>
                         <Text fontFamily={'All Round Gothic'} fontSize={24} mt={'32px'}>Aliya</Text>
                         <Text fontWeight={'400'} fontSize={17} height={'48px'}>UX/UI</Text>
-                        <LinkedIn link={'https://www.linkedin.com/in/amytqyu/'}/>
+                        <LinkedIn link={'https://www.linkedin.com/in/aliya-gaptulgazizova-831452237/'}/>
                     </Box>
                     <Box>
                         <Box height={'250px'} display={'flex'} justifyContent={'center'}>
