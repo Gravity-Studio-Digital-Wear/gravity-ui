@@ -25,7 +25,7 @@ export const NFTDrop = () => {
 
     const joinDiscord = () => {
         sendAmplitudeData('E_DISCORD-BTN_FOLLOW')
-        window.open('https://www.premint.xyz/gravity-the-studio/ ', '_blank')
+        window.open('https://discord.com/invite/Ejh4jEPRDC ', '_blank')
     }
 
     return (

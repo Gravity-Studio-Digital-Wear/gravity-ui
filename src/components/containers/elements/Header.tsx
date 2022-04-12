@@ -58,6 +58,10 @@ export function Header() {
                         fontSize={'14px'}
                     >
                         <LinkBox>
+                            <Link to={Routes.main}>About</Link>
+                        </LinkBox>
+
+                        <LinkBox>
                             <Link to={Routes.nftDrop}>NFT Drop</Link>
                         </LinkBox>
 
@@ -102,6 +106,11 @@ function BurgerButton(props: BoxProps) {
                             fontSize={'24px'}
                             mt={'100px'}
                         >
+
+                            <LinkBox  onClick={onClose}>
+                                <Link to={Routes.main}>About</Link>
+                            </LinkBox>
+
                             <LinkBox  onClick={onClose}>
                                 <Link to={Routes.nftDrop}>NFT Drop</Link>
                             </LinkBox>
@@ -132,7 +141,7 @@ function BurgerButton(props: BoxProps) {
                                 <ChakraLink href="https://www.youtube.com/channel/UCKrbhUFFqg-Q2nyrfxN9xjQ" isExternal>
                                     <YouTubeIcon color={'#D4F23F'} _hover={{color: '#D9FF1D'}}/>
                                 </ChakraLink>
-                                <ChakraLink href="https://twitter.com/GravitytheStud" isExternal>
+                                <ChakraLink href="https://twitter.com/Gravityskins" isExternal>
                                     <TwitterIcon color={'#D4F23F'} _hover={{color: '#D9FF1D'}}/>
                                 </ChakraLink>
 

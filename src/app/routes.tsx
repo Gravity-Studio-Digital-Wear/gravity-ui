@@ -15,6 +15,7 @@ export const Routes = {
     howItWorks: '/how-it-works',
     ownToEarn: '/how-to-earn',
     whitePaper: '/white-paper',
+    whitePaperTech: '/white-paper-tech',
     sustainability: '/sustainability',
     termsOfService: '/terms-of-service',
     privacy: '/privacy-policy',

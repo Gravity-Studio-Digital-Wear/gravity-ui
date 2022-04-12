@@ -12,6 +12,7 @@ import {NFTDrop} from "../pages/NFTDrop";
 import {Team} from "../pages/Team";
 import {useDisclosure} from "@chakra-ui/react";
 import {OverlayMenu} from "../components/containers/elements/Header";
+import {WhitePaperBusiness, WhitePaperTechnical} from "../pages/WhitePaper";
 
 const Landing = React.lazy(() => import("../pages/LandingV2/Landing"))
 const BlogPost = React.lazy(() => import("../pages/News/BlogPost")
@@ -99,6 +100,9 @@ export const Routing = observer(function Routing() {
 
                         <Route path={Routes.privacy} component={base(Privacy)}/>
                         <Route path={Routes.termsOfService} component={base(TermsOfService)}/>
+
+                        <Route path={Routes.whitePaper} component={base(WhitePaperBusiness)}/>
+                        <Route path={Routes.whitePaperTech} component={base(WhitePaperTechnical)}/>
 
                         <Route path={Routes.team} component={() => {
                             return (

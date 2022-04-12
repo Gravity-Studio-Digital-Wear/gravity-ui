@@ -30,14 +30,13 @@ export const Privacy: Page = () => {
                 <br/>
                 REPRESENTED BY <br/>
                 Emily Rosa Shahaj<br/>
-                Mingyue Liao<br/>
                 <br/>
 
 
                 CONTACT
                 <br/>
                 E-Mail: hello@gravitythestud.io<br/>
-                Internet: https://gravitythestud.io/
+                Internet: https://gravitythestudio.shop
                 <br/><br/>
                 REGISTRATION
                 <br/>

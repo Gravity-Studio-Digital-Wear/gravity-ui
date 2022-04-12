@@ -6,7 +6,7 @@ import {ENDPOINTS} from "../services/api/endpoints";
 import {initAmplitude} from "../utils/amplitude"
 
 import {persist} from "mobx-persist";
-import {initGa} from "../utils/gtag";
+import {hotjar, initGa} from "../utils/gtag";
 
 @service
 export class GravityApplication implements IBootstrapper {
@@ -59,6 +59,7 @@ export class GravityApplication implements IBootstrapper {
 
     onBootstrap() {
         initGa();
+        hotjar();
         this.initAmplitude();
         this.addHttpAuthMiddleware();
         // this.checkAuth();

@@ -85,12 +85,18 @@ export const Footer = observer(() => {
                             <LinkBox>
                                 <Link isExternal={true} href={'https://forms.gle/AvVvcJciKJFCLdfk6'}>Contact Us</Link>
                             </LinkBox>
+
+                            <LinkBox>
+                                <Link as={RouterLink} to={Routes.whitePaper}>White Paper (business)</Link>
+                            </LinkBox>
+                            <LinkBox>
+                                <Link as={RouterLink} to={Routes.whitePaperTech}>White paper (Technical)</Link>
+                            </LinkBox>
                         </Grid>
                         <HStack spacing={'12px'} position={'absolute'} bottom={0} letterSpacing={'0.03em'}>
                             <Link as={RouterLink} to={Routes.termsOfService} _hover={{textDecoration: 'none'}}>
                                 <Text as={'span'}
                                       _hover={{textDecoration: 'none'}}
-
                                       borderColor={'white'}>Terms
                                 </Text>
                             </Link>
@@ -125,7 +131,7 @@ export const Footer = observer(() => {
                             <Link href="https://www.youtube.com/channel/UCKrbhUFFqg-Q2nyrfxN9xjQ" isExternal>
                                 <YouTubeIcon color={'#D4F23F'} _hover={{color: '#D9FF1D'}}/>
                             </Link>
-                            <Link href="https://twitter.com/GravitytheStud" isExternal>
+                            <Link href="https://twitter.com/Gravityskins" isExternal>
                                 <TwitterIcon color={'#D4F23F'} _hover={{color: '#D9FF1D'}}/>
                             </Link>
 
@@ -147,15 +153,9 @@ export const Footer = observer(() => {
 
                         {!isSubscribed && (
                             <Stack spacing={'10px'} pt={'16px'}>
-                                <Text textTransform={'uppercase'} color={'white'} letterSpacing={'0.03em'}>
-                                    Subscribe
-                                </Text>
-
                                 <Text textTransform={'none'} color={'white'} letterSpacing={'0.03em'}>
                                     Subscribe to newsletters and special offers
                                 </Text>
-
-
                                 <Stack as={'form'} onSubmit={handleSubmit(submitFn)} spacing={'12px'} maxW={'241px'}
                                        mt={'16px'}>
                                     <Input

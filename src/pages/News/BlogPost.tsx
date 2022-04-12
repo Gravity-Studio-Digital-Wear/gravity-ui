@@ -76,7 +76,7 @@ export const BlogPost: Page = observer(function BlogPost() {
                 </HStack>
 
                 <Text align={'center'}
-                      maxW={'745px'}
+                      maxW={'100%'}
                       textTransform={'uppercase'} fontSize={{base: 42, xl: 60}} fontWeight={'700'} color={'white'}
                       letterSpacing={'0.03em'} lineHeight={1.1}
                 >
@@ -98,7 +98,7 @@ export const BlogPost: Page = observer(function BlogPost() {
 
                 <Box mt={'30px'} display={'flex'} justifyContent={'center'}>
 
-                    <Image src={blog.post.featuredImage} width={'100%'} height={'auto'}/>
+                    <Image src={blog.post.featuredImage} width={{base: '100%', xl: '50%'}} height={'auto'}/>
                 </Box>
 
 
