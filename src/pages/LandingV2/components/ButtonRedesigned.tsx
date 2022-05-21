@@ -88,7 +88,7 @@ export const ButtonRedesigned = ({children, ...props}: ButtonProps) => {
                         WebkitMask: 'paint(polygon-border)'
                     }}
                     bgColor={'black'}
-                    class={'gr-polygon-btn'}
+                    className={'gr-polygon-btn'}
                 />
             </Box>
         </Button>
