@@ -30,7 +30,7 @@ export const Block1 = observer(() => {
 
     const joinWhitelist = () => {
         sendAmplitudeData('E_MINT-BTN_FOLLOW')
-        window.open('https://www.premint.xyz/gravity-the-studio/ ', '_blank')
+        window.open('https://www.premint.xyz/gravitylayer/ ', '_blank')
     }
 
 

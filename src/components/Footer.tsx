@@ -42,7 +42,7 @@ export function Footer() {
                             <DiscordIcon/>
                         </Link>
 
-                        <Link href="https://www.instagram.com/gravitythestudio/" isExternal>
+                        <Link href="https://www.instagram.com/gravitylayer/" isExternal>
                             <InstaIcon/>
                         </Link>
                         <Link href="https://www.youtube.com/channel/UCKrbhUFFqg-Q2nyrfxN9xjQ" isExternal>

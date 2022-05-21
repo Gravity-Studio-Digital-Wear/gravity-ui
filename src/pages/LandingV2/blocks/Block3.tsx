@@ -28,7 +28,7 @@ export const Block3 = () => {
                     mt={{base: '160px'}}
                     zIndex={2}
                 >
-                    We are <br/> Gravity <br/> the Studio
+                    We are <br/> Gravity <br/> Layer
 
                     <Box position={'absolute'} top={'-24px'} left={'-24px'} display={{base: 'none', xl: 'block'}}>
                         <RectangleShape/>

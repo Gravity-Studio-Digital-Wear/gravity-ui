@@ -5,11 +5,8 @@ import {observer} from "mobx-react";
 import {TicketStatus} from "./TicketStatus";
 import {ComingSoon} from "../../components/icons/ComingSoon";
 
-export const ItemCard = observer(function ItemCard({
-                                                       product,
-                                                       onClick,
-                                                       ticket
-                                                   }: { product: IProduct, ticket: ITicket, onClick: () => void }) {
+export const ItemCard = observer(function ItemCard(props: { product: IProduct, ticket: ITicket, onClick: () => void }) {
+    const {product, onClick, ticket} = props;
     return (
         <Stack display={'flex'}
                justifyContent={'flex-start'}
@@ -59,7 +56,6 @@ export const ItemCard = observer(function ItemCard({
                         </Box>
                     )}
                 </Stack>
-
             </Box>
         </Stack>
     )

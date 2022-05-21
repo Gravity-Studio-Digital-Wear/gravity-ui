@@ -168,7 +168,7 @@ export function WhatTheDifferenceModal() {
                     <Text mb={'24px'}>A crypto-wallet that sits securely in your web browser.
                         If you would like to set up your own Metamask wallet, please the following instructions. This
                         wallet
-                        will allow you to enjoy the full GravityTheStudio experience.
+                        will allow you to enjoy the full GravityLayer experience.
                     </Text>
 
                     <Text mb={'16px'} fontWeight={'bold'} fontSize={18} letterSpacing={'0.02em'}>
@@ -176,7 +176,7 @@ export function WhatTheDifferenceModal() {
                     </Text>
 
                     <Text>We create you a cloud crypto-wallet.
-                        Note: This wallet cannot be exported from GravityTheStudio, Hence you will not be able to use
+                        Note: This wallet cannot be exported from GravityLayer, Hence you will not be able to use
                         this
                         wallet when trying to buy/sell NFTs in a 3rd party marketplace.</Text>
                 </Box>

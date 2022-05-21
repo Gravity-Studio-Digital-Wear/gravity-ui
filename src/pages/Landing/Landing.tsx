@@ -514,7 +514,7 @@ function WeAreDressing() {
             </Box>
 
             <Box display={'flex'} justifyContent={'center'} mt={'40px'}>
-                <Button color={'white'} onClick={() => window.open('https://www.instagram.com/gravitythestudio/')}>Find
+                <Button color={'white'} onClick={() => window.open('https://www.instagram.com/gravitylayer/')}>Find
                     us on instagram</Button>
             </Box>
         </Box>

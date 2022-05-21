@@ -135,7 +135,7 @@ function BurgerButton(props: BoxProps) {
                                 <ChakraLink href={'https://discord.gg/Ejh4jEPRDC'} isExternal>
                                     <DiscordIcon color={'#D4F23F'} _hover={{color: '#D9FF1D'}}/>
                                 </ChakraLink>
-                                <ChakraLink href="https://www.instagram.com/gravitythestudio/" isExternal>
+                                <ChakraLink href="https://www.instagram.com/gravitylayer/" isExternal>
                                     <InstaIcon color={'#D4F23F'} _hover={{color: '#D9FF1D'}}/>
                                 </ChakraLink>
                                 <ChakraLink href="https://www.youtube.com/channel/UCKrbhUFFqg-Q2nyrfxN9xjQ" isExternal>

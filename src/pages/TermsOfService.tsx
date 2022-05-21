@@ -20,7 +20,7 @@ export const TermsOfService: Page = () => {
             <Heading textTransform={'uppercase'}>Terms of Service</Heading>
 
             <Text as={'p'} mt={6}>
-                Gravity the Studio LTD
+                Gravity Layer
                 <br/>
                 <br/>
                 86-90 Paul Street, London, UK EC2A 4NE
@@ -34,15 +34,15 @@ export const TermsOfService: Page = () => {
 
                 CONTACT
                 <br/>
-                E-Mail: hello@gravitythestud.io<br/>
-                Internet: https://gravitythestudio.shop
+                E-Mail: hello@gravitylayer.io<br/>
+                Internet: https://gravitylayer.io
                 <br/><br/>
                 REGISTRATION
                 <br/>
                 Entry in Commercial register number 13351743<br/>
                 <br/>
-                This website is operated by Gravity the Studio LTD. Throughout the site, the terms “we”, “us” and “our”
-                refer to Gravity the Studio LTD. Gravity the Studio LTD offers this website, including all information,
+                This website is operated by Gravity Layer LTD. Throughout the site, the terms “we”, “us” and “our”
+                refer to Gravity Layer. Gravity Layer LTD offers this website, including all information,
                 tools and services available from this site to you, the user, conditioned upon your acceptance of all
                 terms, conditions, policies and notices stated here.
                 <br/><br/>
@@ -95,7 +95,7 @@ export const TermsOfService: Page = () => {
                 Your Commitments<br/>
                 In return for our commitment to provide the Service, we require you to make the below commitments to us.<br/>
                 <br/>
-                Who Can Use Gravity the Studio:<br/>
+                Who Can Use Gravity Layer:<br/>
                 We want our Service to be as open and inclusive as possible, but we also want it to be safe, secure, and
                 in accordance with the law. So, we need you to commit to a few restrictions in order to be part of the
                 community.
@@ -106,11 +106,11 @@ export const TermsOfService: Page = () => {
                 <br/>
 
 
-                How You Can't Use Gravity the Studio:<br/>
+                How You Can't Use Gravity Layer:<br/>
                 Providing a safe and open Service for a broad community requires that we all do our part.<br/>
                 <br/>
                 • You can't impersonate others or provide inaccurate information.<br/>
-                • You don't have to disclose your identity on Gravity the Studio, but you must provide us with accurate
+                • You don't have to disclose your identity on Gravity Layer, but you must provide us with accurate
                 and up to date information (including registration information). Also, you may not impersonate someone
                 you aren't, and you can't create an account for someone else unless you have their express
                 permission.<br/>
@@ -135,7 +135,7 @@ export const TermsOfService: Page = () => {
                 transferable, sub-licensable, worldwide license to host, use, distribute, modify, run, copy, publicly
                 perform or display, translate, and create derivative works of your content (consistent with your privacy
                 and application settings). You can end this license anytime by providing the written notice to
-                hello@gravitythestud.io.<br/>
+                hello@gravitylayer.io.<br/>
 
 
                 <br/><br/>
@@ -300,7 +300,7 @@ export const TermsOfService: Page = () => {
                 is' and 'as available' for your use, without any representation, warranties or conditions of any kind,
                 either express or implied, including all implied warranties or conditions of merchantability,
                 merchantable quality, fitness for a particular purpose, durability, title, and non-infringement. In no
-                case shall Gravity the Studio LTD, our directors, officers, employees, affiliates, agents, contractors,
+                case shall Gravity Layer LTD, our directors, officers, employees, affiliates, agents, contractors,
                 interns, suppliers, service providers or licensors be liable for any injury, loss, claim, or any direct,
                 indirect, incidental, punitive, special, or consequential damages of any kind, including, without
                 limitation lost profits, lost revenue, lost savings, loss of data, replacement costs, or any similar
@@ -315,7 +315,7 @@ export const TermsOfService: Page = () => {
                 <br/><br/>
 
                 SECTION 14 - INDEMNIFICATION<br/>
-                You agree to indemnify, defend and hold harmless Gravity the Studio LTD and our parent, subsidiaries,
+                You agree to indemnify, defend and hold harmless Gravity Layer LTD and our parent, subsidiaries,
                 affiliates, partners, officers, directors, agents, contractors, licensors, service providers,
                 subcontractors, suppliers, interns and employees, harmless from any claim or demand, including
                 reasonable attorneys’ fees, made by any third-party due to or arising out of your breach of these Terms
@@ -358,7 +358,7 @@ export const TermsOfService: Page = () => {
 
                 The Service and all materials therein or transferred thereby, including, without limitation, images,
                 text, graphics, logos, patents, trademarks, service marks, copyrights, photographs, videos, music and
-                all Intellectual Property Rights related thereto, are the exclusive property of Gravity the Studio LTD.
+                all Intellectual Property Rights related thereto, are the exclusive property of Gravity Layer LTD.
                 Except as explicitly provided herein, nothing in these Terms shall be deemed to create a license in or
                 under any such Intellectual Property Rights, and you agree not to sell, license, rent, modify,
                 distribute, copy, reproduce, transmit, adapt, edit or create derivative works thereof.
@@ -384,7 +384,7 @@ export const TermsOfService: Page = () => {
                 <br/><br/>
 
                 SECTION 21 - CONTACT INFORMATION<br/>
-                Questions about the Terms of Service should be sent to us at hello@gravitythestud.io.
+                Questions about the Terms of Service should be sent to us at hello@gravitylayer.io.
 
             </Text>
         </Box>

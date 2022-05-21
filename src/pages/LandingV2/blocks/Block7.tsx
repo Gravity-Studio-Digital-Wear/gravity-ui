@@ -16,7 +16,7 @@ export const Block7 = () => {
 
     const joinWhitelist = () => {
         sendAmplitudeData('E_MINT-BTN_FOLLOW')
-        window.open('https://www.premint.xyz/gravity-the-studio/ ', '_blank')
+        window.open('https://www.premint.xyz/gravitylayer/ ', '_blank')
     }
     return (
         <Block>
@@ -30,7 +30,7 @@ export const Block7 = () => {
                     letterSpacing={'0.11em'}
                     fontSize={{base: 39, xl: 75}}
                     textTransform={'uppercase'}
-                    mt={{base: '120px', xl: '300px'}}
+                    mt={{base: '120px', xl: '150px'}}
                 >
                     <Text fontFamily={'All Round Gothic'}>
                         Be who you want <br/> wherever you go

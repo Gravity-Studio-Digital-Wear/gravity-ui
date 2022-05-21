@@ -125,7 +125,7 @@ export const Footer = observer(() => {
                             <Link href={'https://discord.gg/Ejh4jEPRDC'} isExternal>
                                 <DiscordIcon color={'#D4F23F'} _hover={{color: '#D9FF1D'}}/>
                             </Link>
-                            <Link href="https://www.instagram.com/gravitythestudio/" isExternal>
+                            <Link href="https://www.instagram.com/gravitylayer/" isExternal>
                                 <InstaIcon color={'#D4F23F'} _hover={{color: '#D9FF1D'}}/>
                             </Link>
                             <Link href="https://www.youtube.com/channel/UCKrbhUFFqg-Q2nyrfxN9xjQ" isExternal>

@@ -1,41 +1,39 @@
-import {Centered} from "../components/Common";
-import {Flex, Text} from "@chakra-ui/react";
-import {InstagramSlider} from "../components/InstagramSlider";
-import {PolygonBorder} from "../components/PolygonBorder";
+import {Flex} from "@chakra-ui/react";
 import {Block} from "../components/Block";
 import * as React from "react";
-import {sendAmplitudeData} from "../../../utils/amplitude";
+import {Centered} from "../components/Common";
 
 export const Block4 = () => {
-    const findUsInstagram = () => {
-        sendAmplitudeData('E_INST-BTN_FOLLOW')
+    const ref = React.useRef<HTMLDivElement>();
 
-        window.open('https://www.instagram.com/gravitythestudio/ ', '_blank')
-    }
+    const [fw, setFw] = React.useState(1134)
+    const [fh, setFh] = React.useState(600)
 
+
+    React.useEffect(() => {
+        const width = ref.current.getBoundingClientRect().width
+
+        const w = width * 1134 / 600;
+        const h = width * 600 / 1134
+
+        setFw(w);
+        setFh(h)
+    }, [ref])
     return (
         <Block>
-            <Centered>
-                <Text
-                    fontFamily={'All Round Gothic'}
-                    fontSize={{base: 34, xl: 54}}
-                    color={'white'}
-                    lineHeight={{base: '44px', xl: '68px'}}
-                    position={'relative'}
-                    mt={{base: '160px'}}
-                >
-                    Who we’re dressing
-                </Text>
-            </Centered>
-
-            <InstagramSlider mt={'40px'}/>
 
             <Centered>
-                <Flex justifyContent={'center'} mt={'60px'}>
 
-                    <PolygonBorder w={'308px'} onClick={findUsInstagram}>
-                        FIND US ON INSTAGRAM
-                    </PolygonBorder>
+                <Flex justifyContent={'center'} mt={'64px'} position={'relative'} ref={ref}>
+                    <iframe
+                        width={fw}
+                        height={fh}
+                        src={`https://www.youtube.com/embed/p9cLZkwdzxQ`}
+                        frameBorder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowFullScreen
+                        title="Embedded youtube"
+                    />
                 </Flex>
             </Centered>
         </Block>

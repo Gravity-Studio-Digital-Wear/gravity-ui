@@ -20,7 +20,7 @@ import {Polygon} from "../LandingV2/components/Polygon";
 export const NFTDrop = () => {
     const joinWhitelist = () => {
         sendAmplitudeData('E_MINT-BTN_FOLLOW')
-        window.open('https://www.premint.xyz/gravity-the-studio/ ', '_blank')
+        window.open('https://www.premint.xyz/gravitylayer/ ', '_blank')
     }
 
     const joinDiscord = () => {
@@ -68,7 +68,7 @@ export const NFTDrop = () => {
 
                    <Text maxW={'650px'} color={'white'} fontSize={{base: 17, xl: 21}} mt={'16px'}
                          letterSpacing={'0.01em'}>
-                       The game apparel collection from the artists at Gravity the Studio, universally wearable on avatars across our ever-growing ecosystem, with exclusive holder benefits now and forever. Join the whitelist now for first mint access and dedicated discounted pricing.
+                       The game apparel collection from the artists at Gravity Layer, universally wearable on avatars across our ever-growing ecosystem, with exclusive holder benefits now and forever. Join the whitelist now for first mint access and dedicated discounted pricing.
                    </Text>
 
                    <PolygonBorder mt={'36px'} onClick={joinWhitelist} w={'269px'}>

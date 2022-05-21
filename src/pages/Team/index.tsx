@@ -19,7 +19,7 @@ function LinkedIn({link}: { link: string }) {
 export const Team = () => {
     const joinWhitelist = () => {
         sendAmplitudeData('E_MINT-BTN_FOLLOW')
-        window.open('https://www.premint.xyz/gravity-the-studio/ ', '_blank')
+        window.open('https://www.premint.xyz/gravitylayer/ ', '_blank')
     }
     return (
         <Stack spacing={0} fontFamily={'Montserrat'} overflow={'hidden'}>

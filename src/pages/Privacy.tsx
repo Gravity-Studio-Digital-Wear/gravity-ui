@@ -21,7 +21,7 @@ export const Privacy: Page = () => {
             <Heading textTransform={'uppercase'}>Privacy</Heading>
 
             <Text as={'p'} mt={6}>
-                Gravity the Studio LTD
+                Gravity Layer LTD
                 <br/>
                 <br/>
                 86-90 Paul Street, London, UK EC2A 4NE
@@ -35,15 +35,15 @@ export const Privacy: Page = () => {
 
                 CONTACT
                 <br/>
-                E-Mail: hello@gravitythestud.io<br/>
-                Internet: https://gravitythestudio.shop
+                E-Mail: hello@gravitylayer.io<br/>
+                Internet: https://gravitylayer.io
                 <br/><br/>
                 REGISTRATION
                 <br/>
                 Entry in Commercial register number 13351743<br/>
                 <br/>
-                This website is operated by Gravity the Studio LTD. Throughout the site, the terms “we”, “us” and “our”
-                refer to Gravity the Studio LTD. Gravity the Studio LTD offers this website, including all information,
+                This website is operated by Gravity Layer LTD. Throughout the site, the terms “we”, “us” and “our”
+                refer to Gravity Layer LTD. Gravity Layer LTD offers this website, including all information,
                 tools and services available from this site to you, the user, conditioned upon your acceptance of all
                 terms, conditions, policies and notices stated here.
                 <br/><br/>
