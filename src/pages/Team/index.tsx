@@ -120,7 +120,7 @@ export const Team = () => {
                         </Box>
                         <Text fontFamily={'All Round Gothic'} fontSize={24} mt={'32px'}>Timofey</Text>
                         <Text fontWeight={'400'} fontSize={17} height={'48px'}>Full Stack Developer</Text>
-                        <LinkedIn link={'https://www.linkedin.com/in/tim-semenyuk-27618517b/'}/>
+                        <LinkedIn link={'https://www.linkedin.com/in/timofey-semenyuk-27618517b/'}/>
                     </Box>
                 </Grid>
             </Centered>
