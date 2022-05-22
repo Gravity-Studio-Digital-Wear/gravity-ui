@@ -82,11 +82,11 @@ export const Team = () => {
                     </Box>
                     <Box>
                         <Box height={'250px'} display={'flex'} justifyContent={'center'}>
-                            <Image src={'/team/varun.png'}  height={'100%'}/>
+                            <Image src={'/team/sophia.png'}  height={'100%'}/>
                         </Box>
-                        <Text fontFamily={'All Round Gothic'} mt={'32px'} fontSize={24}>Varun Ashok</Text>
-                        <Text fontWeight={'400'} fontSize={17} height={'48px'}>Social Media + Community Manager</Text>
-                        <LinkedIn link={'https://www.linkedin.com/in/varunashokmba/'}/>
+                        <Text fontFamily={'All Round Gothic'} mt={'32px'} fontSize={24}>Sophia Collins </Text>
+                        <Text fontWeight={'400'} fontSize={17} height={'48px'}>Social Media Manager</Text>
+                        <LinkedIn link={'https://www.linkedin.com/in/sophia-collins-b4b87790/ '}/>
                     </Box>
                     <Box>
                         <Box height={'250px'} display={'flex'} justifyContent={'center'}>

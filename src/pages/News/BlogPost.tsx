@@ -98,7 +98,7 @@ export const BlogPost: Page = observer(function BlogPost() {
 
                 <Box mt={'30px'} display={'flex'} justifyContent={'center'}>
 
-                    <Image src={blog.post.featuredImage} width={{base: '100%', xl: '50%'}} height={'auto'}/>
+                    <Image src={blog.post.featuredImage} width={{base: '100%', xl: '75%'}} height={'auto'}/>
                 </Box>
 
 
