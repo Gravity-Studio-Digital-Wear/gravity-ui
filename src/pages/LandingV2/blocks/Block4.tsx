@@ -21,9 +21,7 @@ export const Block4 = () => {
     }, [ref])
     return (
         <Block>
-
             <Centered>
-
                 <Flex justifyContent={'center'} mt={'64px'} position={'relative'} ref={ref}>
                     <iframe
                         width={fw}
