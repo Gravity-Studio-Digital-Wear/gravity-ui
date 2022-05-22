@@ -11,7 +11,7 @@ import {ReactComponent as SymbolsBox} from '../../assets/symbols-box--nft-drop.s
 import {ReactComponent as Slashes} from '../../assets/slashes--nft-drop.svg';
 import {ReactComponent as DiscordLogo} from '../../assets/discord-logo.svg';
 
-import GoldImage from './assets/gold.png'
+import GoldImage from './assets/img.png'
 
 import {PolygonBorder} from "../LandingV2/components/PolygonBorder";
 import {sendAmplitudeData} from "../../utils/amplitude";
@@ -216,19 +216,6 @@ export const NFTDrop = () => {
                     </Text>
 
                     <Box mt={'40px'}>
-                        <Flex alignItems={'center'} h={'145px'} border={'1px solid'}
-                              borderColor={'rgba(255,255,255, .3)'} px={'56px'}>
-                            <Stack>
-                                <Text fontSize={16} letterSpacing={'.01em'} opacity={.4}>
-                                    Done
-                                </Text>
-                                <Text fontSize={24} letterSpacing={'.02em'} fontWeight={500} opacity={.6}>
-                                    Whitelist open
-                                </Text>
-                            </Stack>
-                        </Flex>
-
-
                         <Flex
                             alignItems={'center'}
                             border={'1px solid'}
@@ -251,26 +238,37 @@ export const NFTDrop = () => {
 
 
                                 <Text fontSize={24} letterSpacing={'.02em'} fontWeight={500}>
-                                    Whitelist mint
+                                    Whitelist open
                                 </Text>
 
                                 <Text fontSize={21} letterSpacing={'.01em'} fontWeight={500} mt={'40px'}>
-                                    Early access for those who signed up for the Whitelist.
+                                    Sign up in advance for the best mint <br/> price and early access to the drop.
                                 </Text>
 
-                                <PolygonBorder mt={'36px'} onClick={joinWhitelist} w={'180px'}>
-                                    Mint
-                                </PolygonBorder>
+                                {/*<PolygonBorder mt={'36px'} onClick={joinWhitelist} w={'269px'}>*/}
+                                {/*    JOIN THE WHITELIST*/}
+                                {/*</PolygonBorder>*/}
                             </Box>
 
                             <Box ml={'auto'} display={{base: 'none', xl: 'block'}}>
                                 <Box right={'0'} top={0}>
 
-                                    <Image src={GoldImage} maxW={'250px'}/>
+                                    <Image src={GoldImage} maxW={'450px'}/>
                                 </Box>
                             </Box>
+                        </Flex>
 
 
+                        <Flex alignItems={'center'} h={'145px'} border={'1px solid'}
+                              borderColor={'rgba(255,255,255, .3)'} px={'56px'}>
+                            <Stack>
+                                <Text fontSize={16} letterSpacing={'.01em'} opacity={.4}>
+                                    Coming soon
+                                </Text>
+                                <Text fontSize={24} letterSpacing={'.02em'} fontWeight={500} opacity={.6}>
+                                    Whitelist mint
+                                </Text>
+                            </Stack>
                         </Flex>
 
 
