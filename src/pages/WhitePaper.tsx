@@ -8,15 +8,17 @@ import {IconBack} from "../components/icons/IconBack";
 
 export const WhitePaperBusiness = () => {
     const boxRef = React.useRef<HTMLDivElement>(null)
-
-    const [frameH, setFrameH] = React.useState(0)
+    const [frameH, setFrameH] = React.useState(569)
 
     React.useEffect(() => {
+        if (!boxRef.current){
+            return;
+        }
+
         const {width} = boxRef.current?.getBoundingClientRect()
 
         setFrameH(width * (569 / 960));
-    }, [])
-
+    }, [boxRef])
 
     return (
         <Box>
@@ -34,7 +36,7 @@ export const WhitePaperBusiness = () => {
                 </Link>
             </Flex>
 
-            <Box p={{base: '17px', md: 0}} mt={'16px'} ref={boxRef}>
+            <Box className={'test'} p={{base: '17px', md: 0}} mt={'16px'} ref={boxRef}>
                 <iframe
                     src="https://docs.google.com/presentation/d/e/2PACX-1vTM5ScR2sOD_6q5_dWJny2LnLE6HZmOWgYWrnGe1NDvxoNZevhVMbDPEUsjXauH8ULxM564Xe2abMt3/embed?start=false&loop=false&delayms=3000"
                     frameBorder="0"
@@ -45,8 +47,6 @@ export const WhitePaperBusiness = () => {
                     webkitallowfullscreen="true"/>
             </Box>
         </Box>
-
-
     )
 }
 
@@ -57,10 +57,14 @@ export const WhitePaperTechnical = () => {
     const [frameH, setFrameH] = React.useState(0)
 
     React.useEffect(() => {
+        if (!boxRef.current){
+            return;
+        }
+
         const {width} = boxRef.current?.getBoundingClientRect()
 
         setFrameH(width * (569 / 960));
-    }, [])
+    }, [boxRef])
 
 
     return (
