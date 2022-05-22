@@ -245,9 +245,9 @@ export const NFTDrop = () => {
                                     Sign up in advance for the best mint <br/> price and early access to the drop.
                                 </Text>
 
-                                {/*<PolygonBorder mt={'36px'} onClick={joinWhitelist} w={'269px'}>*/}
-                                {/*    JOIN THE WHITELIST*/}
-                                {/*</PolygonBorder>*/}
+                                <PolygonBorder mt={'36px'} onClick={joinWhitelist} w={'269px'}>
+                                    JOIN THE WHITELIST
+                                </PolygonBorder>
                             </Box>
 
                             <Box ml={'auto'} display={{base: 'none', xl: 'block'}}>
