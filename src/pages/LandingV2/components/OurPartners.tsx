@@ -141,7 +141,7 @@ export function OurPartners() {
                         )}
                     </Polygon>
                     <Flex justifyContent={'center'} alignItems={'center'} height={'100%'}>
-                        <Image src={'/landing/partners/img_1.png'}
+                        <Image src={'/landing/partners/img_3.png'}
                                mixBlendMode={'multiply'}
                                width={122}/>
                     </Flex>
