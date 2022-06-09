@@ -61,7 +61,7 @@ export const Team = () => {
                     <Box>
                         <Image src={'/team/amy.png'}/>
                         <Text fontFamily={'All Round Gothic'} fontSize={24}>Amy Yu</Text>
-                        <Text fontWeight={'400'} fontSize={17}>Head of Operations</Text>
+                        <Text fontWeight={'400'} fontSize={17}>COO</Text>
                         <Text fontSize={16} mt={'16px'} height={'48px'}>Nominated eSports Woman of the Year 2017</Text>
                         <LinkedIn link={'https://www.linkedin.com/in/amytqyu/'}/>
                     </Box>

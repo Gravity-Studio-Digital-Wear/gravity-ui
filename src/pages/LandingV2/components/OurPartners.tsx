@@ -117,35 +117,35 @@ export function OurPartners() {
                                width={122}/>
                     </Flex>
                 </GridItem>
-                <GridItem position={'relative'}>
-                    <Polygon
-                        zIndex={4}
-                        position={'absolute'}
-                        width={'100%'}
-                        height={'100%'}
-                        opacity={.2}
-                        config={{
-                            edges: [[21, 21], [21, 21], [21, 21], [21, 21]]
-                        }}
-                    >
-                        {data => (
-                            <path
-                                className={'gr-polygon-btn-outline'}
-                                d={data.path + 'Z'}
-                                fill="none"
-                                stroke="#ffffff"
-                                strokeWidth={'2px'}
-                                fillRule="evenodd"
-                                clipRule="evenodd"
-                            />
-                        )}
-                    </Polygon>
-                    <Flex justifyContent={'center'} alignItems={'center'} height={'100%'}>
-                        <Image src={'/landing/partners/img_3.png'}
-                               mixBlendMode={'multiply'}
-                               width={122}/>
-                    </Flex>
-                </GridItem>
+                {/*<GridItem position={'relative'}>*/}
+                {/*    <Polygon*/}
+                {/*        zIndex={4}*/}
+                {/*        position={'absolute'}*/}
+                {/*        width={'100%'}*/}
+                {/*        height={'100%'}*/}
+                {/*        opacity={.2}*/}
+                {/*        config={{*/}
+                {/*            edges: [[21, 21], [21, 21], [21, 21], [21, 21]]*/}
+                {/*        }}*/}
+                {/*    >*/}
+                {/*        {data => (*/}
+                {/*            <path*/}
+                {/*                className={'gr-polygon-btn-outline'}*/}
+                {/*                d={data.path + 'Z'}*/}
+                {/*                fill="none"*/}
+                {/*                stroke="#ffffff"*/}
+                {/*                strokeWidth={'2px'}*/}
+                {/*                fillRule="evenodd"*/}
+                {/*                clipRule="evenodd"*/}
+                {/*            />*/}
+                {/*        )}*/}
+                {/*    </Polygon>*/}
+                {/*    <Flex justifyContent={'center'} alignItems={'center'} height={'100%'}>*/}
+                {/*        <Image src={'/landing/partners/img_3.png'}*/}
+                {/*               mixBlendMode={'multiply'}*/}
+                {/*               width={122}/>*/}
+                {/*    </Flex>*/}
+                {/*</GridItem>*/}
                 <GridItem position={'relative'}>
                     <Polygon
                         zIndex={4}

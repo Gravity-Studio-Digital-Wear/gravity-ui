@@ -118,7 +118,7 @@ export const NFTDrop = () => {
                                 </Box>
 
                                 <Text as={'span'} color={'#D4F23F'}>Wear</Text> in any <Text as={'span'}
-                                                                                             color={'#D4F23F'}>metaverse</Text> we’re <br/>
+                                                                                             color={'#D4F23F'}>virtual world</Text> we’re <br/>
                                 integrated with, now and forever
                             </Text>
 
@@ -129,15 +129,16 @@ export const NFTDrop = () => {
                                         <PreTitleShape/>
                                     </Box>
 
-                                    <Text as={'span'} color={'#D4F23F'}> Show off</Text> with the rest <br/> of your NFT collection
+
+                                    <Text as={'span'} color={'#D4F23F'}> Show off</Text> with the rest <br/> of your collection
                                 </Text>
 
-                                <Box flexBasis={'60%'} fontSize={24} fontWeight={400} ml={'32px'}>
-                                    <Box as={'span'} display={'inline-block'} position={'relative'} left={'-10px'} top={'3px'}>
-                                        <PreTitleShape/>
-                                    </Box>
-                                    <Text as={'span'} color={'#D4F23F'}>Trade</Text> for crypto
-                                </Box>
+                                {/*<Box flexBasis={'60%'} fontSize={24} fontWeight={400} ml={'32px'}>*/}
+                                {/*    <Box as={'span'} display={'inline-block'} position={'relative'} left={'-10px'} top={'3px'}>*/}
+                                {/*        <PreTitleShape/>*/}
+                                {/*    </Box>*/}
+                                {/*    <Text as={'span'} color={'#D4F23F'}>Trade</Text> for crypto*/}
+                                {/*</Box>*/}
                             </Flex>
                         </Box>
 

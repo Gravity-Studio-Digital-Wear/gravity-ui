@@ -62,7 +62,7 @@ export function Header() {
                         </LinkBox>
 
                         <LinkBox>
-                            <Link to={Routes.nftDrop}>NFT Drop</Link>
+                            <Link to={Routes.nftDrop}>Drop</Link>
                         </LinkBox>
 
                         <LinkBox>
@@ -112,7 +112,7 @@ function BurgerButton(props: BoxProps) {
                             </LinkBox>
 
                             <LinkBox  onClick={onClose}>
-                                <Link to={Routes.nftDrop}>NFT Drop</Link>
+                                <Link to={Routes.nftDrop}>Drop</Link>
                             </LinkBox>
 
                             <LinkBox onClick={onClose}>

@@ -30,14 +30,12 @@ export const Block2 = () => {
                       position={'relative'}>
                     <Box as={'span'}>
                         <Text fontFamily={'All Round Gothic'} color={'white'} fontSize={24} mt={'145px'}>
-                            Barriers are so web2
+                            Metaverse interoperability is happening
                         </Text>
 
                         <Text maxW={'350px'} color={'white'} fontSize={{base: 16, xl: 17}} mt={'16px'}
                               letterSpacing={'0.01em'}>
-                            Seamlessly wear your NFT apparel on your avatars across metaverses, or flex in your
-                            social media photos. Keep it rolling with rare artist-collaborated ornament add-ons and
-                            exclusive community bonuses.
+                            Seamlessly wear your digital fashion on avatars across any virtual world. Keep it going with rare artist-collaborated ornament add-ons and exclusive community bonuses.
                         </Text>
                     </Box>
 

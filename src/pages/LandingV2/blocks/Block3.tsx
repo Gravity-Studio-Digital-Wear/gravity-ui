@@ -75,11 +75,7 @@ export const Block3 = () => {
 
                 <Box mt={{xl: '460px'}}>
                     <Text maxW={'650px'} color={'white'} fontSize={17} mt={'16px'} letterSpacing={'0.01em'}>
-                        We’re a blockchain-driven platform revolutionizing how gamers show off in virtual worlds.
-                        Buy your look in one game and still be wearing it everywhere else you play, no repurchase
-                        necessary. We digitize fashion designs and make them compatible across all graphic styles
-                        and avatars, allowing them to be buyable and wearable in all virtual worlds where our
-                        technology is integrated.
+                        Gravity Layer is an infrastructure revolutionizing how gamers show off in the Metaverse. Buy your look in one game and still be wearing it everywhere else you play. We digitize fashion as game skins and make them compatible across all graphic styles and avatars, allowing them to be buyable and wearable in all virtual worlds where our technology is integrated.
                     </Text>
                 </Box>
 

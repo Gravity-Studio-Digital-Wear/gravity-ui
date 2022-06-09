@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/gravity.iml" filepath="$PROJECT_DIR$/.idea/gravity.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../nfts-backend/.idea/nfts-backend.iml" filepath="$PROJECT_DIR$/../nfts-backend/.idea/nfts-backend.iml" />
     </modules>
   </component>
 </project>
