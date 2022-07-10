@@ -1,34 +1,117 @@
-# This is a basic workflow to help you get started with Actions
-
-name: CI-Publish-To-Dev
-
-# Controls when the workflow will run
 on:
-  # Triggers the workflow on push or pull request events but only for the master branch
   push:
-    branches: [ dev ]
+    branches:
+      - main
+      - master
+      - dev
+      - 'feature/**'
   pull_request:
-    branches: [ dev ]
-
-  # Allows you to run this workflow manually from the Actions tab
-  workflow_dispatch:
-
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+      types: [opened, synchronize, reopened]
 jobs:
-  # This workflow contains a single job called "build"
-  build:
-    # The type of runner that the job will run on
+  code-quality:
     runs-on: ubuntu-latest
-
-    # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
-      
-      # Login to docker registry
-      - name: Login to docker registry
-        run: docker login rg.fr-par.scw.cloud/easychain -u nologin -p ${{ secrets.DOCKER_REGISTRY_SK }}
-
-      # Runs a single command using the runners shell
-      - name: Build and deploy to Dev
-        run: sh build-docker.sh
+        with:
+          # Disabling shallow clone is recommended for improving relevancy of reporting
+          fetch-depth: 0
+      - name: SonarQube Scan
+        uses: sonarsource/sonarqube-scan-action@master
+        with:
+          args: >
+            -Dsonar.projectKey=${{ github.event.repository.name }}
+            -Dsonar.projectName=${{ github.event.repository.name }}  
+            -Dsonar.qualitygate.wait=true
+            -Dsonar.sourceEncoding=UTF-8
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
+  build:
+    runs-on: ubuntu-latest
+    needs: code-quality
+    steps:
+      - uses: actions/checkout@v2
+      - name: Get short hash commit
+        id: vars
+        run: echo "::set-output name=sha_short::$(git rev-parse --short HEAD)"
+      - uses: docker/metadata-action@v3
+        id: metadata
+        with:
+          images: ghcr.io/${{ github.repository }}
+      - uses: docker/login-action@v1
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      - name: PrepareReg Names
+        run: |
+          echo IMAGE_REPOSITORY=$(echo ${{ github.repository }} | tr '[:upper:]' '[:lower:]') >> $GITHUB_ENV
+          echo IMAGE_TAG=$(echo ${{ github.ref }} | tr '[:upper:]' '[:lower:]' | awk '{split($0,a,"/"); print a[3]}') >> $GITHUB_ENV
+      - uses: int128/kaniko-action@v1
+        with:
+          push: true
+          file: Dockerfile
+          context: .
+          tags: ghcr.io/${{ env.IMAGE_REPOSITORY }:${{ steps.vars.outputs.sha_short }}
+          labels: ${{ steps.metadata.outputs.labels }}
+          cache: true
+          cache-repository: ghcr.io/${{ env.IMAGE_REPOSITORY }}/cache
+      - name: Run Trivy vulnerability scanner
+        uses: aquasecurity/trivy-action@master
+        with:
+          image-ref: 'ghcr.io/${{ env.IMAGE_REPOSITORY }}:${{ steps.vars.outputs.sha_short }}'
+          format: 'sarif'
+          output: 'trivy-results.sarif'
+        env:
+          TRIVY_USERNAME: ${{ github.actor }}
+          TRIVY_PASSWORD: ${{ secrets.GITHUB_TOKEN }}
+      - name: Upload Trivy scan results to GitHub Security tab
+        uses: github/codeql-action/upload-sarif@v2
+        if: always()
+        with:
+          sarif_file: 'trivy-results.sarif'
+  deploy:
+    runs-on: ubuntu-latest
+    needs: build 
+    if: github.ref_name == 'main' || github.ref_name == 'master' || github.ref_name == 'dev'
+    env: 
+      ENVIRONMENT: dev
+    steps:
+      - name: Configuration for master branch
+        if: github.ref_name == 'main' || github.ref_name == 'master'
+        run: |
+          echo "ENVIRONMENT=prod" >> $GITHUB_ENV
+      - uses: actions/checkout@v3
+      - name: Get short hash commit
+        id: vars
+        run: echo "::set-output name=sha_short::$(git rev-parse --short HEAD)"
+      - uses: actions/checkout@v3 
+        with:
+          repository: Gravity-Studio-Digital-Wear/helm-charts
+          ref: master
+          ssh-key: ${{ secrets.SSH_KEY }}
+      - name: Update Version
+        run: |
+          sudo apt-get install -y 
+          declare -A array
+          array[ui.image.tag]=${{ steps.vars.outputs.sha_short }}
+          # git config and clone helm repo 
+          git config user.name "$GITHUB_ACTOR"
+          git config user.email "$GITHUB_ACTOR@users.noreply.github.com"
+          # set new image tags in values file
+          for key in "${!array[@]}"; do 
+            yq eval "."$key" = \"${array[$key]}\"" --inplace charts/gravity/values-$ENVIRONMENT.yaml
+          done
+          # commit and push to helm repo
+          git commit -am "${{ github.event.head_commit.message }}" || true
+          git pull --rebase && git push origin master     
+      - uses: clowdhaus/argo-cd-action/@main
+        # CLI has already been downloaded in prior step, no call to GitHub API
+        with:
+          command: app sync gravity-${{ env.ENVIRONMENT }}
+          options: --server ${{ secrets.ARGOCD_SERVER }} --auth-token ${{ secrets.ARGOCD_TOKEN }}
+      - uses: clowdhaus/argo-cd-action/@main
+        # CLI has already been downloaded in prior step, no call to GitHub API
+        with:
+          command: app wait gravity-${{ env.ENVIRONMENT }}
+          options: --server ${{ secrets.ARGOCD_SERVER }} --auth-token ${{ secrets.ARGOCD_TOKEN }} --health --timeout 180
