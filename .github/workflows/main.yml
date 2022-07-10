@@ -52,7 +52,7 @@ jobs:
           push: true
           file: Dockerfile
           context: .
-          tags: ghcr.io/${{ env.IMAGE_REPOSITORY }:${{ steps.vars.outputs.sha_short }}
+          tags: ghcr.io/${{ env.IMAGE_REPOSITORY }}:${{ steps.vars.outputs.sha_short }}
           labels: ${{ steps.metadata.outputs.labels }}
           cache: true
           cache-repository: ghcr.io/${{ env.IMAGE_REPOSITORY }}/cache
